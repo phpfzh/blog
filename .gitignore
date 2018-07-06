@@ -1,0 +1,83 @@
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+#parent 配置
+.settings/
+/.project
+.classpath
+target/
+ 
+#cjm-common 配置 /cjm-common
+/cjm-common/.settings/
+/cjm-common/.project
+/cjm-common/.classpath
+/cjm-common/target/
+
+#cjm-model 配置 /cjm-model
+/cjm-model/.settings/
+/cjm-model/.project
+/cjm-model/.classpath
+/cjm-model/target/
+
+#cjm-dao 配置 /cjm-dao
+/cjm-dao/.settings/
+/cjm-dao/.project
+/cjm-dao/.classpath
+/cjm-dao/target/
+
+#cjm-service 配置 /cjm-service
+/cjm-service/.settings/
+/cjm-service/.project
+/cjm-service/.classpath
+/cjm-service/target/
+
+#cjm-web 配置 /cjm-web
+/cjm-web/.settings/
+/cjm-web/.project
+/cjm-web/.classpath
+/cjm-web/target/
+
+#cjm-admin 配置 /cjm-web/cjm-admin
+/cjm-web/cjm-admin/.settings/
+/cjm-web/cjm-admin/.project
+/cjm-web/cjm-admin/.classpath
+/cjm-web/cjm-admin/target/
+
+
+
+# angular 配置
+/cjm-web/cjm-admin/src/main/angular/dist
+/cjm-web/cjm-admin/src/main/angular/tmp
+/cjm-web/cjm-admin/src/main/angular/out-tsc
+
+# dependencies
+/cjm-web/cjm-admin/src/main/angular/node_modules
+
+# IDEs and editors
+/cjm-web/cjm-admin/src/main/angular/.idea
+/cjm-web/cjm-admin/src/main/angular/.project
+/cjm-web/cjm-admin/src/main/angular/.classpath
+/cjm-web/cjm-admin/src/main/angular/.c9/
+*.launch
+/cjm-web/cjm-admin/src/main/angular/.settings/
+/cjm-web/cjm-admin/src/main/angular/*.sublime-workspace
+
+# IDE - VSCode
+/cjm-web/cjm-admin/src/main/angular/.vscode/*
+/cjm-web/cjm-admin/src/main/angular/!.vscode/settings.json
+/cjm-web/cjm-admin/src/main/angular/!.vscode/tasks.json
+/cjm-web/cjm-admin/src/main/angular/!.vscode/launch.json
+/cjm-web/cjm-admin/src/main/angular/!.vscode/extensions.json
+
+# misc
+/cjm-web/cjm-admin/src/main/angular/.sass-cache
+/cjm-web/cjm-admin/src/main/angular/connect.lock
+/cjm-web/cjm-admin/src/main/angular/coverage
+/cjm-web/cjm-admin/src/main/angular/libpeerconnection.log
+/cjm-web/cjm-admin/src/main/angular/npm-debug.log
+/cjm-web/cjm-admin/src/main/angular/yarn-error.log
+/cjm-web/cjm-admin/src/main/angular/testem.log
+/cjm-web/cjm-admin/src/main/angular/typings
+
+# System Files
+/cjm-web/cjm-admin/src/main/angular/.DS_Store
+/cjm-web/cjm-admin/src/main/angular/Thumbs.db
