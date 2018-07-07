@@ -1,6 +1,4 @@
-# 说明：
-
-    ## 前台：
+## 前台
 
 	+ [angular   版本6.0 https://angular.cn/docs](https://angular.cn/docs) 
 
@@ -12,7 +10,7 @@
 		node.js 8.11.1
 		npm 5.6.0
 
-    ## 后台：
+## 后台
 
     [SpringBoot    版本2.0 https://docs.spring.io/spring-boot/docs/2.0.4.BUILD-SNAPSHOT/reference/htmlsingle/](https://docs.spring.io/spring-boot/docs/2.0.4.BUILD-SNAPSHOT/reference/htmlsingle/)
 
