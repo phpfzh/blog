@@ -1,48 +1,13 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
 #parent 配置
-.settings/
-/.project
-.classpath
-target/
- 
-#cjm-common 配置 /cjm-common
-/cjm-common/.settings/
-/cjm-common/.project
-/cjm-common/.classpath
-/cjm-common/target/
-
-#cjm-model 配置 /cjm-model
-/cjm-model/.settings/
-/cjm-model/.project
-/cjm-model/.classpath
-/cjm-model/target/
-
-#cjm-dao 配置 /cjm-dao
-/cjm-dao/.settings/
-/cjm-dao/.project
-/cjm-dao/.classpath
-/cjm-dao/target/
-
-#cjm-service 配置 /cjm-service
-/cjm-service/.settings/
-/cjm-service/.project
-/cjm-service/.classpath
-/cjm-service/target/
-
-#cjm-web 配置 /cjm-web
-/cjm-web/.settings/
-/cjm-web/.project
-/cjm-web/.classpath
-/cjm-web/target/
-
-#cjm-admin 配置 /cjm-web/cjm-admin
-/cjm-web/cjm-admin/.settings/
-/cjm-web/cjm-admin/.project
-/cjm-web/cjm-admin/.classpath
-/cjm-web/cjm-admin/target/
-
-
+.settings
+.idea/*
+*.project
+*.classpath
+target
+*.iml
+  
 
 # angular 配置
 /cjm-web/cjm-admin/src/main/angular/dist
