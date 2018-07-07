@@ -1,4 +1,9 @@
 ## 说明：
+
++ [Home Page](http://ng-alain.com)
++ [@delon](https://github.com/cipchk/delon)
++ [DEMO](https://cipchk.github.io/ng-alain/)
+
     前台：
 	[angular   版本6.0    参考地址: https://angular.cn/docs](https://angular.cn/docs) 
 
