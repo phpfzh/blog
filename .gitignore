@@ -7,7 +7,7 @@
 *.classpath
 target
 *.iml
-  
+bin
 
 # angular 配置
 /cjm-web/cjm-admin/src/main/angular/dist
