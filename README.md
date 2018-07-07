@@ -2,11 +2,11 @@
 
     ## 前台：
 
-	[angular   版本6.0 https://angular.cn/docs](https://angular.cn/docs) 
+	+ [angular   版本6.0 https://angular.cn/docs](https://angular.cn/docs) 
 
-	[NG-ZORRO  版本1.1.1 https://ng.ant.design/docs/recommendation/zh](https://ng.ant.design/docs/recommendation/zh)
+	+ [NG-ZORRO  版本1.1.1 https://ng.ant.design/docs/recommendation/zh](https://ng.ant.design/docs/recommendation/zh)
 
-	[ng-alain  版本1.1.3 https://ng-alain.com/](https://ng-alain.com/)
+	+ [ng-alain  版本1.1.3 https://ng-alain.com/](https://ng-alain.com/)
 
 	环境：
 		node.js 8.11.1
