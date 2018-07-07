@@ -4,6 +4,12 @@
 	+ [NG-ZORRO]  版本1.1.1    参考地址: https://ng.ant.design/docs/recommendation/zh
 	+ [ng-alain]  版本1.1.3    参考地址：https://ng-alain.com/  , https://github.com/cipchk/ng-alain/
 	+ [环境]：
+# 说明：
+    前台：
+	angular   版本6.0    参考地址: https://angular.cn/docs 
+	NG-ZORRO  版本1.1.1    参考地址: https://ng.ant.design/docs/recommendation/zh
+	ng-alain  版本1.1.3    参考地址：https://ng-alain.com/  , https://github.com/cipchk/ng-alain/
+	环境：
 		node.js 8.11.1
 		npm 5.6.0
 
