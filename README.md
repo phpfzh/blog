@@ -1,7 +1,7 @@
 ## 前台
 
-	+ [angular   版本6.0 https://angular.cn/docs](https://angular.cn/docs) 
-	+ [NG-ZORRO  版本1.1.1 https://ng.ant.design/docs/recommendation/zh](https://ng.ant.design/docs/recommendation/zh)
+	+ [angular   版本6.0 https://angular.cn/docs ](https://angular.cn/docs) 
+	+ [NG-ZORRO  版本1.1.1 https://ng.ant.design/docs/recommendation/zh ](https://ng.ant.design/docs/recommendation/zh)
 	+ [ng-alain  版本1.1.3 https://ng-alain.com/](https://ng-alain.com/)
 
 	环境：
@@ -10,8 +10,8 @@
 
 ## 后台
 
-   + [SpringBoot    版本2.0 https://docs.spring.io/spring-boot/docs/2.0.4.BUILD-SNAPSHOT/reference/htmlsingle/](https://docs.spring.io/spring-boot/docs/2.0.4.BUILD-SNAPSHOT/reference/htmlsingle/)
-   + [mybatis-plus  版本2.1.4   参考地址:https://github.com/baomidou/mybatis-plus , https://gitee.com/baomidou/mybatis-plus/
+   + [SpringBoot    版本2.0 参考:https://docs.spring.io/spring-boot/docs/2.0.4.BUILD-SNAPSHOT/reference/htmlsingle/ ](https://docs.spring.io/spring-boot/docs/2.0.4.BUILD-SNAPSHOT/reference/htmlsingle/)
+   + [mybatis-plus  版本2.1.4]   参考:https://github.com/baomidou/mybatis-plus , https://gitee.com/baomidou/mybatis-plus/
 
     Mysql	  版本6.0   数据库
 
