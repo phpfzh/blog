@@ -1,4 +1,4 @@
-# 使用的技术说明：
+# 说明：
     前台：
 	angular   版本6.0    参考地址: https://angular.cn/docs 
 	NG-ZORRO  版本1.1.1    参考地址: https://ng.ant.design/docs/recommendation/zh
