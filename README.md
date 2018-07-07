@@ -1,22 +1,17 @@
 ## 说明：
-
-+ [Home Page](http://ng-alain.com)
-+ [@delon](https://github.com/cipchk/delon)
-+ [DEMO](https://cipchk.github.io/ng-alain/)
-
     前台：
-	[angular   版本6.0    参考地址: https://angular.cn/docs](https://angular.cn/docs) 
+	[angular   版本6.0 https://angular.cn/docs](https://angular.cn/docs) 
 
-	NG-ZORRO  版本1.1.1    参考地址: https://ng.ant.design/docs/recommendation/zh
+	[NG-ZORRO  版本1.1.1 https://ng.ant.design/docs/recommendation/zh](https://ng.ant.design/docs/recommendation/zh)
 
-	ng-alain  版本1.1.3    参考地址：https://ng-alain.com/  , https://github.com/cipchk/ng-alain/
+	[ng-alain  版本1.1.3 https://ng-alain.com/](https://ng-alain.com/)
 
 	环境：
 		node.js 8.11.1
 		npm 5.6.0
 
     后台：
-    SpringBoot    版本2.0  参考地址:https://docs.spring.io/spring-boot/docs/2.0.4.BUILD-SNAPSHOT/reference/htmlsingle/
+    [SpringBoot    版本2.0 https://docs.spring.io/spring-boot/docs/2.0.4.BUILD-SNAPSHOT/reference/htmlsingle/](https://docs.spring.io/spring-boot/docs/2.0.4.BUILD-SNAPSHOT/reference/htmlsingle/)
 
     mybatis-plus  版本2.1.4   参考地址:https://github.com/baomidou/mybatis-plus , https://gitee.com/baomidou/mybatis-plus/
 
