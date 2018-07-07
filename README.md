@@ -1,15 +1,15 @@
 ## 前台
 
-	angular   版本6.0 https://angular.cn/docs  
+   angular   版本6.0 https://angular.cn/docs  
 
-	NG-ZORRO  版本1.1.1 https://ng.ant.design/docs/recommendation/zh
+   NG-ZORRO  版本1.1.1 https://ng.ant.design/docs/recommendation/zh
 
-	ng-alain  版本1.1.3 https://ng-alain.com/
+   ng-alain  版本1.1.3 https://ng-alain.com/
 
-	环境：
-		node.js 8.11.1
+   环境：
+	node.js 8.11.1
 
-		npm 5.6.0
+	npm 5.6.0
 
 ## 后台
 
@@ -33,25 +33,33 @@
 
    jwt    0.9.0
 
-    环境：
+   环境：
 
-	jdk1.8
+      jdk1.8
 
-	maven 3.3.9
+      maven 3.3.9
      	
-    工具 idea
+   工具 
+
+     idea
 
 ## 工程说明
 
-cjm-dao	       mapper
+cjm-dao	    
 
-cjm-model      model
+    mapper
 
-cjm-service    service
+cjm-model   
+
+    model
+
+cjm-service   
+
+    service
 
 cjm-web      			web端模块
 
-	cjm-admin		管理后台
+    cjm-admin		管理后台
 
 cjm-parent\cjm-web\cjm-admin\src\main\angular  前端源代码
 
@@ -61,23 +69,24 @@ sql		        数据库脚本文件
 
 ## 通用mybatis-plus说明
 
-	https://github.com/baomidou/mybatis-plus
+   https://github.com/baomidou/mybatis-plus
 
-	https://gitee.com/baomidou/mybatis-plus/
+   https://gitee.com/baomidou/mybatis-plus/
 	
 ## Jwt token 说明
-	https://github.com/jwtk/jjwt
 
-	https://stormpath.com/blog/jwt-java-create-verify
+   https://github.com/jwtk/jjwt
 
-	http://mvnrepository.com/artifact/io.jsonwebtoken/jjwt/0.9.0
+   https://stormpath.com/blog/jwt-java-create-verify
+
+   http://mvnrepository.com/artifact/io.jsonwebtoken/jjwt/0.9.0
 
 	
 ## redis 说明：
 
-	windows 安装说明  https://jingyan.baidu.com/article/0f5fb099045b056d8334ea97.html
+   windows 安装说明  https://jingyan.baidu.com/article/0f5fb099045b056d8334ea97.html
 
-	客户端连接 说明  http://flychao88.iteye.com/blog/1527163
+   客户端连接 说明  http://flychao88.iteye.com/blog/1527163
 
 
 ## 项目规范：
