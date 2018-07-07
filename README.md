@@ -1,30 +1,30 @@
-#使用的技术说明：
-    ##前台：
-	###angular   版本6.0    参考地址: https://angular.cn/docs 
-	###NG-ZORRO  版本1.1.1    参考地址: https://ng.ant.design/docs/recommendation/zh
-	###ng-alain  版本1.1.3    参考地址：https://ng-alain.com/  , https://github.com/cipchk/ng-alain/
-	###环境：
+# 使用的技术说明：
+    ## 前台：
+	### angular   版本6.0    参考地址: https://angular.cn/docs 
+	### NG-ZORRO  版本1.1.1    参考地址: https://ng.ant.design/docs/recommendation/zh
+	### ng-alain  版本1.1.3    参考地址：https://ng-alain.com/  , https://github.com/cipchk/ng-alain/
+	### 环境：
 		node.js 8.11.1
 		npm 5.6.0
 
-    ##后台：
-    ###SpringBoot    版本2.0  参考地址:https://docs.spring.io/spring-boot/docs/2.0.4.BUILD-SNAPSHOT/reference/htmlsingle/
-    ###mybatis-plus  版本2.1.4   参考地址:https://github.com/baomidou/mybatis-plus , https://gitee.com/baomidou/mybatis-plus/
-    ###Mysql	  版本6.0   数据库
-    ###fastdfs       版本1.26.2    图片服务器
-    ###swagger       版本2.8.0   api文档  参考地址:https://swagger.io/   , https://editor.swagger.io/
-    ###jbcrypt       版本0.4  密码加密
-    ###alibaba druid  数据库连接池
-    ###redis	   缓存
-    ###shiro	  权限框架
-    ###jwt    0.9.0
-    ###环境：
+    ## 后台：
+    ### SpringBoot    版本2.0  参考地址:https://docs.spring.io/spring-boot/docs/2.0.4.BUILD-SNAPSHOT/reference/htmlsingle/
+    ### mybatis-plus  版本2.1.4   参考地址:https://github.com/baomidou/mybatis-plus , https://gitee.com/baomidou/mybatis-plus/
+    ### Mysql	  版本6.0   数据库
+    ### fastdfs       版本1.26.2    图片服务器
+    ### swagger       版本2.8.0   api文档  参考地址:https://swagger.io/   , https://editor.swagger.io/
+    ### jbcrypt       版本0.4  密码加密
+    ### alibaba druid  数据库连接池
+    ### redis	   缓存
+    ### shiro	  权限框架
+    ### jwt    0.9.0
+    ### 环境：
 	jdk1.8
 	maven 3.3.9
      	
-    ###工具 idea
+    ### 工具 idea
 
-#.工程说明
+# 工程说明
 cjm-dao	       mapper
 cjm-model      model
 cjm-service    service
@@ -36,7 +36,7 @@ cjm-parent\cjm-web\cjm-admin\src\main\angular  前端源代码
 doc     		存放数据库说明书
 sql		        数据库脚本文件
 
-#.通用mybatis-plus说明
+# 通用mybatis-plus说明
 	https://github.com/baomidou/mybatis-plus
 	https://gitee.com/baomidou/mybatis-plus/
 	
@@ -49,7 +49,7 @@ sql		        数据库脚本文件
 	windows 安装说明  https://jingyan.baidu.com/article/0f5fb099045b056d8334ea97.html
 	客户端连接 说明  http://flychao88.iteye.com/blog/1527163
 
-#项目规范：
+# 项目规范：
   
   .代码工具逆向生成时，数据库Decimal类型，对应 model类的浮点类型会变为字符串 ，需要改为 BigDecimal 
   
