@@ -1,11 +1,14 @@
 ## 前台
 
 	angular   版本6.0 https://angular.cn/docs  
+
 	NG-ZORRO  版本1.1.1 https://ng.ant.design/docs/recommendation/zh
+
 	ng-alain  版本1.1.3 https://ng-alain.com/
 
 	环境：
 		node.js 8.11.1
+
 		npm 5.6.0
 
 ## 后台
@@ -13,22 +16,22 @@
    SpringBoot    版本2.0 参考:https://docs.spring.io/spring-boot/docs/2.0.4.BUILD-SNAPSHOT/reference/htmlsingle/
 
    mybatis-plus  版本2.1.4    参考:https://github.com/baomidou/mybatis-plus , https://gitee.com/baomidou/mybatis-plus/
+   
+   swagger       版本2.8.0   api文档  参考地址:https://swagger.io/   , https://editor.swagger.io/
+    
+   Mysql	  版本6.0   数据库
 
-    Mysql	  版本6.0   数据库
+   fastdfs       版本1.26.2    图片服务器
 
-    fastdfs       版本1.26.2    图片服务器
+   jbcrypt       版本0.4  密码加密
 
-    swagger       版本2.8.0   api文档  参考地址:https://swagger.io/   , https://editor.swagger.io/
+   alibaba druid  数据库连接池
 
-    jbcrypt       版本0.4  密码加密
+   redis	   缓存
 
-    alibaba druid  数据库连接池
+   shiro	  权限框架
 
-    redis	   缓存
-
-    shiro	  权限框架
-
-    jwt    0.9.0
+   jwt    0.9.0
 
     环境：
 
