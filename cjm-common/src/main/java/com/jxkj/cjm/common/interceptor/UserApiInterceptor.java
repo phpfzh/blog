@@ -48,14 +48,14 @@ public class UserApiInterceptor implements HandlerInterceptor{
 		String requestToken = request.getHeader(this.header);
 		//token 为空
 		if(StringUtil.isEmpty(requestToken)){
-  			StringUtil.sendJsonData(response, JSON.toJSON(AjaxResult.createAjaxResult().logoutAjaxResult("token 不能为空")));
-			return false;
+ 			response.sendError(HttpServletResponse.SC_UNAUTHORIZED,"token 不能为空");
+ 			return false;
 		}
 		 
 		//配置文件 tokenHead 为空
 		if(!requestToken.startsWith(this.tokenHead)){
- 			StringUtil.sendJsonData(response, JSON.toJSON(AjaxResult.createAjaxResult().logoutAjaxResult("token 未包含自定义头部")));
- 			return false;
+			response.sendError(HttpServletResponse.SC_UNAUTHORIZED,"tokenHead 不能为空");
+  			return false;
 		}
 		
 		LiteDeviceResolver deviceResolver = new LiteDeviceResolver();
@@ -66,13 +66,13 @@ public class UserApiInterceptor implements HandlerInterceptor{
  		
  		//验证不通过
  		if(!fal){
- 			StringUtil.sendJsonData(response, JSON.toJSON(AjaxResult.createAjaxResult().logoutAjaxResult()));
+			response.sendError(HttpServletResponse.SC_UNAUTHORIZED,"请重新登录");
 			return false;
  		}
  		
  		String uid = cjmJwtTokenComponent.getBaseIdFromToken(token);
    		if(!redisUtilComponent.getRedisTemplate().hasKey(Redis_Constat.USER+uid)){
- 			StringUtil.sendJsonData(response, JSON.toJSON(AjaxResult.createAjaxResult().logoutAjaxResult()));
+			response.sendError(HttpServletResponse.SC_UNAUTHORIZED,"请重新登录");
 			return false;
  		}
    		

@@ -19,18 +19,14 @@ public class AjaxResult {
 	public static void main(String[] args) {
 		AjaxResult failResult = AjaxResult.createAjaxResult().failAjaxResult();
 		AjaxResult successResult = AjaxResult.createAjaxResult().successAjaxResult();
-		AjaxResult logoutResult = AjaxResult.createAjaxResult().logoutAjaxResult();
-		System.out.println(JSON.toJSONString(failResult));
+ 		System.out.println(JSON.toJSONString(failResult));
 		System.out.println(JSON.toJSONString(successResult));
-		System.out.println(JSON.toJSONString(logoutResult));
-		
+
 		AjaxResult failResult1 = AjaxResult.createAjaxResult().failAjaxResult("操作失败");
 		AjaxResult successResult1 = AjaxResult.createAjaxResult().successAjaxResult("操作失败");
-		AjaxResult logoutResult1 = AjaxResult.createAjaxResult().logoutAjaxResult("操作失败");
-		System.out.println(JSON.toJSONString(failResult1));
+ 		System.out.println(JSON.toJSONString(failResult1));
 		System.out.println(JSON.toJSONString(successResult1));
-		System.out.println(JSON.toJSONString(logoutResult1));
-		
+
  	}
 
 	public static final String SUCCESS_CODE = "88";
@@ -39,10 +35,9 @@ public class AjaxResult {
 	public static final String FAIL_CODE = "00";
 	public static final String FAIL_MESSAGE = "操作失败";
 
-	public static final String LOGOUT_CODE = "11";
-	public static final String LOGOUT_MESSAGE = "请重新登录";
+	 private String code;
 
-	private Meta meta;
+	 private String message;
 
 	private Object data;
 	
@@ -51,7 +46,8 @@ public class AjaxResult {
 	public AjaxResult() {
 
 	}
-	
+
+
 	public static AjaxResult createAjaxResult(){
 		return new AjaxResult();
 	}
@@ -124,43 +120,11 @@ public class AjaxResult {
 		return allAjaxResult(FAIL_CODE, message, obj);
 	}
 
-	public  AjaxResult logoutAjaxResult() {
-		return allAjaxResult(LOGOUT_CODE, LOGOUT_MESSAGE, null);
-	}
-
-	public  AjaxResult logoutAjaxResult(Object obj) {
-		if (obj == null) {
-			throw new IllegalArgumentException("obj 不能为空");
-		}
-
-		return allAjaxResult(LOGOUT_CODE, LOGOUT_MESSAGE, obj);
-	}
-
-	public  AjaxResult logoutAjaxResult(String message) {
-		if (isEmpty(message)) {
-			throw new IllegalArgumentException("message 不能为空");
-		}
-		return allAjaxResult(LOGOUT_CODE, message, null);
-	}
-
-	public  AjaxResult logoutAjaxResult(String message, Object obj) {
-		if (obj == null) {
-			throw new IllegalArgumentException("obj 不能为空");
-		}
-
-		if (isEmpty(message)) {
-			throw new IllegalArgumentException("message 不能为空");
-		}
-		return allAjaxResult(LOGOUT_CODE, LOGOUT_MESSAGE, obj);
-	}
-
 	private  AjaxResult allAjaxResult(String code, String message, Object obj) {
-		Meta meta = new Meta();
-		meta.setCode(code);
-		meta.setMessage(message);
-		AjaxResult ajaxResult = new AjaxResult();
-		ajaxResult.setMeta(meta);
-		ajaxResult.setData(obj);
+ 		AjaxResult ajaxResult = new AjaxResult();
+ 		ajaxResult.setData(obj);
+		ajaxResult.setCode(code);
+		ajaxResult.setMessage(message);
 		Long time = System.currentTimeMillis();
 		ajaxResult.setTime(time);
 		return ajaxResult;
@@ -169,14 +133,6 @@ public class AjaxResult {
 	private  boolean isEmpty(Object str) {
 		return str == null || "".equals(str) || String.valueOf(str).length() == 0
 				|| String.valueOf(str).matches("\\s*");
-	}
-
-	public Meta getMeta() {
-		return meta;
-	}
-
-	public void setMeta(Meta meta) {
-		this.meta = meta;
 	}
 
 	public Object getData() {
@@ -193,5 +149,21 @@ public class AjaxResult {
 
 	public void setTime(Long time) {
 		this.time = time;
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
 	}
 }
