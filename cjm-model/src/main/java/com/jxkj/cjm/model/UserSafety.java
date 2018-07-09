@@ -5,32 +5,32 @@ package com.jxkj.cjm.model;
 import com.baomidou.mybatisplus.annotations.TableName;
 
 /**
- * 
+ * 用户安全表
  */
 @TableName("user_safety")
 public class UserSafety extends SuperEntity<UserSafety> {
 
 	private static final long serialVersionUID = 64846764927369568L;
 	
-	/**  */
+	/**用户id  */
 	private Long baseid;
-	/**  */
+	/** 用户密码 */
 	private String password;
-	/**  */
+	/** 注册时间 */
 	private Long regtime;
-	/**  */
+	/**  注册ip*/
 	private String regip;
-	/**  */
+	/** 登录失败次数 */
 	private Integer errorcount;
-	/**  */
+	/** 是否禁止登录 1是 0否 */
 	private Integer status;
-	/**  */
+	/** 是否删除 */
 	private Integer isdelete;
-	/**  */
+	/** 最后登录时间 */
 	private Long lastlogintime;
-	/**  */
+	/**最后登录ip  */
 	private String lastloginip;
-	
+	/**是否管理员**/
 	private Integer isadmin;
 	
 	public Long getBaseid() {

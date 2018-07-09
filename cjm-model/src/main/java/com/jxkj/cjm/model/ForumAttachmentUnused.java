@@ -17,38 +17,38 @@ public class ForumAttachmentUnused extends Model<ForumAttachmentUnused> {
 
 	private static final long serialVersionUID = 53156362690628966L;
 	
-	/**  */
+	/** 附件id */
 	@TableId(type=IdType.INPUT)
 	private Long aid;
-	/**  */
+	/** 主题id */
 	private Long tid;
-	/**  */
+	/**帖子id  */
 	private Long pid;
-	/**  */
+	/** 用户id */
 	private Long baseid;
-	/**  */
+	/** 上传时间 */
 	private Long dateline;
-	/**  */
+	/** 原文件名 */
 	private String filename;
-	/**  */
+	/**文件大小  */
 	private Integer filesize;
-	/**  */
+	/**原图服务器路径  */
 	private String attachment;
-	/**  */
+	/** 缩率图服务器路径 */
 	private String thumachment;
-	/**  */
+	/**水印图服务器路径  */
 	private String waterattachment;
-	/**  */
+	/** 是否远程附件 */
 	private Integer remote;
-	/**  */
+	/** 说明 */
 	private String description;
-	/**  */
+	/** 阅读权限 */
 	private Integer readperm;
-	/**  */
+	/** 附件价格 */
 	private Integer price;
-	/**  */
+	/**是否图片0附件1图片2视频  */
 	private Integer isimage;
-	/**  */
+	/**附件宽度  */
 	private Integer width;
 	
 	
