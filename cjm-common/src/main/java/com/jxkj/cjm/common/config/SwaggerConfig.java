@@ -23,7 +23,7 @@ public class SwaggerConfig {
                 .select()
                 //.apis(RequestHandlerSelectors.basePackage("com.jxkj.cjm.controller"))
                  .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))  //只显示加了注解的api
-                .paths(PathSelectors.any())
+                 .paths(PathSelectors.any())
                 .build();
     }
 

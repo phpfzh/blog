@@ -4,52 +4,35 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.baomidou.mybatisplus.service.IService;
 import com.jxkj.cjm.common.response.AjaxResult;
+import com.jxkj.cjm.common.response.Meta;
+import com.jxkj.cjm.common.response.ProcessBack;
 import com.jxkj.cjm.model.User;
+import com.jxkj.cjm.model.vo.UserLoginVo;
+import com.jxkj.cjm.model.vo.UserRegVo;
 
 public interface UserService extends IService<User>{ 
 	/**
 	 * 
-	* @Title: userLoginApi 
+	* @Title: userLogin
 	* @Description: TODO(用户登录) 
 	* @param @param request
+	 * @param @param UserLoginVo
 	* @param @return    设定文件 
-	* @return AjaxResult    返回类型 
+	* @return ProcessBack    返回类型
 	* @throws
-	*   注意：
-	*   String username = request.getParameter("username"); 用户名 or 手机号
- 		String password = request.getParameter("password"); 用户密码
+
 	 */
-	public AjaxResult userLoginApi(HttpServletRequest request);
-	
-	/**
+	public ProcessBack userLogin(HttpServletRequest request, UserLoginVo userLoginVo);
+ 	/**
 	 * 
-	* @Title: userLoginAdminApi 
-	* @Description: TODO(管理用户登录) 
-	* @param @param request
-	* @param @return    设定文件 
-	* @return AjaxResult    返回类型 
-	* @throws
-	*   注意：
-	*   String username = request.getParameter("username"); 用户名 or 手机号
- 		String password = request.getParameter("password"); 用户密码
-	 */
-	public AjaxResult userLoginAdminApi(HttpServletRequest request);
-	
-	/**
-	 * 
-	* @Title: userRegisterApi 
+	* @Title: userRegister
 	* @Description: TODO(用户注册) 
 	* @param @param request
 	* @param @return    设定文件 
-	* @return AjaxResult    返回类型 
+	* @return ProcessBack    返回类型
 	* @throws
-	* 	注意：
-	*   	String username = request.getParameter("username"); 用户名 （选填）
-	*       String email = request.getParameter("email"); 邮箱 （选填）
-	*       String mobile = request.getParameter("mobile"); 手机号
- 	*		String password = request.getParameter("password"); 用户密码
 	 */
-	public AjaxResult userRegisterApi(HttpServletRequest request);
+	public ProcessBack userRegister(HttpServletRequest request,UserRegVo UserRegVo);
 	/**
 	 * 自动生成用户名
 	 * @return
@@ -57,12 +40,12 @@ public interface UserService extends IService<User>{
 	public  String generateUserName();
 	/***
 	 * 
-	* @Title: sendSSMByRegApi 
+	* @Title: sendSSMByReg
 	* @Description: TODO(注册时发送手机短信验证码) 
-	* @param @param request
+	* @param @param mobile
 	* @param @return    设定文件 
-	* @return AjaxResult    返回类型 
+	* @return ProcessBack    返回类型
 	* @throws
 	 */
-	public AjaxResult sendSSMByRegApi(HttpServletRequest request);
+	public ProcessBack sendSSMByReg(String mobile);
 }
