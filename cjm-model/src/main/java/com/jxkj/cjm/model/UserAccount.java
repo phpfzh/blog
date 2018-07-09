@@ -14,13 +14,13 @@ public class UserAccount extends SuperEntity<UserAccount> {
 
 	private static final long serialVersionUID = 4844091889780630L;
 	
-	/**  */
+	/**  用户id*/
 	private Long baseid;
-	/**  */
+	/**可用余额  */
 	private BigDecimal balance;
-	/**  */
+	/** 冻结余额 */
 	private BigDecimal freezebalance;
-	/**  */
+	/** 总余额 */
 	private BigDecimal totalbalance;
 	
 	

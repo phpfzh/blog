@@ -13,15 +13,15 @@ public class ForumAttachment extends SuperEntity<ForumAttachment> {
 
 	private static final long serialVersionUID = 87772905028286596L;
 	
-	/**  */
+	/** 主题id */
 	private Long tid;
-	/**  */
+	/** 帖子id */
 	private Long pid;
-	/**  */
+	/** 用户id */
 	private Long baseid;
-	/**  */
+	/** 附件表id */
 	private Integer tableid;
-	/**  */
+	/** 下载次数 */
 	private Integer downloads;
 	
 	@TableField(exist = false)

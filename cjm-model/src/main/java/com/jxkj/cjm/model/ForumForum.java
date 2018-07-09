@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.annotations.TableName;
 /**
  * 
  * @ClassName: ForumForum
- * @Description: TODO 版本
+ * @Description: 栏目表
  * @author cjm
  * @date 2018年5月31日
  * @version 1.0 www.chenjiaming.com
