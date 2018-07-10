@@ -40,16 +40,21 @@ public class ForumThreadController extends BaseController{
 	@ResponseBody
 	@PostMapping("/getForumThreads")
 	public AjaxResult getForumThreads(ForumThread forumThread){
-		AjaxResult ajaxResult = AjaxResult.createAjaxResult();
+		AjaxResult ajaxResult = new AjaxResult();
 		try{
 			String pageSize = request.getParameter("pageSize");
 			String orderBy = request.getParameter("orderBy");
 			String pageNum = request.getParameter("pageNum");
 			PageInfo<Object> lists = forumThreadService.getForumThreadsBy(pageSize, pageNum, orderBy, forumThread);
-  			return ajaxResult.successAjaxResult("查询成功", lists);
+			ajaxResult.setCode(AjaxResult.SUCCESS_CODE);
+			ajaxResult.setMessage("查询成功");
+			ajaxResult.setData(lists);
+			return ajaxResult;
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-		return ajaxResult.failAjaxResult("因网络响应不及时,操作失败");
+		ajaxResult.setCode(AjaxResult.FAIL_CODE);
+		ajaxResult.setMessage("因网络响应不及时,操作失败");
+		return ajaxResult ;
 	}
 }

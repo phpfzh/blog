@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.baomidou.mybatisplus.service.IService;
 import com.jxkj.cjm.common.response.AjaxResult;
+import com.jxkj.cjm.common.response.ProcessBack;
 import com.jxkj.cjm.model.ForumForum;
 /**
  * 
@@ -23,7 +24,7 @@ public interface ForumForumService extends IService<ForumForum>{
 	 * @param name
 	 * @return
 	 */
-	public AjaxResult insertForumForumByApi(Long baseid,String name);
+	public ProcessBack insertForumForumByApi(Long baseid, String name);
 	
 	/**
 	 * 
@@ -32,7 +33,7 @@ public interface ForumForumService extends IService<ForumForum>{
 	 * @param id 板块id
  	 * @return
 	 */
-	public AjaxResult delForumForumByApi(String id);
+	public ProcessBack delForumForumByApi(String id);
 	
 	
 	/**
@@ -43,7 +44,7 @@ public interface ForumForumService extends IService<ForumForum>{
 	 * @param forum
 	 * @return
 	 */
-	public AjaxResult updateForumForumByApi(Long baseid,ForumForum forum);
+	public ProcessBack updateForumForumByApi(Long baseid,ForumForum forum);
  	
 	/**
 	 * 

@@ -53,13 +53,20 @@ public class GetInformationController extends BaseController{
  					forum.setUpdatebaseid(null);
  					forum.setIsdelete(null);
   				}
-  				return ajaxResult.successAjaxResult("操作成功",lists);
+				ajaxResult.setCode(AjaxResult.SUCCESS_CODE);
+				ajaxResult.setMessage("操作成功");
+				ajaxResult.setData(lists);
+  				return ajaxResult;
  			}else{
- 				return ajaxResult.failAjaxResult("未找到符合条件的信息");
+ 				ajaxResult.setCode(AjaxResult.FAIL_CODE);
+				ajaxResult.setMessage("未找到符合条件的信息");
+ 				return ajaxResult;
  			}
 		}catch(Exception e){
 			e.printStackTrace();
  		}
-		return ajaxResult.failAjaxResult("因网络响应不及时,操作失败");
+ 		ajaxResult.setCode(AjaxResult.FAIL_CODE);
+		ajaxResult.setMessage("因网络响应不及时,操作失败");
+		return ajaxResult;
 	}
 }

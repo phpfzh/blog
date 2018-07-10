@@ -4,10 +4,13 @@ import java.awt.image.BufferedImage;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 import javax.annotation.Resource;
 import javax.imageio.ImageIO;
 
+import com.jxkj.cjm.common.response.ProcessBack;
 import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -99,7 +102,11 @@ public class ForumAttachmentServiceImpl extends ServiceImpl<ForumAttachmentMappe
 	
 	@Resource
 	private ForumAttachment9Mapper forumAttachment9Mapper;
-	
+
+	private Lock uploadImageLock = new ReentrantLock();
+	private Lock uploadFileLock  = new ReentrantLock();
+	private Lock uploadVideoLock = new ReentrantLock();
+
 	/**
 	 * 
 	* @Title: uploadImage 
@@ -107,13 +114,14 @@ public class ForumAttachmentServiceImpl extends ServiceImpl<ForumAttachmentMappe
 	* @param @param multipartFile 上传的文件
 	* @param @param baseid 用户id
 	* @param @return    设定文件 
-	* @return AjaxResult    返回类型 
+	* @return ProcessBack    返回类型
 	* @throws
 	 */
 	@Transactional
-	public synchronized AjaxResult uploadImage(MultipartFile multipartFile,Long baseid){
-		AjaxResult ajaxResult = AjaxResult.createAjaxResult();
+	public  ProcessBack uploadImage(MultipartFile multipartFile, Long baseid){
+		ProcessBack processBack = new ProcessBack();
 		try{
+			uploadImageLock.lock();//加锁
  			//上传原图&&缩率图
 			Map<String,Object> imageUploadMap = fastDFSUploadComponent.uploadImageAndCrtThumbImage(multipartFile);
 	 		if(imageUploadMap.get(FastDFSUploadComponent.FDFS_STATE).equals(FastDFSUploadComponent.FDFS_FAIL_STATUS)){//图片上传失败
@@ -174,18 +182,22 @@ public class ForumAttachmentServiceImpl extends ServiceImpl<ForumAttachmentMappe
 	  			}
 	  			throw new IllegalArgumentException("附件临时记录保存失败");
 	  		}
- 	  		
- 	  		Map<String,String> map = new  HashMap<String,String>();
- 	  		map.put("url", fastDFSUploadComponent.getResAccessUrl(thumburl));
-  	  		return ajaxResult.successAjaxResult("图片上传成功", map);
+
+			processBack.setCode(ProcessBack.SUCCESS_CODE);
+			processBack.setMessage("图片上传成功");
+			processBack.setData(fastDFSUploadComponent.getResAccessUrl(thumburl));
+			return processBack;
 		}catch(RuntimeException e){
 			e.printStackTrace();
 			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();//数据回滚
-			return ajaxResult.failAjaxResult("网络响应不及时,图片上传失败");
-		}catch(Exception e){
+ 		}catch(Exception e){
 			e.printStackTrace();
-			return ajaxResult.failAjaxResult("网络响应不及时,图片上传失败");
+ 		}finally {
+			uploadImageLock.unlock();
 		}
+		processBack.setCode(ProcessBack.FAIL_CODE);
+		processBack.setMessage("网络响应不及时,视频上传失败");
+		return processBack;
  	}
 	
 	/**
@@ -195,14 +207,15 @@ public class ForumAttachmentServiceImpl extends ServiceImpl<ForumAttachmentMappe
 	* @param @param multipartFile 上传的文件
 	* @param @param baseid  用户id
 	* @param @return    设定文件 
-	* @return AjaxResult    返回类型 
+	* @return ProcessBack    返回类型
 	* @throws
 	 */
 	@Override
 	@Transactional
-	public synchronized AjaxResult uploadFile(MultipartFile multipartFile, Long baseid) {
-		AjaxResult ajaxResult = AjaxResult.createAjaxResult();
+	public  ProcessBack uploadFile(MultipartFile multipartFile, Long baseid) {
+		ProcessBack processBack = new ProcessBack();
  		try{
+			uploadFileLock.lock();//加锁
  			//文件上传
   			StorePath storePath = defaultFastFileStorageClient.uploadFile(multipartFile.getInputStream(), multipartFile.getSize(), 
  					FilenameUtils.getExtension(multipartFile.getOriginalFilename()), null);
@@ -246,18 +259,23 @@ public class ForumAttachmentServiceImpl extends ServiceImpl<ForumAttachmentMappe
 	  			}
 	  			throw new IllegalArgumentException("附近索引记录保存失败");
 	  		}
- 	  		
- 	  		Map<String,String> map = new  HashMap<String,String>();
- 	  		map.put("url", fastDFSUploadComponent.getResAccessUrl(url));
-  	  		return ajaxResult.successAjaxResult("文件上传成功", map);
+
+			processBack.setCode(ProcessBack.SUCCESS_CODE);
+			processBack.setMessage("文件上传成功");
+			processBack.setData(fastDFSUploadComponent.getResAccessUrl(url));
+			return processBack;
  		}catch(RuntimeException e){
 			e.printStackTrace();
 			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();//数据回滚
-			return ajaxResult.failAjaxResult("网络响应不及时,文件上传失败");
-		}catch(Exception e){
+ 		}catch(Exception e){
 			e.printStackTrace();
-			return ajaxResult.failAjaxResult("网络响应不及时,文件上传失败");
+ 		}finally {
+			uploadFileLock.unlock();
 		}
+
+		processBack.setCode(ProcessBack.FAIL_CODE);
+		processBack.setMessage("网络响应不及时,视频上传失败");
+		return processBack;
 	}
 	
 	/**
@@ -267,14 +285,15 @@ public class ForumAttachmentServiceImpl extends ServiceImpl<ForumAttachmentMappe
 	* @param @param multipartFile 上传的文件
 	* @param @param baseid  用户id
 	* @param @return    设定文件 
-	* @return AjaxResult    返回类型 
+	* @return ProcessBack    返回类型
 	* @throws
 	 */
 	@Override
 	@Transactional
-	public synchronized AjaxResult uploadVideo(MultipartFile multipartFile, Long baseid) {
-		AjaxResult ajaxResult = AjaxResult.createAjaxResult();
+	public   ProcessBack uploadVideo(MultipartFile multipartFile, Long baseid) {
+		ProcessBack processBack = new ProcessBack();
  		try{
+			uploadVideoLock.lock();//加锁
  			//文件上传
   			StorePath storePath = defaultFastFileStorageClient.uploadFile(multipartFile.getInputStream(), multipartFile.getSize(), 
  					FilenameUtils.getExtension(multipartFile.getOriginalFilename()), null);
@@ -318,18 +337,23 @@ public class ForumAttachmentServiceImpl extends ServiceImpl<ForumAttachmentMappe
 	  			}
 	  			throw new IllegalArgumentException("附近索引记录保存失败");
 	  		}
- 	  		
- 	  		Map<String,String> map = new  HashMap<String,String>();
- 	  		map.put("url", fastDFSUploadComponent.getResAccessUrl(url));
-  	  		return ajaxResult.successAjaxResult("视频上传成功", map);
+
+			processBack.setCode(ProcessBack.SUCCESS_CODE);
+			processBack.setMessage("视频上传成功");
+			processBack.setData(fastDFSUploadComponent.getResAccessUrl(url));
+  	  		return processBack;
  		}catch(RuntimeException e){
 			e.printStackTrace();
 			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();//数据回滚
-			return ajaxResult.failAjaxResult("网络响应不及时,视频上传失败");
-		}catch(Exception e){
+ 		}catch(Exception e){
 			e.printStackTrace();
-			return ajaxResult.failAjaxResult("网络响应不及时,视频上传失败");
+		}finally {
+			uploadVideoLock.unlock();
 		}
+
+		processBack.setCode(ProcessBack.FAIL_CODE);
+		processBack.setMessage("网络响应不及时,视频上传失败");
+		return processBack;
 	}
 	
 	/**

@@ -59,7 +59,7 @@ public class ForumThreadServiceImpl extends ServiceImpl<ForumThreadMapper,ForumT
 	 * @return
 	 */
 	@Transactional
-	public synchronized int insertForumThread(Long baseid,String fid,String threadtype, 
+	public  int insertForumThread(Long baseid,String fid,String threadtype,
 			String subject,String content,String userip,String usesig ,Meta meta){
 		try{
 			//验证参数是否为空
@@ -218,7 +218,7 @@ public class ForumThreadServiceImpl extends ServiceImpl<ForumThreadMapper,ForumT
 	 * @return
 	 */
 	@Transactional
-	public synchronized  int auditBatchForumThread(String tids,String status,Long baseid,String userip,Meta meta){
+	public   int auditBatchForumThread(String tids,String status,Long baseid,String userip,Meta meta){
 		try{
 			
 			if(StringUtil.isEmpty(tids)){
@@ -259,7 +259,7 @@ public class ForumThreadServiceImpl extends ServiceImpl<ForumThreadMapper,ForumT
 	 * @return
 	 */
 	@Transactional
-	public synchronized int auditForumThread(String tid,String status,Long baseid,String userip,Meta meta){
+	public  int auditForumThread(String tid,String status,Long baseid,String userip,Meta meta){
 		try{
 			
 			if(StringUtil.isEmpty(tid)){

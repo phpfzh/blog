@@ -47,7 +47,7 @@ public class ForumThreadAPIController extends BaseController{
 	@ResponseBody
 	@PostMapping("/insertForumThread")
 	public AjaxResult insertForumThread(){
-		AjaxResult ajaxResult = AjaxResult.createAjaxResult();
+		AjaxResult ajaxResult = new AjaxResult();
 		try{
 			String baseId = cjmJwtTokenComponent.getUserBaseId(request);
 			String fid = request.getParameter("fid");
@@ -60,14 +60,20 @@ public class ForumThreadAPIController extends BaseController{
  			int count = forumThreadService.insertForumThread(Long.valueOf(baseId), fid, threadtype,
 					subject, content, userip, usesig,meta);
 			if(count == 2){//校验不通过
-				return ajaxResult.failAjaxResult(meta.getMessage());
+ 				ajaxResult.setMessage(meta.getMessage());
+				ajaxResult.setCode(AjaxResult.FAIL_CODE);
+				return ajaxResult;
 			}else if(count == 1){
-				return ajaxResult.successAjaxResult("保存成功");
+				ajaxResult.setMessage("保存成功");
+				ajaxResult.setCode(AjaxResult.SUCCESS_CODE);
+				return ajaxResult;
 			}
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-		return ajaxResult.failAjaxResult("因网络响应不及时,操作失败");
+ 		ajaxResult.setMessage("因网络响应不及时,操作失败");
+		ajaxResult.setCode(AjaxResult.FAIL_CODE);
+		return ajaxResult;
 	}
 	 
 	/**
@@ -80,17 +86,22 @@ public class ForumThreadAPIController extends BaseController{
 	@ResponseBody
 	@PostMapping("/getForumThreads")
 	public AjaxResult getForumThreads(ForumThread forumThread){
-		AjaxResult ajaxResult = AjaxResult.createAjaxResult();
+		AjaxResult ajaxResult = new AjaxResult();
 		try{
 			String pageSize = request.getParameter("pageSize");
 			String orderBy = request.getParameter("orderBy");
 			String pageNum = request.getParameter("pageNum");
 			PageInfo<Object> lists = forumThreadService.getForumThreadsBy(pageSize, pageNum, orderBy, forumThread);
-  			return ajaxResult.successAjaxResult("查询成功", lists);
+ 			ajaxResult.setMessage("查询成功");
+			ajaxResult.setData(lists);
+			ajaxResult.setCode(AjaxResult.SUCCESS_CODE);
+			return ajaxResult;
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-		return ajaxResult.failAjaxResult("因网络响应不及时,操作失败");
+		ajaxResult.setMessage("因网络响应不及时,操作失败");
+		ajaxResult.setCode(AjaxResult.FAIL_CODE);
+		return ajaxResult;
 	}
 	
 	/**
@@ -103,7 +114,7 @@ public class ForumThreadAPIController extends BaseController{
 	@ResponseBody
 	@PostMapping("/auditForumThread")
 	public AjaxResult auditForumThread(ForumThread forumThread){
-		AjaxResult ajaxResult = AjaxResult.createAjaxResult();
+		AjaxResult ajaxResult = new AjaxResult();
 		try{
 			String baseId = cjmJwtTokenComponent.getUserBaseId(request);
 			String status = request.getParameter("status");
@@ -112,15 +123,21 @@ public class ForumThreadAPIController extends BaseController{
 			Meta meta = new Meta();
 			int count = forumThreadService.auditForumThread(tid, status, Long.valueOf(baseId), userip, meta);
 			if(count == 2){//校验不通过
-				return ajaxResult.failAjaxResult(meta.getMessage());
-			}else if(count == 1){
-				return ajaxResult.successAjaxResult("操作成功");
+				ajaxResult.setMessage(meta.getMessage());
+				ajaxResult.setCode(AjaxResult.FAIL_CODE);
+				return ajaxResult;
+ 			}else if(count == 1){
+ 				ajaxResult.setMessage("操作成功");
+				ajaxResult.setCode(AjaxResult.SUCCESS_CODE);
+				return ajaxResult;
 			}
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-		return ajaxResult.failAjaxResult("因网络响应不及时,操作失败");
-	}
+		ajaxResult.setMessage("因网络响应不及时,操作失败");
+		ajaxResult.setCode(AjaxResult.FAIL_CODE);
+		return ajaxResult;
+ 	}
 	
 	/**
 	 * 
@@ -132,7 +149,7 @@ public class ForumThreadAPIController extends BaseController{
 	@ResponseBody
 	@PostMapping("/auditBatchForumThread")
 	public AjaxResult auditBatchForumThread(ForumThread forumThread){
-		AjaxResult ajaxResult = AjaxResult.createAjaxResult();
+		AjaxResult ajaxResult = new AjaxResult();
 		try{
 			String baseId = cjmJwtTokenComponent.getUserBaseId(request);
 			String status = request.getParameter("status");
@@ -141,15 +158,20 @@ public class ForumThreadAPIController extends BaseController{
 			Meta meta = new Meta();
 			int count = forumThreadService.auditBatchForumThread(tids, status, Long.valueOf(baseId), userip, meta);
 			if(count == 2){//校验不通过
-				return ajaxResult.failAjaxResult(meta.getMessage());
-			}else if(count == 1){
-				return ajaxResult.successAjaxResult("操作成功");
-			}
+				ajaxResult.setMessage(meta.getMessage());
+				ajaxResult.setCode(AjaxResult.FAIL_CODE);
+  			}else if(count == 1){
+				ajaxResult.setMessage("操作成功");
+				ajaxResult.setCode(AjaxResult.SUCCESS_CODE);
+ 			}
+			return ajaxResult;
 		}catch(Exception e){
 			e.printStackTrace();
 		}
- 		return ajaxResult.failAjaxResult("因网络响应不及时,操作失败");
-	}
+		ajaxResult.setMessage("因网络响应不及时,操作失败");
+		ajaxResult.setCode(AjaxResult.FAIL_CODE);
+		return ajaxResult;
+ 	}
 	
 	/**
 	 * 
@@ -161,7 +183,7 @@ public class ForumThreadAPIController extends BaseController{
 	@ResponseBody
 	@PostMapping("/delForumThread")
 	public AjaxResult delForumThread(ForumThread forumThread){
-		AjaxResult ajaxResult = AjaxResult.createAjaxResult();
+		AjaxResult ajaxResult = new AjaxResult();
 		try{
 			String baseId = cjmJwtTokenComponent.getUserBaseId(request);
 			String status = request.getParameter("status");
@@ -170,15 +192,20 @@ public class ForumThreadAPIController extends BaseController{
 			Meta meta = new Meta();
 			int count = forumThreadService.delForumThread(tid, status, Long.valueOf(baseId), userip, meta);
 			if(count == 2){//校验不通过
-				return ajaxResult.failAjaxResult(meta.getMessage());
+ 				ajaxResult.setMessage(meta.getMessage());
+				ajaxResult.setCode(AjaxResult.FAIL_CODE);
 			}else if(count == 1){
-				return ajaxResult.successAjaxResult("操作成功");
-			}
+				ajaxResult.setMessage("操作成功");
+				ajaxResult.setCode(AjaxResult.SUCCESS_CODE);
+ 			}
+			return ajaxResult;
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-		return ajaxResult.failAjaxResult("因网络响应不及时,操作失败");
-	}
+		ajaxResult.setMessage("因网络响应不及时,操作失败");
+		ajaxResult.setCode(AjaxResult.FAIL_CODE);
+		return ajaxResult;
+ 	}
 	
 	/**
 	 * 
@@ -190,7 +217,7 @@ public class ForumThreadAPIController extends BaseController{
 	@ResponseBody
 	@PostMapping("/delBatchForumThread")
 	public AjaxResult delBatchForumThread(ForumThread forumThread){
-		AjaxResult ajaxResult = AjaxResult.createAjaxResult();
+		AjaxResult ajaxResult = new AjaxResult();
 		try{
 			String baseId = cjmJwtTokenComponent.getUserBaseId(request);
 			String status = request.getParameter("status");
@@ -199,13 +226,18 @@ public class ForumThreadAPIController extends BaseController{
 			Meta meta = new Meta();
 			int count = forumThreadService.delBatchForumThread(tids, status, Long.valueOf(baseId), userip, meta);
 			if(count == 2){//校验不通过
-				return ajaxResult.failAjaxResult(meta.getMessage());
-			}else if(count == 1){
-				return ajaxResult.successAjaxResult("操作成功");
-			}
+				ajaxResult.setMessage(meta.getMessage());
+				ajaxResult.setCode(AjaxResult.FAIL_CODE);
+ 			}else if(count == 1){
+				ajaxResult.setMessage("操作成功");
+				ajaxResult.setCode(AjaxResult.SUCCESS_CODE);
+ 			}
+				return ajaxResult;
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-		return ajaxResult.failAjaxResult("因网络响应不及时,操作失败");
-	}
+		ajaxResult.setMessage("因网络响应不及时,操作失败");
+		ajaxResult.setCode(AjaxResult.FAIL_CODE);
+		return ajaxResult;
+ 	}
 }
