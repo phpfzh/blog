@@ -1,5 +1,6 @@
 package com.jxkj.cjm.service;
 
+import com.jxkj.cjm.common.response.ProcessBack;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.baomidou.mybatisplus.service.IService;
@@ -14,10 +15,10 @@ public interface ForumAttachmentService extends IService<ForumAttachment>{
 	* @param @param multipartFile 上传的文件
 	* @param @param baseid 用户id
 	* @param @return    设定文件 
-	* @return AjaxResult    返回类型 
+	* @return ProcessBack    返回类型
 	* @throws
 	 */
-	public  AjaxResult uploadImage(MultipartFile multipartFile,Long baseid);
+	public ProcessBack uploadImage(MultipartFile multipartFile, Long baseid);
 	
 	/**
 	 * 
@@ -26,10 +27,10 @@ public interface ForumAttachmentService extends IService<ForumAttachment>{
 	* @param @param multipartFile 上传的文件
 	* @param @param baseid  用户id
 	* @param @return    设定文件 
-	* @return AjaxResult    返回类型 
+	* @return ProcessBack    返回类型
 	* @throws
 	 */
-	public  AjaxResult uploadFile(MultipartFile multipartFile, Long baseid);
+	public  ProcessBack uploadFile(MultipartFile multipartFile, Long baseid);
 	
 	/**
 	 * 
@@ -38,10 +39,10 @@ public interface ForumAttachmentService extends IService<ForumAttachment>{
 	* @param @param multipartFile 上传的文件
 	* @param @param baseid  用户id
 	* @param @return    设定文件 
-	* @return AjaxResult    返回类型 
+	* @return ProcessBack    返回类型
 	* @throws
 	 */
-	public  AjaxResult uploadVideo(MultipartFile multipartFile, Long baseid);
+	public  ProcessBack uploadVideo(MultipartFile multipartFile, Long baseid);
 	
 	/**
 	 * 

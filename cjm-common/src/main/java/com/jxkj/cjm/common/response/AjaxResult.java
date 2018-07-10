@@ -34,6 +34,7 @@ public class AjaxResult<T> {
 		 this.time = System.currentTimeMillis();
 	 }
 
+
 	public String getCode() {
 		return code;
 	}

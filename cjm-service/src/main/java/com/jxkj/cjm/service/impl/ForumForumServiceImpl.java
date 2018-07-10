@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.jxkj.cjm.common.response.ProcessBack;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
@@ -33,29 +34,39 @@ public class ForumForumServiceImpl extends ServiceImpl<ForumForumMapper,ForumFor
 	 * @param name
 	 * @return
 	 */
-	public AjaxResult insertForumForumByApi(Long baseid,String name){
-		AjaxResult ajaxResult = AjaxResult.createAjaxResult();
+	public ProcessBack insertForumForumByApi(Long baseid, String name){
+		ProcessBack processBack = new ProcessBack();
 		try{
 			
 			if(StringUtil.isEmpty(name)){
-				return ajaxResult.failAjaxResult("'name' 板块名称不能为空");
+ 				processBack.setCode(ProcessBack.FAIL_CODE);
+				processBack.setMessage("'name' 板块名称不能为空");
+				return processBack;
 			}
  			
 			if(name.length() > 50){
- 				return ajaxResult.failAjaxResult("'name' 板块名称不能超过50字");
+ 				processBack.setCode(ProcessBack.FAIL_CODE);
+				processBack.setMessage("'name' 板块名称不能超过50字");
+				return processBack;
 			}
 			
 			int count = insertForumForum(baseid, name);
 			if(count == 1){
-				return ajaxResult.successAjaxResult("操作成功");
+ 				processBack.setCode(ProcessBack.SUCCESS_CODE);
+				processBack.setMessage("操作成功");
+				return processBack;
 			}else if(count == 2){
-				return ajaxResult.failAjaxResult("该板块名称已存在");
+ 				processBack.setCode(ProcessBack.FAIL_CODE);
+				processBack.setMessage("该板块名称已存在");
+				return processBack;
 			}
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-		return ajaxResult.failAjaxResult("因网络响应不及时,操作失败");
-	}
+		processBack.setCode(ProcessBack.FAIL_CODE);
+		processBack.setMessage("因网络响应不及时,操作失败");
+		return processBack;
+ 	}
 	
 	/**
 	 * 
@@ -121,24 +132,30 @@ public class ForumForumServiceImpl extends ServiceImpl<ForumForumMapper,ForumFor
 	 * @param id 板块id
  	 * @return
 	 */
-	public AjaxResult delForumForumByApi(String id){
-		AjaxResult ajaxResult = AjaxResult.createAjaxResult();
+	public ProcessBack delForumForumByApi(String id){
+		ProcessBack processBack = new ProcessBack();
 		try{
 			
 			if(StringUtil.isEmpty(id)){
-				return ajaxResult.failAjaxResult("'id' 不能为空");
+				processBack.setMessage("'id' 不能为空");
+				processBack.setCode(ProcessBack.FAIL_CODE);
+				return processBack;
 			}
 			
 			int count = 0;
 			count = baseMapper.deleteById(Long.valueOf(id));
 			if(count > 0){
-				return ajaxResult.successAjaxResult("删除成功");
+ 				processBack.setMessage("删除成功");
+				processBack.setCode(ProcessBack.SUCCESS_CODE);
+				return processBack;
 			}
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-		return ajaxResult.failAjaxResult("因网络响应不及时,保存失败");
-	}
+		processBack.setMessage("因网络响应不及时,保存失败");
+		processBack.setCode(ProcessBack.FAIL_CODE);
+		return processBack;
+ 	}
 	
 	
 	/**
@@ -146,22 +163,26 @@ public class ForumForumServiceImpl extends ServiceImpl<ForumForumMapper,ForumFor
 	 * Title: updateForumForumByApi 
 	 * TODO:(Api 修改板块信息) 
 	 * @param baseid 用户id
-	 * @param name
-	 * @return
+ 	 * @return
 	 */
-	public AjaxResult updateForumForumByApi(Long baseid,ForumForum forum){
-		AjaxResult ajaxResult = AjaxResult.createAjaxResult();
+	public ProcessBack updateForumForumByApi(Long baseid,ForumForum forum){
+		ProcessBack processBack = new ProcessBack();
 		if(forum.getId() == null){
-			return ajaxResult.failAjaxResult("'id' 不能为空");
+			processBack.setCode(ProcessBack.FAIL_CODE);
+			processBack.setMessage("'id' 不能为空");
+			return processBack;
 		}
 		
 		int count = updateForumForum(baseid, forum);
 		if(count > 0){
-			return ajaxResult.successAjaxResult("保存成功");
-		}
-		
-		return ajaxResult.failAjaxResult("因网络响应不及时,保存失败");
-	
+			processBack.setCode(ProcessBack.SUCCESS_CODE);
+			processBack.setMessage("保存成功");
+			return processBack;
+ 		}
+		processBack.setCode(ProcessBack.FAIL_CODE);
+		processBack.setMessage("因网络响应不及时,保存失败");
+		return processBack;
+
 	}
  	
 	/**

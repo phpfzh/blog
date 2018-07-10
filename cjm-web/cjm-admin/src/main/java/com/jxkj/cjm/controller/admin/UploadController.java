@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import com.jxkj.cjm.common.response.ProcessBack;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -37,17 +38,18 @@ public class UploadController extends BaseController{
 		Map<String,Object> res = new HashMap<>();
 		try{
 			//封装的图片上传方法
-			AjaxResult ajax = preForumAttachmentService.uploadImage(multipartFile, (long)999999);
-			Map<String,String> ma = (Map<String, String>) ajax.getData();
- 			res.put("url", ma.get("url"));//上传的图片路径
-			res.put("state", "SUCCESS");
-			res.put("title", multipartFile.getOriginalFilename());
-			res.put("original", multipartFile.getOriginalFilename());
- 			return res ;
+			ProcessBack processBack = preForumAttachmentService.uploadImage(multipartFile, (long)999999);
+			if(processBack.getCode().equals(ProcessBack.SUCCESS_CODE)){
+				res.put("url", processBack.getData());//上传的图片路径
+				res.put("state", "SUCCESS");
+				res.put("title", multipartFile.getOriginalFilename());
+				res.put("original", multipartFile.getOriginalFilename());
+				return res ;
+ 			}
 		}catch(Exception e){
 			e.printStackTrace();
-			return res;
 		}
+			return res;
 	}
 	
 	@ResponseBody
@@ -57,12 +59,13 @@ public class UploadController extends BaseController{
 		Map<String,Object> res = new HashMap<>();
 		try{
 			//封装的图片上传方法
-			AjaxResult ajax = preForumAttachmentService.uploadVideo(multipartFile, (long)10);
-			Map<String,String> ma = (Map<String, String>) ajax.getData();
- 			res.put("url", ma.get("url"));//上传的图片路径
-			res.put("state", "SUCCESS");
-			res.put("title", multipartFile.getOriginalFilename());
-			res.put("original", multipartFile.getOriginalFilename());
+			ProcessBack processBack = preForumAttachmentService.uploadVideo(multipartFile, (long)10);
+			if(processBack.getCode().equals(ProcessBack.SUCCESS_CODE)){
+ 				res.put("url", processBack.getData());//上传的图片路径
+				res.put("state", "SUCCESS");
+				res.put("title", multipartFile.getOriginalFilename());
+				res.put("original", multipartFile.getOriginalFilename());
+			}
  			return res ;
 		}catch(Exception e){
 			e.printStackTrace();

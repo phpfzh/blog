@@ -2,6 +2,7 @@ package com.jxkj.cjm.controller.admin;
 
 import javax.annotation.Resource;
 
+import com.jxkj.cjm.common.response.ProcessBack;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,15 +41,27 @@ public class ForumForumAPIController extends BaseController{
 	@ResponseBody
 	@PostMapping("/saveForum")
 	public AjaxResult saveForum(){
+		AjaxResult ajaxResult = new AjaxResult();
 		try{
  			String name = request.getParameter("name");
 			String baseIdStr = cjmJwtTokenComponent.getUserBaseId(request);
 			Long baseid = Long.valueOf(baseIdStr);
-			return forumForumService.insertForumForumByApi(baseid, name);
-		}catch(Exception e){
+			ProcessBack processBack = forumForumService.insertForumForumByApi(baseid, name);
+			if(processBack.getCode().equals(ProcessBack.SUCCESS_CODE)){
+				ajaxResult.setCode(AjaxResult.SUCCESS_CODE);
+				ajaxResult.setMessage("保存成功");
+				return ajaxResult;
+			}else{
+				ajaxResult.setCode(AjaxResult.FAIL_CODE);
+				ajaxResult.setMessage(processBack.getMessage());
+				return ajaxResult;
+			}
+ 		}catch(Exception e){
 			e.printStackTrace();
-			return AjaxResult.createAjaxResult().failAjaxResult("因网络响应不及时,操作失败");
-		}
+ 		}
+		ajaxResult.setCode(AjaxResult.FAIL_CODE);
+		ajaxResult.setMessage(AjaxResult.MESSAGE);
+		return ajaxResult;
 	}
 	
 	/**
@@ -60,14 +73,26 @@ public class ForumForumAPIController extends BaseController{
 	@ResponseBody
 	@PostMapping("/updateForum")
 	public AjaxResult updateForum(ForumForum forum){
+		AjaxResult ajaxResult = new AjaxResult();
 		try{
  			String baseIdStr = cjmJwtTokenComponent.getUserBaseId(request);
 			Long baseid = Long.valueOf(baseIdStr);
-			return forumForumService.updateForumForumByApi(baseid, forum);
+			ProcessBack processBack = forumForumService.updateForumForumByApi(baseid, forum);
+			if(processBack.getCode().equals(ProcessBack.SUCCESS_CODE)){
+				ajaxResult.setCode(AjaxResult.SUCCESS_CODE);
+				ajaxResult.setMessage("操作成功");
+			}else{
+				ajaxResult.setCode(AjaxResult.FAIL_CODE);
+				ajaxResult.setMessage(processBack.getMessage());
+			}
+			return ajaxResult;
 		}catch(Exception e){
 			e.printStackTrace();
-			return AjaxResult.createAjaxResult().failAjaxResult("因网络响应不及时,操作失败");
-		}
+ 		}
+
+		ajaxResult.setCode(AjaxResult.FAIL_CODE);
+		ajaxResult.setMessage("因网络响应不及时,操作失败");
+		return ajaxResult;
 	}
 	
 	/**
@@ -79,12 +104,23 @@ public class ForumForumAPIController extends BaseController{
 	@ResponseBody
 	@PostMapping("/delForum")
 	public AjaxResult delForum(){
+		AjaxResult ajaxResult = new AjaxResult();
 		try{
 			String id = request.getParameter("id");
- 			return forumForumService.delForumForumByApi(id);
+			ProcessBack processBack	= forumForumService.delForumForumByApi(id);
+			if(processBack.getCode().equals(ProcessBack.SUCCESS_CODE)){
+				ajaxResult.setCode(AjaxResult.SUCCESS_CODE);
+				ajaxResult.setMessage("操作成功");
+			}else{
+				ajaxResult.setCode(AjaxResult.FAIL_CODE);
+				ajaxResult.setMessage(processBack.getMessage());
+			}
+ 			return ajaxResult;
 		}catch(Exception e){
 			e.printStackTrace();
-			return AjaxResult.createAjaxResult().failAjaxResult("因网络响应不及时,操作失败");
-		}
+ 		}
+		ajaxResult.setCode(AjaxResult.FAIL_CODE);
+		ajaxResult.setMessage("因网络响应不及时,操作失败");
+		return ajaxResult;
 	}
   }
