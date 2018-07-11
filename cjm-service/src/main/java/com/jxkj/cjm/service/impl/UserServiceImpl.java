@@ -146,7 +146,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements Use
    		   //缓存用户基本信息，安全信息
    			redisUtilComponent.setRedisKeyAndValue(Redis_Constat.USER+user.getId(), user);//用户基本信息
    			redisUtilComponent.setRedisKeyAndValue(Redis_Constat.USERCENTER+user.getId(), userSafety);//用户安全信息
-			processBack.setData(token);//登录token
+			Map<String,String> ha = new HashMap<>();
+			ha.put("token",token);
+			processBack.setData(ha);//登录token
 			return processBack;
  		}catch(Exception e){
 			e.printStackTrace();
