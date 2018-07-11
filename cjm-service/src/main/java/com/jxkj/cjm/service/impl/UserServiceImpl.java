@@ -62,8 +62,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements Use
 	
 	@Resource
 	private CjmJwtTokenComponent cjmJwtTokenComponent;
-	 
-	/**
+
+ 	/**
 	 * 
 	* @Title: userLogin
 	* @Description: TODO(用户登录) 
@@ -172,6 +172,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements Use
 	public  ProcessBack userRegister(HttpServletRequest request,UserRegVo userRegVo) {
 		ProcessBack processBack = new ProcessBack();
 		try{
+			userRegLock.lock();
 			//验证请求参数
 			ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
 			Validator validator = factory.getValidator();
@@ -199,7 +200,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements Use
 				User commonMemberValidate1 = baseMapper.selectOne(entityValid1);
 				if(commonMemberValidate1 != null){
  					processBack.setCode(ProcessBack.FAIL_CODE);
-					processBack.setMessage("该手机号已注册");
+					processBack.setMessage("该用户名已注册");
 					return processBack;
 				}
 			}else{
@@ -316,7 +317,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements Use
  			ha.put("token", token);
  			ha.put("username", userRegVo.getUsername());
  			ha.put("mobile", userRegVo.getMobile());
-			processBack.setData(ha);
+ 			processBack.setData(ha);
+			processBack.setMessage("注册成功");
 			//注册成功
 			return processBack;
  		}catch(RuntimeException e){
@@ -324,6 +326,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements Use
 			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
  		}catch(Exception e){
 			e.printStackTrace();
+		}finally {
+			userRegLock.unlock();
 		}
 		processBack.setCode(ProcessBack.EXCEPTION_CODE);
 		processBack.setMessage(ProcessBack.EXCEPTION_MESSAGE);

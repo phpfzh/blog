@@ -8,11 +8,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-@Api(value="测试即可",consumes="1212")
+@Api(description="测试即可")
 @Controller
 @RequestMapping("/swagger/test")
 public class SwaggerTestController {
-    @ApiOperation(value="测试接口",notes="根据idid")
+
+    @ApiOperation(value="测试接口")
     @ApiImplicitParam(name = "id", value = "d", required = true, dataType = "String")
     @ResponseBody
     @GetMapping("/test")

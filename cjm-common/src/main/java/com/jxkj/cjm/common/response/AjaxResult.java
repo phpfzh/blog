@@ -31,7 +31,7 @@ public class AjaxResult<T> {
 	 private Long time;
 
 	 public AjaxResult() {
-		 this.time = System.currentTimeMillis();
+  	 	this.time = System.currentTimeMillis();
 	 }
 
 
