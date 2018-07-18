@@ -1,11 +1,11 @@
-import { Injectable, Injector, Inject } from '@angular/core';
-import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
-import { zip } from 'rxjs';
-import { catchError } from 'rxjs/operators';
-import { MenuService, SettingsService, TitleService, ALAIN_I18N_TOKEN } from '@delon/theme';
-import { DA_SERVICE_TOKEN, ITokenService } from '@delon/auth';
-import { ACLService } from '@delon/acl';
+import {Injectable, Injector, Inject} from '@angular/core';
+import {Router} from '@angular/router';
+import {HttpClient} from '@angular/common/http';
+import {zip} from 'rxjs';
+import {catchError} from 'rxjs/operators';
+import {MenuService, SettingsService, TitleService, ALAIN_I18N_TOKEN} from '@delon/theme';
+import {DA_SERVICE_TOKEN, ITokenService} from '@delon/auth';
+import {ACLService} from '@delon/acl';
 
 /**
  * 用于应用启动时
@@ -13,15 +13,14 @@ import { ACLService } from '@delon/acl';
  */
 @Injectable()
 export class StartupService {
-  constructor(
-    private menuService: MenuService,
-    private settingService: SettingsService,
-    private aclService: ACLService,
-    private titleService: TitleService,
-    @Inject(DA_SERVICE_TOKEN) private tokenService: ITokenService,
-    private httpClient: HttpClient,
-    private injector: Injector
-  ) { }
+  constructor(private menuService: MenuService,
+              private settingService: SettingsService,
+              private aclService: ACLService,
+              private titleService: TitleService,
+              @Inject(DA_SERVICE_TOKEN) private tokenService: ITokenService,
+              private httpClient: HttpClient,
+              private injector: Injector) {
+  }
 
   private viaHttp(resolve: any, reject: any) {
     zip(
@@ -29,28 +28,29 @@ export class StartupService {
     ).pipe(
       // 接收其他拦截器后产生的异常消息
       catchError(([appData]) => {
-          resolve(null);
-          return [appData];
+        resolve(null);
+        return [appData];
       })
     ).subscribe(([appData]) => {
 
-      // application data
-      const res: any = appData;
-      // 应用信息：包括站点名、描述、年份
-      this.settingService.setApp(res.app);
-      // 用户信息：包括姓名、头像、邮箱地址
-      this.settingService.setUser(res.user);
-      // ACL：设置权限为全量
-      this.aclService.setFull(true);
-      // 初始化菜单
-      this.menuService.add(res.menu);
-      // 设置页面标题的后缀
-      this.titleService.suffix = res.app.name;
-    },
-    () => { },
-    () => {
-      resolve(null);
-    });
+        // application data
+        const res: any = appData;
+        // 应用信息：包括站点名、描述、年份
+        this.settingService.setApp(res.app);
+        // 用户信息：包括姓名、头像、邮箱地址
+        this.settingService.setUser(res.user);
+        // ACL：设置权限为全量
+        this.aclService.setFull(true);
+        // 初始化菜单
+        this.menuService.add(res.menu);
+        // 设置页面标题的后缀
+        this.titleService.suffix = res.app.name;
+      },
+      () => {
+      },
+      () => {
+        resolve(null);
+      });
   }
 
   private viaMock(resolve: any, reject: any) {
@@ -85,13 +85,30 @@ export class StartupService {
         children: [
           {
             text: '仪表盘',
-            link: '/dashboard',
+            link: '/dashboard23',
             icon: 'anticon anticon-appstore-o'
           },
           {
             text: '快捷菜单',
+            link: '/dashboard2233',
             icon: 'anticon anticon-rocket',
-            shortcut_root: true
+          }
+        ]
+      },
+      {
+        text: '用户管理2',
+        shortcut: true,
+        children: [
+          {
+            text: '仪表盘',
+            link: '/2',
+            icon: 'anticon anticon-appstore-o'
+          },
+          {
+            text: '快捷菜单2',
+            link: '/dashboar23d23',
+            shortcut_root: true,
+            icon: 'anticon anticon-rocket',
           }
         ]
       }
@@ -107,9 +124,9 @@ export class StartupService {
     // https://github.com/angular/angular/issues/15088
     return new Promise((resolve, reject) => {
       // http
-      // this.viaHttp(resolve, reject);
+       this.viaHttp(resolve, reject);
       // mock：请勿在生产环境中这么使用，viaMock 单纯只是为了模拟一些数据使脚手架一开始能正常运行
-      this.viaMock(resolve, reject);
+      //this.viaMock(resolve, reject);
     });
   }
 }
