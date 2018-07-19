@@ -32,9 +32,20 @@ export function pageHeaderConfig(): AdPageHeaderConfig {
 }
 
 import { DelonAuthConfig } from '@delon/auth';
+
 export function delonAuthConfig(): DelonAuthConfig {
   return Object.assign(new DelonAuthConfig(), <DelonAuthConfig>{
     login_url: '/passport/login',
+  });
+}
+
+//api 请求域名定义
+import {Configuration} from '../generated/configuration';
+import {ApiModule} from '../generated/api.module';
+export function apiConfig(): Configuration {
+  return new Configuration({
+   // basePath: `${location.protocol}//${location.host}`
+    basePath: `http://localhost:8080/`
   });
 }
 
@@ -49,7 +60,8 @@ export function delonAuthConfig(): DelonAuthConfig {
     DelonACLModule.forRoot(),
     DelonCacheModule.forRoot(),
     DelonUtilModule.forRoot(),
-    // mock
+    ApiModule.forRoot(apiConfig),
+     // mock
     ...MOCKMODULE,
   ],
 })
