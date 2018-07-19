@@ -425,6 +425,36 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements Use
 			processBack.setMessage(ProcessBack.EXCEPTION_MESSAGE);
 			return processBack;
 		}
+  	}
 
- 	}
+	/**
+	 *
+	 * @param baseid 根据用户id 获取用户信息
+	 * @return
+	 */
+	public ProcessBack getUserByBaseid(String baseid){
+		ProcessBack processBack = new ProcessBack();
+		try{
+			if(StringUtil.isEmpty(baseid)){
+				throw new IllegalArgumentException("'baseId' 不能为空");
+			}
+
+			User user = baseMapper.selectById(new Long(baseid));
+			if(user == null){
+				throw  new IllegalArgumentException("用户信息找不到,id是："+baseid);
+			}
+
+			processBack.setCode(ProcessBack.SUCCESS_CODE);
+			processBack.setMessage("查询成功");
+			processBack.setData(user);
+			return  processBack;
+
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+
+		processBack.setCode(ProcessBack.FAIL_CODE);
+		processBack.setMessage(ProcessBack.EXCEPTION_MESSAGE);
+		return  processBack;
+	}
 }

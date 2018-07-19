@@ -48,4 +48,11 @@ public interface UserService extends IService<User>{
 	* @throws
 	 */
 	public ProcessBack sendSSMByReg(String mobile);
+
+	/**
+	 *
+	 * @param baseid 根据用户id 获取用户信息
+	 * @return
+	 */
+	public ProcessBack getUserByBaseid(String baseid);
 }
