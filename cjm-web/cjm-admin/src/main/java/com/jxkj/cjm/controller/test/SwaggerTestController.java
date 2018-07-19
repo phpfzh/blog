@@ -1,5 +1,7 @@
 package com.jxkj.cjm.controller.test;
 
+import com.jxkj.cjm.common.response.AjaxResult;
+import com.jxkj.cjm.controller.apidoc.UserRegRep;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -17,7 +19,7 @@ public class SwaggerTestController {
     @ApiImplicitParam(name = "id", value = "d", required = true, dataType = "String")
     @ResponseBody
     @GetMapping("/test")
-    public String test(String id){
-        return "Hello Word!";
+    public AjaxResult<UserRegRep> test(String id){
+         return AjaxResult.successAjaxResult();
     }
 }

@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -50,18 +51,12 @@ public class IndexController {
 	@PostMapping("/api/register")
 	public AjaxResult<UserRegRep> register(HttpServletRequest request, @ApiParam UserRegVo userRegVo){
 		ProcessBack processBack = userService.userRegister(request,userRegVo);
-		AjaxResult ajaxResult = new AjaxResult();
-		if(processBack.getCode().equals(ProcessBack.SUCCESS_CODE)){//成功
-			ajaxResult.setCode(AjaxResult.SUCCESS_CODE);
-			ajaxResult.setMessage(processBack.getMessage());
- 			ajaxResult.setData(processBack.getData());
+ 		if(processBack.getCode().equals(ProcessBack.SUCCESS_CODE)){//成功
+  			return AjaxResult.successAjaxResult(processBack.getData());
 		}else{
-			ajaxResult.setCode(AjaxResult.FAIL_CODE);
-			ajaxResult.setMessage(processBack.getMessage());
-			ajaxResult.setData(new Object());
+			return AjaxResult.failAjaxResult();
 		}
-		return ajaxResult;
- 	}
+  	}
 	
 	/**
 	 * 
@@ -74,19 +69,12 @@ public class IndexController {
 	@ResponseBody
 	@PostMapping("/api/login")
 	public AjaxResult<UserLoingRep> login(HttpServletRequest request, @ApiParam UserLoginVo userLoginVo){
-		AjaxResult<UserLoingRep> ajaxResult = new AjaxResult<UserLoingRep>();
+		AjaxResult ajaxResult = new AjaxResult();
  		ProcessBack	processBack = userService.userLogin(request,userLoginVo);
  		if(processBack.getCode().equals(ProcessBack.SUCCESS_CODE)){//成功
-			UserLoingRep userLoingRep = new UserLoingRep();
-			userLoingRep.setToken(processBack.getData().toString());
-			ajaxResult.setData(userLoingRep);
-			ajaxResult.setCode(AjaxResult.SUCCESS_CODE);
-			ajaxResult.setMessage("登录成功");
-		}else{
- 			ajaxResult.setCode(AjaxResult.FAIL_CODE);
-			ajaxResult.setMessage(processBack.getMessage());
+			return AjaxResult.successAjaxResult("登录成功",processBack.getData());
 		}
-		return ajaxResult;
+		return AjaxResult.failAjaxResult("登录失败");
 	}
 	
 	/**
@@ -100,23 +88,17 @@ public class IndexController {
  	@ResponseBody
 	@PostMapping("/api/generateUserName")
 	public AjaxResult<GenerateUserNameRep> generateUserName(HttpServletRequest request){
-		AjaxResult<GenerateUserNameRep> ajaxResult = new AjaxResult<GenerateUserNameRep>();
-		try{
+ 		try{
 			String username = userService.generateUserName();
 			if(StringUtil.isNotEmpty(username)){
-				GenerateUserNameRep generateUserNameRep = new GenerateUserNameRep();
-				generateUserNameRep.setUsername(username);
-				ajaxResult.setData(generateUserNameRep);
-				ajaxResult.setCode(AjaxResult.SUCCESS_CODE);
-				ajaxResult.setMessage("生成成功");
-				return ajaxResult;
+				Map<String,String> ha = new HashMap<>();
+				ha.put("username",username);
+ 				return AjaxResult.successAjaxResult(ha);
  			}
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-		ajaxResult.setCode(AjaxResult.FAIL_CODE);
-		ajaxResult.setMessage(AjaxResult.MESSAGE);
-		return ajaxResult;
+ 		return AjaxResult.failAjaxResult();
 	}
 	
 	/**
@@ -132,14 +114,9 @@ public class IndexController {
 	@PostMapping("/api/ssmRegCode")
 	public AjaxResult sendSSMByRegApi(HttpServletRequest request,String mobile){
  		ProcessBack processBack = userService.sendSSMByReg(mobile);
-		AjaxResult ajaxResult = new AjaxResult();
- 		if(processBack.getCode().equals(ProcessBack.SUCCESS_CODE)){
-			ajaxResult.setCode(AjaxResult.SUCCESS_CODE);
-			ajaxResult.setMessage("短信发送成功");
-		}else{
-			ajaxResult.setCode(AjaxResult.FAIL_CODE);
-			ajaxResult.setMessage(processBack.getMessage());
+  		if(processBack.getCode().equals(ProcessBack.SUCCESS_CODE)){
+			return  AjaxResult.successAjaxResult("短信发送成功");
 		}
-		return ajaxResult;
+		return AjaxResult.failAjaxResult();
 	}
  }

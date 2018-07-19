@@ -146,7 +146,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements Use
    		   //缓存用户基本信息，安全信息
    			redisUtilComponent.setRedisKeyAndValue(Redis_Constat.USER+user.getId(), user);//用户基本信息
    			redisUtilComponent.setRedisKeyAndValue(Redis_Constat.USERCENTER+user.getId(), userSafety);//用户安全信息
-			processBack.setData(token);//登录token
+			Map<String,String> ha = new HashMap<>();
+			ha.put("token",token);
+			processBack.setData(ha);//登录token
 			return processBack;
  		}catch(Exception e){
 			e.printStackTrace();
@@ -423,6 +425,36 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements Use
 			processBack.setMessage(ProcessBack.EXCEPTION_MESSAGE);
 			return processBack;
 		}
+  	}
 
- 	}
+	/**
+	 *
+	 * @param baseid 根据用户id 获取用户信息
+	 * @return
+	 */
+	public ProcessBack getUserByBaseid(String baseid){
+		ProcessBack processBack = new ProcessBack();
+		try{
+			if(StringUtil.isEmpty(baseid)){
+				throw new IllegalArgumentException("'baseId' 不能为空");
+			}
+
+			User user = baseMapper.selectById(new Long(baseid));
+			if(user == null){
+				throw  new IllegalArgumentException("用户信息找不到,id是："+baseid);
+			}
+
+			processBack.setCode(ProcessBack.SUCCESS_CODE);
+			processBack.setMessage("查询成功");
+			processBack.setData(user);
+			return  processBack;
+
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+
+		processBack.setCode(ProcessBack.FAIL_CODE);
+		processBack.setMessage(ProcessBack.EXCEPTION_MESSAGE);
+		return  processBack;
+	}
 }
