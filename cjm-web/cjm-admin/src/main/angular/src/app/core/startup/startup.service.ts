@@ -80,38 +80,33 @@ export class StartupService {
     // 初始化菜单
     this.menuService.add([
       {
-        text: '主导航',
-        group: true,
+        text: '首页',
+        link: '/',
         children: [
           {
-            text: '仪表盘',
-            link: '/dashboard23',
+            text: '控制台',
+            link: '/dashboard',
             icon: 'anticon anticon-appstore-o'
           },
           {
-            text: '快捷菜单',
-            link: '/dashboard2233',
-            icon: 'anticon anticon-rocket',
-          }
-        ]
-      },
-      {
-        text: '用户管理2',
-        shortcut: true,
-        children: [
-          {
-            text: '仪表盘',
-            link: '/2',
-            icon: 'anticon anticon-appstore-o'
+            text: '用户管理1',
+            link: '/user/list',
+            hideInBreadcrumb: true,
+            icon: 'anticon anticon-appstore-o',
           },
           {
-            text: '快捷菜单2',
-            link: '/dashboar23d23',
-            shortcut_root: true,
-            icon: 'anticon anticon-rocket',
+            text: '用户管理1',
+            link: '/user/list2',
+            icon: 'anticon anticon-appstore-o',
+          },
+          {
+            text: '用户管理1',
+            link: '/user/list3',
+            icon: 'anticon anticon-appstore-o',
           }
         ]
       }
+
     ]);
     // 设置页面标题的后缀
     this.titleService.suffix = app.name;
@@ -124,9 +119,9 @@ export class StartupService {
     // https://github.com/angular/angular/issues/15088
     return new Promise((resolve, reject) => {
       // http
-       this.viaHttp(resolve, reject);
+      //this.viaHttp(resolve, reject);
       // mock：请勿在生产环境中这么使用，viaMock 单纯只是为了模拟一些数据使脚手架一开始能正常运行
-      //this.viaMock(resolve, reject);
+      this.viaMock(resolve, reject);
     });
   }
 }

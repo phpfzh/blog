@@ -2,9 +2,15 @@ import { NgModule } from '@angular/core';
 import { SharedModule } from '@shared/shared.module';
 import { UserRoutingModule } from './user-routing.module';
 import { UserUserComponent } from './user/user.component';
+import { UserList2Component } from './list2/list2.component';
+import { UserList3Component } from './list3/list3.component';
+import { UserList4Component } from './list4/list4.component';
 
 const COMPONENTS = [
-  UserUserComponent];
+  UserUserComponent,
+  UserList2Component,
+  UserList3Component,
+  UserList4Component];
 const COMPONENTS_NOROUNT = [];
 
 @NgModule({

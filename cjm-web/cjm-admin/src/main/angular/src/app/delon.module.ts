@@ -12,7 +12,7 @@ import { RouteReuseStrategy } from '@angular/router';
 import { throwIfAlreadyLoaded } from '@core/module-import-guard';
 
 import { NgZorroAntdModule } from 'ng-zorro-antd';
-import { AlainThemeModule } from '@delon/theme';
+import {ALAIN_I18N_TOKEN, AlainI18NService, AlainThemeModule} from '@delon/theme';
 import { DelonABCModule, ReuseTabService, ReuseTabStrategy } from '@delon/abc';
 import { DelonAuthModule } from '@delon/auth';
 import { DelonACLModule } from '@delon/acl';
@@ -42,6 +42,7 @@ export function delonAuthConfig(): DelonAuthConfig {
 //api 请求域名定义
 import {Configuration} from '../generated/configuration';
 import {ApiModule} from '../generated/api.module';
+import {AlainI18NServiceFake} from "@delon/theme/src/services/i18n/i18n";
 export function apiConfig(): Configuration {
   return new Configuration({
    // basePath: `${location.protocol}//${location.host}`
@@ -87,8 +88,8 @@ export class DelonModule {
         // TIPS：@delon/abc 有大量的全局配置信息，例如设置所有 `simple-table` 的页码默认为 `20` 行
         // { provide: SimpleTableConfig, useFactory: simpleTableConfig }
         { provide: AdPageHeaderConfig, useFactory: pageHeaderConfig },
-        { provide: DelonAuthConfig, useFactory: delonAuthConfig },
-      ],
+        { provide: DelonAuthConfig, useFactory: delonAuthConfig }
+       ],
     };
   }
 }
