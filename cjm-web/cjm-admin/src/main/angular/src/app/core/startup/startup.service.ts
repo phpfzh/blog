@@ -80,18 +80,28 @@ export class StartupService {
     // 初始化菜单
     this.menuService.add([
       {
-        text: '首页',
+        text: '后台管理',
         link: '/',
+        shortcut: true,
+        hideInBreadcrumb: false,
         children: [
           {
-            text: '控制台',
-            link: '/dashboard',
-            icon: 'anticon anticon-appstore-o'
+            text: '权限管理',
+            link: '',
+            icon: 'anticon anticon-appstore-o',
+            hideInBreadcrumb: false,
+            children:[
+              {
+                text:'角色管理',
+                hideInBreadcrumb: false,
+                link:'/permission/role'
+              }
+            ]
           },
           {
             text: '用户管理1',
             link: '/user/list',
-            hideInBreadcrumb: true,
+            hideInBreadcrumb: false,
             icon: 'anticon anticon-appstore-o',
           },
           {

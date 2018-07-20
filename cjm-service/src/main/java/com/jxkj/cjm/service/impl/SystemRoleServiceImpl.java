@@ -5,12 +5,12 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
-import com.jxkj.cjm.model.Testvv;
-import com.jxkj.cjm.service.TestvvService;
-import com.jxkj.cjm.mapper.TestvvMapper;
+import com.jxkj.cjm.model.SystemRole;
+import com.jxkj.cjm.service.SystemRoleService;
+import com.jxkj.cjm.mapper.SystemRoleMapper;
 
 
 @Service
-public class TestvvServiceImpl extends ServiceImpl<TestvvMapper,Testvv> implements TestvvService {
+public class SystemRoleServiceImpl extends ServiceImpl<SystemRoleMapper,SystemRole> implements SystemRoleService {
 
 }

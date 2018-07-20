@@ -5,12 +5,15 @@ import { UserUserComponent } from './user/user.component';
 import { UserList2Component } from './list2/list2.component';
 import { UserList3Component } from './list3/list3.component';
 import { UserList4Component } from './list4/list4.component';
+import {HeaderSearchComponent} from "./header.search.component";
 
 const COMPONENTS = [
   UserUserComponent,
   UserList2Component,
   UserList3Component,
-  UserList4Component];
+  UserList4Component,
+  HeaderSearchComponent
+];
 const COMPONENTS_NOROUNT = [];
 
 @NgModule({
