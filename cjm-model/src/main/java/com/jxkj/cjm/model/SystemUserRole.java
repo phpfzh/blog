@@ -13,24 +13,24 @@ public class SystemUserRole {
 	private static final long serialVersionUID = 66166411820933111L;
 	
 	/** 角色id */
-	private String roleid;
+	private Long roleid;
 	/** 用户id */
-	private String userid;
+	private Long userid;
 	
 	
-	public String getRoleid() {
+	public Long getRoleid() {
 		return this.roleid;
 	}
 	
-	public void setRoleid(String roleid) {
+	public void setRoleid(Long roleid) {
 		this.roleid = roleid;
 	}
 	
-	public String getUserid() {
+	public Long getUserid() {
 		return this.userid;
 	}
 	
-	public void setUserid(String userid) {
+	public void setUserid(Long userid) {
 		this.userid = userid;
 	}
 	
