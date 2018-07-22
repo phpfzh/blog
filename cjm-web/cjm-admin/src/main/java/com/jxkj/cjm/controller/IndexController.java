@@ -89,18 +89,24 @@ public class IndexController {
  	@ResponseBody
 	@PostMapping("/api/generateUserName")
 	public AjaxResult<GenerateUserNameRep> generateUserName(HttpServletRequest request){
+		AjaxResult<GenerateUserNameRep> ajaxResult = new AjaxResult<>();
  		try{
 			String username = userService.generateUserName();
 			if(StringUtil.isNotEmpty(username)){
-				Map<String,String> ha = new HashMap<>();
-				ha.put("username",username);
- 				return AjaxResult.successAjaxResult(ha);
+ 				GenerateUserNameRep generateUserNameRep = new GenerateUserNameRep();
+				generateUserNameRep.setUsername(username);
+				ajaxResult.setData(generateUserNameRep);
+				ajaxResult.setCode(AjaxResult.SUCCESS_CODE);
+				ajaxResult.setMessage(AjaxResult.SUCCESS_MESSAGE);
+ 				return ajaxResult;
  			}
 		}catch(Exception e){
 			e.printStackTrace();
 		}
- 		return AjaxResult.failAjaxResult();
-	}
+		ajaxResult.setCode(AjaxResult.FAIL_CODE);
+		ajaxResult.setMessage("生成失败");
+		return ajaxResult;
+ 	}
 	
 	/**
 	 * 
