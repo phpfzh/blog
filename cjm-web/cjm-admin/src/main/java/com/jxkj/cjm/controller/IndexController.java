@@ -32,7 +32,7 @@ import java.util.Map;
 * @version 1.0 
 * www.chenjiaming.com
  */
-@Api(description = "用户登录&&注册接口")
+@Api(tags = "1",description = "用户登录&&注册接口")
 @Controller
 public class IndexController {
 	
@@ -73,8 +73,9 @@ public class IndexController {
  		ProcessBack	processBack = userService.userLogin(request,userLoginVo);
  		if(processBack.getCode().equals(ProcessBack.SUCCESS_CODE)){//成功
 			return AjaxResult.successAjaxResult("登录成功",processBack.getData());
+		}else{
+ 			return AjaxResult.failAjaxResult(processBack.getMessage());
 		}
-		return AjaxResult.failAjaxResult("登录失败");
 	}
 	
 	/**
