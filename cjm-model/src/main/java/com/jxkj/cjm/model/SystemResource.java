@@ -38,7 +38,7 @@ public class SystemResource extends Model<SystemResource> {
 	/** 路由url */
 	private String link;
 	/** 是否隐藏 */
-	private Boolean hide = Boolean.TRUE;
+	private Boolean hide;
 	/**  */
 	private String icon;
 	/** 外部链接 */

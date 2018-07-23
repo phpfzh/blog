@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.jxkj.cjm.common.controller.BaseController;
 import com.jxkj.cjm.common.response.AjaxResult;
 import com.jxkj.cjm.common.response.ProcessBack;
+import com.jxkj.cjm.common.util.HibernateValidatorUtil;
 import com.jxkj.cjm.common.util.StringUtil;
 import com.jxkj.cjm.common.util.TransferUtil;
 import com.jxkj.cjm.model.SystemRole;
@@ -55,12 +56,10 @@ public class SystemRoleController extends BaseController<SystemRole>{
     public AjaxResult insertRole(@ApiParam() SystemRoleVo systemRoleVo){
         try{
 
-             //验证请求参数
-            ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-            Validator validator = factory.getValidator();
-            Set<ConstraintViolation<SystemRoleVo>> constraintViolations = validator.validate(systemRoleVo, GroupSave.class);
-            if(constraintViolations.iterator().hasNext() && constraintViolations.iterator().next().getMessage() != null){
-                 return AjaxResult.failAjaxResult(constraintViolations.iterator().next().getMessage());
+            HibernateValidatorUtil<SystemRoleVo> validatorUtil = new HibernateValidatorUtil<>();
+            String msg = validatorUtil.valida(systemRoleVo,GroupSave.class);
+            if(StringUtil.isNotEmpty(msg)){
+                return AjaxResult.failAjaxResult(msg);
             }
 
             SystemRole systemRole = new SystemRole();
@@ -86,11 +85,10 @@ public class SystemRoleController extends BaseController<SystemRole>{
     public AjaxResult updateRole(@ApiParam() SystemRoleVo systemRoleVo){
         try{
             //验证请求参数
-            ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-            Validator validator = factory.getValidator();
-            Set<ConstraintViolation<SystemRoleVo>> constraintViolations = validator.validate(systemRoleVo, GroupUpdate.class);
-            if(constraintViolations.iterator().hasNext() && constraintViolations.iterator().next().getMessage() != null){
-                return AjaxResult.failAjaxResult(constraintViolations.iterator().next().getMessage());
+            HibernateValidatorUtil<SystemRoleVo> validatorUtil = new HibernateValidatorUtil<>();
+            String msg = validatorUtil.valida(systemRoleVo,GroupUpdate.class);
+            if(StringUtil.isNotEmpty(msg)){
+                return AjaxResult.failAjaxResult(msg);
             }
 
             Wrapper<SystemRole> wrapper = Condition.create();
