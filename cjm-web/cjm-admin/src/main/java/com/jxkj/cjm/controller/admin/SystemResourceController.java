@@ -2,6 +2,7 @@ package com.jxkj.cjm.controller.admin;
 
 import com.baomidou.mybatisplus.mapper.Condition;
 import com.baomidou.mybatisplus.mapper.Wrapper;
+import com.jxkj.cjm.common.controller.AbstractVoBaseController;
 import com.jxkj.cjm.common.controller.BaseController;
 import com.jxkj.cjm.common.response.AjaxResult;
 import com.jxkj.cjm.common.util.HibernateValidatorUtil;
@@ -29,7 +30,7 @@ import java.util.concurrent.locks.ReentrantLock;
  */
 @Controller
 @RequestMapping("/api/resource")
-public class SystemResourceController extends BaseController<SystemResource> {
+public class SystemResourceController extends AbstractVoBaseController<SystemResource,SystemResourceVo> {
 
     private Lock saveLock = new ReentrantLock();//新增lock
 
@@ -39,103 +40,51 @@ public class SystemResourceController extends BaseController<SystemResource> {
     @Resource
     private SystemRoleResourceService systemRoleResourceService;
 
-
-    @PostMapping("/save")
-    @ResponseBody
-    public AjaxResult insertRole(SystemResourceVo systemResourceVo) {
-        try {
-            saveLock.lock();//加锁
-
-            HibernateValidatorUtil<SystemResourceVo> validatorUtil = new HibernateValidatorUtil<>();
-            String msg = validatorUtil.valida(systemResourceVo, GroupSave.class);
-            if (StringUtil.isNotEmpty(msg)) {
-                return AjaxResult.failAjaxResult(msg);
-            }
-
-            SystemResource systemResource = new SystemResource();
-            systemResource.setResourcename(systemResourceVo.getResourcename());
-            List<SystemResource> lists = systemResourceService.selectByMap(TransferUtil.beanToMap(systemResource));
-            if (lists.size() > 0) {
-                return AjaxResult.failAjaxResult("该资源菜单名称已存在," + systemResourceVo.getResourcename());
-            }
-
-            systemResource.setResourceurl(systemResourceVo.getResourceurl());
-            systemResource.setSort(systemResourceVo.getSort() == null ? 0 : systemResourceVo.getSort());
-            systemResource.setRemark(systemResourceVo.getRemark());
-            systemResource.setParentid(systemResourceVo.getParentid() == null ? 0 : systemResourceVo.getParentid());
-            systemResource.setType(systemResourceVo.getType());
-            systemResource.setPermission(systemResourceVo.getPermission());
-            systemResource.setLink(systemResourceVo.getLink());
-            systemResource.setHide(systemResourceVo.getHide());
-            systemResource.setIcon(systemResourceVo.getIcon());
-            systemResource.setExternallink(systemResourceVo.getExternallink());
-            systemResource.setTarget(systemResourceVo.getTarget());
-            boolean ff = systemResourceService.insert(systemResource);
-            if (ff) {
-                return AjaxResult.successAjaxResult("保存成功");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            saveLock.unlock();
+    @Override
+    public AjaxResult valiPreSaveEntity(SystemResource systemResource, AjaxResult ajaxResult) {
+        SystemResource systemResource2 = new SystemResource();
+        systemResource2.setResourcename(systemResource.getResourcename());
+        List<SystemResource> lists = systemResourceService.selectByMap(TransferUtil.beanToMap(systemResource2));
+        if (lists.size() > 0) {
+            ajaxResult.setCode(AjaxResult.FAIL_CODE);
+            ajaxResult.setMessage("该资源菜单名称已存在," + systemResource.getResourcename());
+            return ajaxResult;
         }
-        return AjaxResult.failAjaxResult("保存失败");
+
+        systemResource.setSort(systemResource.getSort() == null ? 0 : systemResource.getSort());
+        systemResource.setParentid(systemResource.getParentid() == null ? 0 : systemResource.getParentid());
+
+        return super.valiPreSaveEntity(systemResource, ajaxResult);
     }
 
-    @PostMapping("/update")
-    @ResponseBody
-    public AjaxResult updateRole( SystemResourceVo systemResourceVo) {
-        try {
-
-            //验证请求参数
-            HibernateValidatorUtil<SystemResourceVo> validatorUtil = new HibernateValidatorUtil<>();
-            String msg = validatorUtil.valida(systemResourceVo, GroupUpdate.class);
-            if (StringUtil.isNotEmpty(msg)) {
-                return AjaxResult.failAjaxResult(msg);
-            }
-
-            Wrapper<SystemResource> wrapper = Condition.create();
-            wrapper.eq("resourcename", systemResourceVo.getResourcename());
-            wrapper.notIn("resourceid", systemResourceVo.getResourceid());
-            List<SystemResource> lists = systemResourceService.selectList(wrapper);
-            if (lists.size() > 0) {
-                return AjaxResult.failAjaxResult("权限菜单已存在");
-            }
-
-            SystemResource systemResource = new SystemResource();
-            systemResource.setResourceid(systemResourceVo.getResourceid());
-            systemResource.setResourcename(systemResourceVo.getResourcename());
-            systemResource.setResourceurl(systemResourceVo.getResourceurl());
-            systemResource.setSort(systemResourceVo.getSort() == null ? 0 : systemResourceVo.getSort());
-            systemResource.setRemark(systemResourceVo.getRemark());
-            systemResource.setParentid(systemResourceVo.getParentid() == null ? 0 : systemResourceVo.getParentid());
-            systemResource.setType(systemResourceVo.getType());
-            systemResource.setPermission(systemResourceVo.getPermission());
-            systemResource.setLink(systemResourceVo.getLink());
-            systemResource.setHide(systemResourceVo.getHide());
-            systemResource.setIcon(systemResourceVo.getIcon());
-            systemResource.setExternallink(systemResourceVo.getExternallink());
-            systemResource.setTarget(systemResourceVo.getTarget());
-            boolean ff = systemResourceService.updateById(systemResource);
-            if (ff) {
-                return AjaxResult.successAjaxResult("修改成功");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+    @Override
+    public AjaxResult valiPreUpdateEntity(SystemResource systemResource, AjaxResult ajaxResult) {
+        Wrapper<SystemResource> wrapper = Condition.create();
+        wrapper.eq("resourcename", systemResource.getResourcename());
+        wrapper.notIn("resourceid", systemResource.getResourceid());
+        List<SystemResource> lists = systemResourceService.selectList(wrapper);
+        if (lists.size() > 0) {
+            ajaxResult.setCode(AjaxResult.FAIL_CODE);
+            ajaxResult.setMessage("该资源菜单名称已存在," + systemResource.getResourcename());
+            return ajaxResult;
         }
-        return AjaxResult.failAjaxResult("修改失败");
+
+        systemResource.setSort(systemResource.getSort() == null ? 0 : systemResource.getSort());
+        systemResource.setParentid(systemResource.getParentid() == null ? 0 : systemResource.getParentid());
+
+        return super.valiPreUpdateEntity(systemResource, ajaxResult);
     }
 
-    @PostMapping("/del")
-    @ResponseBody
-    public AjaxResult delRole(String resourceid) {
+
+    @Override
+    public AjaxResult delEntity(Long resourceid) {
         try {
 
             if (StringUtil.isEmpty(resourceid)) {
                 return AjaxResult.failAjaxResult("'resourceid' 不能为空");
             }
 
-            systemResourceService.deleteById(Long.parseLong(resourceid));
+            systemResourceService.deleteById(resourceid);
 
             Wrapper<SystemRoleResource> wrapper = Condition.create();
             wrapper.eq("resourceid", resourceid);
@@ -147,4 +96,5 @@ public class SystemResourceController extends BaseController<SystemResource> {
         }
         return AjaxResult.failAjaxResult("删除失败");
     }
+
 }

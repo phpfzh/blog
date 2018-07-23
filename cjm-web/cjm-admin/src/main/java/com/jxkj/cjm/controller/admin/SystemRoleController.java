@@ -29,7 +29,7 @@ import java.util.List;
  * 角色 Controller
  */
 @Controller
-@RequestMapping("/apis/systemRole")
+@RequestMapping("/api/systemRole")
 public class SystemRoleController extends AbstractVoBaseController<SystemRole,SystemRoleVo> {
 
     @Resource
@@ -42,65 +42,40 @@ public class SystemRoleController extends AbstractVoBaseController<SystemRole,Sy
     private  SystemUserRoleService systemUserRoleService;
 
     @Override
-    public AjaxResult saveEntity(SystemRoleVo systemRoleVo) {
-        try {
-            SystemRole entity = new SystemRole();
-            AjaxResult ajaxResult = preSaveEntity(entity, systemRoleVo);
-            if (ajaxResult.getCode().equals(AjaxResult.FAIL_CODE)) {
-                return ajaxResult;
-            }
-
-            SystemRole systemRole = new SystemRole();
-            systemRole.setRolename(systemRoleVo.getRolename());
-            List<SystemRole> lists = systemRoleService.selectByMap(TransferUtil.beanToMap(systemRole));
-            if(lists.size() > 0){
-                return AjaxResult.failAjaxResult("该角色名称已存在");
-            }
-
-            boolean ff = baseService.insert(entity);
-            if (ff) {
-                return AjaxResult.successAjaxResult("保存成功");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+    public AjaxResult valiPreSaveEntity(SystemRole systemRole, AjaxResult ajaxResult) {
+        SystemRole systemRole2 = new SystemRole();
+        systemRole2.setRolename(systemRole.getRolename());
+        List<SystemRole> lists = systemRoleService.selectByMap(TransferUtil.beanToMap(systemRole2));
+        if(lists.size() > 0){
+            ajaxResult.setMessage("该角色名称已存在");
+            ajaxResult.setCode(AjaxResult.FAIL_CODE);
+            return ajaxResult;
         }
-        return AjaxResult.failAjaxResult("保存失败");
+
+        return super.valiPreSaveEntity(systemRole,ajaxResult);
     }
 
     @Override
-    public AjaxResult updateEntity(SystemRoleVo systemRoleVo) {
-        try {
-            SystemRole entity = entityClass.newInstance();
-            AjaxResult ajaxResult = preUpdateEntity(entity, systemRoleVo);
-            if (ajaxResult.getCode().equals(AjaxResult.FAIL_CODE)) {
-                return ajaxResult;
-            }
-
-            Wrapper<SystemRole> wrapper = Condition.create();
-            wrapper.eq("rolename",systemRoleVo.getRolename());
-            wrapper.notIn("roleid",systemRoleVo.getRoleid());
-            List<SystemRole> lists = systemRoleService.selectList(wrapper);
-            if(lists.size() > 0){
-                return AjaxResult.failAjaxResult("该角色名称已存在");
-            }
-
-            boolean ff = baseService.updateById(entity);
-            if (ff) {
-                return AjaxResult.successAjaxResult("修改成功");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+    public AjaxResult valiPreUpdateEntity(SystemRole systemRole, AjaxResult ajaxResult) {
+        Wrapper<SystemRole> wrapper = Condition.create();
+        wrapper.eq("rolename",systemRole.getRolename());
+        wrapper.notIn("roleid",systemRole.getRoleid());
+        List<SystemRole> lists = systemRoleService.selectList(wrapper);
+        if(lists.size() > 0){
+            ajaxResult.setMessage("该角色名称已存在");
+            ajaxResult.setCode(AjaxResult.FAIL_CODE);
+            return ajaxResult;
         }
-        return AjaxResult.failAjaxResult("修改失败");
+
+        return super.valiPreUpdateEntity(systemRole, ajaxResult);
     }
 
     @Override
     public AjaxResult delEntity(Long id) {
         try {
 
-            AjaxResult ajaxResult = preDelEntity(id);
-            if (ajaxResult.getCode().equals(AjaxResult.FAIL_CODE)) {
-                return ajaxResult;
+            if(id == null){
+                return AjaxResult.failAjaxResult("id 不能为空");
             }
 
             Wrapper<SystemRoleResource> wrapper = Condition.create();
