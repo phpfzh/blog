@@ -1,10 +1,10 @@
 package com.jxkj.cjm.model;
 
-import java.io.Serializable;
-
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.enums.IdType;
+
+import java.io.Serializable;
 
 @SuppressWarnings("rawtypes")
 public class SuperEntity<T extends Model> extends Model<T>{

@@ -1,5 +1,16 @@
 package com.jxkj.cjm.common.component;
 
+import com.github.tobato.fastdfs.domain.StorePath;
+import com.github.tobato.fastdfs.domain.ThumbImageConfig;
+import com.github.tobato.fastdfs.service.DefaultFastFileStorageClient;
+import com.jxkj.cjm.common.util.WaterMarkUtils;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.annotation.Resource;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -8,19 +19,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.annotation.Resource;
-
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.FilenameUtils;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
-import org.springframework.web.multipart.MultipartFile;
-
-import com.github.tobato.fastdfs.domain.StorePath;
-import com.github.tobato.fastdfs.domain.ThumbImageConfig;
-import com.github.tobato.fastdfs.service.DefaultFastFileStorageClient;
-import com.jxkj.cjm.common.util.WaterMarkUtils;
 
 /**
  * 

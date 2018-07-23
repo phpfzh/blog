@@ -1,22 +1,19 @@
 package com.jxkj.cjm.common.interceptor;
 
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import com.jxkj.cjm.common.component.CjmJwtTokenComponent;
+import com.jxkj.cjm.common.component.RedisUtilComponent;
+import com.jxkj.cjm.common.constat.Redis_Constat;
+import com.jxkj.cjm.common.util.StringUtil;
+import com.jxkj.cjm.model.User;
+import com.jxkj.cjm.model.UserSafety;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mobile.device.Device;
 import org.springframework.mobile.device.LiteDeviceResolver;
 import org.springframework.web.servlet.HandlerInterceptor;
 
-import com.alibaba.fastjson.JSON;
-import com.jxkj.cjm.common.component.CjmJwtTokenComponent;
-import com.jxkj.cjm.common.component.RedisUtilComponent;
-import com.jxkj.cjm.common.constat.Redis_Constat;
-import com.jxkj.cjm.common.response.AjaxResult;
-import com.jxkj.cjm.common.util.StringUtil;
-import com.jxkj.cjm.model.User;
-import com.jxkj.cjm.model.UserSafety;
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 
 /**

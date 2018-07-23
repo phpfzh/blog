@@ -1,16 +1,14 @@
 package com.jxkj.cjm.common.component;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-
-import org.springframework.mobile.device.Device;
-import org.springframework.stereotype.Component;
-
 import com.jxkj.cjm.common.jwt.JwtTokenUtil;
 import com.jxkj.cjm.common.util.StringUtil;
 import com.jxkj.cjm.model.User;
+import org.springframework.mobile.device.Device;
+import org.springframework.stereotype.Component;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.Map;
 
 @Component
 public class CjmJwtTokenComponent extends JwtTokenUtil{

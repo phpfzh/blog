@@ -1,6 +1,6 @@
 package com.jxkj.cjm.controller.admin;
 
-import com.jxkj.cjm.common.controller.BaseController;
+import com.alibaba.fastjson.JSON;
 import com.jxkj.cjm.common.response.AjaxResult;
 import com.jxkj.cjm.common.util.HibernateValidatorUtil;
 import com.jxkj.cjm.common.util.StringUtil;
@@ -8,15 +8,15 @@ import com.jxkj.cjm.common.util.TransferUtil;
 import com.jxkj.cjm.model.SystemUserRole;
 import com.jxkj.cjm.model.vo.SystemUserRoleVo;
 import com.jxkj.cjm.service.SystemUserRoleService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Field;
+import java.lang.reflect.Type;
 import java.util.List;
 
 /**
@@ -25,17 +25,14 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/api/userRole")
-@Api(tags="3",description = "用户角色管理")
-public class SystemUserRoleController extends BaseController<SystemUserRole> {
-
+public class SystemUserRoleController{
 
     @Resource
     private  SystemUserRoleService systemUserRoleService;
 
-    @ApiOperation(value = "用户角色添加",httpMethod ="POST")
     @PostMapping("/save")
     @ResponseBody
-    public AjaxResult insertUserRole(@ApiParam() SystemUserRoleVo systemUserRoleVo){
+    public AjaxResult insertUserRole(SystemUserRoleVo systemUserRoleVo){
         try{
 
              HibernateValidatorUtil<SystemUserRoleVo> validatorUtil = new HibernateValidatorUtil<>();
@@ -63,10 +60,9 @@ public class SystemUserRoleController extends BaseController<SystemUserRole> {
     }
 
 
-    @ApiOperation(value = "用户角色删除",httpMethod ="POST")
     @PostMapping("/del")
     @ResponseBody
-    public AjaxResult delUserRole(@ApiParam() SystemUserRoleVo systemUserRoleVo){
+    public AjaxResult delUserRole(SystemUserRoleVo systemUserRoleVo){
         try{
 
             HibernateValidatorUtil<SystemUserRoleVo> validatorUtil = new HibernateValidatorUtil<>();

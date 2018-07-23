@@ -17,9 +17,7 @@
    SpringBoot    版本2.0 参考:https://docs.spring.io/spring-boot/docs/2.0.4.BUILD-SNAPSHOT/reference/htmlsingle/
 
    mybatis-plus  版本2.1.4    参考:https://github.com/baomidou/mybatis-plus , https://gitee.com/baomidou/mybatis-plus/
-   
-   swagger       版本2.8.0   api文档  参考地址:https://swagger.io/   , https://editor.swagger.io/
-    
+       
    Mysql	  版本6.0   数据库
 
    fastdfs       版本1.26.2    图片服务器

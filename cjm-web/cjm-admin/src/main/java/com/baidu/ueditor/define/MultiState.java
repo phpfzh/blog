@@ -1,12 +1,8 @@
 package com.baidu.ueditor.define;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 import com.baidu.ueditor.Encoder;
+
+import java.util.*;
 
 /**
  * 多状态集合状态

@@ -8,21 +8,12 @@ import com.jxkj.cjm.common.util.HibernateValidatorUtil;
 import com.jxkj.cjm.common.util.StringUtil;
 import com.jxkj.cjm.common.util.TransferUtil;
 import com.jxkj.cjm.model.SystemResource;
-import com.jxkj.cjm.model.SystemRole;
 import com.jxkj.cjm.model.SystemRoleResource;
-import com.jxkj.cjm.model.SystemUserRole;
 import com.jxkj.cjm.model.vo.GroupSave;
 import com.jxkj.cjm.model.vo.GroupUpdate;
 import com.jxkj.cjm.model.vo.SystemResourceVo;
-import com.jxkj.cjm.model.vo.SystemRoleVo;
 import com.jxkj.cjm.service.SystemResourceService;
 import com.jxkj.cjm.service.SystemRoleResourceService;
-import com.jxkj.cjm.service.SystemRoleService;
-import com.jxkj.cjm.service.SystemUserRoleService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,7 +29,6 @@ import java.util.concurrent.locks.ReentrantLock;
  */
 @Controller
 @RequestMapping("/api/resource")
-@Api(tags = "5", description = "权限资源菜单管理")
 public class SystemResourceController extends BaseController<SystemResource> {
 
     private Lock saveLock = new ReentrantLock();//新增lock
@@ -50,10 +40,9 @@ public class SystemResourceController extends BaseController<SystemResource> {
     private SystemRoleResourceService systemRoleResourceService;
 
 
-    @ApiOperation(value = "资源菜单添加", httpMethod = "POST")
     @PostMapping("/save")
     @ResponseBody
-    public AjaxResult insertRole(@ApiParam() SystemResourceVo systemResourceVo) {
+    public AjaxResult insertRole(SystemResourceVo systemResourceVo) {
         try {
             saveLock.lock();//加锁
 
@@ -93,10 +82,9 @@ public class SystemResourceController extends BaseController<SystemResource> {
         return AjaxResult.failAjaxResult("保存失败");
     }
 
-    @ApiOperation(value = "资源菜单修改", httpMethod = "POST")
     @PostMapping("/update")
     @ResponseBody
-    public AjaxResult updateRole(@ApiParam() SystemResourceVo systemResourceVo) {
+    public AjaxResult updateRole( SystemResourceVo systemResourceVo) {
         try {
 
             //验证请求参数
@@ -138,12 +126,9 @@ public class SystemResourceController extends BaseController<SystemResource> {
         return AjaxResult.failAjaxResult("修改失败");
     }
 
-    @ApiOperation(value = "权限资源删除", httpMethod = "POST")
-    @ApiImplicitParam(required = true, value = "资源id", name = "resourceid")
     @PostMapping("/del")
     @ResponseBody
     public AjaxResult delRole(String resourceid) {
-
         try {
 
             if (StringUtil.isEmpty(resourceid)) {

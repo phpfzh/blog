@@ -1,20 +1,17 @@
 package com.jxkj.cjm.controller.admin;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.annotation.Resource;
-
+import com.jxkj.cjm.common.controller.BaseController;
 import com.jxkj.cjm.common.response.ProcessBack;
+import com.jxkj.cjm.service.ForumAttachmentService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.jxkj.cjm.common.controller.BaseController;
-import com.jxkj.cjm.common.response.AjaxResult;
-import com.jxkj.cjm.service.ForumAttachmentService;
+import javax.annotation.Resource;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 

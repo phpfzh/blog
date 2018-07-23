@@ -1,18 +1,16 @@
 package com.jxkj.cjm.controller;
 
-import java.util.List;
-
-import javax.annotation.Resource;
-
+import com.jxkj.cjm.common.controller.BaseController;
+import com.jxkj.cjm.common.response.AjaxResult;
+import com.jxkj.cjm.model.ForumForum;
+import com.jxkj.cjm.service.ForumForumService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.jxkj.cjm.common.controller.BaseController;
-import com.jxkj.cjm.common.response.AjaxResult;
-import com.jxkj.cjm.model.ForumForum;
-import com.jxkj.cjm.service.ForumForumService;
+import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * 

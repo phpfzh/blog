@@ -3,19 +3,11 @@ package com.jxkj.cjm.controller;
 import com.jxkj.cjm.common.response.AjaxResult;
 import com.jxkj.cjm.common.response.ProcessBack;
 import com.jxkj.cjm.common.util.StringUtil;
-import com.jxkj.cjm.controller.apidoc.GenerateUserNameRep;
-import com.jxkj.cjm.controller.apidoc.UserLoingRep;
-import com.jxkj.cjm.controller.apidoc.UserRegRep;
 import com.jxkj.cjm.model.vo.UserLoginVo;
 import com.jxkj.cjm.model.vo.UserRegVo;
 import com.jxkj.cjm.service.UserService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
@@ -32,7 +24,6 @@ import java.util.Map;
 * @version 1.0 
 * www.chenjiaming.com
  */
-@Api(tags = "1",description = "用户登录&&注册接口")
 @Controller
 public class IndexController {
 	
@@ -46,11 +37,10 @@ public class IndexController {
 	 * @param request
 	 * @return
 	 */
-	@ApiOperation(value = "用户注册接口")
 	@ResponseBody
 	@PostMapping("/api/register")
-	public AjaxResult<UserRegRep> register(HttpServletRequest request, @ApiParam UserRegVo userRegVo){
-		ProcessBack processBack = userService.userRegister(request,userRegVo);
+	public AjaxResult register(HttpServletRequest request,  UserRegVo userRegVo){
+ 		ProcessBack processBack = userService.userRegister(request,userRegVo);
  		if(processBack.getCode().equals(ProcessBack.SUCCESS_CODE)){//成功
   			return AjaxResult.successAjaxResult(processBack.getData());
 		}else{
@@ -65,10 +55,9 @@ public class IndexController {
 	 * @param request
 	 * @return
 	 */
-	@ApiOperation(value = "用户登录接口")
 	@ResponseBody
 	@PostMapping("/api/login")
-	public AjaxResult<UserLoingRep> login(HttpServletRequest request, @ApiParam UserLoginVo userLoginVo){
+	public AjaxResult login(HttpServletRequest request,  UserLoginVo userLoginVo){
 		AjaxResult ajaxResult = new AjaxResult();
  		ProcessBack	processBack = userService.userLogin(request,userLoginVo);
  		if(processBack.getCode().equals(ProcessBack.SUCCESS_CODE)){//成功
@@ -85,27 +74,21 @@ public class IndexController {
 	 * @param request
 	 * @return
 	 */
-	@ApiOperation(value = "自动生成用户名")
- 	@ResponseBody
+  	@ResponseBody
 	@PostMapping("/api/generateUserName")
-	public AjaxResult<GenerateUserNameRep> generateUserName(HttpServletRequest request){
-		AjaxResult<GenerateUserNameRep> ajaxResult = new AjaxResult<>();
+	public AjaxResult generateUserName(HttpServletRequest request){
  		try{
 			String username = userService.generateUserName();
 			if(StringUtil.isNotEmpty(username)){
- 				GenerateUserNameRep generateUserNameRep = new GenerateUserNameRep();
-				generateUserNameRep.setUsername(username);
-				ajaxResult.setData(generateUserNameRep);
-				ajaxResult.setCode(AjaxResult.SUCCESS_CODE);
-				ajaxResult.setMessage(AjaxResult.SUCCESS_MESSAGE);
- 				return ajaxResult;
+ 				Map<String,String> ha = new HashMap<>();
+				ha.put("username",username);
+  				return AjaxResult.successAjaxResult(ha);
  			}
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-		ajaxResult.setCode(AjaxResult.FAIL_CODE);
-		ajaxResult.setMessage("生成失败");
-		return ajaxResult;
+
+		return AjaxResult.failAjaxResult("生成失败");
  	}
 	
 	/**
@@ -115,8 +98,6 @@ public class IndexController {
 	 * @param request
 	 * @return
 	 */
-	@ApiOperation(value = "发送短信验证码")
-	@ApiImplicitParam(name = "mobile" ,value = "手机号" ,required = true,dataType = "String")
 	@ResponseBody
 	@PostMapping("/api/ssmRegCode")
 	public AjaxResult sendSSMByRegApi(HttpServletRequest request,String mobile){

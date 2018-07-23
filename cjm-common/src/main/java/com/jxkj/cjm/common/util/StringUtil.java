@@ -1,12 +1,16 @@
 package com.jxkj.cjm.common.util;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.io.Reader;
-import java.io.UnsupportedEncodingException;
+import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.net.URLDecoder;
 import java.security.MessageDigest;
 import java.sql.Clob;
@@ -15,34 +19,29 @@ import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.Set;
-import java.util.StringTokenizer;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
-
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
  
  
 public class StringUtil {
 
 	public static Log log = LogFactory.getLog(StringUtil.class);
+
+	public static void main(String[] args) throws ClassNotFoundException {
+		Class t = Class.forName("com.jxkj.cjm.common.util.StringUtil");
+		System.out.println(t);
+ 		Type parentType = t.getGenericSuperclass();
+		System.out.println(parentType);
+		// 转成参数类型接口
+		ParameterizedType paramterType = (ParameterizedType) parentType;
+		// 得到泛型类型
+		Type[] types = paramterType.getActualTypeArguments();
+		// 得到传入泛型的类
+		//entityClass = (Class<Entity>) types[0];
+	}
 
 	/**
 	 * 删除特定字符

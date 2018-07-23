@@ -1,10 +1,9 @@
 package com.jxkj.cjm.model;
 
 
+import com.baomidou.mybatisplus.annotations.TableName;
 
 import java.math.BigDecimal;
-
-import com.baomidou.mybatisplus.annotations.TableName;
 
 /**
  * 

@@ -1,9 +1,5 @@
 package com.jxkj.cjm.common.util;
 
-import com.jxkj.cjm.common.response.AjaxResult;
-import com.jxkj.cjm.model.vo.GroupSave;
-import com.jxkj.cjm.model.vo.SystemRoleVo;
-
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;

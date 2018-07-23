@@ -1,8 +1,8 @@
 package com.jxkj.cjm.common.config;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.alibaba.fastjson.support.config.FastJsonConfig;
+import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
+import com.jxkj.cjm.common.interceptor.UserApiInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
@@ -17,9 +17,8 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
-import com.alibaba.fastjson.support.config.FastJsonConfig;
-import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
-import com.jxkj.cjm.common.interceptor.UserApiInterceptor;
+import java.util.ArrayList;
+import java.util.List;
 
 @Configuration
 public class ApplicationConfig extends WebMvcConfigurationSupport {
@@ -72,9 +71,7 @@ public class ApplicationConfig extends WebMvcConfigurationSupport {
 	@Override
 	protected void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/static/**").addResourceLocations("/static/");
-		registry.addResourceHandler("swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/");
-		registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
-  		super.addResourceHandlers(registry);
+   		super.addResourceHandlers(registry);
 	}
  	
 	//配置fastjson 中文乱码

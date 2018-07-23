@@ -1,11 +1,6 @@
 package com.jxkj.cjm.common.response;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.alibaba.fastjson.JSON;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 
 /**
  * @author cjm
@@ -13,7 +8,6 @@ import io.swagger.annotations.ApiModelProperty;
  * @Description: TODO(接口返回数据格式定义)
  * @date 2018年4月19日 上午11:47:52
  */
-@ApiModel(description = "返回对象")
 public class AjaxResult<T> {
 
     public static void main(String[] args) {
@@ -26,13 +20,9 @@ public class AjaxResult<T> {
     public static final String FAIL_MESSAGE = "操作失败";//操作失败默认描述
     public static final String MESSAGE = "因网络响应不及时,请联系客服或重新操作";//系统异常默认描述
 
-    @ApiModelProperty(value = "业务处理返回码,88 成功 00 失败")
     private String code;
-    @ApiModelProperty(value = "业务处理返回描述")
     private String message;
-    @ApiModelProperty(value = "数据体")
     private T data;
-    @ApiModelProperty(value = "服务器处理时间撮")
     private Long time;
 
     public AjaxResult() {

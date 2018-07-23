@@ -1,14 +1,12 @@
 package com.jxkj.cjm.model;
 
 
-
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 
 /**
  * 系统资源

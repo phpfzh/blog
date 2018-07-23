@@ -1,10 +1,10 @@
 package com.jxkj.cjm.common.util;
 
+import org.apache.commons.beanutils.PropertyUtilsBean;
+
 import java.beans.PropertyDescriptor;
 import java.util.HashMap;
 import java.util.Map;
-
-import org.apache.commons.beanutils.PropertyUtilsBean;
 
 
 public class TransferUtil {

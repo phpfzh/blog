@@ -1,23 +1,15 @@
 package com.jxkj.cjm.common.jwt;
 
-import java.io.Serializable;
-import java.util.Date;
-import java.util.Map;
-import java.util.function.Function;
-
-import javax.servlet.http.HttpServletRequest;
-
+import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mobile.device.Device;
 import org.springframework.stereotype.Component;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.JwtBuilder;
-import io.jsonwebtoken.JwtException;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.SignatureException;
+import javax.servlet.http.HttpServletRequest;
+import java.io.Serializable;
+import java.util.Date;
+import java.util.Map;
+import java.util.function.Function;
 /**
  * 
 * @ClassName: JwtTokenUtil 
