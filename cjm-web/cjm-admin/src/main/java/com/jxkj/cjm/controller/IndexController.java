@@ -44,7 +44,7 @@ public class IndexController {
  		if(processBack.getCode().equals(ProcessBack.SUCCESS_CODE)){//成功
   			return AjaxResult.successAjaxResult(processBack.getData());
 		}else{
-			return AjaxResult.failAjaxResult();
+			return AjaxResult.failAjaxResult(processBack.getMessage());
 		}
   	}
 	
@@ -105,6 +105,6 @@ public class IndexController {
   		if(processBack.getCode().equals(ProcessBack.SUCCESS_CODE)){
 			return  AjaxResult.successAjaxResult("短信发送成功");
 		}
-		return AjaxResult.failAjaxResult();
+		return AjaxResult.failAjaxResult(processBack.getMessage());
 	}
  }

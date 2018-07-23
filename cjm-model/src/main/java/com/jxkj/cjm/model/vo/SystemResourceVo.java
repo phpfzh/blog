@@ -2,6 +2,7 @@ package com.jxkj.cjm.model.vo;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.Range;
+import reactor.util.annotation.NonNull;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -47,6 +48,7 @@ public class SystemResourceVo {
      * 类型 （1为菜单 2 按钮）
      */
     @Range(min = 1, max = 2, message = "类型值范围是1-2", groups = {GroupSave.class, GroupUpdate.class})
+    @NotNull(message = "菜单类型不能为空",groups = {GroupSave.class, GroupUpdate.class})
     private Integer type;
     /**
      * 权限
