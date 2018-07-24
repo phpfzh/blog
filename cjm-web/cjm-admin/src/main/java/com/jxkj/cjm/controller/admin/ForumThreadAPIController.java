@@ -25,7 +25,7 @@ import javax.annotation.Resource;
 * www.chenjiaming.com
  */
 @Controller
-@RequestMapping("/api/forumThread")
+@RequestMapping("/api/forumThreadApi")
 public class ForumThreadAPIController extends BaseController{
 	
 	@Resource

@@ -2,6 +2,7 @@ package com.jxkj.cjm.common.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.service.IService;
+import com.github.pagehelper.PageInfo;
 import com.jxkj.cjm.common.response.AjaxResult;
 import com.jxkj.cjm.common.util.HibernateValidatorUtil;
 import com.jxkj.cjm.common.util.StringUtil;
@@ -128,7 +129,6 @@ public abstract class AbstractVoBaseController<Entity, EntityVo> extends BaseCon
     public AjaxResult saveEntity(EntityVo entityVo) {
         try {
             Entity entity = entityClass.newInstance();
-
             AjaxResult ajaxResult = preSaveEntity(entity, entityVo);
             if (ajaxResult.getCode().equals(AjaxResult.FAIL_CODE)) {
                 return ajaxResult;
@@ -339,11 +339,11 @@ public abstract class AbstractVoBaseController<Entity, EntityVo> extends BaseCon
                 voLists.add(copyEntityVoByEntity(entity1, en));
             }
 
-            //PageInfo<Object> pagehelper = initPagehelper(map, lists);
+            PageInfo<Object> pagehelper = initPagehelper(map, lists);
 
             Map<String, Object> ha = new HashMap<>();
             ha.put("list", voLists);
-            ha.put("total", voLists.size());
+            ha.put("total", pagehelper.getTotal());
             ha.put("entity", entityVo);
             ajaxResult.setMessage(AjaxResult.SUCCESS_MESSAGE);
             ajaxResult.setCode(AjaxResult.SUCCESS_CODE);
@@ -404,6 +404,16 @@ public abstract class AbstractVoBaseController<Entity, EntityVo> extends BaseCon
                     field1.setAccessible(true); // 设置些属性是可以访问的
                     field1.set(entity, val);
                     break;
+                }else if(name.equals("id")){
+                    try{
+                        Class<?> cd = entity.getClass().getSuperclass();
+                        Field field2 =  cd.getDeclaredField("id");
+                        field2.setAccessible(true); // 设置些属性是可以访问的
+                        field2.set(entity, val);
+                     }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                    break;
                 }
             }
         }
@@ -418,8 +428,10 @@ public abstract class AbstractVoBaseController<Entity, EntityVo> extends BaseCon
      * @param entityVo 前端接收数据实体类
      */
     protected EntityVo copyEntityVoByEntity(Entity entity, EntityVo entityVo) throws IllegalAccessException {
+
         Field[] entityFields = entity.getClass().getDeclaredFields();
         Field[] entityVoFields = entityVo.getClass().getDeclaredFields();
+        boolean ff = false;
         for (Field field : entityFields) {
             field.setAccessible(true); // 设置些属性是可以访问的
             String name = field.getName();
@@ -433,6 +445,10 @@ public abstract class AbstractVoBaseController<Entity, EntityVo> extends BaseCon
                 continue;
             }
 
+            if(name.equals("id")){
+                ff = true;
+            }
+
             for (Field field1 : entityVoFields) {
                 if (field1.getName().equals(name)) {
                     field1.setAccessible(true); // 设置些属性是可以访问的
@@ -441,6 +457,32 @@ public abstract class AbstractVoBaseController<Entity, EntityVo> extends BaseCon
                 }
             }
         }
+
+        if(!ff){
+            Field[] entityParentFields = entity.getClass().getSuperclass().getDeclaredFields();
+            for (Field field : entityParentFields) {
+                field.setAccessible(true); // 设置些属性是可以访问的
+                String name = field.getName();
+                Object val = field.get(entity);
+                Type tpye = field.getGenericType();
+                if (!tpye.toString().contains("class")) {//判断是否是属性
+                    continue;
+                }
+
+                if (val == null || "".equals(val)) {
+                    continue;
+                }
+
+                for (Field field1 : entityVoFields) {
+                    if (field1.getName().equals(name)) {
+                        field1.setAccessible(true); // 设置些属性是可以访问的
+                        field1.set(entityVo, val);
+                        break;
+                    }
+                }
+            }
+        }
+
         System.out.println(JSON.toJSONString(entityVo));
         return entityVo;
     }

@@ -1,20 +1,11 @@
-package com.jxkj.cjm.model;
+package com.jxkj.cjm.model.vo;
 
-import com.baomidou.mybatisplus.annotations.TableField;
-import com.baomidou.mybatisplus.annotations.TableName;
+public class ForumThreadVo {
 
-/**
- * @author cjm
- * @version 1.0 www.chenjiaming.com
- * @ClassName: ForumThread
- * @Description: TODO 主题信息
- * @date 2018年6月3日
- */
-@TableName("forum_thread")
-public class ForumThread extends SuperEntity<ForumThread> {
-
-    private static final long serialVersionUID = 56627677714518132L;
-
+    /**
+     * 主键id
+     **/
+    private Long id;
     /**
      * 板块id
      */
@@ -91,17 +82,22 @@ public class ForumThread extends SuperEntity<ForumThread> {
      * 主题类型 1原创2 转载 3翻译
      **/
     private Integer threadtype;
-
     /**
      * 用户名
-     **/
-    @TableField(exist = false)
+     */
     private String username;
     /**
-     * 真实姓名
-     **/
-    @TableField(exist = false)
-    private String realname;
+     * 版块名称
+     */
+    private String fname;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public Long getFid() {
         return fid;
@@ -263,13 +259,11 @@ public class ForumThread extends SuperEntity<ForumThread> {
         this.username = username;
     }
 
-    public String getRealname() {
-        return realname;
+    public String getFname() {
+        return fname;
     }
 
-    public void setRealname(String realname) {
-        this.realname = realname;
+    public void setFname(String fname) {
+        this.fname = fname;
     }
-
-
 }

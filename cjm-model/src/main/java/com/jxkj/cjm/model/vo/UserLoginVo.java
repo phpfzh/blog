@@ -6,10 +6,14 @@ import javax.validation.constraints.NotBlank;
  * 用户登录
  */
 public class UserLoginVo {
-    /**用户名**/
+    /**
+     * 用户名
+     **/
     @NotBlank(message = "登录名不能为空")
     private String username;
-    /**密码**/
+    /**
+     * 密码
+     **/
     @NotBlank(message = "登录密码不能为空")
     private String password;
 

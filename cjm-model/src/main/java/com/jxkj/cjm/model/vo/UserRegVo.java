@@ -10,19 +10,29 @@ import javax.validation.constraints.NotBlank;
  * @Description:
  * @ClassName: UserRegVo
  */
- public class UserRegVo {
-    /**用户名**/
-    @Length(max = 10,message = "用户名长度不能超过10位")
+public class UserRegVo {
+    /**
+     * 用户名
+     **/
+    @Length(max = 10, message = "用户名长度不能超过10位")
     private String username;
-    /**邮箱**/
+    /**
+     * 邮箱
+     **/
     private String email;
-    /**手机号**/
+    /**
+     * 手机号
+     **/
     @NotBlank(message = "手机号不能为空")
-     private String mobile;
-    /**密码**/
+    private String mobile;
+    /**
+     * 密码
+     **/
     @NotBlank(message = "用户密码不能为空")
     private String password;
-    /**手机短信验证码**/
+    /**
+     * 手机短信验证码
+     **/
     @NotBlank(message = "手机短信验证码不能为空")
     private String code;
 

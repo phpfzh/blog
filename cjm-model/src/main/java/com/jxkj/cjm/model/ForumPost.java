@@ -4,172 +4,200 @@ import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableName;
 
 /**
- * 
+ * @author cjm
+ * @version 1.0 www.chenjiaming.com
  * @ClassName: ForumPost
  * @Description: TODO 主题内容
- * @author cjm
  * @date 2018年6月3日
- * @version 1.0 www.chenjiaming.com
  */
 @TableName("forum_post")
 public class ForumPost extends SuperEntity<ForumPost> {
 
-	private static final long serialVersionUID = 85107923110850012L;
+    private static final long serialVersionUID = 85107923110850012L;
 
-	/** 板块id */
-	private Long fid;
-	/** 主题id */
-	private Long tid;
-	/** 用户id */
-	private Long baseid;
-	/** 主题标题 */
-	private String subject;
-	/** 内容 */
-	private String content;
-	/** 状态-1审核中 -2审核失败 0审核通过 */
-	private Integer status;
-	/** 添加时间 */
-	private Long addtime;
-	/** 修改时间 */
-	private Long updatetime;
-	/** 修改用户id */
-	private Long updatebaseid;
-	/** 是否删除1是0否 */
-	private Integer isdelete;
-	/** 用户ip */
-	private String useip;
-	/** 附件个数 */
-	private Integer attachment;
- 	/** 是否带签名1是0否 */
-	private Integer usesig;
-	
-	/**用户名**/
-	@TableField(exist = false)
-	private String username;
-	/**真实姓名**/
-	@TableField(exist = false)
-	private String realname;
+    /**
+     * 板块id
+     */
+    private Long fid;
+    /**
+     * 主题id
+     */
+    private Long tid;
+    /**
+     * 用户id
+     */
+    private Long baseid;
+    /**
+     * 主题标题
+     */
+    private String subject;
+    /**
+     * 内容
+     */
+    private String content;
+    /**
+     * 状态-1审核中 -2审核失败 0审核通过
+     */
+    private Integer status;
+    /**
+     * 添加时间
+     */
+    private Long addtime;
+    /**
+     * 修改时间
+     */
+    private Long updatetime;
+    /**
+     * 修改用户id
+     */
+    private Long updatebaseid;
+    /**
+     * 是否删除1是0否
+     */
+    private Integer isdelete;
+    /**
+     * 用户ip
+     */
+    private String useip;
+    /**
+     * 附件个数
+     */
+    private Integer attachment;
+    /**
+     * 是否带签名1是0否
+     */
+    private Integer usesig;
 
-	public Long getFid() {
-		return fid;
-	}
+    /**
+     * 用户名
+     **/
+    @TableField(exist = false)
+    private String username;
+    /**
+     * 真实姓名
+     **/
+    @TableField(exist = false)
+    private String realname;
 
-	public void setFid(Long fid) {
-		this.fid = fid;
-	}
+    public Long getFid() {
+        return fid;
+    }
 
-	public Long getTid() {
-		return tid;
-	}
+    public void setFid(Long fid) {
+        this.fid = fid;
+    }
 
-	public void setTid(Long tid) {
-		this.tid = tid;
-	}
+    public Long getTid() {
+        return tid;
+    }
 
-	public Long getBaseid() {
-		return baseid;
-	}
+    public void setTid(Long tid) {
+        this.tid = tid;
+    }
 
-	public void setBaseid(Long baseid) {
-		this.baseid = baseid;
-	}
+    public Long getBaseid() {
+        return baseid;
+    }
 
-	public String getSubject() {
-		return subject;
-	}
+    public void setBaseid(Long baseid) {
+        this.baseid = baseid;
+    }
 
-	public void setSubject(String subject) {
-		this.subject = subject;
-	}
+    public String getSubject() {
+        return subject;
+    }
 
-	public String getContent() {
-		return content;
-	}
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }
 
-	public void setContent(String content) {
-		this.content = content;
-	}
+    public String getContent() {
+        return content;
+    }
 
-	public Integer getStatus() {
-		return status;
-	}
+    public void setContent(String content) {
+        this.content = content;
+    }
 
-	public void setStatus(Integer status) {
-		this.status = status;
-	}
+    public Integer getStatus() {
+        return status;
+    }
 
-	public Long getAddtime() {
-		return addtime;
-	}
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
 
-	public void setAddtime(Long addtime) {
-		this.addtime = addtime;
-	}
+    public Long getAddtime() {
+        return addtime;
+    }
 
-	public Long getUpdatetime() {
-		return updatetime;
-	}
+    public void setAddtime(Long addtime) {
+        this.addtime = addtime;
+    }
 
-	public void setUpdatetime(Long updatetime) {
-		this.updatetime = updatetime;
-	}
+    public Long getUpdatetime() {
+        return updatetime;
+    }
 
-	public Long getUpdatebaseid() {
-		return updatebaseid;
-	}
+    public void setUpdatetime(Long updatetime) {
+        this.updatetime = updatetime;
+    }
 
-	public void setUpdatebaseid(Long updatebaseid) {
-		this.updatebaseid = updatebaseid;
-	}
+    public Long getUpdatebaseid() {
+        return updatebaseid;
+    }
 
-	public Integer getIsdelete() {
-		return isdelete;
-	}
+    public void setUpdatebaseid(Long updatebaseid) {
+        this.updatebaseid = updatebaseid;
+    }
 
-	public void setIsdelete(Integer isdelete) {
-		this.isdelete = isdelete;
-	}
+    public Integer getIsdelete() {
+        return isdelete;
+    }
 
-	public String getUseip() {
-		return useip;
-	}
+    public void setIsdelete(Integer isdelete) {
+        this.isdelete = isdelete;
+    }
 
-	public void setUseip(String useip) {
-		this.useip = useip;
-	}
+    public String getUseip() {
+        return useip;
+    }
 
-	public Integer getAttachment() {
-		return attachment;
-	}
+    public void setUseip(String useip) {
+        this.useip = useip;
+    }
 
-	public void setAttachment(Integer attachment) {
-		this.attachment = attachment;
-	}
+    public Integer getAttachment() {
+        return attachment;
+    }
 
-	public Integer getUsesig() {
-		return usesig;
-	}
+    public void setAttachment(Integer attachment) {
+        this.attachment = attachment;
+    }
 
-	public void setUsesig(Integer usesig) {
-		this.usesig = usesig;
-	}
+    public Integer getUsesig() {
+        return usesig;
+    }
 
-	public String getUsername() {
-		return username;
-	}
+    public void setUsesig(Integer usesig) {
+        this.usesig = usesig;
+    }
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
+    public String getUsername() {
+        return username;
+    }
 
-	public String getRealname() {
-		return realname;
-	}
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-	public void setRealname(String realname) {
-		this.realname = realname;
-	}
-	
-	
+    public String getRealname() {
+        return realname;
+    }
+
+    public void setRealname(String realname) {
+        this.realname = realname;
+    }
+
 
 }

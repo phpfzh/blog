@@ -4,6 +4,8 @@ package com.jxkj.cjm.service.impl;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 import javax.annotation.Resource;
 
@@ -47,6 +49,9 @@ public class ForumThreadServiceImpl extends ServiceImpl<ForumThreadMapper,ForumT
 	
 	@Resource
 	private ForumThreadOperationMapper forumThreadOperationMapper;
+
+	private Lock saveLock = new ReentrantLock();
+
 	/**
 	 * 
 	 * Title: insertForumThread 
@@ -62,6 +67,9 @@ public class ForumThreadServiceImpl extends ServiceImpl<ForumThreadMapper,ForumT
 	public  int insertForumThread(Long baseid,String fid,String threadtype,
 			String subject,String content,String userip,String usesig ,Meta meta){
 		try{
+
+			saveLock.lock();
+
 			//验证参数是否为空
 			String str = checkInsertForumThread(baseid,fid, threadtype, subject, content);
 			if(StringUtil.isNotEmpty(str)){//验证不通过
@@ -158,6 +166,8 @@ public class ForumThreadServiceImpl extends ServiceImpl<ForumThreadMapper,ForumT
 		}catch(Exception e){
 			e.printStackTrace();
 			return 0;
+		}finally {
+			saveLock.unlock();
 		}
  	}
 	

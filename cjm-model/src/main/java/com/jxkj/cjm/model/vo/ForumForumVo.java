@@ -1,27 +1,38 @@
-package com.jxkj.cjm.model;
+package com.jxkj.cjm.model.vo;
 
-import com.baomidou.mybatisplus.annotations.TableName;
+import org.hibernate.validator.constraints.Range;
+
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 /**
- * @author cjm
- * @version 1.0 www.chenjiaming.com
- * @ClassName: ForumForum
- * @Description: 栏目表
- * @date 2018年5月31日
+ * 版块 vo
  */
-@TableName("forum_forum")
-public class ForumForum extends SuperEntity<ForumForum> {
-
-    private static final long serialVersionUID = 79056245001848264L;
-
+public class ForumForumVo {
+    @NotNull(message = "id不能为空", groups = GroupUpdate.class)
+    private Long id;
     /**
      * 板块名称
      */
+    @NotBlank(message = "版块名称不能为空", groups = {GroupSave.class, GroupUpdate.class})
     private String name;
     /**
      * 状态1显示0不显示
      */
+    @NotNull(message = "是否显示不能为空", groups = {GroupUpdate.class})
+    @Range(min = 0, max = 1, message = "是否显示值范围：0-1", groups = {GroupSave.class, GroupUpdate.class})
     private Integer status;
+    /**
+     * 是否删除1是0否
+     */
+    @Range(min = 0, max = 1, message = "是否删除值范围：0-1", groups = {GroupSave.class, GroupUpdate.class})
+    private Integer isdelete;
+    /**
+     * 排序最大100
+     */
+    @Max(value = 100, message = "排序最大值：100", groups = {GroupSave.class, GroupUpdate.class})
+    private Integer sort;
     /**
      * 主题数量
      */
@@ -47,13 +58,14 @@ public class ForumForum extends SuperEntity<ForumForum> {
      */
     private Long updatebaseid;
     /**
-     * 是否删除1是0否
-     */
-    private Integer isdelete;
+     * 添加人用户名
+     **/
+    private String addusername;
     /**
-     * 排序最大100
-     */
-    private Integer sort;
+     * 修改人用户名
+     **/
+    private String updateusername;
+
 
     public String getName() {
         return name;
@@ -135,4 +147,27 @@ public class ForumForum extends SuperEntity<ForumForum> {
         this.sort = sort;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getAddusername() {
+        return addusername;
+    }
+
+    public void setAddusername(String addusername) {
+        this.addusername = addusername;
+    }
+
+    public String getUpdateusername() {
+        return updateusername;
+    }
+
+    public void setUpdateusername(String updateusername) {
+        this.updateusername = updateusername;
+    }
 }
