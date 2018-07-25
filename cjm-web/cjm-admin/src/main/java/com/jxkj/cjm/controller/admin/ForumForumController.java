@@ -46,14 +46,12 @@ public class ForumForumController extends AbstractVoBaseController<ForumForum,Fo
 	private UserService userService;
 
 	@Override
-	public AjaxResult valiPreSaveEntity(ForumForum forumForum, AjaxResult ajaxResult) {
+	public AjaxResult valiPreSaveEntity(ForumForum forumForum) {
 		Wrapper<ForumForum> wrapper = Condition.create();
 		wrapper.eq("name", forumForum.getName());
 		List<ForumForum> lists = baseService.selectList(wrapper);
 		if (lists.size() > 0) {
-			ajaxResult.setCode(AjaxResult.FAIL_CODE);
-			ajaxResult.setMessage("该板块已存在");
-			return ajaxResult;
+ 			return AjaxResult.failAjaxResult("该板块已存在");
 		}
 
 		String baseIdStr = cjmJwtTokenComponent.getUserBaseId(request);
@@ -66,20 +64,18 @@ public class ForumForumController extends AbstractVoBaseController<ForumForum,Fo
 		forumForum.setAddtime(addtime); //添加时间
 		forumForum.setIsdelete(0); //是否删除1是0否
 		forumForum.setSort(forumForum.getSort() == null ? 0 : forumForum.getSort()); //排序最大100
-		return super.valiPreSaveEntity(forumForum, ajaxResult);
+		return super.valiPreSaveEntity(forumForum);
 	}
 
 	@Override
-	public AjaxResult valiPreUpdateEntity(ForumForum forumForum, AjaxResult ajaxResult) {
+	public AjaxResult valiPreUpdateEntity(ForumForum forumForum) {
 
 		Wrapper<ForumForum> wrapper = Condition.create();
 		wrapper.eq("name", forumForum.getName());
 		wrapper.notIn("id", forumForum.getId());
 		List<ForumForum> lists = baseService.selectList(wrapper);
 		if (lists.size() > 0) {
-			ajaxResult.setCode(AjaxResult.FAIL_CODE);
-			ajaxResult.setMessage("该板块已存在");
-			return ajaxResult;
+ 			return AjaxResult.failAjaxResult("该板块已存在");
 		}
 
 		String baseIdStr = cjmJwtTokenComponent.getUserBaseId(request);
@@ -87,7 +83,7 @@ public class ForumForumController extends AbstractVoBaseController<ForumForum,Fo
 		forumForum.setUpdatebaseid(baseid);
 		Long updateTime = System.currentTimeMillis();
 		forumForum.setUpdatetime(updateTime);
-		return super.valiPreUpdateEntity(forumForum, ajaxResult);
+		return super.valiPreUpdateEntity(forumForum);
 	}
 
 
@@ -112,10 +108,8 @@ public class ForumForumController extends AbstractVoBaseController<ForumForum,Fo
 
 	@Override
 	public AjaxResult preList(ForumForum forumForum, ForumForumVo forumForumVo) {
-		AjaxResult ajaxResult = new AjaxResult();
-		try {
+ 		try {
 			forumForum = copyEntityByEntityVo(forumForum, forumForumVo);
-
 
 			// 处理分页请求
 			String pageNum = request.getParameter("pageNum");
@@ -135,18 +129,14 @@ public class ForumForumController extends AbstractVoBaseController<ForumForum,Fo
 			ha.put("list", voLists);
 			ha.put("total", pagehelper.getTotal());
 			ha.put("entity", forumForumVo);
-			ajaxResult.setMessage(AjaxResult.SUCCESS_MESSAGE);
-			ajaxResult.setCode(AjaxResult.SUCCESS_CODE);
-			ajaxResult.setData(ha);
-			return ajaxResult;
+ 			return AjaxResult.successAjaxResult(ha);
 		} catch (IllegalAccessException e) {
 			e.printStackTrace();
 		}catch (Exception e){
 			e.printStackTrace();
 		}
-		ajaxResult.setMessage(AjaxResult.MESSAGE);
-		ajaxResult.setCode(AjaxResult.FAIL_CODE);
-		return ajaxResult;
+
+		return AjaxResult.failAjaxResult(AjaxResult.MESSAGE);
 	}
 
 	private ForumForumVo parseForumForumVo(ForumForum forumForum){

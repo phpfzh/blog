@@ -93,18 +93,4 @@ public class ApplicationConfig extends WebMvcConfigurationSupport {
 		converters.add(fastConverter);
 	}
 
-  	/**
-  	 * 配置解决跨域问题
-  	 */
-	@Override
-	protected void addCorsMappings(CorsRegistry registry) {
-		registry.addMapping("/**")
-				.allowCredentials(true)
-				.allowedOrigins("*")
-				.allowedHeaders("*")
-				.maxAge(36000L)  //单位秒
-				.allowedMethods("GET", "HEAD", "POST", "PUT", "DELETE", "OPTIONS");
-				
-	}
- 
 }

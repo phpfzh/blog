@@ -43,8 +43,7 @@ public class ForumThreadAPIController extends BaseController{
 	@ResponseBody
 	@PostMapping("/insertForumThread")
 	public AjaxResult insertForumThread(){
-		AjaxResult ajaxResult = new AjaxResult();
-		try{
+ 		try{
 			String baseId = cjmJwtTokenComponent.getUserBaseId(request);
 			String fid = request.getParameter("fid");
 			String threadtype = request.getParameter("threadtype");
@@ -56,20 +55,14 @@ public class ForumThreadAPIController extends BaseController{
  			int count = forumThreadService.insertForumThread(Long.valueOf(baseId), fid, threadtype,
 					subject, content, userip, usesig,meta);
 			if(count == 2){//校验不通过
- 				ajaxResult.setMessage(meta.getMessage());
-				ajaxResult.setCode(AjaxResult.FAIL_CODE);
-				return ajaxResult;
+ 				return AjaxResult.failAjaxResult(meta.getMessage());
 			}else if(count == 1){
-				ajaxResult.setMessage("保存成功");
-				ajaxResult.setCode(AjaxResult.SUCCESS_CODE);
-				return ajaxResult;
+ 				return AjaxResult.successAjaxResult("保存成功");
 			}
 		}catch(Exception e){
 			e.printStackTrace();
 		}
- 		ajaxResult.setMessage("因网络响应不及时,操作失败");
-		ajaxResult.setCode(AjaxResult.FAIL_CODE);
-		return ajaxResult;
+ 		return AjaxResult.failAjaxResult(AjaxResult.MESSAGE);
 	}
 	 
 	/**
@@ -82,158 +75,17 @@ public class ForumThreadAPIController extends BaseController{
 	@ResponseBody
 	@PostMapping("/getForumThreads")
 	public AjaxResult getForumThreads(ForumThread forumThread){
-		AjaxResult ajaxResult = new AjaxResult();
-		try{
+ 		try{
 			String pageSize = request.getParameter("pageSize");
 			String orderBy = request.getParameter("orderBy");
 			String pageNum = request.getParameter("pageNum");
 			PageInfo<Object> lists = forumThreadService.getForumThreadsBy(pageSize, pageNum, orderBy, forumThread);
- 			ajaxResult.setMessage("查询成功");
-			ajaxResult.setData(lists);
-			ajaxResult.setCode(AjaxResult.SUCCESS_CODE);
-			return ajaxResult;
+ 			return AjaxResult.successAjaxResult("查询成功",lists);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-		ajaxResult.setMessage("因网络响应不及时,操作失败");
-		ajaxResult.setCode(AjaxResult.FAIL_CODE);
-		return ajaxResult;
+ 		return AjaxResult.failAjaxResult(AjaxResult.MESSAGE);
 	}
 	
-	/**
-	 * 
-	 * Title: auditForumThread 
-	 * TODO:(审核主题) 
-	 * @param forumThread
-	 * @return
-	 */
-	@ResponseBody
-	@PostMapping("/auditForumThread")
-	public AjaxResult auditForumThread(ForumThread forumThread){
-		AjaxResult ajaxResult = new AjaxResult();
-		try{
-			String baseId = cjmJwtTokenComponent.getUserBaseId(request);
-			String status = request.getParameter("status");
-			String tid = request.getParameter("tid");
-  			String userip = IPUtil.getIpAdd(request);
-			Meta meta = new Meta();
-			int count = forumThreadService.auditForumThread(tid, status, Long.valueOf(baseId), userip, meta);
-			if(count == 2){//校验不通过
-				ajaxResult.setMessage(meta.getMessage());
-				ajaxResult.setCode(AjaxResult.FAIL_CODE);
-				return ajaxResult;
- 			}else if(count == 1){
- 				ajaxResult.setMessage("操作成功");
-				ajaxResult.setCode(AjaxResult.SUCCESS_CODE);
-				return ajaxResult;
-			}
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-		ajaxResult.setMessage("因网络响应不及时,操作失败");
-		ajaxResult.setCode(AjaxResult.FAIL_CODE);
-		return ajaxResult;
- 	}
-	
-	/**
-	 * 
-	 * Title: auditBatchForumThread 
-	 * TODO:(批量审核主题信息) 
-	 * @param forumThread
-	 * @return
-	 */
-	@ResponseBody
-	@PostMapping("/auditBatchForumThread")
-	public AjaxResult auditBatchForumThread(ForumThread forumThread){
-		AjaxResult ajaxResult = new AjaxResult();
-		try{
-			String baseId = cjmJwtTokenComponent.getUserBaseId(request);
-			String status = request.getParameter("status");
-			String tids = request.getParameter("tids");
-  			String userip = IPUtil.getIpAdd(request);
-			Meta meta = new Meta();
-			int count = forumThreadService.auditBatchForumThread(tids, status, Long.valueOf(baseId), userip, meta);
-			if(count == 2){//校验不通过
-				ajaxResult.setMessage(meta.getMessage());
-				ajaxResult.setCode(AjaxResult.FAIL_CODE);
-  			}else if(count == 1){
-				ajaxResult.setMessage("操作成功");
-				ajaxResult.setCode(AjaxResult.SUCCESS_CODE);
- 			}
-			return ajaxResult;
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-		ajaxResult.setMessage("因网络响应不及时,操作失败");
-		ajaxResult.setCode(AjaxResult.FAIL_CODE);
-		return ajaxResult;
- 	}
-	
-	/**
-	 * 
-	 * Title: delForumThread 
-	 * TODO:(删除主题) 
-	 * @param forumThread
-	 * @return
-	 */
-	@ResponseBody
-	@PostMapping("/delForumThread")
-	public AjaxResult delForumThread(ForumThread forumThread){
-		AjaxResult ajaxResult = new AjaxResult();
-		try{
-			String baseId = cjmJwtTokenComponent.getUserBaseId(request);
-			String status = request.getParameter("status");
-			String tid = request.getParameter("tid");
-  			String userip = IPUtil.getIpAdd(request);
-			Meta meta = new Meta();
-			int count = forumThreadService.delForumThread(tid, status, Long.valueOf(baseId), userip, meta);
-			if(count == 2){//校验不通过
- 				ajaxResult.setMessage(meta.getMessage());
-				ajaxResult.setCode(AjaxResult.FAIL_CODE);
-			}else if(count == 1){
-				ajaxResult.setMessage("操作成功");
-				ajaxResult.setCode(AjaxResult.SUCCESS_CODE);
- 			}
-			return ajaxResult;
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-		ajaxResult.setMessage("因网络响应不及时,操作失败");
-		ajaxResult.setCode(AjaxResult.FAIL_CODE);
-		return ajaxResult;
- 	}
-	
-	/**
-	 * 
-	 * Title: delBatchForumThread 
-	 * TODO:(批量删除主题信息) 
-	 * @param forumThread
-	 * @return
-	 */
-	@ResponseBody
-	@PostMapping("/delBatchForumThread")
-	public AjaxResult delBatchForumThread(ForumThread forumThread){
-		AjaxResult ajaxResult = new AjaxResult();
-		try{
-			String baseId = cjmJwtTokenComponent.getUserBaseId(request);
-			String status = request.getParameter("status");
-			String tids = request.getParameter("tids");
-  			String userip = IPUtil.getIpAdd(request);
-			Meta meta = new Meta();
-			int count = forumThreadService.delBatchForumThread(tids, status, Long.valueOf(baseId), userip, meta);
-			if(count == 2){//校验不通过
-				ajaxResult.setMessage(meta.getMessage());
-				ajaxResult.setCode(AjaxResult.FAIL_CODE);
- 			}else if(count == 1){
-				ajaxResult.setMessage("操作成功");
-				ajaxResult.setCode(AjaxResult.SUCCESS_CODE);
- 			}
-				return ajaxResult;
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-		ajaxResult.setMessage("因网络响应不及时,操作失败");
-		ajaxResult.setCode(AjaxResult.FAIL_CODE);
-		return ajaxResult;
- 	}
+
 }

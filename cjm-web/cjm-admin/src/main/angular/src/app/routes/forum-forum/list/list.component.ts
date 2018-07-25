@@ -1,14 +1,19 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import {Component, Inject, OnInit, Optional, ViewChild} from '@angular/core';
 import { _HttpClient, ModalHelper } from '@delon/theme';
 import { SimpleTableColumn, SimpleTableComponent } from '@delon/abc';
 import { SFSchema } from '@delon/form';
+import {BASE_PATH} from "../../../generated/variables";
 
 @Component({
-  selector: 'app-user-list2',
-  templateUrl: './list2.component.html',
+  selector: 'app-forum-forum-list',
+  templateUrl: './list.component.html',
 })
-export class UserList2Component implements OnInit {
-  url = `/user`;
+export class ForumForumListComponent implements OnInit {
+  url :string ;
+  basePath :string ;
+  ngOnInit() {
+    this.url = `${this.basePath}/api/forumForum/list`;
+  }
   searchSchema: SFSchema = {
     properties: {
       no: {
@@ -19,10 +24,9 @@ export class UserList2Component implements OnInit {
   };
   @ViewChild('st') st: SimpleTableComponent;
   columns: SimpleTableColumn[] = [
-    { title: '编号', index: 'no' },
-    { title: '调用次数', type: 'number', index: 'callNo' },
-    { title: '头像', type: 'img', width: '50px', index: 'avatar' },
-    { title: '时间', type: 'date', index: 'updatedAt' },
+    { title: '编号', index: 'addtime' },
+    { title: '调用次数',  index: 'addusername' },
+     { title: '时间', type: 'date', index: 'addtime' },
     {
       title: '',
       buttons: [
@@ -32,9 +36,15 @@ export class UserList2Component implements OnInit {
     }
   ];
 
-  constructor(private http: _HttpClient, private modal: ModalHelper) { }
+  constructor(private http: _HttpClient,
+              private modal: ModalHelper,
+              @Optional() @Inject(BASE_PATH) basePath: string) {
+    if (basePath) {
+      this.basePath = basePath;
+    }
+  }
 
-  ngOnInit() { }
+
 
   add() {
     // this.modal

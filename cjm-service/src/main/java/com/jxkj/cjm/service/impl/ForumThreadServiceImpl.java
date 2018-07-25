@@ -201,6 +201,7 @@ public class ForumThreadServiceImpl extends ServiceImpl<ForumThreadMapper,ForumT
 			  if(forumThread.getIsdelete() == null){
 				  forumThread.setIsdelete(0);
 			  }
+
 			  System.out.println(JSON.toJSONString(forumThread));
 			  List<ForumThread> lists = baseMapper.selectByMap(TransferUtil.beanToMap(forumThread));
 			  for(ForumThread forumThread2 : lists){
@@ -288,7 +289,7 @@ public class ForumThreadServiceImpl extends ServiceImpl<ForumThreadMapper,ForumT
 			forumThread.setId(tidL);
 			forumThread.setModerated(1);
 			forumThread.setStatus(-2);//状态-1审核中 -2审核失败 0审核通过 
-			forumThread.setIsdelete(0);
+			forumThread.setIsdelete(1);
 			
 			ForumPost entity = new ForumPost();
 			entity.setTid(tidL);
@@ -298,10 +299,12 @@ public class ForumThreadServiceImpl extends ServiceImpl<ForumThreadMapper,ForumT
 			}
 			
  			forumPost.setStatus(-2);//状态-1审核中 -2审核失败 0审核通过
-			forumPost.setIsdelete(0);
+			forumPost.setIsdelete(1);//是否删除 1是0否
 			if(status.equals("1")){//审核通过
-				forumThread.setStatus(0);//状态-1审核中 -2审核失败 0审核通过 
+				forumThread.setStatus(0);//状态-1审核中 -2审核失败 0审核通过
+				forumThread.setIsdelete(0);//是否删除 1是0否
 				forumPost.setStatus(0);//状态-1审核中 -2审核失败 0审核通过
+				forumPost.setIsdelete(0);//是否删除 1是0否
 				int count = 0;
 				count = baseMapper.updateById(forumThread);
  				if(!(count > 0 )){

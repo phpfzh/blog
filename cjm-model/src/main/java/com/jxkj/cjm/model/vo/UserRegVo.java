@@ -2,6 +2,7 @@ package com.jxkj.cjm.model.vo;
 
 import org.hibernate.validator.constraints.Length;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 /**
@@ -19,6 +20,7 @@ public class UserRegVo {
     /**
      * 邮箱
      **/
+    @Email(message = "邮箱格式不正确")
     private String email;
     /**
      * 手机号

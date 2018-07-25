@@ -36,17 +36,19 @@ import { DelonAuthConfig } from '@delon/auth';
 export function delonAuthConfig(): DelonAuthConfig {
   return Object.assign(new DelonAuthConfig(), <DelonAuthConfig>{
     login_url: '/passport/login',
+    ignores:[/\/login/, /passport\//,/\/passport\/register-result/],
+    token_send_template:'Bearer ${token}'
   });
 }
 
 //api 请求域名定义
-import {Configuration} from '../generated/configuration';
-import {ApiModule} from '../generated/api.module';
+import {Configuration} from './generated/configuration';
+import {ApiModule} from './generated/api.module';
 import {AlainI18NServiceFake} from "@delon/theme/src/services/i18n/i18n";
+import {BASE_PATH} from "./generated/variables";
 export function apiConfig(): Configuration {
   return new Configuration({
-   // basePath: `${location.protocol}//${location.host}`
-    basePath: `http://localhost:8080/`
+     //这里可以给一些全局默认配置
   });
 }
 
@@ -88,7 +90,9 @@ export class DelonModule {
         // TIPS：@delon/abc 有大量的全局配置信息，例如设置所有 `simple-table` 的页码默认为 `20` 行
         // { provide: SimpleTableConfig, useFactory: simpleTableConfig }
         { provide: AdPageHeaderConfig, useFactory: pageHeaderConfig },
-        { provide: DelonAuthConfig, useFactory: delonAuthConfig }
+        { provide: DelonAuthConfig, useFactory: delonAuthConfig },
+        //http 域名配置
+        { provide: BASE_PATH, useValue: "http://localhost:8080" }
        ],
     };
   }

@@ -196,7 +196,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements Use
 			}
 			
  			//用户名不为空的时候判断该用户名是否已注册
-			if(StringUtil.isNotEmpty(userRegVo.getUsername())){
+			if(userRegVo.getUsername() != null && StringUtil.isNotEmpty(userRegVo.getUsername())){
 				User entityValid1 = new User();
 				entityValid1.setUsername(userRegVo.getUsername());
 				User commonMemberValidate1 = baseMapper.selectOne(entityValid1);
@@ -211,7 +211,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements Use
  			}
 			
 			//判断邮箱是否已注册
-			if(StringUtil.isNotEmpty(userRegVo.getEmail())){
+			if(userRegVo.getEmail() != null && StringUtil.isNotEmpty(userRegVo.getEmail())){
 				User entityValid2 = new User();
 				entityValid2.setEmail(userRegVo.getEmail());
 				User commonMemberValidate2 = baseMapper.selectOne(entityValid2);
@@ -265,7 +265,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements Use
  				commonMember.setDevice(device.getDevicePlatform().name());//注册来源  
 			}
 			
-			if(StringUtil.isNotEmpty(userRegVo.getEmail())){
+			if(userRegVo.getEmail() != null && StringUtil.isNotEmpty(userRegVo.getEmail())){
 				commonMember.setEmail(userRegVo.getEmail());//邮箱
 			}
 			

@@ -17,7 +17,7 @@ import {UserLockComponent} from './passport/lock/lock.component';
 import {Exception403Component} from './exception/403.component';
 import {Exception404Component} from './exception/404.component';
 import {Exception500Component} from './exception/500.component';
-import {PermissionModule} from "./permission/permission.module";
+import {ForumForumModule} from "./forum-forum/forum-forum.module";
 
 const routes: Routes = [
   {
@@ -26,9 +26,7 @@ const routes: Routes = [
     children: [
       {path: '', redirectTo: 'dashboard', pathMatch: 'full', data: {title: '用户管理'}},
       {path: 'dashboard', component: DashboardComponent, data: {title: '仪表盘', titleI18n: 'dashboard'}},
-      {path: 'user', loadChildren: './user/user.module#UserModule'},
-      //权限模块
-      {path: 'permission', loadChildren: './permission/permission.module#PermissionModule'},
+      { path: 'forumForum', loadChildren: './forum-forum/forum-forum.module#ForumForumModule' }
        // 业务子模块
       // { path: 'widgets', loadChildren: './widgets/widgets.module#WidgetsModule' }
     ]

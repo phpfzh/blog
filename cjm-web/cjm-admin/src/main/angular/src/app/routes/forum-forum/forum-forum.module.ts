@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { SharedModule } from '@shared/shared.module';
-import { PermissionRoutingModule } from './permission-routing.module';
-import { PermissionRoleComponent } from './role/role.component';
+import { ForumForumRoutingModule } from './forum-forum-routing.module';
+import { ForumForumListComponent } from './list/list.component';
 
 const COMPONENTS = [
-  PermissionRoleComponent];
+  ForumForumListComponent];
 const COMPONENTS_NOROUNT = [];
 
 @NgModule({
   imports: [
     SharedModule,
-    PermissionRoutingModule
+    ForumForumRoutingModule
   ],
   declarations: [
     ...COMPONENTS,
@@ -18,4 +18,4 @@ const COMPONENTS_NOROUNT = [];
   ],
   entryComponents: COMPONENTS_NOROUNT
 })
-export class PermissionModule { }
+export class ForumForumModule { }

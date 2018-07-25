@@ -23,6 +23,13 @@ export class StartupService {
   }
 
   private viaHttp(resolve: any, reject: any) {
+    const tokenData = this.tokenService.get();
+    if (!tokenData.token) {
+      this.injector.get(Router).navigateByUrl('/passport/login');
+      resolve({});
+      return;
+    }
+
     zip(
       this.httpClient.get('assets/tmp/app-data.json')
     ).pipe(
@@ -54,7 +61,8 @@ export class StartupService {
   }
 
   private viaMock(resolve: any, reject: any) {
-    // const tokenData = this.tokenService.get();
+    console.log("==================")
+    //const tokenData = this.tokenService.get();
     // if (!tokenData.token) {
     //   this.injector.get(Router).navigateByUrl('/passport/login');
     //   resolve({});
@@ -80,39 +88,23 @@ export class StartupService {
     // 初始化菜单
     this.menuService.add([
       {
-        text: '后台管理',
+        text: '首页',
         link: '/',
         shortcut: true,
         hideInBreadcrumb: false,
         children: [
           {
-            text: '权限管理',
+            text: '栏目管理',
             link: '',
             icon: 'anticon anticon-appstore-o',
             hideInBreadcrumb: false,
             children:[
               {
-                text:'角色管理',
+                text:'栏目列表',
                 hideInBreadcrumb: false,
-                link:'/permission/role'
+                link:'/forumForum/list'
               }
             ]
-          },
-          {
-            text: '用户管理1',
-            link: '/user/list',
-            hideInBreadcrumb: false,
-            icon: 'anticon anticon-appstore-o',
-          },
-          {
-            text: '用户管理1',
-            link: '/user/list2',
-            icon: 'anticon anticon-appstore-o',
-          },
-          {
-            text: '用户管理1',
-            link: '/user/list3',
-            icon: 'anticon anticon-appstore-o',
           }
         ]
       }

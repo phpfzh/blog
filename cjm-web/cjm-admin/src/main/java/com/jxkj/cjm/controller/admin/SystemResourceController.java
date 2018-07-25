@@ -41,38 +41,34 @@ public class SystemResourceController extends AbstractVoBaseController<SystemRes
     private SystemRoleResourceService systemRoleResourceService;
 
     @Override
-    public AjaxResult valiPreSaveEntity(SystemResource systemResource, AjaxResult ajaxResult) {
+    public AjaxResult valiPreSaveEntity(SystemResource systemResource) {
         SystemResource systemResource2 = new SystemResource();
         systemResource2.setResourcename(systemResource.getResourcename());
         List<SystemResource> lists = systemResourceService.selectByMap(TransferUtil.beanToMap(systemResource2));
         if (lists.size() > 0) {
-            ajaxResult.setCode(AjaxResult.FAIL_CODE);
-            ajaxResult.setMessage("该资源菜单名称已存在," + systemResource.getResourcename());
-            return ajaxResult;
+             return AjaxResult.failAjaxResult("该资源菜单名称已存在," + systemResource.getResourcename());
         }
 
         systemResource.setSort(systemResource.getSort() == null ? 0 : systemResource.getSort());
         systemResource.setParentid(systemResource.getParentid() == null ? 0 : systemResource.getParentid());
 
-        return super.valiPreSaveEntity(systemResource, ajaxResult);
+        return super.valiPreSaveEntity(systemResource);
     }
 
     @Override
-    public AjaxResult valiPreUpdateEntity(SystemResource systemResource, AjaxResult ajaxResult) {
+    public AjaxResult valiPreUpdateEntity(SystemResource systemResource) {
         Wrapper<SystemResource> wrapper = Condition.create();
         wrapper.eq("resourcename", systemResource.getResourcename());
         wrapper.notIn("resourceid", systemResource.getResourceid());
         List<SystemResource> lists = systemResourceService.selectList(wrapper);
         if (lists.size() > 0) {
-            ajaxResult.setCode(AjaxResult.FAIL_CODE);
-            ajaxResult.setMessage("该资源菜单名称已存在," + systemResource.getResourcename());
-            return ajaxResult;
+             return AjaxResult.failAjaxResult("该资源菜单名称已存在," + systemResource.getResourcename());
         }
 
         systemResource.setSort(systemResource.getSort() == null ? 0 : systemResource.getSort());
         systemResource.setParentid(systemResource.getParentid() == null ? 0 : systemResource.getParentid());
 
-        return super.valiPreUpdateEntity(systemResource, ajaxResult);
+        return super.valiPreUpdateEntity(systemResource);
     }
 
 

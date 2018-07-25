@@ -27,7 +27,7 @@ public class AjaxResult<T> {
 
     public AjaxResult() {
         this.time = System.currentTimeMillis();
-    }
+     }
 
     public static AjaxResult successAjaxResult() {
         AjaxResult ajaxResult = new AjaxResult();

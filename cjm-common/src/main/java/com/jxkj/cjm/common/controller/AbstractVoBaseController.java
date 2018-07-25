@@ -85,37 +85,28 @@ public abstract class AbstractVoBaseController<Entity, EntityVo> extends BaseCon
     }
 
     //数据一致性校验 => 扩展
-    public AjaxResult valiPreSaveEntity(Entity entity,AjaxResult ajaxResult){
+    public AjaxResult valiPreSaveEntity(Entity entity){
         //do someting
-        ajaxResult.setMessage(AjaxResult.SUCCESS_MESSAGE);
-        ajaxResult.setCode(AjaxResult.SUCCESS_CODE);
-        return ajaxResult;
+         return AjaxResult.successAjaxResult();
     }
 
     public AjaxResult preSaveEntity(Entity entity, EntityVo entityVo) {
-        AjaxResult ajaxResult = new AjaxResult();
-        //验证
+         //验证
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         Validator validator = factory.getValidator();
         Set<ConstraintViolation<EntityVo>> constraintViolations = validator.validate(entityVo, GroupSave.class);
         if(constraintViolations.iterator().hasNext() && constraintViolations.iterator().next().getMessage() != null){
-            ajaxResult.setMessage(constraintViolations.iterator().next().getMessage());
-            ajaxResult.setCode(AjaxResult.FAIL_CODE);
-            return ajaxResult;
+             return AjaxResult.failAjaxResult(constraintViolations.iterator().next().getMessage());
         }
 
         try {
             entity = copyEntityByEntityVo(entity, entityVo);
         } catch (IllegalAccessException e) {
             e.printStackTrace();
-            ajaxResult.setMessage(AjaxResult.MESSAGE);
-            ajaxResult.setCode(AjaxResult.FAIL_CODE);
-            return ajaxResult;
+             return AjaxResult.failAjaxResult(AjaxResult.MESSAGE);
         }
 
-        ajaxResult.setMessage(AjaxResult.SUCCESS_MESSAGE);
-        ajaxResult.setCode(AjaxResult.SUCCESS_CODE);
-        return ajaxResult;
+        return AjaxResult.successAjaxResult();
     }
 
     /**
@@ -134,7 +125,7 @@ public abstract class AbstractVoBaseController<Entity, EntityVo> extends BaseCon
                 return ajaxResult;
             }
 
-            ajaxResult = valiPreSaveEntity(entity,ajaxResult);
+            ajaxResult = valiPreSaveEntity(entity);
             if(ajaxResult.getCode().equals(AjaxResult.FAIL_CODE)){
                 return ajaxResult;
             }
@@ -150,24 +141,17 @@ public abstract class AbstractVoBaseController<Entity, EntityVo> extends BaseCon
     }
 
     //数据一致性校验 => 扩展
-    public AjaxResult valiPreDelEntity(Long id,AjaxResult ajaxResult){
+    public AjaxResult valiPreDelEntity(Long id){
         //do someting
-        ajaxResult.setMessage(AjaxResult.SUCCESS_MESSAGE);
-        ajaxResult.setCode(AjaxResult.SUCCESS_CODE);
-        return ajaxResult;
+         return AjaxResult.successAjaxResult();
     }
 
     public AjaxResult preDelEntity(Long id) {
-        AjaxResult ajaxResult = new AjaxResult();
         if (id == null) {
-            ajaxResult.setMessage("id 不能为空");
-            ajaxResult.setCode(AjaxResult.FAIL_CODE);
-            return ajaxResult;
+             return AjaxResult.failAjaxResult("id 不能为空");
         }
 
-        ajaxResult.setMessage(AjaxResult.SUCCESS_MESSAGE);
-        ajaxResult.setCode(AjaxResult.SUCCESS_CODE);
-        return ajaxResult;
+        return AjaxResult.successAjaxResult();
     }
 
     /**
@@ -185,7 +169,7 @@ public abstract class AbstractVoBaseController<Entity, EntityVo> extends BaseCon
                 return ajaxResult;
             }
 
-            ajaxResult = valiPreDelEntity(id,ajaxResult);
+            ajaxResult = valiPreDelEntity(id);
             if(ajaxResult.getCode().equals(AjaxResult.FAIL_CODE)){
                 return ajaxResult;
             }
@@ -201,40 +185,29 @@ public abstract class AbstractVoBaseController<Entity, EntityVo> extends BaseCon
     }
 
     //数据一致性校验
-    public AjaxResult valiPreUpdateEntity(Entity entity,AjaxResult ajaxResult){
+    public AjaxResult valiPreUpdateEntity(Entity entity){
         //do someting
 
-        ajaxResult.setMessage(AjaxResult.SUCCESS_MESSAGE);
-        ajaxResult.setCode(AjaxResult.SUCCESS_CODE);
-        return ajaxResult;
+        return AjaxResult.successAjaxResult();
     }
 
     public AjaxResult preUpdateEntity(Entity entity, EntityVo entityVo) {
-        AjaxResult ajaxResult = new AjaxResult();
-        //验证
+         //验证
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         Validator validator = factory.getValidator();
         Set<ConstraintViolation<EntityVo>> constraintViolations = validator.validate(entityVo, GroupUpdate.class);
         if(constraintViolations.iterator().hasNext() && constraintViolations.iterator().next().getMessage() != null){
-            ajaxResult.setMessage(constraintViolations.iterator().next().getMessage());
-            ajaxResult.setCode(AjaxResult.FAIL_CODE);
-            return ajaxResult;
+             return AjaxResult.failAjaxResult(constraintViolations.iterator().next().getMessage());
         }
-
 
         try {
             entity = copyEntityByEntityVo(entity, entityVo);
         } catch (IllegalAccessException e) {
             e.printStackTrace();
-            ajaxResult.setMessage(AjaxResult.MESSAGE);
-            ajaxResult.setCode(AjaxResult.FAIL_CODE);
-            return ajaxResult;
+             return AjaxResult.failAjaxResult(AjaxResult.MESSAGE);
         }
 
-
-        ajaxResult.setMessage(AjaxResult.SUCCESS_MESSAGE);
-        ajaxResult.setCode(AjaxResult.SUCCESS_CODE);
-        return ajaxResult;
+        return AjaxResult.successAjaxResult();
     }
 
     /**
@@ -252,7 +225,7 @@ public abstract class AbstractVoBaseController<Entity, EntityVo> extends BaseCon
             }
 
             //数据一致性校验
-            ajaxResult =  valiPreUpdateEntity(entity,ajaxResult);
+            ajaxResult =  valiPreUpdateEntity(entity);
             if(ajaxResult.getCode().equals(AjaxResult.FAIL_CODE)){
                 return ajaxResult;
             }
@@ -268,27 +241,22 @@ public abstract class AbstractVoBaseController<Entity, EntityVo> extends BaseCon
     }
 
     public AjaxResult preGetEntity(Entity entity, EntityVo entityVo) {
-        AjaxResult ajaxResult = new AjaxResult();
-        HibernateValidatorUtil<EntityVo> validatorUtil = new HibernateValidatorUtil<>();
-        String msg = validatorUtil.valida(entityVo, GroupGet.class);
-        if (StringUtil.isNotEmpty(msg)) {
-            ajaxResult.setMessage(msg);
-            ajaxResult.setCode(AjaxResult.FAIL_CODE);
-            return ajaxResult;
+         //验证
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        Validator validator = factory.getValidator();
+        Set<ConstraintViolation<EntityVo>> constraintViolations = validator.validate(entityVo, GroupGet.class);
+        if(constraintViolations.iterator().hasNext() && constraintViolations.iterator().next().getMessage() != null){
+            return AjaxResult.failAjaxResult(constraintViolations.iterator().next().getMessage());
         }
 
         try {
             entity = copyEntityByEntityVo(entity, entityVo);
         } catch (IllegalAccessException e) {
             e.printStackTrace();
-            ajaxResult.setMessage(AjaxResult.MESSAGE);
-            ajaxResult.setCode(AjaxResult.FAIL_CODE);
-            return ajaxResult;
+            return AjaxResult.failAjaxResult(AjaxResult.MESSAGE);
         }
 
-        ajaxResult.setMessage(AjaxResult.SUCCESS_MESSAGE);
-        ajaxResult.setCode(AjaxResult.SUCCESS_CODE);
-        return ajaxResult;
+        return AjaxResult.successAjaxResult();
     }
 
     /**
@@ -322,10 +290,8 @@ public abstract class AbstractVoBaseController<Entity, EntityVo> extends BaseCon
     }
 
     public AjaxResult preList(Entity entity, EntityVo entityVo) {
-        AjaxResult ajaxResult = new AjaxResult();
-        try {
+         try {
             entity = copyEntityByEntityVo(entity, entityVo);
-
 
             // 处理分页请求
             String pageNum = request.getParameter("pageNum");
@@ -345,10 +311,8 @@ public abstract class AbstractVoBaseController<Entity, EntityVo> extends BaseCon
             ha.put("list", voLists);
             ha.put("total", pagehelper.getTotal());
             ha.put("entity", entityVo);
-            ajaxResult.setMessage(AjaxResult.SUCCESS_MESSAGE);
-            ajaxResult.setCode(AjaxResult.SUCCESS_CODE);
-            ajaxResult.setData(ha);
-            return ajaxResult;
+
+            return AjaxResult.successAjaxResult(ha);
         } catch (IllegalAccessException e) {
             e.printStackTrace();
          } catch (InstantiationException e) {
@@ -356,9 +320,8 @@ public abstract class AbstractVoBaseController<Entity, EntityVo> extends BaseCon
         }catch (Exception e){
             e.printStackTrace();
         }
-        ajaxResult.setMessage(AjaxResult.MESSAGE);
-        ajaxResult.setCode(AjaxResult.FAIL_CODE);
-        return ajaxResult;
+
+        return AjaxResult.failAjaxResult(AjaxResult.MESSAGE);
     }
 
     /**

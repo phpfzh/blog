@@ -42,32 +42,28 @@ public class SystemRoleController extends AbstractVoBaseController<SystemRole,Sy
     private  SystemUserRoleService systemUserRoleService;
 
     @Override
-    public AjaxResult valiPreSaveEntity(SystemRole systemRole, AjaxResult ajaxResult) {
+    public AjaxResult valiPreSaveEntity(SystemRole systemRole) {
         SystemRole systemRole2 = new SystemRole();
         systemRole2.setRolename(systemRole.getRolename());
         List<SystemRole> lists = systemRoleService.selectByMap(TransferUtil.beanToMap(systemRole2));
         if(lists.size() > 0){
-            ajaxResult.setMessage("该角色名称已存在");
-            ajaxResult.setCode(AjaxResult.FAIL_CODE);
-            return ajaxResult;
+             return AjaxResult.failAjaxResult("该角色名称已存在");
         }
 
-        return super.valiPreSaveEntity(systemRole,ajaxResult);
+        return super.valiPreSaveEntity(systemRole);
     }
 
     @Override
-    public AjaxResult valiPreUpdateEntity(SystemRole systemRole, AjaxResult ajaxResult) {
+    public AjaxResult valiPreUpdateEntity(SystemRole systemRole) {
         Wrapper<SystemRole> wrapper = Condition.create();
         wrapper.eq("rolename",systemRole.getRolename());
         wrapper.notIn("roleid",systemRole.getRoleid());
         List<SystemRole> lists = systemRoleService.selectList(wrapper);
         if(lists.size() > 0){
-            ajaxResult.setMessage("该角色名称已存在");
-            ajaxResult.setCode(AjaxResult.FAIL_CODE);
-            return ajaxResult;
+             return AjaxResult.failAjaxResult("该角色名称已存在");
         }
 
-        return super.valiPreUpdateEntity(systemRole, ajaxResult);
+        return super.valiPreUpdateEntity(systemRole);
     }
 
     @Override

@@ -1,19 +1,22 @@
-import { Component, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
+import {Component, Inject, OnDestroy, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
 import {
   FormGroup,
   FormBuilder,
   Validators,
   FormControl,
 } from '@angular/forms';
-import { NzMessageService } from 'ng-zorro-antd';
+import {NzMessageService} from 'ng-zorro-antd';
+import {UserRegisterService} from "../../../generated/service/user-register.service";
+import {DA_SERVICE_TOKEN, TokenService} from "@delon/auth";
 
 @Component({
   selector: 'passport-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.less'],
 })
-export class UserRegisterComponent implements OnDestroy {
+export class UserRegisterComponent implements OnDestroy, OnInit {
+
   form: FormGroup;
   error = '';
   type = 0;
@@ -27,12 +30,13 @@ export class UserRegisterComponent implements OnDestroy {
     pool: 'exception',
   };
 
-  constructor(
-    fb: FormBuilder,
-    private router: Router,
-    public msg: NzMessageService,
-  ) {
+  constructor(fb: FormBuilder,
+              private router: Router,
+              public msg: NzMessageService,
+              @Inject(DA_SERVICE_TOKEN) private tokenService: TokenService,
+              private userRegisterService: UserRegisterService) {
     this.form = fb.group({
+      username: [null, [Validators.required]],
       mail: [null, [Validators.email]],
       password: [
         null,
@@ -56,6 +60,18 @@ export class UserRegisterComponent implements OnDestroy {
     });
   }
 
+  ngOnInit(): void {
+    this.userRegisterService.generateUserName().subscribe(
+      rep => {
+        if (rep.code == "88") {
+          this.form.patchValue({
+            username: rep.data.username
+          });
+        }
+      }
+    );
+  }
+
   static checkPassword(control: FormControl) {
     if (!control) return null;
     const self: any = this;
@@ -72,25 +88,33 @@ export class UserRegisterComponent implements OnDestroy {
   static passwordEquar(control: FormControl) {
     if (!control || !control.parent) return null;
     if (control.value !== control.parent.get('password').value) {
-      return { equar: true };
+      return {equar: true};
     }
     return null;
   }
 
   // region: fields
 
+  get username() {
+    return this.form.controls.username;
+  }
+
   get mail() {
     return this.form.controls.mail;
   }
+
   get password() {
     return this.form.controls.password;
   }
+
   get confirm() {
     return this.form.controls.confirm;
   }
+
   get mobile() {
     return this.form.controls.mobile;
   }
+
   get captcha() {
     return this.form.controls.captcha;
   }
@@ -103,11 +127,26 @@ export class UserRegisterComponent implements OnDestroy {
   interval$: any;
 
   getCaptcha() {
-    this.count = 59;
-    this.interval$ = setInterval(() => {
-      this.count -= 1;
-      if (this.count <= 0) clearInterval(this.interval$);
-    }, 1000);
+    const mobile = this.mobile.value;
+    if (!mobile) {
+      this.msg.error("手机号不能为空");
+      return;
+    }
+
+    this.userRegisterService.ssmRegCode(mobile).subscribe(
+      rep => {
+        if (rep.code == "88") {
+          this.msg.success("短信发送成功");
+          this.count = 59;
+          this.interval$ = setInterval(() => {
+            this.count -= 1;
+            if (this.count <= 0) clearInterval(this.interval$);
+          }, 1000);
+        } else {
+          this.msg.error(rep.message);
+        }
+      }
+    )
   }
 
   // endregion
@@ -119,12 +158,39 @@ export class UserRegisterComponent implements OnDestroy {
       this.form.controls[i].updateValueAndValidity();
     }
     if (this.form.invalid) return;
-    // mock http
+
+    const mobile = this.mobile.value;
+    const captcha = this.captcha.value;
+    const username = this.username.value;
+    const password = this.password.value;
+    let mail = this.mail.value;
+    if (!mail) {
+      mail = "";
+    }
     this.loading = true;
-    setTimeout(() => {
-      this.loading = false;
-      this.router.navigate(['/passport/register-result']);
-    }, 1000);
+    this.userRegisterService.register(
+      mobile,
+      password,
+      captcha,
+      username,
+      mail
+    ).subscribe(
+      rep => {
+        this.loading = false;
+        if (rep.code == "00") {
+          this.msg.error(rep.message);
+          return;
+        }
+
+        // 设置Token信息
+        this.tokenService.set({
+          token: rep.data.token,
+          username: rep.data.username
+        });
+         this.router.navigate(['/passport/register-result']);
+      }
+    );
+
   }
 
   ngOnDestroy(): void {
