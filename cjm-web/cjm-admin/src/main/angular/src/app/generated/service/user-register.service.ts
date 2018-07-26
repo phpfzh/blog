@@ -5,9 +5,7 @@ import {Configuration} from "../configuration";
 import {_HttpClient} from "@delon/theme";
 import {Observable} from "rxjs/index";
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class UserRegisterService {
   protected basePath = 'https://petstore.swagger.io/v2';
   public defaultHeaders = new HttpHeaders();

@@ -1,13 +1,14 @@
 import {Component, Inject, OnInit, Optional, ViewChild} from '@angular/core';
 import {_HttpClient, ModalHelper} from '@delon/theme';
 import {SimpleTableColumn, SimpleTableComponent} from '@delon/abc';
-import {SFSchema} from '@delon/form';
+import {SFSchema, SFUISchema} from '@delon/form';
 import {BASE_PATH} from "../../../generated/variables";
 import {ForumForumEditComponent} from "../edit/edit.component";
 
 @Component({
   selector: 'app-forum-forum-list',
-  templateUrl: './list.component.html',
+  templateUrl: './list.component.html'
+
 })
 export class ForumForumListComponent implements OnInit {
   url: string;
@@ -22,9 +23,25 @@ export class ForumForumListComponent implements OnInit {
       name: {
         type: 'string',
         title: '名称'
+      },
+      status: {
+        type: 'number',
+        title: '是否显示',
+        enum: [
+          {label: '是', value: 1},
+          {label: '否', value: 0}
+        ]
       }
     }
   };
+
+  ui: SFUISchema = {
+    $status: {
+      widget: 'select'
+     }
+
+  };
+
   @ViewChild('st') st: SimpleTableComponent;
   columns: SimpleTableColumn[] = [
     {title: '编号', render: 'list_no', className: 'text-center'},
@@ -46,8 +63,8 @@ export class ForumForumListComponent implements OnInit {
     {
       title: '操作',
       buttons: [
-         {
-          text: '编辑', size: 'md', type: 'static', component: ForumForumEditComponent, click: 'reload'
+        {
+          text: '编辑', size: 600, type: 'static', component: ForumForumEditComponent, click: 'reload'
         },
       ]
     }
@@ -60,12 +77,11 @@ export class ForumForumListComponent implements OnInit {
       this.basePath = basePath;
     }
   }
-
-
+ 
   add() {
-    // this.modal
-    //   .createStatic(FormEditComponent, { i: { id: 0 } })
-    //   .subscribe(() => this.st.reload());
+    this.modal
+      .createStatic(ForumForumEditComponent, {i: {id: 0}})
+      .subscribe(() => this.st.reload());
   }
 
 }

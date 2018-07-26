@@ -105,6 +105,29 @@ export class StartupService {
                 link:'/forumForum/list'
               }
             ]
+          },
+          {
+            text: '主题管理',
+            link: '',
+            icon: 'anticon anticon-appstore-o',
+            hideInBreadcrumb: false,
+            children:[
+              {
+                text:'主题审核列表',
+                hideInBreadcrumb: false,
+                link:'/forumThread/list'
+              },
+              {
+                text:'主题列表',
+                hideInBreadcrumb: false,
+                link:'/forumThread/viewList'
+              },
+              {
+                text:'主题删除/恢复列表',
+                hideInBreadcrumb: false,
+                link:'/forumThread/delList'
+              }
+            ]
           }
         ]
       }

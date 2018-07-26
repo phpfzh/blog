@@ -4,7 +4,9 @@ import { ForumForumListComponent } from './list/list.component';
 
 const routes: Routes = [
 
-  { path: 'list', component: ForumForumListComponent }];
+  { path: 'list', component: ForumForumListComponent }
+
+  ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

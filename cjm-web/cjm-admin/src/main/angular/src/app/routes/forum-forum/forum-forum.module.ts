@@ -5,9 +5,11 @@ import { ForumForumListComponent } from './list/list.component';
 import { ForumForumEditComponent } from './edit/edit.component';
 
 const COMPONENTS = [
-  ForumForumListComponent];
+  ForumForumListComponent
+  ];
 const COMPONENTS_NOROUNT = [
-  ForumForumEditComponent];
+  ForumForumEditComponent
+  ];
 
 @NgModule({
   imports: [

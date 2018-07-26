@@ -18,6 +18,7 @@ import {Exception403Component} from './exception/403.component';
 import {Exception404Component} from './exception/404.component';
 import {Exception500Component} from './exception/500.component';
 import {ForumForumModule} from "./forum-forum/forum-forum.module";
+import {ForumThreadModule} from "./forum-thread/forum-thread.module";
 
 const routes: Routes = [
   {
@@ -26,8 +27,12 @@ const routes: Routes = [
     children: [
       {path: '', redirectTo: 'dashboard', pathMatch: 'full', data: {title: '用户管理'}},
       {path: 'dashboard', component: DashboardComponent, data: {title: '仪表盘', titleI18n: 'dashboard'}},
-      { path: 'forumForum', loadChildren: './forum-forum/forum-forum.module#ForumForumModule' }
-       // 业务子模块
+      //版块
+      { path: 'forumForum', loadChildren: './forum-forum/forum-forum.module#ForumForumModule' },
+      //主题
+      { path: 'forumThread', loadChildren: './forum-thread/forum-thread.module#ForumThreadModule' },
+
+      // 业务子模块
       // { path: 'widgets', loadChildren: './widgets/widgets.module#WidgetsModule' }
     ]
   },

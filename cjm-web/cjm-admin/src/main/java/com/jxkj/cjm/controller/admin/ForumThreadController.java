@@ -1,11 +1,14 @@
 package com.jxkj.cjm.controller.admin;
 
+import com.baomidou.mybatisplus.mapper.Condition;
+import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.github.pagehelper.PageInfo;
 import com.jxkj.cjm.common.component.CjmJwtTokenComponent;
 import com.jxkj.cjm.common.controller.AbstractVoBaseController;
 import com.jxkj.cjm.common.response.AjaxResult;
 import com.jxkj.cjm.common.response.Meta;
 import com.jxkj.cjm.common.util.IPUtil;
+import com.jxkj.cjm.common.util.StringUtil;
 import com.jxkj.cjm.common.util.TransferUtil;
 import com.jxkj.cjm.model.ForumForum;
 import com.jxkj.cjm.model.ForumThread;
@@ -49,6 +52,22 @@ public class ForumThreadController extends AbstractVoBaseController<ForumThread,
          try {
             ForumThread forumThread = new ForumThread();
             forumThread = copyEntityByEntityVo(forumThread, forumThreadVo);
+            forumThread.setUsername(null);
+            forumThread.setRealname(null);
+            if(forumThreadVo.getUsername() != null && StringUtil.isNotEmpty(forumThreadVo.getUsername())){
+                Wrapper<User> userWrapper = Condition.create();
+                userWrapper.eq("username",forumThreadVo.getUsername().trim());
+                User user2 =  userService.selectOne(userWrapper);
+                forumThread.setBaseid(user2.getId());
+            }
+
+             if(forumThreadVo.getFname() != null && StringUtil.isNotEmpty(forumThreadVo.getFname())){
+                 Wrapper<ForumForum> forumWrapper = Condition.create();
+                 forumWrapper.eq("name",forumThreadVo.getFname().trim());
+                 ForumForum forumForum2 =  forumForumService.selectOne(forumWrapper);
+                 forumThread.setFid(forumForum2.getId());
+             }
+
             // 处理分页请求
             String pageNum = request.getParameter("pageNum");
             String pageSize = request.getParameter("pageSize");
@@ -92,6 +111,23 @@ public class ForumThreadController extends AbstractVoBaseController<ForumThread,
         try {
             ForumThread forumThread = new ForumThread();
             forumThread = copyEntityByEntityVo(forumThread, forumThreadVo);
+            forumThread.setUsername(null);
+            forumThread.setRealname(null);
+
+            if(forumThreadVo.getUsername() != null && StringUtil.isNotEmpty(forumThreadVo.getUsername())){
+                Wrapper<User> userWrapper = Condition.create();
+                userWrapper.eq("username",forumThreadVo.getUsername().trim());
+                User user2 =  userService.selectOne(userWrapper);
+                forumThread.setBaseid(user2.getId());
+            }
+
+            if(forumThreadVo.getFname() != null && StringUtil.isNotEmpty(forumThreadVo.getFname())){
+                Wrapper<ForumForum> forumWrapper = Condition.create();
+                forumWrapper.eq("name",forumThreadVo.getFname().trim());
+                ForumForum forumForum2 =  forumForumService.selectOne(forumWrapper);
+                forumThread.setFid(forumForum2.getId());
+            }
+
             // 处理分页请求
             String pageNum = request.getParameter("pageNum");
             String pageSize = request.getParameter("pageSize");
@@ -133,6 +169,22 @@ public class ForumThreadController extends AbstractVoBaseController<ForumThread,
          try {
             forumThreadVo.setStatus(-1);//状态-1审核中 -2审核失败 0审核通过
             forumThread = copyEntityByEntityVo(forumThread, forumThreadVo);
+            forumThread.setUsername(null);
+            forumThread.setRealname(null);
+
+             if(forumThreadVo.getUsername() != null && StringUtil.isNotEmpty(forumThreadVo.getUsername())){
+                 Wrapper<User> userWrapper = Condition.create();
+                 userWrapper.eq("username",forumThreadVo.getUsername().trim());
+                 User user2 =  userService.selectOne(userWrapper);
+                 forumThread.setBaseid(user2.getId());
+             }
+
+             if(forumThreadVo.getFname() != null && StringUtil.isNotEmpty(forumThreadVo.getFname())){
+                 Wrapper<ForumForum> forumWrapper = Condition.create();
+                 forumWrapper.eq("name",forumThreadVo.getFname().trim());
+                 ForumForum forumForum2 =  forumForumService.selectOne(forumWrapper);
+                 forumThread.setFid(forumForum2.getId());
+             }
             // 处理分页请求
             String pageNum = request.getParameter("pageNum");
             String pageSize = request.getParameter("pageSize");

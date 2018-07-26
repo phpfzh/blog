@@ -14,17 +14,20 @@ export class ForumForumEditComponent implements OnInit {
   i: any;
   schema: SFSchema = {
     properties: {
-      name: {type: 'string', title: '编号'},
+      name: {type: 'string', title: '名称'},
       status: {
         type: 'number', title: '是否显示', enum: [
-          { label: '是', value: 1 },
-          { label: '否', value: 0 },
+           { label: '是', value: 1 },
+           { label: '否', value: 0 },
         ],
+        default:1,
         ui:{
           widget:'select'
         }
       },
-      sort: {type: 'number', title: '排序',minimum: 0, maximum: 100,},
+      sort: {type: 'number', title: '排序',minimum: 0, maximum: 100},
+      threads	: {type: 'number', title: '主题数量',minimum: 0},
+      commonts	: {type: 'number', title: '回复数量',minimum: 0},
     },
     required: ['name', 'sort', 'status'],
   };
@@ -51,16 +54,27 @@ export class ForumForumEditComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.record.id > 0)
-      this.i = this.record;
-    //this.http.get(`/user/${this.record.id}`).subscribe(res => (this.i = res));
+      this.http.get<any>(`${this.basePath}/api/forumForum/getEntity`,{"id":this.record.id})
+        .subscribe(res => {
+          if(res.code == "88"){
+            this.i = res.data;
+          }
+        });
   }
 
   save(value: any) {
-    this.http.post<any>(`${this.basePath}/api/forumForum/update`,null,value).subscribe(
+    let url = `${this.basePath}/api/forumForum/save`;
+    if(value.id > 0){
+        url = `${this.basePath}/api/forumForum/update`;
+    }
+
+    this.http.post<any>(url,null,value).subscribe(
       rep => {
         if(rep.code == "88"){
-          this.msgSrv.success('保存成功');
-          this.modal.close(true);
+          this.msgSrv.success(rep.message);
+          setTimeout(() => {
+            this.modal.close(true);
+          },600);
         }else {
           this.msgSrv.error(rep.message);
         }

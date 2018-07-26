@@ -29,7 +29,8 @@ export function simpleTableConfig(): AdSimpleTableConfig {
     reqReName: {pi: "pageNum", ps: "pageSize"},
     resReName: {total: "data.total", list: "data.list"},
     pagePlacement: 'right',
-    showSizeChanger:true
+    showSizeChanger:true,
+    bordered:true
   });
 }
 
@@ -52,7 +53,6 @@ export function delonAuthConfig(): DelonAuthConfig {
 //api 请求域名定义
 import {Configuration} from './generated/configuration';
 import {ApiModule} from './generated/api.module';
-import {AlainI18NServiceFake} from "@delon/theme/src/services/i18n/i18n";
 import {BASE_PATH} from "./generated/variables";
 
 export function apiConfig(): Configuration {
