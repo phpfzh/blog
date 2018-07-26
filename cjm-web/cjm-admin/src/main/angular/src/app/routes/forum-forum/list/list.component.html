@@ -1,9 +1,9 @@
-<page-header>
-  <ng-template #action>
-    <button (click)="add()" nz-button nzType="primary">新建</button>
-  </ng-template>
-</page-header>
+<div style="margin-top:135px;"></div>
 <nz-card>
   <sf mode="search" [schema]="searchSchema" (formSubmit)="st.reset($event)" (formReset)="st.reset($event)"></sf>
-  <simple-table #st [data]="url" [columns]="columns" [reqReName] ="{pi:'pageNum',ps:'pageSize'}" [resReName]="{list:'data.list',total:'data.total'}"></simple-table>
+  <simple-table #st [data]="url" [columns]="columns">
+        <ng-template st-row="list_no" let-item let-index="index">
+                {{index+1}}
+        </ng-template>
+  </simple-table>
 </nz-card>

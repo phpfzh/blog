@@ -8,36 +8,44 @@ import {
   SkipSelf,
   ModuleWithProviders,
 } from '@angular/core';
-import { RouteReuseStrategy } from '@angular/router';
-import { throwIfAlreadyLoaded } from '@core/module-import-guard';
+import {RouteReuseStrategy} from '@angular/router';
+import {throwIfAlreadyLoaded} from '@core/module-import-guard';
 
-import { NgZorroAntdModule } from 'ng-zorro-antd';
+import {NgZorroAntdModule} from 'ng-zorro-antd';
 import {ALAIN_I18N_TOKEN, AlainI18NService, AlainThemeModule} from '@delon/theme';
-import { DelonABCModule, ReuseTabService, ReuseTabStrategy } from '@delon/abc';
-import { DelonAuthModule } from '@delon/auth';
-import { DelonACLModule } from '@delon/acl';
-import { DelonCacheModule } from '@delon/cache';
-import { DelonUtilModule } from '@delon/util';
-// mock
-import { DelonMockModule } from '@delon/mock';
-import * as MOCKDATA from '../../_mock';
-import { environment } from '@env/environment';
-const MOCKMODULE = !environment.production ? [DelonMockModule.forRoot({ data: MOCKDATA })] : [];
+import {DelonABCModule, ReuseTabService, ReuseTabStrategy} from '@delon/abc';
+import {DelonAuthModule} from '@delon/auth';
+import {DelonACLModule} from '@delon/acl';
+import {DelonCacheModule} from '@delon/cache';
+import {DelonUtilModule} from '@delon/util';
 
 // region: global config functions
 
-import { AdPageHeaderConfig } from '@delon/abc';
-export function pageHeaderConfig(): AdPageHeaderConfig {
-  return Object.assign(new AdPageHeaderConfig(), { home_i18n: 'home' });
+import {AdSimpleTableConfig} from '@delon/abc';
+
+export function simpleTableConfig(): AdSimpleTableConfig {
+  return Object.assign(new AdSimpleTableConfig(), <AdSimpleTableConfig>{
+    ps:20,
+    reqReName: {pi: "pageNum", ps: "pageSize"},
+    resReName: {total: "data.total", list: "data.list"},
+    pagePlacement: 'right',
+    showSizeChanger:true
+  });
 }
 
-import { DelonAuthConfig } from '@delon/auth';
+import {AdPageHeaderConfig} from '@delon/abc';
+
+export function pageHeaderConfig(): AdPageHeaderConfig {
+  return Object.assign(new AdPageHeaderConfig(), {home_i18n: 'home'});
+}
+
+import {DelonAuthConfig} from '@delon/auth';
 
 export function delonAuthConfig(): DelonAuthConfig {
   return Object.assign(new DelonAuthConfig(), <DelonAuthConfig>{
     login_url: '/passport/login',
-    ignores:[/\/login/, /passport\//,/\/passport\/register-result/],
-    token_send_template:'Bearer ${token}'
+    ignores: [/\/login/, /passport\//, /\/passport\/register-result/],
+    token_send_template: 'Bearer ${token}'
   });
 }
 
@@ -46,9 +54,10 @@ import {Configuration} from './generated/configuration';
 import {ApiModule} from './generated/api.module';
 import {AlainI18NServiceFake} from "@delon/theme/src/services/i18n/i18n";
 import {BASE_PATH} from "./generated/variables";
+
 export function apiConfig(): Configuration {
   return new Configuration({
-     //这里可以给一些全局默认配置
+    //这里可以给一些全局默认配置
   });
 }
 
@@ -63,16 +72,14 @@ export function apiConfig(): Configuration {
     DelonACLModule.forRoot(),
     DelonCacheModule.forRoot(),
     DelonUtilModule.forRoot(),
-    ApiModule.forRoot(apiConfig),
-     // mock
-    ...MOCKMODULE,
+    ApiModule.forRoot(apiConfig)
   ],
 })
 export class DelonModule {
   constructor(
     @Optional()
     @SkipSelf()
-    parentModule: DelonModule,
+      parentModule: DelonModule,
   ) {
     throwIfAlreadyLoaded(parentModule, 'DelonModule');
   }
@@ -88,12 +95,12 @@ export class DelonModule {
           deps: [ReuseTabService],
         },
         // TIPS：@delon/abc 有大量的全局配置信息，例如设置所有 `simple-table` 的页码默认为 `20` 行
-        // { provide: SimpleTableConfig, useFactory: simpleTableConfig }
-        { provide: AdPageHeaderConfig, useFactory: pageHeaderConfig },
-        { provide: DelonAuthConfig, useFactory: delonAuthConfig },
+        {provide: AdSimpleTableConfig, useFactory: simpleTableConfig},
+        {provide: AdPageHeaderConfig, useFactory: pageHeaderConfig},
+        {provide: DelonAuthConfig, useFactory: delonAuthConfig},
         //http 域名配置
-        { provide: BASE_PATH, useValue: "http://localhost:8080" }
-       ],
+        {provide: BASE_PATH, useValue: "http://localhost:8080"}
+      ],
     };
   }
 }
