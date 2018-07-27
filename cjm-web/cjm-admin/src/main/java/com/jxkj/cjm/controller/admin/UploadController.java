@@ -5,6 +5,7 @@ import com.jxkj.cjm.common.response.ProcessBack;
 import com.jxkj.cjm.service.ForumAttachmentService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -50,7 +51,7 @@ public class UploadController extends BaseController{
 	}
 	
 	@ResponseBody
-	@RequestMapping("uploadvideo")
+	@RequestMapping(value = "uploadvideo",method = {RequestMethod.POST,RequestMethod.GET})
 	public Map<String,Object> uploadvideo(@RequestParam("upfile") MultipartFile multipartFile){
 		System.out.println("===uploadvideo=======");
 		Map<String,Object> res = new HashMap<>();

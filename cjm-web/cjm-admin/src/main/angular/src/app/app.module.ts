@@ -20,22 +20,49 @@ registerLocaleData(localeZhHans);
 
 // @delon/form: JSON Schema form
 import { JsonSchemaModule } from '@shared/json-schema/json-schema.module';
+import {UeditorComponent} from "./routes/ueditor/ueditor.component";
+import {UEditorConfig, UEditorModule} from "ngx-ueditor";
 
 export function StartupServiceFactory(startupService: StartupService): Function {
   return () => startupService.load();
 }
 
+export function ueditorConfig(): UEditorConfig {
+  return Object.assign(new UEditorConfig(),{
+    js:[
+      `http://localhost:4200/assets/ueditor/ueditor.all.js`,
+      `http://localhost:4200/assets/ueditor/ueditor.config.js`,
+     ],
+    options: {
+      UEDITOR_HOME_URL:  'http://localhost:4200/assets/ueditor/'
+     },
+    hook:(UE:any):void => {
+      UE.Editor.prototype._bkGetActionUrl = UE.Editor.prototype.getActionUrl;
+      UE.Editor.prototype.getActionUrl = function (action) {
+        if (action == 'uploadimage' || action == 'uploadscrawl' || action == 'uploadimage') {
+          return 'http://localhost:8080/uploadimage';
+        } else if (action == 'uploadvideo') {
+          return 'http://localhost:8080/uploadvideo';
+        } else {
+          return this._bkGetActionUrl.call(this, action);
+        }
+      }
 
+    }
+  });
+}
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    UeditorComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
     DelonModule.forRoot(),
+    UEditorModule.forRoot(ueditorConfig()),
     CoreModule,
     SharedModule,
     LayoutModule,

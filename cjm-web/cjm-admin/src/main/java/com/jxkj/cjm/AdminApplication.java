@@ -18,7 +18,7 @@ public class AdminApplication {
     public MultipartConfigElement multipartConfigElement() {  
         MultipartConfigFactory factory = new MultipartConfigFactory();  
         //文件最大  
-        factory.setMaxFileSize("10MB"); //KB,MB  
+        factory.setMaxFileSize("100MB"); //KB,MB
         //设置总上传数据总大小  
         factory.setMaxRequestSize("100MB");  
         return factory.createMultipartConfig();  

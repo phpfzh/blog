@@ -5,6 +5,7 @@ import {SFSchema} from '@delon/form';
 import {BASE_PATH} from "../../../generated/variables";
 import {ifError} from "assert";
 import {NzMessageService} from "ng-zorro-antd";
+import {ForumThreadService} from "../../../generated/service/forum-thread.service";
 
 @Component({
   selector: 'app-forum-thread-list',
@@ -68,6 +69,7 @@ export class ForumThreadListComponent implements OnInit {
   constructor(private http: _HttpClient,
               private modal: ModalHelper,
               private nzSer: NzMessageService,
+              private forumThreadService :ForumThreadService,
               @Optional() @Inject(BASE_PATH) basePath: string) {
     if (basePath) {
       this.basePath = basePath;
@@ -92,27 +94,27 @@ export class ForumThreadListComponent implements OnInit {
 
     const tids = this.selectedRows.map(i => i.id).join(',');
 
-    this.http.post<any>(`${this.basePath}/api/forumThread/auditBatchForumThread`, null, {"status": item, "tids": tids})
-      .subscribe(rep => {
-        if (rep.code == "88") {
-          this.nzSer.success("操作成功");
-          this.st.reload();
-          return ;
-        }
-        this.nzSer.error(rep.message);
-      });
+    this.forumThreadService.auditBatchForumThread(item,tids)
+        .subscribe(rep => {
+          if (rep.code == "88") {
+            this.nzSer.success("操作成功");
+            this.st.reload();
+            return ;
+          }
+          this.nzSer.error(rep.message);
+        });
   }
 
   //审核
   audit(val: any,status:number) {
-    this.http.post<any>(`${this.basePath}/api/forumThread/auditForumThread`, null, {"status": status, "tid": val.id})
-      .subscribe(rep => {
-        if (rep.code == "88") {
-          this.nzSer.success("操作成功");
-          this.st.reload();
-          return ;
-        }
-         this.nzSer.error(rep.message);
-      });
+       this.forumThreadService.audit(status,val.id)
+            .subscribe(rep => {
+              if (rep.code == "88") {
+                this.nzSer.success("操作成功");
+                this.st.reload();
+                return ;
+              }
+               this.nzSer.error(rep.message);
+            });
   }
 }

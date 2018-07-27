@@ -4,6 +4,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {Configuration} from './configuration';
 import {UserLoginService} from "./service/user-login.service";
 import {UserRegisterService} from "./service/user-register.service";
+import {ForumThreadService} from "./service/forum-thread.service";
 
 @NgModule({
   imports: [CommonModule, HttpClientModule],
@@ -11,7 +12,8 @@ import {UserRegisterService} from "./service/user-register.service";
   exports: [],
   providers: [
     UserLoginService,
-    UserRegisterService
+    UserRegisterService,
+    ForumThreadService
   ]
 })
 

@@ -19,7 +19,9 @@ public final class ConfigManager {
 	private final String rootPath;
 	private final String originalPath;
 	private final String contextPath;
-	private static final String configFileName = "WEB-INF/classes/config.json";
+	//	private static final String configFileName = "config.json";
+   private static final String configFileName = "WEB-INF/classes/config.json";//部署linux 配置项
+	//private static final String configFileName = "config.json";//本地 eclipse 配置项
 	private String parentPath = null;
 	private JSONObject jsonConfig = null;
 	// 涂鸦上传filename定义
@@ -36,7 +38,8 @@ public final class ConfigManager {
 		
 		this.rootPath = rootPath;
 		this.contextPath = contextPath;
-//		this.originalPath = "src/main/resources/config.json";
+		//this.originalPath = "src/main/resources/config.json";
+		//部署linux 配置项
 		if ( contextPath.length() > 0 ) {
 			this.originalPath = this.rootPath + uri.substring( contextPath.length() );
 		} else {

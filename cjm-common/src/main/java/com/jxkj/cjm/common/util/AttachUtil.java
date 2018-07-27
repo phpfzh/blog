@@ -58,7 +58,7 @@ public class AttachUtil {
 			Matcher m_src = p_src.matcher(str_img);
 			if (m_src.find()) {
 				String str_src = m_src.group(3);
-				String str = "http://image.chenjiaming.com/";
+				String str = "http://image.wangdaibus.com/";
 				if(StringUtil.isNotEmpty(str_src) && str_src.contains(str)){
 					String subSrc = str_src.substring(str.length());
 					list.put(m_img.group(), subSrc);
@@ -78,7 +78,7 @@ public class AttachUtil {
 			Matcher m_src = p_src.matcher(str_video);
 			while (m_src.find()) {
 				String str_src = m_src.group(3);
-				String str = "http://image.chenjiaming.com/";
+				String str = "http://image.wangdaibus.com/";
 				if(StringUtil.isNotEmpty(str_src) && str_src.contains(str)){
 					String subSrc = str_src.substring(str.length());
 					list.put(m_video.group(), subSrc);

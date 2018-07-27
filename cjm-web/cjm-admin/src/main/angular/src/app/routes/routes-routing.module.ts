@@ -19,6 +19,7 @@ import {Exception404Component} from './exception/404.component';
 import {Exception500Component} from './exception/500.component';
 import {ForumForumModule} from "./forum-forum/forum-forum.module";
 import {ForumThreadModule} from "./forum-thread/forum-thread.module";
+import {UeditorComponent} from "./ueditor/ueditor.component";
 
 const routes: Routes = [
   {
@@ -59,6 +60,7 @@ const routes: Routes = [
   },
   // 单页不包裹Layout
   {path: 'callback/:type', component: CallbackComponent},
+  {path: 'editor', component: UeditorComponent, data: {title: '编辑页', titleI18n: 'editor'}},
   {path: 'lock', component: UserLockComponent, data: {title: '锁屏', titleI18n: 'lock'}},
   {path: '403', component: Exception403Component},
   {path: '404', component: Exception404Component},
