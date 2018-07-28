@@ -92,17 +92,6 @@ public class ForumThread extends SuperEntity<ForumThread> {
      **/
     private Integer threadtype;
 
-    /**
-     * 用户名
-     **/
-    @TableField(exist = false)
-    private String username;
-    /**
-     * 真实姓名
-     **/
-    @TableField(exist = false)
-    private String realname;
-
     public Long getFid() {
         return fid;
     }
@@ -253,22 +242,6 @@ public class ForumThread extends SuperEntity<ForumThread> {
 
     public void setThreadtype(Integer threadtype) {
         this.threadtype = threadtype;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getRealname() {
-        return realname;
-    }
-
-    public void setRealname(String realname) {
-        this.realname = realname;
     }
 
 

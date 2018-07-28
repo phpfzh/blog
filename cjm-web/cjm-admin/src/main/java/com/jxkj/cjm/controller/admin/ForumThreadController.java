@@ -52,8 +52,7 @@ public class ForumThreadController extends AbstractVoBaseController<ForumThread,
          try {
             ForumThread forumThread = new ForumThread();
             forumThread = copyEntityByEntityVo(forumThread, forumThreadVo);
-            forumThread.setUsername(null);
-            forumThread.setRealname(null);
+
             if(forumThreadVo.getUsername() != null && StringUtil.isNotEmpty(forumThreadVo.getUsername())){
                 Wrapper<User> userWrapper = Condition.create();
                 userWrapper.eq("username",forumThreadVo.getUsername().trim());
@@ -111,9 +110,65 @@ public class ForumThreadController extends AbstractVoBaseController<ForumThread,
         try {
             ForumThread forumThread = new ForumThread();
             forumThread = copyEntityByEntityVo(forumThread, forumThreadVo);
-            forumThread.setUsername(null);
-            forumThread.setRealname(null);
+            forumThread.setIsdelete(0);
+            if(forumThreadVo.getUsername() != null && StringUtil.isNotEmpty(forumThreadVo.getUsername())){
+                Wrapper<User> userWrapper = Condition.create();
+                userWrapper.eq("username",forumThreadVo.getUsername().trim());
+                User user2 =  userService.selectOne(userWrapper);
+                forumThread.setBaseid(user2.getId());
+            }
 
+            if(forumThreadVo.getFname() != null && StringUtil.isNotEmpty(forumThreadVo.getFname())){
+                Wrapper<ForumForum> forumWrapper = Condition.create();
+                forumWrapper.eq("name",forumThreadVo.getFname().trim());
+                ForumForum forumForum2 =  forumForumService.selectOne(forumWrapper);
+                forumThread.setFid(forumForum2.getId());
+            }
+
+            // 处理分页请求
+            String pageNum = request.getParameter("pageNum");
+            String pageSize = request.getParameter("pageSize");
+            Map<String, Object> map = new HashMap<>();
+            initPage(map, pageNum, pageSize);
+            List<ForumThread> lists = baseService.selectByMap(TransferUtil.beanToMap(forumThread));
+            List<ForumThreadVo> voLists = new ArrayList<>();
+            for (ForumThread entity1 : lists) {
+                ForumThreadVo en = new ForumThreadVo();
+                User user = userService.selectById(entity1.getBaseid());
+                ForumForum forumForum = forumForumService.selectById(entity1.getFid());
+                en.setUsername(user.getUsername());
+                en.setSubject(entity1.getSubject());
+                en.setDateline(entity1.getDateline());
+                en.setStatus(entity1.getStatus());
+                en.setThreadtype(entity1.getThreadtype());
+                en.setFname(forumForum.getName());
+                en.setId(entity1.getId());
+                voLists.add(en);
+            }
+
+            PageInfo<Object> pagehelper = initPagehelper(map, lists);
+
+            Map<String, Object> ha = new HashMap<>();
+            ha.put("list", voLists);
+            ha.put("total", pagehelper.getTotal());
+            ha.put("entity", forumThreadVo);
+            return AjaxResult.successAjaxResult(ha);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return AjaxResult.failAjaxResult(AjaxResult.MESSAGE);
+    }
+
+    //恢复主题列表
+    @ResponseBody
+    @RequestMapping(value = "restoreList",method = {RequestMethod.GET,RequestMethod.POST})
+    public AjaxResult restoreList(ForumThreadVo forumThreadVo){
+        try {
+            ForumThread forumThread = new ForumThread();
+            forumThread = copyEntityByEntityVo(forumThread, forumThreadVo);
+            forumThread.setIsdelete(1);
             if(forumThreadVo.getUsername() != null && StringUtil.isNotEmpty(forumThreadVo.getUsername())){
                 Wrapper<User> userWrapper = Condition.create();
                 userWrapper.eq("username",forumThreadVo.getUsername().trim());
@@ -169,8 +224,6 @@ public class ForumThreadController extends AbstractVoBaseController<ForumThread,
          try {
             forumThreadVo.setStatus(-1);//状态-1审核中 -2审核失败 0审核通过
             forumThread = copyEntityByEntityVo(forumThread, forumThreadVo);
-            forumThread.setUsername(null);
-            forumThread.setRealname(null);
 
              if(forumThreadVo.getUsername() != null && StringUtil.isNotEmpty(forumThreadVo.getUsername())){
                  Wrapper<User> userWrapper = Condition.create();
@@ -333,6 +386,37 @@ public class ForumThreadController extends AbstractVoBaseController<ForumThread,
             e.printStackTrace();
         }
          return AjaxResult.failAjaxResult("因网络响应不及时,操作失败");
+    }
+
+    /**
+     *
+     * Title: insertForumThread
+     * TODO:(保存主题信息)
+     * @return
+     */
+    @ResponseBody
+    @PostMapping("/insertForumThread")
+    public AjaxResult insertForumThread(){
+        try{
+            String baseId = cjmJwtTokenComponent.getUserBaseId(request);
+            String fid = request.getParameter("fid");
+            String threadtype = request.getParameter("threadtype");
+            String subject = request.getParameter("subject");
+            String content = request.getParameter("content");
+            String userip = IPUtil.getIpAdd(request);
+            String usesig = request.getParameter("usesig");
+            Meta meta = new Meta();
+            int count = forumThreadService.insertForumThread(Long.valueOf(baseId), fid, threadtype,
+                    subject, content, userip, usesig,meta);
+            if(count == 2){//校验不通过
+                return AjaxResult.failAjaxResult(meta.getMessage());
+            }else if(count == 1){
+                return AjaxResult.successAjaxResult("保存成功");
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return AjaxResult.failAjaxResult(AjaxResult.MESSAGE);
     }
 
 

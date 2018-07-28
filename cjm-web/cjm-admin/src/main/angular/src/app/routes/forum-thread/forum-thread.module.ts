@@ -4,11 +4,13 @@ import { ForumThreadRoutingModule } from './forum-thread-routing.module';
 import { ForumThreadListComponent } from './list/list.component';
 import { ForumThreadViewListComponent } from './view-list/view-list.component';
 import { ForumThreadDelListComponent } from './del-list/del-list.component';
+import { ForumThreadRestoreListComponent } from './restore-list/restore-list.component';
 
 const COMPONENTS = [
   ForumThreadListComponent,
   ForumThreadViewListComponent,
-  ForumThreadDelListComponent];
+  ForumThreadDelListComponent,
+  ForumThreadRestoreListComponent];
 const COMPONENTS_NOROUNT = [
   ];
 

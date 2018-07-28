@@ -38,9 +38,41 @@ export class ForumThreadService {
     });
   }
 
+  //恢复
+  restore(tid: string) : Observable<any> {
+    return this.httpClient.post<any>(`${this.basePath}/api/forumThread/auditForumThread`, null, {
+      "status": 1,
+      "tid": tid
+    });
+  }
+
+  //批量恢复
+  restoreBatchThread(tids: string) : Observable<any> {
+    return this.httpClient.post<any>(`${this.basePath}/api/forumThread/auditBatchForumThread`, null, {
+      "status": 1,
+      "tids": tids
+    });
+  }
+
+  //删除
+  delThread(tid: string) : Observable<any> {
+    return this.httpClient.post<any>(`${this.basePath}/api/forumThread/auditForumThread`, null, {
+      "status": 0,
+      "tid": tid
+    });
+  }
+
+  //批量删除
+  delBatchThread(tids: string) : Observable<any> {
+    return this.httpClient.post<any>(`${this.basePath}/api/forumThread/auditBatchForumThread`, null, {
+      "status": 0,
+      "tids": tids
+    });
+  }
+
 //保存
   insertForumThread(fid:number,threadtype:number,subject:string,content:string,usesig?:number): Observable<any> {
-    return this.httpClient.post<any>(`${this.basePath}/api/forumThreadApi/insertForumThread`, null,{
+    return this.httpClient.post<any>(`${this.basePath}/api/forumThread/insertForumThread`, null,{
       "fid": fid,
       "threadtype": threadtype,
       "subject": subject,

@@ -49,8 +49,9 @@ public class ApplicationConfig extends WebMvcConfigurationSupport {
 	    		.excludePathPatterns("/api/register")
 	    		.excludePathPatterns("/api/ssmRegCode")
 	    		.excludePathPatterns("/api/generateUserName")
- 	    		.excludePathPatterns("/api/refreshToken");
- 	}
+ 	    		.excludePathPatterns("/api/refreshToken")
+	    		.excludePathPatterns("/api/forumThreadApi/**");
+  	}
 
 	@Override
 	public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {

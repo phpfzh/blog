@@ -1,20 +1,6 @@
-package com.jxkj.cjm.model;
+package com.jxkj.cjm.model.vo;
 
-import com.baomidou.mybatisplus.annotations.TableField;
-import com.baomidou.mybatisplus.annotations.TableName;
-
-/**
- * @author cjm
- * @version 1.0 www.chenjiaming.com
- * @ClassName: ForumPost
- * @Description: TODO 主题内容
- * @date 2018年6月3日
- */
-@TableName("forum_post")
-public class ForumPost extends SuperEntity<ForumPost> {
-
-    private static final long serialVersionUID = 85107923110850012L;
-
+public class ForumPostVo {
     /**
      * 板块id
      */
@@ -67,6 +53,23 @@ public class ForumPost extends SuperEntity<ForumPost> {
      * 是否带签名1是0否
      */
     private Integer usesig;
+
+    /**
+     * 作者用户名
+     */
+    private String username;
+    /**
+     * 修改人用户名
+     */
+    private String upusername;
+    /**
+     * 作者头像地址
+     */
+    private String headurl;
+    /**
+     * 版块名称
+     */
+    private String fname;
 
 
     public Long getFid() {
@@ -173,5 +176,35 @@ public class ForumPost extends SuperEntity<ForumPost> {
         this.usesig = usesig;
     }
 
+    public String getUsername() {
+        return username;
+    }
 
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getHeadurl() {
+        return headurl;
+    }
+
+    public void setHeadurl(String headurl) {
+        this.headurl = headurl;
+    }
+
+    public String getFname() {
+        return fname;
+    }
+
+    public void setFname(String fname) {
+        this.fname = fname;
+    }
+
+    public String getUpusername() {
+        return upusername;
+    }
+
+    public void setUpusername(String upusername) {
+        this.upusername = upusername;
+    }
 }

@@ -1,31 +1,29 @@
 import {Component, Inject, OnInit, Optional, ViewChild} from '@angular/core';
-import {_HttpClient, ModalHelper} from '@delon/theme';
+import { _HttpClient, ModalHelper } from '@delon/theme';
 import {SimpleTableColumn, SimpleTableComponent, SimpleTableData} from '@delon/abc';
-import {SFSchema} from '@delon/form';
-import {BASE_PATH} from "../../../generated/variables";
+import { SFSchema } from '@delon/form';
 import {NzMessageService} from "ng-zorro-antd";
 import {ForumThreadService} from "../../../generated/service/forum-thread.service";
+import {BASE_PATH} from "../../../generated/variables";
 
 @Component({
-  selector: 'app-forum-thread-del-list',
-  templateUrl: './del-list.component.html',
+  selector: 'app-forum-thread-restore-list',
+  templateUrl: './restore-list.component.html',
 })
-export class ForumThreadDelListComponent implements OnInit {
-  url: string;
+export class ForumThreadRestoreListComponent implements OnInit {
   basePath: string;
+  url: string;
   selectedRows: SimpleTableData[] = [];
+
   searchSchema: SFSchema = {
     properties: {
-      fname: {
+      no: {
         type: 'string',
-        title: '版块名称'
-      },
-      subject: {
-        type: 'string',
-        title: '标题'
+        title: '编号'
       }
     }
   };
+
   @ViewChild('st') st: SimpleTableComponent;
   columns: SimpleTableColumn[] = [
     {title: '', type: 'checkbox', index: 'id', className: 'text-center'},
@@ -61,7 +59,7 @@ export class ForumThreadDelListComponent implements OnInit {
     {
       title: '操作',
       buttons: [
-        {type: 'del', text: '删除', popTitle: '您正在进行删除操作', click: (item: any) => this.del(item)},
+        {type: 'del', text: '恢复', popTitle: '您正在进行恢复操作', click: (item: any) => this.restore(item)},
       ]
     }
   ];
@@ -69,7 +67,7 @@ export class ForumThreadDelListComponent implements OnInit {
   constructor(private http: _HttpClient,
               private modal: ModalHelper,
               private nzSer: NzMessageService,
-              private forumThreadService: ForumThreadService,
+              private forumThreadService :ForumThreadService,
               @Optional() @Inject(BASE_PATH) basePath: string) {
     if (basePath) {
       this.basePath = basePath;
@@ -77,27 +75,27 @@ export class ForumThreadDelListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.url = `${this.basePath}/api/forumThread/delList`;
+    this.url = `${this.basePath}/api/forumThread/restoreList`;
   }
 
   checkboxChange(list: SimpleTableData[]) {
     this.selectedRows = list;
   }
 
-  //批量审核
-  delBatch() {
+//批量恢复
+  restoreBatch() {
     console.log(this.selectedRows.length)
     if (!(this.selectedRows.length > 0)) {
-      this.nzSer.error("请至少选择一个进行删除");
+      this.nzSer.error("请至少选择一个进行恢复");
       return;
     }
 
     const tids = this.selectedRows.map(i => i.id).join(',');
 
-    this.forumThreadService.delBatchThread(tids)
+    this.forumThreadService.restoreBatchThread(tids)
       .subscribe(rep => {
         if (rep.code == "88") {
-          this.nzSer.success("删除成功");
+          this.nzSer.success("恢复成功");
           this.st.reload();
           return;
         }
@@ -105,9 +103,9 @@ export class ForumThreadDelListComponent implements OnInit {
       });
   }
 
-  //删除
-  del(val: any) {
-    this.forumThreadService.delThread(val.id)
+  //恢复
+  restore(val: any) {
+    this.forumThreadService.restore(val.id)
       .subscribe(rep => {
         if (rep.code == "88") {
           this.nzSer.success("删除成功");

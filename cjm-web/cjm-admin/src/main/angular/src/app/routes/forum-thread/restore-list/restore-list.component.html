@@ -1,11 +1,13 @@
 <div style="margin-top:135px;"></div>
 <nz-card>
+
   <sf #sf mode="search" [button]="null" [schema]="searchSchema" (formSubmit)="st.reset($event)"
       (formReset)="st.reset($event)">
     <button type="submit" nzType="primary" nz-button [disabled]="!sf.valid">搜索</button>
     <button (click)="sf.reset()" type="button" nz-button>重置</button>
-    <button (nzOnConfirm)="delBatch()" type="button" nz-button nz-popconfirm [nzTitle]="'您正在进行批量删除操作'">批量删除</button>
+    <button (nzOnConfirm)="restoreBatch()" type="button" nz-button nz-popconfirm [nzTitle]="'您正在进行批量恢复操作'">批量恢复</button>
   </sf>
+
   <simple-table #st [data]="url" [columns]="columns" (checkboxChange)="checkboxChange($event)">
     <ng-template st-row="list_no" let-item let-index="index">
       {{index+1}}

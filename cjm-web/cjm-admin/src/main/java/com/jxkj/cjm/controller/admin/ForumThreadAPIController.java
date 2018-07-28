@@ -6,9 +6,13 @@ import com.jxkj.cjm.common.controller.BaseController;
 import com.jxkj.cjm.common.response.AjaxResult;
 import com.jxkj.cjm.common.response.Meta;
 import com.jxkj.cjm.common.util.IPUtil;
+import com.jxkj.cjm.common.util.StringUtil;
 import com.jxkj.cjm.model.ForumThread;
+import com.jxkj.cjm.model.vo.ForumPostVo;
+import com.jxkj.cjm.service.ForumPostService;
 import com.jxkj.cjm.service.ForumThreadService;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -30,62 +34,61 @@ public class ForumThreadAPIController extends BaseController{
 	
 	@Resource
 	private ForumThreadService forumThreadService;
-	
+
+	@Resource
+	private ForumPostService forumPostService;
+
 	@Resource
 	private CjmJwtTokenComponent cjmJwtTokenComponent;
-	
+
 	/**
-	 * 
-	 * Title: insertForumThread 
-	 * TODO:(保存主题信息) 
+	 * 主题浏览
 	 * @return
 	 */
 	@ResponseBody
-	@PostMapping("/insertForumThread")
-	public AjaxResult insertForumThread(){
- 		try{
-			String baseId = cjmJwtTokenComponent.getUserBaseId(request);
-			String fid = request.getParameter("fid");
-			String threadtype = request.getParameter("threadtype");
-			String subject = request.getParameter("subject");
-			String content = request.getParameter("content");
-			String userip = IPUtil.getIpAdd(request);
-			String usesig = request.getParameter("usesig");
-			Meta meta = new Meta();
- 			int count = forumThreadService.insertForumThread(Long.valueOf(baseId), fid, threadtype,
-					subject, content, userip, usesig,meta);
-			if(count == 2){//校验不通过
- 				return AjaxResult.failAjaxResult(meta.getMessage());
-			}else if(count == 1){
- 				return AjaxResult.successAjaxResult("保存成功");
+	@GetMapping("/forumThreadView")
+	public AjaxResult forumThreadView(){
+		try{
+			String tidStr = request.getParameter("tid");
+			if(StringUtil.isEmpty(tidStr)){
+				 return AjaxResult.failAjaxResult("tid 不能为空");
 			}
-		}catch(Exception e){
+			Long baseid = null;
+			try{
+				String baseIdStr = cjmJwtTokenComponent.getUserBaseId(request);
+				baseid = Long.valueOf(baseIdStr);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+			Long tid = Long.valueOf(tidStr);
+			String userip = IPUtil.getIpAdd(request);
+			ForumPostVo forumPostVo = forumPostService.getForumPostByTid(tid);
+			if(forumPostVo == null){
+				throw new IllegalArgumentException("未找到帖子信息");
+			}
+
+			if(forumPostVo.getIsdelete().equals(1)){//是否删除1是0否
+				AjaxResult ajaxResult = new AjaxResult();
+				ajaxResult.setCode("22");
+				ajaxResult.setMessage("该帖子已删除或正在审核中");
+				return ajaxResult;
+			}
+
+			if(!(forumPostVo.getStatus().equals(0))){//状态-1审核中 -2审核失败 0审核通过
+				AjaxResult ajaxResult = new AjaxResult();
+				ajaxResult.setCode("22");
+				ajaxResult.setMessage("该帖子已删除或正在审核中");
+				return ajaxResult;
+			}
+
+  			forumThreadService.addForumThreadView(tid,userip,baseid);
+
+			return AjaxResult.successAjaxResult(forumPostVo);
+		}catch (Exception e){
 			e.printStackTrace();
 		}
- 		return AjaxResult.failAjaxResult(AjaxResult.MESSAGE);
+		return AjaxResult.failAjaxResult(AjaxResult.MESSAGE);
 	}
-	 
-	/**
-	 * 
-	 * Title: getForumThreads 
-	 * TODO:(获取主题信息) 
-	 * @param forumThread
-	 * @return
-	 */
-	@ResponseBody
-	@PostMapping("/getForumThreads")
-	public AjaxResult getForumThreads(ForumThread forumThread){
- 		try{
-			String pageSize = request.getParameter("pageSize");
-			String orderBy = request.getParameter("orderBy");
-			String pageNum = request.getParameter("pageNum");
-			PageInfo<Object> lists = forumThreadService.getForumThreadsBy(pageSize, pageNum, orderBy, forumThread);
- 			return AjaxResult.successAjaxResult("查询成功",lists);
-		}catch(Exception e){
-			e.printStackTrace();
-		}
- 		return AjaxResult.failAjaxResult(AjaxResult.MESSAGE);
-	}
-	
 
 }

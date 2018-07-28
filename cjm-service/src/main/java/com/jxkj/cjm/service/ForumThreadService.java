@@ -22,19 +22,13 @@ public interface ForumThreadService extends IService<ForumThread>{
 	 */
 	public int insertForumThread(Long baseid,String fid,String threadtype, 
 			String subject,String content,String userip,String usesig,Meta meta);
-	
+
 	/**
-	 * 
-	 * Title: getForumThreadsBy 
-	 * TODO:(查询主题信息) 
-	 * @param pageSize 每页条数 默认20
-	 * @param pageNum  页码   默认1
-	 * @param orderBy  排序
-	 * @param forumThread
-	 * @return
+	 * 添加主题浏览量
+	 * @param tid  主题id
+	 * @param ip   ip地址
 	 */
-	public PageInfo<Object> getForumThreadsBy(String pageSize,String pageNum,String orderBy,ForumThread forumThread);
-	
+	public void addForumThreadView(Long tid,String ip,Long baseid);
 
 	/**
 	 * 

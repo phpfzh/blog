@@ -1,6 +1,7 @@
 package com.jxkj.cjm.service.impl;
 
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,6 +10,9 @@ import java.util.concurrent.locks.ReentrantLock;
 
 import javax.annotation.Resource;
 
+import com.jxkj.cjm.common.util.*;
+import com.jxkj.cjm.mapper.*;
+import com.jxkj.cjm.model.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
@@ -19,18 +23,6 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.jxkj.cjm.common.constat.ForumThreadOperation_Constat;
 import com.jxkj.cjm.common.response.Meta;
-import com.jxkj.cjm.common.util.AttachUtil;
-import com.jxkj.cjm.common.util.PageHelperInfoUtil;
-import com.jxkj.cjm.common.util.StringUtil;
-import com.jxkj.cjm.common.util.TransferUtil;
-import com.jxkj.cjm.mapper.ForumPostMapper;
-import com.jxkj.cjm.mapper.ForumThreadMapper;
-import com.jxkj.cjm.mapper.ForumThreadOperationMapper;
-import com.jxkj.cjm.mapper.UserMapper;
-import com.jxkj.cjm.model.ForumPost;
-import com.jxkj.cjm.model.ForumThread;
-import com.jxkj.cjm.model.PreForumThreadOperation;
-import com.jxkj.cjm.model.User;
 import com.jxkj.cjm.service.ForumAttachmentService;
 import com.jxkj.cjm.service.ForumThreadService;
 
@@ -49,6 +41,13 @@ public class ForumThreadServiceImpl extends ServiceImpl<ForumThreadMapper,ForumT
 	
 	@Resource
 	private ForumThreadOperationMapper forumThreadOperationMapper;
+
+	@Resource
+	private ForumThreadViewcountMapper forumThreadViewcountMapper;//主题浏览临时记录
+
+	@Resource
+	private ForumThreadViewRecordMapper forumThreadViewRecordMapper;//主题浏览记录
+
 
 	private Lock saveLock = new ReentrantLock();
 
@@ -170,55 +169,58 @@ public class ForumThreadServiceImpl extends ServiceImpl<ForumThreadMapper,ForumT
 			saveLock.unlock();
 		}
  	}
-	
-	/**
-	 * 
-	 * Title: getForumThreadsBy 
-	 * TODO:(查询主题信息) 
-	 * @param fid  板块id
-	 * @param status  审核状态
-	 * @param isdelete 是否删除
-	 * @return
-	 */
-	public PageInfo<Object> getForumThreadsBy(String pageSize,String pageNum,String orderBy,
-			ForumThread forumThread){
-		try{
-			  PageHelperInfoUtil helperInfoUtil = new PageHelperInfoUtil();
-			  Map<String,Object> map = new HashMap<>();
-			  helperInfoUtil.initPage(map, pageNum, pageSize);
-			  if(StringUtil.isNotEmpty(orderBy)){
-				  if(orderBy.equals("1")){
-					  PageHelper.orderBy("views DESC,dateline DESC");
-				  }else if(orderBy.equals("2")){
-					  PageHelper.orderBy("replies DESC,dateline DESC");
-				  }else{
-					  PageHelper.orderBy("likes DESC,dateline DESC");
-				  }
-			  }else{
- 				  PageHelper.orderBy("sort DESC,dateline DESC");
-			  }
-			  
-			  if(forumThread.getIsdelete() == null){
-				  forumThread.setIsdelete(0);
-			  }
 
-			  System.out.println(JSON.toJSONString(forumThread));
-			  List<ForumThread> lists = baseMapper.selectByMap(TransferUtil.beanToMap(forumThread));
-			  for(ForumThread forumThread2 : lists){
-				  if(forumThread2.getBaseid() != null){
-					  User user = userMapper.selectById(forumThread2.getBaseid());
-					  forumThread2.setUsername(user.getUsername());
-					  forumThread2.setRealname(user.getRelaname());
-				  }
-			  }
-			  PageInfo<Object> helperInfo =  helperInfoUtil.initPagehelper(map, lists);
-			  return helperInfo;
+	/**
+	 * 添加主题浏览量
+	 * @param tid  主题id
+	 * @param ip   ip地址
+	 */
+	public void addForumThreadView(Long tid,String ip,Long baseid){
+		try{
+			if(tid == null){
+				throw  new IllegalArgumentException("tid 不能为空");
+			}
+
+			if(ip == null){
+				throw  new IllegalArgumentException("ip 不能为空");
+			}
+
+			Date date = new Date();
+ 			String dateStr = DateUtils.formatYY_MM_DD(date);
+			ForumThreadViewRecord forumThreadViewRecord = new ForumThreadViewRecord();
+			forumThreadViewRecord.setTid(tid);
+			forumThreadViewRecord.setIp(ip);
+			forumThreadViewRecord.setDatestr(dateStr);
+			ForumThreadViewRecord viewRecord = forumThreadViewRecordMapper.selectOne(forumThreadViewRecord);
+
+			if(viewRecord == null){
+				ForumThreadViewcount forumThreadViewcount = new ForumThreadViewcount();
+				forumThreadViewcount.setTid(tid);
+				ForumThreadViewcount forumThreadViewcount1 = forumThreadViewcountMapper.selectOne(forumThreadViewcount);
+				if(forumThreadViewcount1 == null){
+					ForumThreadViewcount forumThreadViewcount2 = new ForumThreadViewcount();
+					forumThreadViewcount2.setTid(tid);
+					forumThreadViewcount2.setCount(1);
+					forumThreadViewcountMapper.insert(forumThreadViewcount2);
+				}else{
+					forumThreadViewcount1.setCount(forumThreadViewcount1.getCount() + 1);
+					forumThreadViewcountMapper.updateById(forumThreadViewcount1);
+				}
+
+				Long dateline = System.currentTimeMillis();
+				forumThreadViewRecord.setDateline(dateline);
+				if(baseid != null){
+					forumThreadViewRecord.setBaseid(baseid);
+				}
+				forumThreadViewRecordMapper.insert(forumThreadViewRecord);
+ 			}
+
+
 		}catch(Exception e){
 			e.printStackTrace();
-			return null;
 		}
 	}
-	
+
 	/**
 	 * 
 	 * Title: auditBatchForumThread 

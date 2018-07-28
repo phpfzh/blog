@@ -648,7 +648,7 @@ public class ForumAttachmentServiceImpl extends ServiceImpl<ForumAttachmentMappe
 	* @throws
 	 */
 	@Override
-	public synchronized ForumAttachment getForumAttachmentByAid(Long aid){
+	public  ForumAttachment getForumAttachmentByAid(Long aid){
  		 try{
 			 if(aid == null){
 				 throw new IllegalArgumentException("'aid' 不能为空");  

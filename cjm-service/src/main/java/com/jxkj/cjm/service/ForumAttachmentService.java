@@ -91,6 +91,7 @@ public interface ForumAttachmentService extends IService<ForumAttachment>{
 	* @throws
 	 */
 	public Long getForumAttachmentUnusedAidByAttach(String attachUrl);
- 
+
+
 	
 }

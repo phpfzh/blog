@@ -113,19 +113,24 @@ export class StartupService {
             hideInBreadcrumb: false,
             children:[
               {
-                text:'主题审核列表',
+                text:'主题审核',
                 hideInBreadcrumb: false,
                 link:'/forumThread/list'
               },
               {
-                text:'主题列表',
+                text:'主题查看',
                 hideInBreadcrumb: false,
                 link:'/forumThread/viewList'
               },
               {
-                text:'主题删除/恢复列表',
+                text:'主题删除',
                 hideInBreadcrumb: false,
                 link:'/forumThread/delList'
+              },
+              {
+                text:'主题恢复',
+                hideInBreadcrumb: false,
+                link:'/forumThread/restoreList'
               }
             ]
           }
