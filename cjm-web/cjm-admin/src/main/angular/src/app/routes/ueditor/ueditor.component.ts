@@ -43,6 +43,10 @@ export class UeditorComponent implements OnInit {
           widget: 'select'
         }
       },
+      tags: {
+        type: 'string',
+        title: 'tags'
+      },
       content: {
         type: 'string',
         title:
@@ -68,8 +72,9 @@ export class UeditorComponent implements OnInit {
     const subject = value.subject;
     const content = value.content;
     const usesig = value.usesig;
+    const tags = value.tags;
 
-    this.forumThreadService.insertForumThread(fid,threadtype,subject,content,usesig)
+    this.forumThreadService.insertForumThread(fid,threadtype,subject,content,tags,usesig)
       .subscribe(rep => {
         console.log(rep+"==="+JSON.stringify(rep))
           if(rep.code == "88"){

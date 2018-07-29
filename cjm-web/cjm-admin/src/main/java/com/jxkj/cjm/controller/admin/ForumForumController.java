@@ -2,6 +2,7 @@ package com.jxkj.cjm.controller.admin;
 
 import com.baomidou.mybatisplus.mapper.Condition;
 import com.baomidou.mybatisplus.mapper.Wrapper;
+import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.jxkj.cjm.common.component.CjmJwtTokenComponent;
 import com.jxkj.cjm.common.controller.AbstractVoBaseController;
@@ -116,6 +117,7 @@ public class ForumForumController extends AbstractVoBaseController<ForumForum,Fo
 			String pageSize = request.getParameter("pageSize");
 			Map<String, Object> map = new HashMap<>();
 			initPage(map, pageNum, pageSize);
+			PageHelper.orderBy("sort DESC");
 			List<ForumForum> lists = baseService.selectByMap(TransferUtil.beanToMap(forumForum));
 			List<ForumForumVo> voLists = new ArrayList<>();
 			for (ForumForum entity1 : lists) {
