@@ -84,6 +84,18 @@ public class ForumAttachment5 extends Model<ForumAttachment0> {
      * 相册id
      */
     private String picid;
+    /**
+     * 是否删除1是0否
+     */
+    private Integer isdelete;
+
+    public Integer getIsdelete() {
+        return isdelete;
+    }
+
+    public void setIsdelete(Integer isdelete) {
+        this.isdelete = isdelete;
+    }
 
     public Long getAid() {
         return aid;

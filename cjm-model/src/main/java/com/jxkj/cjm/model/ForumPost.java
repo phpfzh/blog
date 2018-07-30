@@ -39,18 +39,7 @@ public class ForumPost extends SuperEntity<ForumPost> {
      * 状态-1审核中 -2审核失败 0审核通过
      */
     private Integer status;
-    /**
-     * 添加时间
-     */
-    private Long addtime;
-    /**
-     * 修改时间
-     */
-    private Long updatetime;
-    /**
-     * 修改用户id
-     */
-    private Long updatebaseid;
+
     /**
      * 是否删除1是0否
      */
@@ -68,6 +57,14 @@ public class ForumPost extends SuperEntity<ForumPost> {
      */
     private Integer usesig;
 
+    /**
+     * 发帖人添加时间
+     */
+    private Long dateline;
+    /**
+     * 发帖人修改时间
+     */
+    private Long updateline;
 
     public Long getFid() {
         return fid;
@@ -117,30 +114,6 @@ public class ForumPost extends SuperEntity<ForumPost> {
         this.status = status;
     }
 
-    public Long getAddtime() {
-        return addtime;
-    }
-
-    public void setAddtime(Long addtime) {
-        this.addtime = addtime;
-    }
-
-    public Long getUpdatetime() {
-        return updatetime;
-    }
-
-    public void setUpdatetime(Long updatetime) {
-        this.updatetime = updatetime;
-    }
-
-    public Long getUpdatebaseid() {
-        return updatebaseid;
-    }
-
-    public void setUpdatebaseid(Long updatebaseid) {
-        this.updatebaseid = updatebaseid;
-    }
-
     public Integer getIsdelete() {
         return isdelete;
     }
@@ -173,5 +146,19 @@ public class ForumPost extends SuperEntity<ForumPost> {
         this.usesig = usesig;
     }
 
+    public Long getDateline() {
+        return dateline;
+    }
 
+    public void setDateline(Long dateline) {
+        this.dateline = dateline;
+    }
+
+    public Long getUpdateline() {
+        return updateline;
+    }
+
+    public void setUpdateline(Long updateline) {
+        this.updateline = updateline;
+    }
 }

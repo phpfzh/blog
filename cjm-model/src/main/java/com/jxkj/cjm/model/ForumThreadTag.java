@@ -23,7 +23,10 @@ public class ForumThreadTag extends SuperEntity<ForumThreadTag> {
      * 是否删除
      */
     private Integer isdelete;
-
+    /**
+     * 主题数
+     */
+    private Integer   count;
 
     public String getName() {
         return this.name;
@@ -49,4 +52,11 @@ public class ForumThreadTag extends SuperEntity<ForumThreadTag> {
         this.isdelete = isdelete;
     }
 
+    public Integer getCount() {
+        return count;
+    }
+
+    public void setCount(Integer count) {
+        this.count = count;
+    }
 }

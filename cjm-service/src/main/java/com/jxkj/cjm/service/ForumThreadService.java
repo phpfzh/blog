@@ -3,7 +3,9 @@ package com.jxkj.cjm.service;
 import com.baomidou.mybatisplus.service.IService;
 import com.github.pagehelper.PageInfo;
 import com.jxkj.cjm.common.response.Meta;
+import com.jxkj.cjm.common.response.ProcessBack;
 import com.jxkj.cjm.model.ForumThread;
+import com.jxkj.cjm.model.vo.ForumThreadVo;
 
 public interface ForumThreadService extends IService<ForumThread>{ 
 
@@ -24,6 +26,14 @@ public interface ForumThreadService extends IService<ForumThread>{
 			String subject,String content,String userip,String usesig,String tags,Meta meta);
 
 
+	/**
+	 *
+	 * @param forumThreadVo
+	 * @param baseid  用户id
+	 * @param adminBaseid  管理员用户id
+	 * @return
+	 */
+	public ProcessBack updateForumThread(ForumThreadVo forumThreadVo,Long baseid,Long adminBaseid);
 
 	/**
 	 * 添加主题浏览量

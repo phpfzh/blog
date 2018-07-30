@@ -1,6 +1,8 @@
 package com.jxkj.cjm.model.vo;
 
 public class ForumPostVo {
+
+    private Long id;
     /**
      * 板块id
      */
@@ -25,18 +27,7 @@ public class ForumPostVo {
      * 状态-1审核中 -2审核失败 0审核通过
      */
     private Integer status;
-    /**
-     * 添加时间
-     */
-    private Long addtime;
-    /**
-     * 修改时间
-     */
-    private Long updatetime;
-    /**
-     * 修改用户id
-     */
-    private Long updatebaseid;
+
     /**
      * 是否删除1是0否
      */
@@ -70,6 +61,14 @@ public class ForumPostVo {
      * 版块名称
      */
     private String fname;
+    /**
+     * 添加实际
+     */
+   private Long dateline;
+    /**
+     * 修改时间
+     */
+   private Long updateline;
 
 
     public Long getFid() {
@@ -118,30 +117,6 @@ public class ForumPostVo {
 
     public void setStatus(Integer status) {
         this.status = status;
-    }
-
-    public Long getAddtime() {
-        return addtime;
-    }
-
-    public void setAddtime(Long addtime) {
-        this.addtime = addtime;
-    }
-
-    public Long getUpdatetime() {
-        return updatetime;
-    }
-
-    public void setUpdatetime(Long updatetime) {
-        this.updatetime = updatetime;
-    }
-
-    public Long getUpdatebaseid() {
-        return updatebaseid;
-    }
-
-    public void setUpdatebaseid(Long updatebaseid) {
-        this.updatebaseid = updatebaseid;
     }
 
     public Integer getIsdelete() {
@@ -206,5 +181,29 @@ public class ForumPostVo {
 
     public void setUpusername(String upusername) {
         this.upusername = upusername;
+    }
+
+    public Long getDateline() {
+        return dateline;
+    }
+
+    public void setDateline(Long dateline) {
+        this.dateline = dateline;
+    }
+
+    public Long getUpdateline() {
+        return updateline;
+    }
+
+    public void setUpdateline(Long updateline) {
+        this.updateline = updateline;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

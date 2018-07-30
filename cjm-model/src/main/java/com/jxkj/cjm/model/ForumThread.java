@@ -91,6 +91,14 @@ public class ForumThread extends SuperEntity<ForumThread> {
      * 主题类型 1原创2 转载 3翻译
      **/
     private Integer threadtype;
+    /**
+     * 管理员用户id
+     */
+    private Long upbaseid;
+    /**
+     * 管理员修改时间
+     */
+    private Long moderatline;
 
     public Long getFid() {
         return fid;
@@ -244,5 +252,19 @@ public class ForumThread extends SuperEntity<ForumThread> {
         this.threadtype = threadtype;
     }
 
+    public Long getUpbaseid() {
+        return upbaseid;
+    }
 
+    public void setUpbaseid(Long upbaseid) {
+        this.upbaseid = upbaseid;
+    }
+
+    public Long getModeratline() {
+        return moderatline;
+    }
+
+    public void setModeratline(Long moderatline) {
+        this.moderatline = moderatline;
+    }
 }

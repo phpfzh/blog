@@ -1,17 +1,23 @@
 package com.jxkj.cjm.service.impl;
 
 
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 import javax.annotation.Resource;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 
+import com.jxkj.cjm.common.response.AjaxResult;
+import com.jxkj.cjm.common.response.ProcessBack;
 import com.jxkj.cjm.common.util.*;
 import com.jxkj.cjm.mapper.*;
 import com.jxkj.cjm.model.*;
+import com.jxkj.cjm.model.vo.ForumThreadVo;
+import com.jxkj.cjm.model.vo.GroupUpdate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
@@ -131,7 +137,7 @@ public class ForumThreadServiceImpl extends ServiceImpl<ForumThreadMapper, Forum
             forumPost.setSubject(subject); //主题标题
             forumPost.setContent(content); //内容
             forumPost.setStatus(-1); //状态-1审核中 -2审核失败 0审核通过
-            forumPost.setAddtime(dateline); //添加时间
+            forumPost.setDateline(dateline); //添加时间
             forumPost.setIsdelete(0); //是否删除1是0否
             forumPost.setUseip(userip); //用户ip
             forumPost.setAttachment(map.size()); //附件个数
@@ -194,6 +200,162 @@ public class ForumThreadServiceImpl extends ServiceImpl<ForumThreadMapper, Forum
         } finally {
             saveLock.unlock();
         }
+    }
+
+    /**
+     * @param forumThreadVo
+     * @param baseid        用户id
+     * @param adminBaseid   管理员用户id
+     * @return
+     */
+    public ProcessBack updateForumThread(ForumThreadVo forumThreadVo, Long baseid, Long adminBaseid) {
+        ProcessBack processBack = new ProcessBack();
+        try {
+
+            if (baseid == null) {
+                if (adminBaseid == null) {
+                    throw new IllegalArgumentException("baseid 和adminBaseid 不能同时为空");
+                }
+            }
+
+            if (adminBaseid == null) {
+                if (baseid == null) {
+                    throw new IllegalArgumentException("baseid 和adminBaseid 不能同时为空");
+                }
+            }
+
+            //验证
+            ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+            Validator validator = factory.getValidator();
+            Set<ConstraintViolation<ForumThreadVo>> constraintViolations = validator.validate(forumThreadVo, GroupUpdate.class);
+            if (constraintViolations.iterator().hasNext() && constraintViolations.iterator().next().getMessage() != null) {
+                processBack.setCode(ProcessBack.FAIL_CODE);
+                processBack.setMessage(constraintViolations.iterator().next().getMessage());
+                return processBack;
+            }
+
+            //判断是否有图片
+            AttachUtil attachUtil = new AttachUtil();
+            //替换video 里面的花括号 正则不能替换
+            String content = attachUtil.replaceVideoDataSetup(forumThreadVo.getContent());
+            Map<String, String> map = attachUtil.getImgSrcList(content);
+            Integer attachment = 0;//附件,0无附件 1普通附件 2有图片附件
+            if (!map.isEmpty()) {//有上传图片
+                attachment = 2;
+            }
+
+            Long updateLine = System.currentTimeMillis();
+            ForumThread forumThread = new ForumThread();
+            forumThread.setId(forumThreadVo.getId());
+            forumThread.setSubject(forumThreadVo.getSubject());
+            forumThread.setFid(forumThreadVo.getFid());
+            forumThread.setThreadtype(forumThreadVo.getThreadtype());
+            forumThread.setAttachment(attachment);
+            forumThread.setStatus(-1);
+            if (adminBaseid != null) {//管理员修改
+                forumThread.setUpbaseid(adminBaseid);
+                forumThread.setModeratline(updateLine);
+                forumThread.setModerated(1);
+            }
+            int count = 0;
+            count = baseMapper.updateById(forumThread);
+            if (!(count > 0)) {
+                throw new IllegalArgumentException("ForumThread 主题更新失败");
+            }
+
+            ForumPost forumPost1 = new ForumPost();
+            forumPost1.setTid(forumThread.getId());
+            ForumPost forumPost = forumPostMapper.selectOne(forumPost1);
+            if (forumPost == null) {
+                throw new IllegalArgumentException("主题内容信息找不到,tid:" + forumThread.getId());
+            }
+
+            List<Long> oldAids = new ArrayList<>();//记录原附件aid
+
+            //替换成attach标签
+            for (Map.Entry<String, String> entry : map.entrySet()) {
+                Long aid = forumAttachmentService.getForumAttachmentUnusedAidByAttach(entry.getValue());
+                if (aid != null) {//新添加了图片
+                    int cc = forumAttachmentService.insertForumAttachmentByAidAndTid(aid, forumThread.getId(), forumPost.getId(), "");
+                    if (!(cc > 0)) {
+                        throw new IllegalArgumentException("附件信息保存失败,url:" + entry.getValue());
+                    }
+                    content = content.replaceFirst(entry.getKey(), "[attach]" + aid + "[/attach]");
+                } else {
+                    //老图片找到aid 替换即可
+                    Long aid2 = forumAttachmentService.getForumAttachmentAidByAttach(entry.getValue(), forumThread.getId());
+                    if (aid2 != null) {
+                        content = content.replaceFirst(entry.getKey(), "[attach]" + aid2 + "[/attach]");
+                        oldAids.add(aid2);
+                    }
+                }
+            }
+
+            //判断修改删除的附件
+            List<String> attachs = attachUtil.getAttachAidByContent(forumPost.getContent());
+            for (String str : attachs) {
+                Long aid = Long.valueOf(str);
+                if (!oldAids.contains(aid)) {//修改删了附件，标记为已删除
+                    forumAttachmentService.deleteForumAttachmentByAid(aid);
+                }
+            }
+
+            forumPost.setContent(content);
+            forumPost.setStatus(-1);
+            forumPost.setFid(forumThread.getFid());
+            forumPost.setAttachment(map.size());
+            if (baseid != null) {
+                forumPost.setUpdateline(updateLine);
+            }
+            int postCount = 0;
+            postCount = forumPostMapper.updateById(forumPost);
+            if (!(postCount > 0)) {
+                throw new IllegalArgumentException("ForumPost 主题内容信息更新失败");
+            }
+
+            if (forumThreadVo.getTags() != null && StringUtil.isNotEmpty(forumThreadVo.getTags())) {
+                //保存tags
+                String[] tagss = forumThreadVo.getTags().split(",");
+                for (String s : tagss) {
+                    ForumThreadTag forumThreadTag = getForumThreadTag(s);
+                    if (forumThreadTag == null) {
+                        ForumThreadTag forumThreadTag1 = new ForumThreadTag();
+                        forumThreadTag1.setName(s.trim());
+                        Long dateLine = System.currentTimeMillis();
+                        forumThreadTag1.setDateline(dateLine);
+                        forumThreadTag1.setIsdelete(0);
+                        forumThreadTag1.setCount(1);
+                        forumThreadTagMapper.insert(forumThreadTag1);
+
+                        insertForumThreadTagLink(forumThreadTag1.getId(), forumThread.getId());
+                        if(baseid != null){
+                            insertForumThreadTagUser(forumThreadTag1.getId(), baseid);
+                        }
+                        continue;//跳出不继续执行下面代码
+                    }
+
+                    insertForumThreadTagLink(forumThreadTag.getId(), forumThread.getId());
+                    if(baseid != null){
+                        insertForumThreadTagUser(forumThreadTag.getId(), baseid);
+                    }
+                }
+            }else{
+                //标签去掉
+                ForumThreadTagLink forumThreadTagLink = new ForumThreadTagLink();
+                forumThreadTagLink.setTid(forumThread.getId());
+                forumThreadTagLinkMapper.deleteByMap(TransferUtil.beanToMap(forumThreadTagLink));
+            }
+
+            processBack.setCode(ProcessBack.SUCCESS_CODE);
+            processBack.setMessage("修改成功");
+            return processBack;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        processBack.setCode(ProcessBack.FAIL_CODE);
+        processBack.setMessage(ProcessBack.EXCEPTION_MESSAGE);
+        return processBack;
     }
 
     /**
@@ -612,4 +774,6 @@ public class ForumThreadServiceImpl extends ServiceImpl<ForumThreadMapper, Forum
             forumThreadTagUserMapper.insert(forumThreadTagUser);
         }
     }
+
+
 }

@@ -11,24 +11,17 @@ import com.jxkj.cjm.common.response.Meta;
 import com.jxkj.cjm.common.util.IPUtil;
 import com.jxkj.cjm.common.util.StringUtil;
 import com.jxkj.cjm.common.util.TransferUtil;
-import com.jxkj.cjm.model.ForumForum;
-import com.jxkj.cjm.model.ForumThread;
-import com.jxkj.cjm.model.User;
+import com.jxkj.cjm.model.*;
 import com.jxkj.cjm.model.vo.ForumForumVo;
 import com.jxkj.cjm.model.vo.ForumPostVo;
+import com.jxkj.cjm.model.vo.ForumThreadTagVo;
 import com.jxkj.cjm.model.vo.ForumThreadVo;
-import com.jxkj.cjm.service.ForumForumService;
-import com.jxkj.cjm.service.ForumPostService;
-import com.jxkj.cjm.service.ForumThreadService;
-import com.jxkj.cjm.service.UserService;
+import com.jxkj.cjm.service.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author cjm
@@ -55,6 +48,12 @@ public class ForumThreadAPIController extends BaseController {
     private ForumForumService forumForumService;
 
     @Resource
+    private ForumThreadTagService forumThreadTagService;
+
+    @Resource
+    private ForumThreadTagLinkService forumThreadTagLinkService;
+
+    @Resource
     private CjmJwtTokenComponent cjmJwtTokenComponent;
 
     /**
@@ -71,13 +70,13 @@ public class ForumThreadAPIController extends BaseController {
             String pageSize = request.getParameter("pageSize");
             forumForum.setIsdelete(0);
             forumForum.setStatus(1);//状态1显示0不显示
-             // 处理分页请求
+            // 处理分页请求
             Map<String, Object> map = new HashMap<>();
             initPage(map, pageNum, pageSize);
             PageHelper.orderBy("sort DESC");
             List<ForumForum> lists = forumForumService.selectByMap(TransferUtil.beanToMap(forumForum));
             List<ForumForumVo> voLists = new ArrayList<>();
-            for(ForumForum forumForum1 :lists ){
+            for (ForumForum forumForum1 : lists) {
                 ForumForumVo forumForumVo = new ForumForumVo();
                 forumForumVo.setId(forumForum1.getId());
                 forumForumVo.setName(forumForum1.getName());
@@ -127,12 +126,12 @@ public class ForumThreadAPIController extends BaseController {
                 ForumThreadVo en = new ForumThreadVo();
                 User user = userService.selectById(entity1.getBaseid());
                 ForumForum forumForum = forumForumService.selectById(entity1.getFid());
-                ForumPostVo forumPostVo = forumPostService.getForumPostByTid(entity1.getId());
+                //   ForumPostVo forumPostVo = forumPostService.getForumPostByTid(entity1.getId());
                 String Headurl = user.getImg() == null ? "" : user.getImg();
                 String threadTypeName = "原创";
-                if(entity1.getThreadtype() != null && entity1.getThreadtype().equals(2)){
+                if (entity1.getThreadtype() != null && entity1.getThreadtype().equals(2)) {
                     threadTypeName = "转载";
-                }else if(entity1.getThreadtype() != null && entity1.getThreadtype().equals(3)){
+                } else if (entity1.getThreadtype() != null && entity1.getThreadtype().equals(3)) {
                     threadTypeName = "翻译";
                 }
                 en.setUsername(user.getUsername());//用户名
@@ -147,9 +146,125 @@ public class ForumThreadAPIController extends BaseController {
                 en.setFid(entity1.getFid());//板块id
                 en.setBaseid(entity1.getBaseid());//用户id
                 en.setThreadtypename(threadTypeName);
-                if (forumPostVo != null) {
+                /*if (forumPostVo != null) {
                     en.setContent(forumPostVo.getContent());
+                }*/
+                voLists.add(en);
+            }
+
+            PageInfo<Object> pagehelper = initPagehelper(map, lists);
+            Map<String, Object> ha = new HashMap<>();
+            ha.put("list", voLists);
+            ha.put("total", pagehelper.getTotal());
+            return AjaxResult.successAjaxResult(ha);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return AjaxResult.failAjaxResult(AjaxResult.MESSAGE);
+    }
+
+    /**
+     * 查询标签列表
+     *
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "hotTagList", method = {RequestMethod.POST, RequestMethod.GET})
+    public AjaxResult hotTagList() {
+        try {
+
+            ForumThreadTag forumThread = new ForumThreadTag();
+            String pageNum = request.getParameter("pageNum");
+            String pageSize = request.getParameter("pageSize");
+            Map<String, Object> map = new HashMap<>();
+            initPage(map, pageNum, pageSize);
+            PageHelper.orderBy("count DESC");
+            List<ForumThreadTag> lists = forumThreadTagService.selectByMap(TransferUtil.beanToMap(forumThread));
+            List<ForumThreadTagVo> voLists = new ArrayList<>();
+            for (ForumThreadTag forumThreadTag : lists) {
+                ForumThreadTagVo forumThreadTagVo = new ForumThreadTagVo();
+                forumThreadTagVo.setId(forumThreadTag.getId());
+                forumThreadTagVo.setName(forumThreadTag.getName());
+                forumThreadTagVo.setCount(forumThreadTag.getCount());
+                voLists.add(forumThreadTagVo);
+            }
+            PageInfo<Object> pagehelper = initPagehelper(map, lists);
+            Map<String, Object> ha = new HashMap<>();
+            ha.put("list", voLists);
+            ha.put("total", pagehelper.getTotal());
+            return AjaxResult.successAjaxResult(ha);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return AjaxResult.failAjaxResult(AjaxResult.MESSAGE);
+    }
+
+    /**
+     * 查询标签列表
+     *
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "tagList", method = {RequestMethod.POST, RequestMethod.GET})
+    public AjaxResult tagList() {
+        try {
+
+            String pageNum = request.getParameter("pageNum");
+            String pageSize = request.getParameter("pageSize");
+            String tagid = request.getParameter("tagid");
+            if (tagid == null || StringUtil.isEmpty(tagid)) {
+                return AjaxResult.failAjaxResult("tagid 不能为空");
+            }
+
+            Map<String, Object> map = new HashMap<>();
+            Wrapper<ForumThreadTagLink> threadTagLinkWrapper = Condition.create();
+            threadTagLinkWrapper.eq("tagid", tagid);
+            List<ForumThreadTagLink> threadTagLinkLists = forumThreadTagLinkService.selectList(threadTagLinkWrapper);
+            if (!(threadTagLinkLists.size() > 0)) {
+                Map<String, Object> ha = new HashMap<>();
+                ha.put("list", new ArrayList<>());
+                ha.put("total", 0);
+                return AjaxResult.successAjaxResult(ha);
+            }
+
+            Set<Long> tids = new HashSet<>();
+            for (ForumThreadTagLink forumThreadTagLink : threadTagLinkLists) {
+                tids.add(forumThreadTagLink.getTid());
+            }
+            initPage(map, pageNum, pageSize);
+            Wrapper<ForumThread> forumThreadWrapper = Condition.create();
+            forumThreadWrapper.eq("status", 0);
+            forumThreadWrapper.eq("isdelete", 0);
+            forumThreadWrapper.in("id", tids);
+            List<ForumThread> lists = forumThreadService.selectList(forumThreadWrapper);
+            List<ForumThreadVo> voLists = new ArrayList<>();
+            for (ForumThread entity1 : lists) {
+                ForumThreadVo en = new ForumThreadVo();
+                User user = userService.selectById(entity1.getBaseid());
+                ForumForum forumForum = forumForumService.selectById(entity1.getFid());
+                //   ForumPostVo forumPostVo = forumPostService.getForumPostByTid(entity1.getId());
+                String Headurl = user.getImg() == null ? "" : user.getImg();
+                String threadTypeName = "原创";
+                if (entity1.getThreadtype() != null && entity1.getThreadtype().equals(2)) {
+                    threadTypeName = "转载";
+                } else if (entity1.getThreadtype() != null && entity1.getThreadtype().equals(3)) {
+                    threadTypeName = "翻译";
                 }
+                en.setUsername(user.getUsername());//用户名
+                en.setSubject(entity1.getSubject());//标题
+                en.setDateline(entity1.getDateline());//时间戳
+                en.setThreadtype(entity1.getThreadtype());//主题类型
+                en.setFname(forumForum.getName());//板块名称
+                en.setId(entity1.getId());//tid
+                en.setHeadurl(Headurl);//用户头像地址
+                en.setViews(entity1.getViews());//浏览数
+                en.setReplies(entity1.getReplies());//回复数
+                en.setFid(entity1.getFid());//板块id
+                en.setBaseid(entity1.getBaseid());//用户id
+                en.setThreadtypename(threadTypeName);
+                /*if (forumPostVo != null) {
+                    en.setContent(forumPostVo.getContent());
+                }*/
                 voLists.add(en);
             }
 
@@ -186,6 +301,11 @@ public class ForumThreadAPIController extends BaseController {
                 e.printStackTrace();
             }
 
+            ForumThread forumThread = forumThreadService.selectById(Long.valueOf(tidStr));
+            if (forumThread == null) {
+                throw new IllegalArgumentException("未找到主题信息");
+            }
+
             Long tid = Long.valueOf(tidStr);
             String userip = IPUtil.getIpAdd(request);
             ForumPostVo forumPostVo = forumPostService.getForumPostByTid(tid);
@@ -200,10 +320,38 @@ public class ForumThreadAPIController extends BaseController {
                 return ajaxResult;
             }
 
-            if(baseid != null && baseid.equals(forumPostVo.getBaseid())){
+            ForumThreadVo  en = new ForumThreadVo();
+            String threadTypeName = "原创";
+            if (forumThread.getThreadtype() != null && forumThread.getThreadtype().equals(2)) {
+                threadTypeName = "转载";
+            } else if (forumThread.getThreadtype() != null && forumThread.getThreadtype().equals(3)) {
+                threadTypeName = "翻译";
+            }
+
+            Wrapper<ForumThread> forumThreadWrapper = Condition.create();
+            forumThreadWrapper.eq("baseid",forumThread.getBaseid());
+            forumThreadWrapper.eq("isdelete",0);
+            int count =  forumThreadService.selectCount(forumThreadWrapper);
+
+            en.setViews(forumThread.getViews());//浏览数
+            en.setCount(count);//作者总主题数
+            en.setReplies(forumThread.getReplies());//回复数
+            en.setThreadtype(forumThread.getThreadtype());//主题类型
+            en.setId(forumThread.getId());//tid
+            en.setFid(forumThread.getFid());//板块id
+            en.setPid(forumPostVo.getId());
+            en.setUsername(forumPostVo.getUsername());//用户名
+            en.setSubject(forumPostVo.getSubject());//标题
+            en.setDateline(forumPostVo.getDateline());//时间戳
+            en.setHeadurl(forumPostVo.getHeadurl());//用户头像地址
+            en.setFname(forumPostVo.getFname());//板块名称
+            en.setBaseid(forumPostVo.getBaseid());//用户id
+            en.setThreadtypename(threadTypeName);
+            en.setContent(forumPostVo.getContent());
+             if (baseid != null && baseid.equals(forumPostVo.getBaseid())) {
                 //是作者本人则不判断是否审核状态
                 forumThreadService.addForumThreadView(tid, userip, baseid);
-                return AjaxResult.successAjaxResult(forumPostVo);
+                return AjaxResult.successAjaxResult(en);
             }
 
             if (!(forumPostVo.getStatus().equals(0))) {//状态-1审核中 -2审核失败 0审核通过
@@ -214,7 +362,7 @@ public class ForumThreadAPIController extends BaseController {
             }
 
             forumThreadService.addForumThreadView(tid, userip, baseid);
-            return AjaxResult.successAjaxResult(forumPostVo);
+            return AjaxResult.successAjaxResult(en);
         } catch (Exception e) {
             e.printStackTrace();
         }

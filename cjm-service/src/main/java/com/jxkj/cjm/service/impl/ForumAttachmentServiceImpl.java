@@ -420,6 +420,7 @@ public class ForumAttachmentServiceImpl extends ServiceImpl<ForumAttachmentMappe
 					attachment0.setWidth(attachmentUnused.getWidth());  //宽度
 					attachment0.setThumachment(attachmentUnused.getThumachment());  //缩率图路径
 					attachment0.setWaterattachment(attachmentUnused.getWaterattachment());  //水印图路径
+					attachment0.setIsdelete(0);
 					ppcount = forumAttachment0Mapper.insert(attachment0);
 	 				break;
 				case 1:
@@ -440,6 +441,7 @@ public class ForumAttachmentServiceImpl extends ServiceImpl<ForumAttachmentMappe
 					attachment1.setWidth(attachmentUnused.getWidth());  //宽度
  					attachment1.setThumachment(attachmentUnused.getThumachment());  //缩率图路径
 					attachment1.setWaterattachment(attachmentUnused.getWaterattachment());  //水印图路径
+					attachment1.setIsdelete(0);
  					ppcount = forumAttachment1Mapper.insert(attachment1);
 					break;
 				case 2:
@@ -460,6 +462,7 @@ public class ForumAttachmentServiceImpl extends ServiceImpl<ForumAttachmentMappe
 					attachment2.setWidth(attachmentUnused.getWidth());  //宽度
  					attachment2.setThumachment(attachmentUnused.getThumachment());  //缩率图路径
 					attachment2.setWaterattachment(attachmentUnused.getWaterattachment());  //水印图路径
+					attachment2.setIsdelete(0);
  					ppcount = forumAttachment2Mapper.insert(attachment2);
 					break;
 				case 3:
@@ -480,6 +483,7 @@ public class ForumAttachmentServiceImpl extends ServiceImpl<ForumAttachmentMappe
 					attachment3.setWidth(attachmentUnused.getWidth());  //宽度
  					attachment3.setThumachment(attachmentUnused.getThumachment());  //缩率图路径
 					attachment3.setWaterattachment(attachmentUnused.getWaterattachment());  //水印图路径
+					attachment3.setIsdelete(0);
 					ppcount = forumAttachment3Mapper.insert(attachment3);
 					break;
 				case 4:
@@ -500,6 +504,7 @@ public class ForumAttachmentServiceImpl extends ServiceImpl<ForumAttachmentMappe
 					attachment4.setWidth(attachmentUnused.getWidth());  //宽度
  					attachment4.setThumachment(attachmentUnused.getThumachment());  //缩率图路径
 					attachment4.setWaterattachment(attachmentUnused.getWaterattachment());  //水印图路径
+					attachment4.setIsdelete(0);
 					ppcount = forumAttachment4Mapper.insert(attachment4);
 					break;
 				case 5:
@@ -520,6 +525,7 @@ public class ForumAttachmentServiceImpl extends ServiceImpl<ForumAttachmentMappe
 					attachment5.setWidth(attachmentUnused.getWidth());  //宽度
  					attachment5.setThumachment(attachmentUnused.getThumachment());  //缩率图路径
 					attachment5.setWaterattachment(attachmentUnused.getWaterattachment());  //水印图路径
+					attachment5.setIsdelete(0);
 					ppcount = forumAttachment5Mapper.insert(attachment5);
 					break;
 				case 6:
@@ -540,6 +546,7 @@ public class ForumAttachmentServiceImpl extends ServiceImpl<ForumAttachmentMappe
 					attachment6.setWidth(attachmentUnused.getWidth());  //宽度
  					attachment6.setThumachment(attachmentUnused.getThumachment());  //缩率图路径
 					attachment6.setWaterattachment(attachmentUnused.getWaterattachment());  //水印图路径
+					attachment6.setIsdelete(0);
 					ppcount = forumAttachment6Mapper.insert(attachment6);
 					break;
 				case 7:
@@ -560,6 +567,7 @@ public class ForumAttachmentServiceImpl extends ServiceImpl<ForumAttachmentMappe
 					attachment7.setWidth(attachmentUnused.getWidth());  //宽度
  					attachment7.setThumachment(attachmentUnused.getThumachment());  //缩率图路径
 					attachment7.setWaterattachment(attachmentUnused.getWaterattachment());  //水印图路径
+					attachment7.setIsdelete(0);
 					ppcount = forumAttachment7Mapper.insert(attachment7);
 					break;
 				case 8:
@@ -580,6 +588,7 @@ public class ForumAttachmentServiceImpl extends ServiceImpl<ForumAttachmentMappe
 					attachment8.setWidth(attachmentUnused.getWidth());  //宽度
  					attachment8.setThumachment(attachmentUnused.getThumachment());  //缩率图路径
 					attachment8.setWaterattachment(attachmentUnused.getWaterattachment());  //水印图路径
+					attachment8.setIsdelete(0);
 					ppcount = forumAttachment8Mapper.insert(attachment8);
 					break;
 				case 9:
@@ -600,6 +609,7 @@ public class ForumAttachmentServiceImpl extends ServiceImpl<ForumAttachmentMappe
 					attachment9.setWidth(attachmentUnused.getWidth());  //宽度
  					attachment9.setThumachment(attachmentUnused.getThumachment());  //缩率图路径
 					attachment9.setWaterattachment(attachmentUnused.getWaterattachment());  //水印图路径
+					attachment9.setIsdelete(0);
 					ppcount = forumAttachment9Mapper.insert(attachment9);
 					break;
 	 			default:
@@ -777,6 +787,108 @@ public class ForumAttachmentServiceImpl extends ServiceImpl<ForumAttachmentMappe
 			 e.printStackTrace();
 			 return null;
 		 }
+	}
+
+	/**
+	 *
+	 * @Title: getForumAttachmentByAid
+	 * @Description: TODO(根据aid 获取图片或视频的路径)
+	 * @param @param aid  主键id
+	 * @param @return    设定文件
+	 * @return PreForumAttachment    返回类型
+	 * @throws
+	 */
+	@Override
+	public  void deleteForumAttachmentByAid(Long aid){
+		try{
+			if(aid == null){
+				throw new IllegalArgumentException("'aid' 不能为空");
+			}
+
+			ForumAttachment preForumAttachment = baseMapper.selectById(aid);
+			if(preForumAttachment == null){
+				throw new IllegalArgumentException("'preForumAttachment' 信息找不到");
+			}
+
+			switch (preForumAttachment.getTableid()) {
+				case 0:
+					ForumAttachment0 preForumAttachment0 = forumAttachment0Mapper.selectById(aid);
+					if(preForumAttachment0 != null){
+						preForumAttachment0.setIsdelete(1);
+						forumAttachment0Mapper.updateById(preForumAttachment0);
+					}
+					break;
+				case 1:
+					ForumAttachment1 preForumAttachment1 = forumAttachment1Mapper.selectById(aid);
+					if(preForumAttachment1 != null){
+						preForumAttachment1.setIsdelete(1);
+						forumAttachment1Mapper.updateById(preForumAttachment1);
+					}
+					break;
+				case 2:
+					ForumAttachment2 preForumAttachment2 = forumAttachment2Mapper.selectById(aid);
+					if(preForumAttachment2 != null){
+						preForumAttachment2.setIsdelete(1);
+						forumAttachment2Mapper.updateById(preForumAttachment2);
+					}
+					break;
+				case 3:
+					ForumAttachment3 preForumAttachment3 = forumAttachment3Mapper.selectById(aid);
+					if(preForumAttachment3 != null){
+						preForumAttachment3.setIsdelete(1);
+						forumAttachment3Mapper.updateById(preForumAttachment3);
+					}
+					break;
+				case 4:
+					ForumAttachment4 preForumAttachment4 = forumAttachment4Mapper.selectById(aid);
+					if(preForumAttachment4 != null){
+						preForumAttachment4.setIsdelete(1);
+						forumAttachment4Mapper.updateById(preForumAttachment4);
+					}
+					break;
+				case 5:
+					ForumAttachment5 preForumAttachment5 = forumAttachment5Mapper.selectById(aid);
+					if(preForumAttachment5 != null){
+						preForumAttachment5.setIsdelete(1);
+						forumAttachment5Mapper.updateById(preForumAttachment5);
+					}
+					break;
+				case 6:
+					ForumAttachment6 preForumAttachment6 = forumAttachment6Mapper.selectById(aid);
+					if(preForumAttachment6 != null){
+						preForumAttachment6.setIsdelete(1);
+						forumAttachment6Mapper.updateById(preForumAttachment6);
+					}
+					break;
+				case 7:
+					ForumAttachment7 preForumAttachment7 = forumAttachment7Mapper.selectById(aid);
+					if(preForumAttachment7 != null){
+						preForumAttachment7.setIsdelete(1);
+						forumAttachment7Mapper.updateById(preForumAttachment7);
+					}
+					break;
+				case 8:
+					ForumAttachment8 preForumAttachment8 = forumAttachment8Mapper.selectById(aid);
+					if(preForumAttachment8 != null){
+						preForumAttachment8.setIsdelete(1);
+						forumAttachment8Mapper.updateById(preForumAttachment8);
+					}
+					break;
+				case 9:
+					ForumAttachment9 preForumAttachment9 = forumAttachment9Mapper.selectById(aid);
+					if(preForumAttachment9 != null){
+						preForumAttachment9.setIsdelete(1);
+						forumAttachment9Mapper.updateById(preForumAttachment9);
+					}
+					break;
+				default:
+					break;
+			}
+
+
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 	}
 	
 	/**

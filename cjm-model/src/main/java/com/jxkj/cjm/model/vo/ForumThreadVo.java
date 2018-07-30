@@ -1,15 +1,27 @@
 package com.jxkj.cjm.model.vo;
 
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.Range;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 public class ForumThreadVo {
 
     /**
      * 主键id
      **/
+    @NotNull(message = "主题id 不能为空",groups = {GroupUpdate.class})
     private Long id;
     /**
      * 板块id
      */
+    @NotNull(message = "板块id不能为空",groups ={ GroupUpdate.class})
     private Long fid;
+    /**
+     * 帖子id
+     */
+    private Long pid;
     /**
      * 用户id
      */
@@ -17,6 +29,8 @@ public class ForumThreadVo {
     /**
      * 标题
      */
+    @NotBlank(message = "标题不能为空",groups = {GroupUpdate.class})
+    @Length(message = "标题不能超100字符",max = 100,groups = {GroupUpdate.class})
     private String subject;
     /**
      * 发布时间
@@ -81,6 +95,8 @@ public class ForumThreadVo {
     /**
      * 主题类型 1原创2 转载 3翻译
      **/
+    @NotNull(message = "主题类型不能为空",groups ={ GroupUpdate.class})
+    @Range(message = "主题类型值范围在1-3",min = 1,max = 3)
     private Integer threadtype;
     /**
      * 用户名
@@ -97,11 +113,21 @@ public class ForumThreadVo {
     /**
      * 内容
      */
+    @NotBlank(message = "主题内容不能为空",groups = {GroupUpdate.class})
     private String content;
     /**
      * 主题类型名称
      */
     private String  threadtypename;
+
+    /**
+     * 主题tags
+     */
+    private String tags;
+    /**
+     * 主题总数
+     */
+    private Integer count;
 
     public Long getId() {
         return id;
@@ -301,5 +327,29 @@ public class ForumThreadVo {
 
     public void setThreadtypename(String threadtypename) {
         this.threadtypename = threadtypename;
+    }
+
+    public String getTags() {
+        return tags;
+    }
+
+    public void setTags(String tags) {
+        this.tags = tags;
+    }
+
+    public Long getPid() {
+        return pid;
+    }
+
+    public void setPid(Long pid) {
+        this.pid = pid;
+    }
+
+    public Integer getCount() {
+        return count;
+    }
+
+    public void setCount(Integer count) {
+        this.count = count;
     }
 }

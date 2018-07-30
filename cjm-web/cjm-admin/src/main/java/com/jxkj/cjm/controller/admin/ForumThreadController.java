@@ -8,6 +8,7 @@ import com.jxkj.cjm.common.component.CjmJwtTokenComponent;
 import com.jxkj.cjm.common.controller.AbstractVoBaseController;
 import com.jxkj.cjm.common.response.AjaxResult;
 import com.jxkj.cjm.common.response.Meta;
+import com.jxkj.cjm.common.response.ProcessBack;
 import com.jxkj.cjm.common.util.IPUtil;
 import com.jxkj.cjm.common.util.StringUtil;
 import com.jxkj.cjm.common.util.TransferUtil;
@@ -493,6 +494,28 @@ public class ForumThreadController extends AbstractVoBaseController<ForumThread,
             } else if (count == 1) {
                 return AjaxResult.successAjaxResult("保存成功");
             }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return AjaxResult.failAjaxResult(AjaxResult.MESSAGE);
+    }
+
+    /**
+     * Title: insertForumThread
+     * TODO:(修改主题信息)
+     *
+     * @return
+     */
+    @ResponseBody
+    @PostMapping("/updateForumThread")
+    public AjaxResult updateForumThread(ForumThreadVo forumThreadVo) {
+        try {
+            String baseId = cjmJwtTokenComponent.getUserBaseId(request);
+            ProcessBack processBack = forumThreadService.updateForumThread(forumThreadVo,Long.valueOf(baseId),null);
+            if(processBack.getCode().equals(ProcessBack.FAIL_CODE)){
+                return AjaxResult.failAjaxResult(processBack.getMessage());
+            }
+            return AjaxResult.successAjaxResult("修改成功");
         } catch (Exception e) {
             e.printStackTrace();
         }

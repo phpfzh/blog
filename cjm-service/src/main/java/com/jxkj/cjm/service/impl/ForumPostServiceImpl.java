@@ -70,16 +70,16 @@ public class ForumPostServiceImpl extends ServiceImpl<ForumPostMapper, ForumPost
     private ForumPostVo copyForumPostVoByForumPost(ForumPost forumPost) {
         try {
             ForumPostVo forumPostVo = new ForumPostVo();
+            forumPostVo.setId(forumPost.getId());
             forumPostVo.setFid(forumPost.getFid());  //板块id
             forumPostVo.setTid(forumPost.getTid());  //主题id
             forumPostVo.setBaseid(forumPost.getBaseid());  //用户id
             forumPostVo.setSubject(forumPost.getSubject());  //主题标题
             forumPostVo.setContent(forumPost.getContent());  //内容
             forumPostVo.setStatus(forumPost.getStatus());  //状态-1审核中 -2审核失败 0审核通过
-            forumPostVo.setAddtime(forumPost.getAddtime());  //添加时间
-            forumPostVo.setUpdatetime(forumPost.getUpdatetime());  //修改时间
-            forumPostVo.setUpdatebaseid(forumPost.getUpdatebaseid());  //修改用户id
-            forumPostVo.setUseip(forumPost.getUseip());  //用户ip
+            forumPostVo.setDateline(forumPost.getDateline());  //添加时间
+            forumPostVo.setUpdateline(forumPost.getUpdateline());  //修改时间
+             forumPostVo.setUseip(forumPost.getUseip());  //用户ip
             forumPostVo.setAttachment(forumPost.getAttachment());  //附件个数
             forumPostVo.setIsdelete(forumPost.getIsdelete());  //是否删除1是0否
             forumPostVo.setUsesig(forumPost.getUsesig());  //是否带签名1是0否
@@ -93,11 +93,6 @@ public class ForumPostServiceImpl extends ServiceImpl<ForumPostMapper, ForumPost
             User user = userMapper.selectById(forumPostVo.getBaseid());
             if (user != null && user.getUsername() != null) {
                 forumPostVo.setUsername(user.getUsername());  //作者用户名
-            }
-
-            User user1 = userMapper.selectById(forumPostVo.getUpdatebaseid());
-            if (user1 != null && user1.getUsername() != null) {
-                forumPostVo.setUpusername(user1.getUsername());  //修改人用户名
             }
 
             ForumForum forumForum = forumForumMapper.selectById(forumPostVo.getFid());

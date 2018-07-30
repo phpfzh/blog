@@ -2,21 +2,21 @@
 Navicat MySQL Data Transfer
 
 Source Server         : localhost_3306
-Source Server Version : 60011
+Source Server Version : 50636
 Source Host           : localhost:3306
 Source Database       : cjm
 
 Target Server Type    : MYSQL
-Target Server Version : 60011
+Target Server Version : 50636
 File Encoding         : 65001
 
-Date: 2018-07-29 22:47:34
+Date: 2018-07-30 19:05:16
 */
 
 SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
--- Table structure for `forum_attachment`
+-- Table structure for forum_attachment
 -- ----------------------------
 DROP TABLE IF EXISTS `forum_attachment`;
 CREATE TABLE `forum_attachment` (
@@ -58,7 +58,7 @@ INSERT INTO `forum_attachment` VALUES ('23', '19', '16', '999999', '9', '0');
 INSERT INTO `forum_attachment` VALUES ('24', '19', '16', '10', '9', '0');
 
 -- ----------------------------
--- Table structure for `forum_attachment_0`
+-- Table structure for forum_attachment_0
 -- ----------------------------
 DROP TABLE IF EXISTS `forum_attachment_0`;
 CREATE TABLE `forum_attachment_0` (
@@ -79,6 +79,7 @@ CREATE TABLE `forum_attachment_0` (
   `isimage` int(1) DEFAULT NULL,
   `width` int(6) DEFAULT NULL,
   `picid` bigint(19) DEFAULT NULL,
+  `isdelete` int(1) DEFAULT NULL,
   PRIMARY KEY (`aid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -87,7 +88,7 @@ CREATE TABLE `forum_attachment_0` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for `forum_attachment_1`
+-- Table structure for forum_attachment_1
 -- ----------------------------
 DROP TABLE IF EXISTS `forum_attachment_1`;
 CREATE TABLE `forum_attachment_1` (
@@ -108,17 +109,18 @@ CREATE TABLE `forum_attachment_1` (
   `isimage` int(1) DEFAULT NULL,
   `width` int(6) DEFAULT NULL,
   `picid` bigint(19) DEFAULT NULL,
+  `isdelete` int(1) DEFAULT NULL,
   PRIMARY KEY (`aid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of forum_attachment_1
 -- ----------------------------
-INSERT INTO `forum_attachment_1` VALUES ('7', '11', '8', '999999', '1528039085267', 'QQ图片20180602214630.png', '37920', 'group1/M00/00/01/rBKphlsUByeAOKHOAACUIDGLrgE684.png', 'group1/M00/00/01/rBKphlsUByeAOKHOAACUIDGLrgE684_200x80.png', '', '0', '', '0', '0', '1', '1218', null);
-INSERT INTO `forum_attachment_1` VALUES ('8', '11', '8', '10', '1528039130966', 'VID20180603230811.mp4', '10265716', 'group1/M00/00/01/rBKphlsUB0yAf5C7AJykdAReKkA560.mp4', null, null, '0', '', '0', '0', '2', null, null);
+INSERT INTO `forum_attachment_1` VALUES ('7', '11', '8', '999999', '1528039085267', 'QQ图片20180602214630.png', '37920', 'group1/M00/00/01/rBKphlsUByeAOKHOAACUIDGLrgE684.png', 'group1/M00/00/01/rBKphlsUByeAOKHOAACUIDGLrgE684_200x80.png', '', '0', '', '0', '0', '1', '1218', null, '1');
+INSERT INTO `forum_attachment_1` VALUES ('8', '11', '8', '10', '1528039130966', 'VID20180603230811.mp4', '10265716', 'group1/M00/00/01/rBKphlsUB0yAf5C7AJykdAReKkA560.mp4', null, null, '0', '', '0', '0', '2', null, null, '1');
 
 -- ----------------------------
--- Table structure for `forum_attachment_2`
+-- Table structure for forum_attachment_2
 -- ----------------------------
 DROP TABLE IF EXISTS `forum_attachment_2`;
 CREATE TABLE `forum_attachment_2` (
@@ -139,16 +141,17 @@ CREATE TABLE `forum_attachment_2` (
   `isimage` int(1) DEFAULT NULL,
   `width` int(6) DEFAULT NULL,
   `picid` bigint(19) DEFAULT NULL,
+  `isdelete` int(1) DEFAULT NULL,
   PRIMARY KEY (`aid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of forum_attachment_2
 -- ----------------------------
-INSERT INTO `forum_attachment_2` VALUES ('9', '12', '9', '10', '1528041679551', 'VID20180603230811.mp4', '10265716', 'group1/M00/00/01/rBKphlsUEUuAKnA9AJykdAReKkA204.mp4', null, null, '0', '', '0', '0', '2', null, null);
+INSERT INTO `forum_attachment_2` VALUES ('9', '12', '9', '10', '1528041679551', 'VID20180603230811.mp4', '10265716', 'group1/M00/00/01/rBKphlsUEUuAKnA9AJykdAReKkA204.mp4', null, null, '0', '', '0', '0', '2', null, null, null);
 
 -- ----------------------------
--- Table structure for `forum_attachment_3`
+-- Table structure for forum_attachment_3
 -- ----------------------------
 DROP TABLE IF EXISTS `forum_attachment_3`;
 CREATE TABLE `forum_attachment_3` (
@@ -169,6 +172,7 @@ CREATE TABLE `forum_attachment_3` (
   `isimage` int(1) DEFAULT NULL,
   `width` int(6) DEFAULT NULL,
   `picid` bigint(19) DEFAULT NULL,
+  `isdelete` int(1) DEFAULT NULL,
   PRIMARY KEY (`aid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -177,7 +181,7 @@ CREATE TABLE `forum_attachment_3` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for `forum_attachment_4`
+-- Table structure for forum_attachment_4
 -- ----------------------------
 DROP TABLE IF EXISTS `forum_attachment_4`;
 CREATE TABLE `forum_attachment_4` (
@@ -198,6 +202,7 @@ CREATE TABLE `forum_attachment_4` (
   `isimage` int(1) DEFAULT NULL,
   `width` int(6) DEFAULT NULL,
   `picid` bigint(19) DEFAULT NULL,
+  `isdelete` int(1) DEFAULT NULL,
   PRIMARY KEY (`aid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -206,7 +211,7 @@ CREATE TABLE `forum_attachment_4` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for `forum_attachment_5`
+-- Table structure for forum_attachment_5
 -- ----------------------------
 DROP TABLE IF EXISTS `forum_attachment_5`;
 CREATE TABLE `forum_attachment_5` (
@@ -227,6 +232,7 @@ CREATE TABLE `forum_attachment_5` (
   `isimage` int(1) DEFAULT NULL,
   `width` int(6) DEFAULT NULL,
   `picid` bigint(19) DEFAULT NULL,
+  `isdelete` int(1) DEFAULT NULL,
   PRIMARY KEY (`aid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -235,7 +241,7 @@ CREATE TABLE `forum_attachment_5` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for `forum_attachment_6`
+-- Table structure for forum_attachment_6
 -- ----------------------------
 DROP TABLE IF EXISTS `forum_attachment_6`;
 CREATE TABLE `forum_attachment_6` (
@@ -256,6 +262,7 @@ CREATE TABLE `forum_attachment_6` (
   `isimage` int(1) DEFAULT NULL,
   `width` int(6) DEFAULT NULL,
   `picid` bigint(19) DEFAULT NULL,
+  `isdelete` int(1) DEFAULT NULL,
   PRIMARY KEY (`aid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -264,7 +271,7 @@ CREATE TABLE `forum_attachment_6` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for `forum_attachment_7`
+-- Table structure for forum_attachment_7
 -- ----------------------------
 DROP TABLE IF EXISTS `forum_attachment_7`;
 CREATE TABLE `forum_attachment_7` (
@@ -285,6 +292,7 @@ CREATE TABLE `forum_attachment_7` (
   `isimage` int(1) DEFAULT NULL,
   `width` int(6) DEFAULT NULL,
   `picid` bigint(19) DEFAULT NULL,
+  `isdelete` int(1) DEFAULT NULL,
   PRIMARY KEY (`aid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -293,7 +301,7 @@ CREATE TABLE `forum_attachment_7` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for `forum_attachment_8`
+-- Table structure for forum_attachment_8
 -- ----------------------------
 DROP TABLE IF EXISTS `forum_attachment_8`;
 CREATE TABLE `forum_attachment_8` (
@@ -314,16 +322,17 @@ CREATE TABLE `forum_attachment_8` (
   `isimage` int(1) DEFAULT NULL,
   `width` int(6) DEFAULT NULL,
   `picid` bigint(19) DEFAULT NULL,
+  `isdelete` int(1) DEFAULT NULL,
   PRIMARY KEY (`aid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of forum_attachment_8
 -- ----------------------------
-INSERT INTO `forum_attachment_8` VALUES ('21', '18', '15', '999999', '1532688149757', 'PC_创建资源一级V0530.png', '128718', 'group1/M00/00/4F/rBMV6Vta9xiAbd_2AAH2zm9o7qQ808.png', 'group1/M00/00/4F/rBMV6Vta9xiAbd_2AAH2zm9o7qQ808_200x80.png', '', '0', '', '0', '0', '1', '1562', null);
+INSERT INTO `forum_attachment_8` VALUES ('21', '18', '15', '999999', '1532688149757', 'PC_创建资源一级V0530.png', '128718', 'group1/M00/00/4F/rBMV6Vta9xiAbd_2AAH2zm9o7qQ808.png', 'group1/M00/00/4F/rBMV6Vta9xiAbd_2AAH2zm9o7qQ808_200x80.png', '', '0', '', '0', '0', '1', '1562', null, null);
 
 -- ----------------------------
--- Table structure for `forum_attachment_9`
+-- Table structure for forum_attachment_9
 -- ----------------------------
 DROP TABLE IF EXISTS `forum_attachment_9`;
 CREATE TABLE `forum_attachment_9` (
@@ -344,18 +353,19 @@ CREATE TABLE `forum_attachment_9` (
   `isimage` int(1) DEFAULT NULL,
   `width` int(6) DEFAULT NULL,
   `picid` bigint(19) DEFAULT NULL,
+  `isdelete` int(1) DEFAULT NULL,
   PRIMARY KEY (`aid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of forum_attachment_9
 -- ----------------------------
-INSERT INTO `forum_attachment_9` VALUES ('22', '19', '16', '999999', '1532688459449', '资源方-渠道方申请提示页面V180507.png', '40012', 'group1/M00/00/4F/rBMV6Vta-E6ANHtbAACcTGfVsvc729.png', 'group1/M00/00/4F/rBMV6Vta-E6ANHtbAACcTGfVsvc729_200x80.png', '', '0', '', '0', '0', '1', '587', null);
-INSERT INTO `forum_attachment_9` VALUES ('23', '19', '16', '999999', '1532688464272', '资源管理V0518.png', '85738', 'group1/M00/00/4F/rBMV6Vta-FOAOfWeAAFO6o2PjEU622.png', 'group1/M00/00/4F/rBMV6Vta-FOAOfWeAAFO6o2PjEU622_200x80.png', '', '0', '', '0', '0', '1', '1869', null);
-INSERT INTO `forum_attachment_9` VALUES ('24', '19', '16', '10', '1532688709694', '46aa177bc78d232ce7341dc15e83b0c6.mp4', '15905984', 'group1/M00/00/4F/rBMV6Vta-UiAJ943243243231.mp4', null, null, '0', '', '0', '0', '2', null, null);
+INSERT INTO `forum_attachment_9` VALUES ('22', '19', '16', '999999', '1532688459449', '资源方-渠道方申请提示页面V180507.png', '40012', 'group1/M00/00/4F/rBMV6Vta-E6ANHtbAACcTGfVsvc729.png', 'group1/M00/00/4F/rBMV6Vta-E6ANHtbAACcTGfVsvc729_200x80.png', '', '0', '', '0', '0', '1', '587', null, '1');
+INSERT INTO `forum_attachment_9` VALUES ('23', '19', '16', '999999', '1532688464272', '资源管理V0518.png', '85738', 'group1/M00/00/4F/rBMV6Vta-FOAOfWeAAFO6o2PjEU622.png', 'group1/M00/00/4F/rBMV6Vta-FOAOfWeAAFO6o2PjEU622_200x80.png', '', '0', '', '0', '0', '1', '1869', null, '1');
+INSERT INTO `forum_attachment_9` VALUES ('24', '19', '16', '10', '1532688709694', '46aa177bc78d232ce7341dc15e83b0c6.mp4', '15905984', 'group1/M00/00/4F/rBMV6Vta-UiAJ943243243231.mp4', null, null, '0', '', '0', '0', '2', null, null, '1');
 
 -- ----------------------------
--- Table structure for `forum_attachment_unused`
+-- Table structure for forum_attachment_unused
 -- ----------------------------
 DROP TABLE IF EXISTS `forum_attachment_unused`;
 CREATE TABLE `forum_attachment_unused` (
@@ -400,7 +410,7 @@ INSERT INTO `forum_attachment_unused` VALUES ('19', null, null, '999999', '15326
 INSERT INTO `forum_attachment_unused` VALUES ('20', null, null, '999999', '1532686249228', '01发帖.png', '63343', 'group1/M00/00/4F/rBMV6Vta76yAcv1WAAD3b2XOn7c527.png', 'group1/M00/00/4F/rBMV6Vta76yAcv1WAAD3b2XOn7c527_200x80.png', '', '0', null, null, null, '1', '750');
 
 -- ----------------------------
--- Table structure for `forum_forum`
+-- Table structure for forum_forum
 -- ----------------------------
 DROP TABLE IF EXISTS `forum_forum`;
 CREATE TABLE `forum_forum` (
@@ -416,12 +426,12 @@ CREATE TABLE `forum_forum` (
   `isdelete` int(1) DEFAULT NULL,
   `sort` int(3) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of forum_forum
 -- ----------------------------
-INSERT INTO `forum_forum` VALUES ('2', 'EEEE', '1', '2', '2', '1527784216142', '10', '1532580356873', '12', '0', '100');
+INSERT INTO `forum_forum` VALUES ('2', '4566', '1', '2', '2', '1527784216142', '10', '1532915009533', '12', '0', '100');
 INSERT INTO `forum_forum` VALUES ('3', 'golang', '1', '0', '0', '1528000072569', '10', '1532590049333', '12', '0', '0');
 INSERT INTO `forum_forum` VALUES ('4', 'javascript', '1', '0', '0', '1528000080864', '10', '1532590046542', '12', '0', '0');
 INSERT INTO `forum_forum` VALUES ('5', '关于我', '1', '0', '0', '1528000092116', '10', '1532590035415', '12', '0', '2');
@@ -437,9 +447,10 @@ INSERT INTO `forum_forum` VALUES ('14', '212', '1', '0', '0', '1532575163532', '
 INSERT INTO `forum_forum` VALUES ('15', '12', '1', '0', '0', '1532575178606', '12', null, null, '0', '12');
 INSERT INTO `forum_forum` VALUES ('16', '456', '1', '0', '0', '1532576944422', '12', null, null, '0', '0');
 INSERT INTO `forum_forum` VALUES ('17', '1111', '1', '0', '0', '1532871237901', '12', null, null, '0', '1');
+INSERT INTO `forum_forum` VALUES ('18', 'java10232', '1', '0', '0', '1532915019827', '12', null, null, '0', '0');
 
 -- ----------------------------
--- Table structure for `forum_post`
+-- Table structure for forum_post
 -- ----------------------------
 DROP TABLE IF EXISTS `forum_post`;
 CREATE TABLE `forum_post` (
@@ -450,61 +461,60 @@ CREATE TABLE `forum_post` (
   `subject` varchar(100) DEFAULT NULL,
   `content` mediumtext,
   `status` int(1) DEFAULT NULL,
-  `addtime` bigint(13) DEFAULT NULL,
-  `updatetime` bigint(13) DEFAULT NULL,
-  `updatebaseid` bigint(19) DEFAULT NULL,
   `isdelete` int(1) DEFAULT NULL,
   `useip` varchar(50) DEFAULT NULL,
   `attachment` int(3) DEFAULT NULL,
   `usesig` int(1) DEFAULT NULL,
+  `dateline` bigint(13) DEFAULT NULL,
+  `updateline` bigint(13) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of forum_post
 -- ----------------------------
-INSERT INTO `forum_post` VALUES ('1', '2', '2', '10', '20180603主题保存', '今天是发个号日子啊', '0', '1528030711528', null, null, '0', null, '0', '0');
-INSERT INTO `forum_post` VALUES ('2', '2', '8', '10', '20180603主题保存', '今天是发个号日子啊', '-2', '1528030842399', null, null, '1', '192.168.1.5', '0', '0');
-INSERT INTO `forum_post` VALUES ('4', '2', '4', '10', '20180603主题保存', '今天是发个号日子啊', '0', '1528031111765', null, null, '0', '192.168.1.5', '0', '0');
-INSERT INTO `forum_post` VALUES ('5', '2', '1', '10', '20180603主题保存', '今天是发个号日子啊<p>     [attach]6[/attach] </p>', '0', '1528033027619', null, null, '0', '192.168.1.5', '1', '0');
-INSERT INTO `forum_post` VALUES ('8', '2', '11', '10', '20180603主题测试', '的说法是的范德萨<p>     [attach]7[/attach]     [attach]8[/attach] </p>', '0', '1528043945238', null, null, '0', '192.168.1.5', '2', '0');
-INSERT INTO `forum_post` VALUES ('9', '2', '12', '10', '20180603主题测试', '的说法是的范德萨[attach]9[/attach]', '0', '1528044014770', null, null, '0', '192.168.1.5', '1', '0');
-INSERT INTO `forum_post` VALUES ('10', '2', '13', '10', '测试主题', '的范德萨范德萨', '0', '1528044161938', null, null, '0', '192.168.1.5', '0', '0');
-INSERT INTO `forum_post` VALUES ('11', '2', '14', '13', '20180725', '1231313', '0', '1532490056425', null, null, '0', '192.168.0.135', '0', '0');
-INSERT INTO `forum_post` VALUES ('12', '3', '15', '12', '12321', '<p>23</p>', '0', '1532688081320', null, null, '0', '192.168.0.135', '0', '1');
-INSERT INTO `forum_post` VALUES ('13', '3', '16', '12', '12321', '<p>23</p>', '-2', '1532688101463', null, null, '1', '192.168.0.135', '0', '1');
-INSERT INTO `forum_post` VALUES ('14', '3', '17', '12', '12321', '<p>23<img src=\"http://image.wangdaibus.com/group1/M00/00/4F/rBMV6Vta9xiAbd_2AAH2zm9o7qQ808_200x80.png\" title=\"PC_创建资源一级V0530.png\" alt=\"PC_创建资源一级V0530.png\"/>是的撒的是的撒的地方大幅度</p>', '-2', '1532688158927', null, null, '1', '192.168.0.135', '0', '1');
-INSERT INTO `forum_post` VALUES ('15', '3', '18', '12', '12321', '<p>23[attach]21[/attach]是的撒的是的撒的地方大幅度</p>', '0', '1532688361077', null, null, '0', '192.168.0.135', '1', '1');
-INSERT INTO `forum_post` VALUES ('16', '3', '19', '12', '测试测试', '<p>颠倒是非地方地方</p><p>[attach]22[/attach]</p><p>[attach]23[/attach]</p><p>[attach]24[/attach]</p>', '0', '1532688714670', null, null, '0', '192.168.0.135', '3', '1');
-INSERT INTO `forum_post` VALUES ('17', '3', '20', '12', 'sdsdsdsdsd', '<p>sdsdssdsd</p>', '0', '1532689045954', null, null, '0', '192.168.0.135', '0', '1');
-INSERT INTO `forum_post` VALUES ('18', '3', '21', '12', '20180729', '<p>1111111111111111111111111111111</p>', '-1', '1532847258786', null, null, '0', '192.168.1.2', '0', '1');
-INSERT INTO `forum_post` VALUES ('19', '3', '22', '12', '20180729', '<p>1111111111111111111111111111111</p>', '-1', '1532847263092', null, null, '0', '192.168.1.2', '0', '1');
-INSERT INTO `forum_post` VALUES ('20', '3', '23', '12', '20180729', '<p>1111111111111111111111111111111</p>', '-1', '1532847264443', null, null, '0', '192.168.1.2', '0', '1');
-INSERT INTO `forum_post` VALUES ('21', '3', '24', '12', '20180729', '<p>1111111111111111111111111111111</p>', '-1', '1532847264587', null, null, '0', '192.168.1.2', '0', '1');
-INSERT INTO `forum_post` VALUES ('22', '3', '25', '12', '20180729', '<p>1111111111111111111111111111111</p>', '-1', '1532847264819', null, null, '0', '192.168.1.2', '0', '1');
-INSERT INTO `forum_post` VALUES ('23', '3', '26', '12', '20180729', '<p>1111111111111111111111111111111</p>', '-1', '1532847265021', null, null, '0', '192.168.1.2', '0', '1');
-INSERT INTO `forum_post` VALUES ('24', '3', '27', '12', '20180729', '<p>1111111111111111111111111111111</p>', '-1', '1532847265246', null, null, '0', '192.168.1.2', '0', '1');
-INSERT INTO `forum_post` VALUES ('25', '3', '28', '12', '20180729', '<p>1111111111111111111111111111111</p>', '-1', '1532847265418', null, null, '0', '192.168.1.2', '0', '1');
-INSERT INTO `forum_post` VALUES ('26', '3', '29', '12', '20180729', '<p>1111111111111111111111111111111</p>', '-1', '1532847265802', null, null, '0', '192.168.1.2', '0', '1');
-INSERT INTO `forum_post` VALUES ('27', '3', '30', '12', '20180729', '<p>1111111111111111111111111111111</p>', '-1', '1532847266182', null, null, '0', '192.168.1.2', '0', '1');
-INSERT INTO `forum_post` VALUES ('28', '3', '31', '12', '20180729', '<p>1111111111111111111111111111111</p>', '-1', '1532847266363', null, null, '0', '192.168.1.2', '0', '1');
-INSERT INTO `forum_post` VALUES ('29', '3', '32', '12', '20180729', '<p>1111111111111111111111111111111</p>', '-1', '1532847266559', null, null, '0', '192.168.1.2', '0', '1');
-INSERT INTO `forum_post` VALUES ('30', '3', '33', '12', '20180729', '<p>1111111111111111111111111111111</p>', '-1', '1532847266751', null, null, '0', '192.168.1.2', '0', '1');
-INSERT INTO `forum_post` VALUES ('31', '3', '34', '12', '20180729', '<p>1111111111111111111111111111111</p>', '-1', '1532847266949', null, null, '0', '192.168.1.2', '0', '1');
-INSERT INTO `forum_post` VALUES ('32', '3', '35', '12', '20180729', '<p>1111111111111111111111111111111</p>', '-1', '1532847267101', null, null, '0', '192.168.1.2', '0', '1');
-INSERT INTO `forum_post` VALUES ('33', '3', '36', '12', '20180729', '<p>1111111111111111111111111111111</p>', '-1', '1532847267289', null, null, '0', '192.168.1.2', '0', '1');
-INSERT INTO `forum_post` VALUES ('34', '3', '37', '12', '20180729', '<p>1111111111111111111111111111111</p>', '-1', '1532847267492', null, null, '0', '192.168.1.2', '0', '1');
-INSERT INTO `forum_post` VALUES ('35', '3', '38', '12', '20180729', '<p>1111111111111111111111111111111</p>', '-1', '1532847267676', null, null, '0', '192.168.1.2', '0', '1');
-INSERT INTO `forum_post` VALUES ('36', '3', '39', '12', '20180729', '<p>1111111111111111111111111111111</p>', '-1', '1532847267863', null, null, '0', '192.168.1.2', '0', '1');
-INSERT INTO `forum_post` VALUES ('37', '3', '40', '12', '20180729', '<p>1111111111111111111111111111111</p>', '-1', '1532847268019', null, null, '0', '192.168.1.2', '0', '1');
-INSERT INTO `forum_post` VALUES ('38', '3', '41', '12', '20180729', '<p>1111111111111111111111111111111</p>', '-1', '1532847268204', null, null, '0', '192.168.1.2', '0', '1');
-INSERT INTO `forum_post` VALUES ('39', '3', '42', '12', '20180729主题测试', '<p>侧是是是所所所所</p>', '-1', '1532875048318', null, null, '0', '192.168.1.2', '0', '1');
-INSERT INTO `forum_post` VALUES ('40', '3', '43', '12', '20180729主题测试', '<p>侧是是是所所所所</p>', '-1', '1532875228658', null, null, '0', '192.168.1.2', '0', '1');
-INSERT INTO `forum_post` VALUES ('41', '3', '44', '12', '20180729主题测试', '<p>侧是是是所所所所</p>', '-1', '1532875239850', null, null, '0', '192.168.1.2', '0', '1');
-INSERT INTO `forum_post` VALUES ('42', '3', '45', '12', '20180729主题测试', '<p>侧是是是所所所所</p>', '-1', '1532875283541', null, null, '0', '192.168.1.2', '0', '1');
+INSERT INTO `forum_post` VALUES ('1', '2', '2', '10', '20180603主题保存', '1212', '0', '0', null, '0', '0', null, '1532935779037');
+INSERT INTO `forum_post` VALUES ('2', '2', '8', '10', '20180603主题保存', '今天是发个号日子啊', '0', '0', '192.168.1.5', '0', '0', null, null);
+INSERT INTO `forum_post` VALUES ('4', '2', '4', '10', '20180603主题保存', '11', '0', '0', '192.168.1.5', '0', '0', null, '1532932877856');
+INSERT INTO `forum_post` VALUES ('5', '7', '1', '10', '20180603主题保存', '11', '0', '0', '192.168.1.5', '0', '0', null, '1532933393261');
+INSERT INTO `forum_post` VALUES ('8', '2', '11', '10', '20180603主题测试', '1212', '0', '0', '192.168.1.5', '0', '0', null, '1532942246311');
+INSERT INTO `forum_post` VALUES ('9', '2', '12', '10', '20180603主题测试', '的说法是的范德萨[attach]9[/attach]', '0', '0', '192.168.1.5', '1', '0', null, null);
+INSERT INTO `forum_post` VALUES ('10', '2', '13', '10', '测试主题', '的范德萨范德萨', '0', '0', '192.168.1.5', '0', '0', null, null);
+INSERT INTO `forum_post` VALUES ('11', '2', '14', '13', '20180725', '1231313', '0', '0', '192.168.0.135', '0', '0', null, null);
+INSERT INTO `forum_post` VALUES ('12', '3', '15', '12', '12321', '<p>23</p>', '0', '0', '192.168.0.135', '0', '1', null, null);
+INSERT INTO `forum_post` VALUES ('13', '3', '16', '12', '12321', '<p>23</p>', '0', '0', '192.168.0.135', '0', '1', null, null);
+INSERT INTO `forum_post` VALUES ('14', '3', '17', '12', '12321', '<p>23<img src=\"http://image.wangdaibus.com/group1/M00/00/4F/rBMV6Vta9xiAbd_2AAH2zm9o7qQ808_200x80.png\" title=\"PC_创建资源一级V0530.png\" alt=\"PC_创建资源一级V0530.png\"/>是的撒的是的撒的地方大幅度</p>', '0', '0', '192.168.0.135', '0', '1', null, null);
+INSERT INTO `forum_post` VALUES ('15', '3', '18', '12', '12321', '<p>23[attach]21[/attach]是的撒的是的撒的地方大幅度</p>', '0', '0', '192.168.0.135', '1', '1', null, null);
+INSERT INTO `forum_post` VALUES ('16', '7', '19', '12', '测试测试', '11', '0', '0', '192.168.0.135', '0', '1', null, '1532933446938');
+INSERT INTO `forum_post` VALUES ('17', '3', '20', '12', 'sdsdsdsdsd', '<p>sdsdssdsd</p>', '0', '0', '192.168.0.135', '0', '1', null, null);
+INSERT INTO `forum_post` VALUES ('18', '3', '21', '12', '20180729', '<p>1111111111111111111111111111111</p>', '0', '0', '192.168.1.2', '0', '1', null, null);
+INSERT INTO `forum_post` VALUES ('19', '3', '22', '12', '20180729', '<p>1111111111111111111111111111111</p>', '0', '0', '192.168.1.2', '0', '1', null, null);
+INSERT INTO `forum_post` VALUES ('20', '3', '23', '12', '20180729', '<p>1111111111111111111111111111111</p>', '0', '0', '192.168.1.2', '0', '1', null, null);
+INSERT INTO `forum_post` VALUES ('21', '3', '24', '12', '20180729', '<p>1111111111111111111111111111111</p>', '0', '0', '192.168.1.2', '0', '1', null, null);
+INSERT INTO `forum_post` VALUES ('22', '3', '25', '12', '20180729', '<p>1111111111111111111111111111111</p>', '0', '0', '192.168.1.2', '0', '1', null, null);
+INSERT INTO `forum_post` VALUES ('23', '3', '26', '12', '20180729', '<p>1111111111111111111111111111111</p>', '0', '0', '192.168.1.2', '0', '1', null, null);
+INSERT INTO `forum_post` VALUES ('24', '3', '27', '12', '20180729', '<p>1111111111111111111111111111111</p>', '0', '0', '192.168.1.2', '0', '1', null, null);
+INSERT INTO `forum_post` VALUES ('25', '3', '28', '12', '20180729', '<p>1111111111111111111111111111111</p>', '0', '0', '192.168.1.2', '0', '1', null, null);
+INSERT INTO `forum_post` VALUES ('26', '3', '29', '12', '20180729', '<p>1111111111111111111111111111111</p>', '0', '0', '192.168.1.2', '0', '1', null, null);
+INSERT INTO `forum_post` VALUES ('27', '3', '30', '12', '20180729', '<p>1111111111111111111111111111111</p>', '0', '0', '192.168.1.2', '0', '1', null, null);
+INSERT INTO `forum_post` VALUES ('28', '3', '31', '12', '20180729', '<p>1111111111111111111111111111111</p>', '0', '0', '192.168.1.2', '0', '1', null, null);
+INSERT INTO `forum_post` VALUES ('29', '3', '32', '12', '20180729', '<p>1111111111111111111111111111111</p>', '0', '0', '192.168.1.2', '0', '1', null, null);
+INSERT INTO `forum_post` VALUES ('30', '3', '33', '12', '20180729', '<p>1111111111111111111111111111111</p>', '0', '0', '192.168.1.2', '0', '1', null, null);
+INSERT INTO `forum_post` VALUES ('31', '3', '34', '12', '20180729', '<p>1111111111111111111111111111111</p>', '0', '0', '192.168.1.2', '0', '1', null, null);
+INSERT INTO `forum_post` VALUES ('32', '3', '35', '12', '20180729', '<p>1111111111111111111111111111111</p>', '0', '0', '192.168.1.2', '0', '1', null, null);
+INSERT INTO `forum_post` VALUES ('33', '3', '36', '12', '20180729', '<p>1111111111111111111111111111111</p>', '0', '0', '192.168.1.2', '0', '1', null, null);
+INSERT INTO `forum_post` VALUES ('34', '3', '37', '12', '20180729', '<p>1111111111111111111111111111111</p>', '0', '0', '192.168.1.2', '0', '1', null, null);
+INSERT INTO `forum_post` VALUES ('35', '3', '38', '12', '20180729', '<p>1111111111111111111111111111111</p>', '0', '0', '192.168.1.2', '0', '1', null, null);
+INSERT INTO `forum_post` VALUES ('36', '3', '39', '12', '20180729', '<p>1111111111111111111111111111111</p>', '0', '0', '192.168.1.2', '0', '1', null, null);
+INSERT INTO `forum_post` VALUES ('37', '3', '40', '12', '20180729', '<p>1111111111111111111111111111111</p>', '0', '0', '192.168.1.2', '0', '1', null, null);
+INSERT INTO `forum_post` VALUES ('38', '3', '41', '12', '20180729', '<p>1111111111111111111111111111111</p>', '0', '0', '192.168.1.2', '0', '1', null, null);
+INSERT INTO `forum_post` VALUES ('39', '3', '42', '12', '20180729主题测试', '<p>侧是是是所所所所</p>', '0', '0', '192.168.1.2', '0', '1', null, null);
+INSERT INTO `forum_post` VALUES ('40', '3', '43', '12', '20180729主题测试', '<p>侧是是是所所所所</p>', '0', '0', '192.168.1.2', '0', '1', null, null);
+INSERT INTO `forum_post` VALUES ('41', '3', '44', '12', '20180729主题测试', '<p>侧是是是所所所所</p>', '0', '0', '192.168.1.2', '0', '1', null, null);
+INSERT INTO `forum_post` VALUES ('42', '2', '45', '12', '20180729主题测试', '1212', '0', '0', '192.168.1.2', '0', '1', null, '1532935255433');
 
 -- ----------------------------
--- Table structure for `forum_thread`
+-- Table structure for forum_thread
 -- ----------------------------
 DROP TABLE IF EXISTS `forum_thread`;
 CREATE TABLE `forum_thread` (
@@ -528,54 +538,56 @@ CREATE TABLE `forum_thread` (
   `isdelete` int(1) DEFAULT NULL,
   `sort` int(3) DEFAULT NULL,
   `threadtype` int(1) DEFAULT NULL,
+  `upbaseid` bigint(19) DEFAULT NULL,
+  `moderatline` bigint(13) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of forum_thread
 -- ----------------------------
-INSERT INTO `forum_thread` VALUES ('1', '2', '10', '20180603主题保存', '1528030711528', null, null, '0', '0', '0', '0', '1', '1', '0', '0', '0', '0', '0', '0', '1');
-INSERT INTO `forum_thread` VALUES ('2', '2', '11', '20180603主题保存1', '1528030842399', null, null, '4', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '2');
-INSERT INTO `forum_thread` VALUES ('4', '11', '12', '20180603主题保存2', '1528031111765', null, null, '0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '1');
-INSERT INTO `forum_thread` VALUES ('8', '2', '10', '20180603主题保存13', '1528033027619', null, null, '5', '0', '0', '2', '1', '2', '0', '0', '0', '-2', '1', '0', '1');
-INSERT INTO `forum_thread` VALUES ('11', '7', '17', '20180603主题测试4', '1528043945238', null, null, '0', '0', '0', '2', '1', '0', '0', '0', '0', '0', '0', '0', '2');
-INSERT INTO `forum_thread` VALUES ('12', '2', '10', '20180603主题测试8', '1528044014770', null, null, '0', '0', '0', '2', '1', '3', '0', '0', '0', '0', '0', '0', '3');
-INSERT INTO `forum_thread` VALUES ('13', '6', '13', '测试主题', '1528044161938', null, null, '0', '9', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '3');
-INSERT INTO `forum_thread` VALUES ('14', '2', '13', '20180725', '1532490056425', null, null, '0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '1');
-INSERT INTO `forum_thread` VALUES ('15', '3', '12', '12321', '1532688081320', null, null, '0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '1');
-INSERT INTO `forum_thread` VALUES ('16', '3', '12', '12321', '1532688101463', null, null, '0', '0', '0', '0', '1', '0', '0', '0', '0', '-2', '1', '0', '1');
-INSERT INTO `forum_thread` VALUES ('17', '3', '13', '12321', '1532688158927', null, null, '456', '45', '0', '0', '1', '0', '0', '0', '0', '-2', '1', '0', '1');
-INSERT INTO `forum_thread` VALUES ('18', '3', '13', '12321', '1532689045954', null, null, '13', '14', '0', '2', '1', '0', '0', '0', '0', '0', '0', '0', '1');
-INSERT INTO `forum_thread` VALUES ('19', '3', '12', '测试测试', '1532689045954', null, null, '10', '11', '0', '2', '1', '0', '0', '0', '0', '0', '0', '0', '1');
-INSERT INTO `forum_thread` VALUES ('20', '3', '12', 'sdsdsdsdsd', '1532689045954', null, null, '12', '12', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '1');
-INSERT INTO `forum_thread` VALUES ('21', '3', '12', '20180729', '1532847258786', null, null, '0', '0', '0', '0', '0', '0', '0', '0', '0', '-1', '0', '0', '1');
-INSERT INTO `forum_thread` VALUES ('22', '3', '12', '20180729', '1532847263092', null, null, '0', '0', '0', '0', '0', '0', '0', '0', '0', '-1', '0', '0', '1');
-INSERT INTO `forum_thread` VALUES ('23', '3', '12', '20180729', '1532847264443', null, null, '0', '0', '0', '0', '0', '0', '0', '0', '0', '-1', '0', '0', '1');
-INSERT INTO `forum_thread` VALUES ('24', '3', '12', '20180729', '1532847264587', null, null, '0', '0', '0', '0', '0', '0', '0', '0', '0', '-1', '0', '0', '1');
-INSERT INTO `forum_thread` VALUES ('25', '3', '12', '20180729', '1532847264819', null, null, '0', '0', '0', '0', '0', '0', '0', '0', '0', '-1', '0', '0', '1');
-INSERT INTO `forum_thread` VALUES ('26', '3', '12', '20180729', '1532847265021', null, null, '0', '0', '0', '0', '0', '0', '0', '0', '0', '-1', '0', '0', '1');
-INSERT INTO `forum_thread` VALUES ('27', '3', '12', '20180729', '1532847265246', null, null, '0', '0', '0', '0', '0', '0', '0', '0', '0', '-1', '0', '0', '1');
-INSERT INTO `forum_thread` VALUES ('28', '3', '12', '20180729', '1532847265418', null, null, '0', '0', '0', '0', '0', '0', '0', '0', '0', '-1', '0', '0', '1');
-INSERT INTO `forum_thread` VALUES ('29', '3', '12', '20180729', '1532847265802', null, null, '0', '0', '0', '0', '0', '0', '0', '0', '0', '-1', '0', '0', '1');
-INSERT INTO `forum_thread` VALUES ('30', '3', '12', '20180729', '1532847266182', null, null, '0', '0', '0', '0', '0', '0', '0', '0', '0', '-1', '0', '0', '1');
-INSERT INTO `forum_thread` VALUES ('31', '3', '12', '20180729', '1532847266363', null, null, '0', '0', '0', '0', '0', '0', '0', '0', '0', '-1', '0', '0', '1');
-INSERT INTO `forum_thread` VALUES ('32', '3', '12', '20180729', '1532847266559', null, null, '0', '0', '0', '0', '0', '0', '0', '0', '0', '-1', '0', '0', '1');
-INSERT INTO `forum_thread` VALUES ('33', '3', '12', '20180729', '1532847266751', null, null, '0', '0', '0', '0', '0', '0', '0', '0', '0', '-1', '0', '0', '1');
-INSERT INTO `forum_thread` VALUES ('34', '3', '12', '20180729', '1532847266949', null, null, '0', '0', '0', '0', '0', '0', '0', '0', '0', '-1', '0', '0', '1');
-INSERT INTO `forum_thread` VALUES ('35', '3', '12', '20180729', '1532847267101', null, null, '0', '0', '0', '0', '0', '0', '0', '0', '0', '-1', '0', '0', '1');
-INSERT INTO `forum_thread` VALUES ('36', '3', '12', '20180729', '1532847267289', null, null, '0', '0', '0', '0', '0', '0', '0', '0', '0', '-1', '0', '0', '1');
-INSERT INTO `forum_thread` VALUES ('37', '3', '12', '20180729', '1532847267492', null, null, '0', '0', '0', '0', '0', '0', '0', '0', '0', '-1', '0', '0', '1');
-INSERT INTO `forum_thread` VALUES ('38', '3', '12', '20180729', '1532847267676', null, null, '0', '0', '0', '0', '0', '0', '0', '0', '0', '-1', '0', '0', '1');
-INSERT INTO `forum_thread` VALUES ('39', '3', '12', '20180729', '1532847267863', null, null, '0', '0', '0', '0', '0', '0', '0', '0', '0', '-1', '0', '0', '1');
-INSERT INTO `forum_thread` VALUES ('40', '3', '12', '20180729', '1532847268019', null, null, '0', '0', '0', '0', '0', '0', '0', '0', '0', '-1', '0', '0', '1');
-INSERT INTO `forum_thread` VALUES ('41', '3', '12', '20180729', '1532847268204', null, null, '0', '0', '0', '0', '0', '0', '0', '0', '0', '-1', '0', '0', '1');
-INSERT INTO `forum_thread` VALUES ('42', '3', '12', '20180729主题测试', '1532875048318', null, null, '0', '0', '0', '0', '0', '0', '0', '0', '0', '-1', '0', '0', '1');
-INSERT INTO `forum_thread` VALUES ('43', '3', '12', '20180729主题测试', '1532875228658', null, null, '0', '0', '0', '0', '0', '0', '0', '0', '0', '-1', '0', '0', '1');
-INSERT INTO `forum_thread` VALUES ('44', '3', '12', '20180729主题测试', '1532875239850', null, null, '0', '0', '0', '0', '0', '0', '0', '0', '0', '-1', '0', '0', '1');
-INSERT INTO `forum_thread` VALUES ('45', '3', '12', '20180729主题测试', '1532875283541', null, null, '0', '0', '0', '0', '0', '0', '0', '0', '0', '-1', '0', '0', '1');
+INSERT INTO `forum_thread` VALUES ('1', '7', '10', '12121', '1528030711528', null, null, '0', '0', '0', '0', '1', '1', '0', '0', '0', '0', '0', '0', '1', null, null);
+INSERT INTO `forum_thread` VALUES ('2', '2', '11', '1212', '1528030842399', null, null, '4', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '1', null, null);
+INSERT INTO `forum_thread` VALUES ('4', '7', '12', '12121', '1528031111765', null, null, '0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '1', null, null);
+INSERT INTO `forum_thread` VALUES ('8', '2', '10', '20180603主题保存13', '1528033027619', null, null, '5', '0', '0', '2', '1', '2', '0', '0', '0', '0', '0', '0', '1', null, null);
+INSERT INTO `forum_thread` VALUES ('11', '2', '17', '1212', '1528043945238', null, null, '0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '1', null, null);
+INSERT INTO `forum_thread` VALUES ('12', '2', '10', '20180603主题测试8', '1528044014770', null, null, '0', '0', '0', '2', '1', '3', '0', '0', '0', '0', '0', '0', '3', null, null);
+INSERT INTO `forum_thread` VALUES ('13', '6', '13', '测试主题', '1528044161938', null, null, '0', '9', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '3', null, null);
+INSERT INTO `forum_thread` VALUES ('14', '2', '13', '20180725', '1532490056425', null, null, '0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '1', null, null);
+INSERT INTO `forum_thread` VALUES ('15', '3', '12', '12321', '1532688081320', null, null, '0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '1', null, null);
+INSERT INTO `forum_thread` VALUES ('16', '3', '12', '12321', '1532688101463', null, null, '0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '1', null, null);
+INSERT INTO `forum_thread` VALUES ('17', '3', '13', '12321', '1532688158927', null, null, '456', '45', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '1', null, null);
+INSERT INTO `forum_thread` VALUES ('18', '3', '13', '12321', '1532689045954', null, null, '13', '14', '0', '2', '1', '0', '0', '0', '0', '0', '0', '0', '1', null, null);
+INSERT INTO `forum_thread` VALUES ('19', '7', '12', '12121', '1532689045954', null, null, '10', '11', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '1', null, null);
+INSERT INTO `forum_thread` VALUES ('20', '3', '12', 'sdsdsdsdsd', '1532689045954', null, null, '12', '12', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '1', null, null);
+INSERT INTO `forum_thread` VALUES ('21', '3', '12', '20180729', '1532847258786', null, null, '0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '1', null, null);
+INSERT INTO `forum_thread` VALUES ('22', '3', '12', '20180729', '1532847263092', null, null, '0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '1', null, null);
+INSERT INTO `forum_thread` VALUES ('23', '3', '12', '20180729', '1532847264443', null, null, '0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '1', null, null);
+INSERT INTO `forum_thread` VALUES ('24', '3', '12', '20180729', '1532847264587', null, null, '0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '1', null, null);
+INSERT INTO `forum_thread` VALUES ('25', '3', '12', '20180729', '1532847264819', null, null, '0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '1', null, null);
+INSERT INTO `forum_thread` VALUES ('26', '3', '12', '20180729', '1532847265021', null, null, '0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '1', null, null);
+INSERT INTO `forum_thread` VALUES ('27', '3', '12', '20180729', '1532847265246', null, null, '0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '1', null, null);
+INSERT INTO `forum_thread` VALUES ('28', '3', '12', '20180729', '1532847265418', null, null, '0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '1', null, null);
+INSERT INTO `forum_thread` VALUES ('29', '3', '12', '20180729', '1532847265802', null, null, '0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '1', null, null);
+INSERT INTO `forum_thread` VALUES ('30', '3', '12', '20180729', '1532847266182', null, null, '0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '1', null, null);
+INSERT INTO `forum_thread` VALUES ('31', '3', '12', '20180729', '1532847266363', null, null, '0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '1', null, null);
+INSERT INTO `forum_thread` VALUES ('32', '3', '12', '20180729', '1532847266559', null, null, '0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '1', null, null);
+INSERT INTO `forum_thread` VALUES ('33', '3', '12', '20180729', '1532847266751', null, null, '0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '1', null, null);
+INSERT INTO `forum_thread` VALUES ('34', '3', '12', '20180729', '1532847266949', null, null, '0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '1', null, null);
+INSERT INTO `forum_thread` VALUES ('35', '3', '12', '20180729', '1532847267101', null, null, '0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '1', null, null);
+INSERT INTO `forum_thread` VALUES ('36', '3', '12', '20180729', '1532847267289', null, null, '0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '1', null, null);
+INSERT INTO `forum_thread` VALUES ('37', '3', '12', '20180729', '1532847267492', null, null, '0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '1', null, null);
+INSERT INTO `forum_thread` VALUES ('38', '3', '12', '20180729', '1532847267676', null, null, '0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '1', null, null);
+INSERT INTO `forum_thread` VALUES ('39', '3', '12', '20180729', '1532847267863', null, null, '0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '1', null, null);
+INSERT INTO `forum_thread` VALUES ('40', '3', '12', '20180729', '1532847268019', null, null, '0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '1', null, null);
+INSERT INTO `forum_thread` VALUES ('41', '3', '12', '20180729', '1532847268204', null, null, '0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '1', null, null);
+INSERT INTO `forum_thread` VALUES ('42', '3', '12', '20180729主题测试', '1532875048318', null, null, '0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '1', null, null);
+INSERT INTO `forum_thread` VALUES ('43', '3', '12', '20180729主题测试', '1532875228658', null, null, '0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '1', null, null);
+INSERT INTO `forum_thread` VALUES ('44', '3', '12', '20180729主题测试', '1532875239850', null, null, '0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '1', null, null);
+INSERT INTO `forum_thread` VALUES ('45', '2', '12', '1212', '1532875283541', null, null, '0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '1', null, null);
 
 -- ----------------------------
--- Table structure for `forum_thread_operation`
+-- Table structure for forum_thread_operation
 -- ----------------------------
 DROP TABLE IF EXISTS `forum_thread_operation`;
 CREATE TABLE `forum_thread_operation` (
@@ -588,7 +600,7 @@ CREATE TABLE `forum_thread_operation` (
   `username` varchar(30) DEFAULT NULL,
   `userip` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=70 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=145 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of forum_thread_operation
@@ -661,9 +673,84 @@ INSERT INTO `forum_thread_operation` VALUES ('66', '18', '1', 'AUDITFA', '153276
 INSERT INTO `forum_thread_operation` VALUES ('67', '20', '1', 'AUDITFA', '1532769854443', '12', 'bus5280', '192.168.0.135');
 INSERT INTO `forum_thread_operation` VALUES ('68', '2', '1', 'AUDITFA', '1532846702453', '12', 'bus5280', '192.168.1.2');
 INSERT INTO `forum_thread_operation` VALUES ('69', '15', '1', 'AUDITFA', '1532846704567', '12', 'bus5280', '192.168.1.2');
+INSERT INTO `forum_thread_operation` VALUES ('70', '1', '1', 'AUDITFA', '1532942742823', '12', 'bus5280', '192.168.0.135');
+INSERT INTO `forum_thread_operation` VALUES ('71', '2', '1', 'AUDITFA', '1532942743122', '12', 'bus5280', '192.168.0.135');
+INSERT INTO `forum_thread_operation` VALUES ('72', '4', '1', 'AUDITFA', '1532942743132', '12', 'bus5280', '192.168.0.135');
+INSERT INTO `forum_thread_operation` VALUES ('73', '11', '1', 'AUDITFA', '1532942743138', '12', 'bus5280', '192.168.0.135');
+INSERT INTO `forum_thread_operation` VALUES ('74', '19', '1', 'AUDITFA', '1532942743147', '12', 'bus5280', '192.168.0.135');
+INSERT INTO `forum_thread_operation` VALUES ('75', '21', '1', 'AUDITFA', '1532942743155', '12', 'bus5280', '192.168.0.135');
+INSERT INTO `forum_thread_operation` VALUES ('76', '22', '1', 'AUDITFA', '1532942743164', '12', 'bus5280', '192.168.0.135');
+INSERT INTO `forum_thread_operation` VALUES ('77', '23', '1', 'AUDITFA', '1532942743171', '12', 'bus5280', '192.168.0.135');
+INSERT INTO `forum_thread_operation` VALUES ('78', '24', '1', 'AUDITFA', '1532942743180', '12', 'bus5280', '192.168.0.135');
+INSERT INTO `forum_thread_operation` VALUES ('79', '25', '1', 'AUDITFA', '1532942743185', '12', 'bus5280', '192.168.0.135');
+INSERT INTO `forum_thread_operation` VALUES ('80', '26', '1', 'AUDITFA', '1532942743192', '12', 'bus5280', '192.168.0.135');
+INSERT INTO `forum_thread_operation` VALUES ('81', '27', '1', 'AUDITFA', '1532942743197', '12', 'bus5280', '192.168.0.135');
+INSERT INTO `forum_thread_operation` VALUES ('82', '28', '1', 'AUDITFA', '1532942743200', '12', 'bus5280', '192.168.0.135');
+INSERT INTO `forum_thread_operation` VALUES ('83', '29', '1', 'AUDITFA', '1532942743203', '12', 'bus5280', '192.168.0.135');
+INSERT INTO `forum_thread_operation` VALUES ('84', '30', '1', 'AUDITFA', '1532942743208', '12', 'bus5280', '192.168.0.135');
+INSERT INTO `forum_thread_operation` VALUES ('85', '31', '1', 'AUDITFA', '1532942743219', '12', 'bus5280', '192.168.0.135');
+INSERT INTO `forum_thread_operation` VALUES ('86', '32', '1', 'AUDITFA', '1532942743226', '12', 'bus5280', '192.168.0.135');
+INSERT INTO `forum_thread_operation` VALUES ('87', '33', '1', 'AUDITFA', '1532942743233', '12', 'bus5280', '192.168.0.135');
+INSERT INTO `forum_thread_operation` VALUES ('88', '34', '1', 'AUDITFA', '1532942743239', '12', 'bus5280', '192.168.0.135');
+INSERT INTO `forum_thread_operation` VALUES ('89', '35', '1', 'AUDITFA', '1532942743244', '12', 'bus5280', '192.168.0.135');
+INSERT INTO `forum_thread_operation` VALUES ('90', '36', '1', 'AUDITFA', '1532942747270', '12', 'bus5280', '192.168.0.135');
+INSERT INTO `forum_thread_operation` VALUES ('91', '37', '1', 'AUDITFA', '1532942747274', '12', 'bus5280', '192.168.0.135');
+INSERT INTO `forum_thread_operation` VALUES ('92', '38', '1', 'AUDITFA', '1532942747278', '12', 'bus5280', '192.168.0.135');
+INSERT INTO `forum_thread_operation` VALUES ('93', '39', '1', 'AUDITFA', '1532942747282', '12', 'bus5280', '192.168.0.135');
+INSERT INTO `forum_thread_operation` VALUES ('94', '40', '1', 'AUDITFA', '1532942747287', '12', 'bus5280', '192.168.0.135');
+INSERT INTO `forum_thread_operation` VALUES ('95', '41', '1', 'AUDITFA', '1532942747291', '12', 'bus5280', '192.168.0.135');
+INSERT INTO `forum_thread_operation` VALUES ('96', '42', '1', 'AUDITFA', '1532942747294', '12', 'bus5280', '192.168.0.135');
+INSERT INTO `forum_thread_operation` VALUES ('97', '43', '1', 'AUDITFA', '1532942747296', '12', 'bus5280', '192.168.0.135');
+INSERT INTO `forum_thread_operation` VALUES ('98', '44', '1', 'AUDITFA', '1532942747299', '12', 'bus5280', '192.168.0.135');
+INSERT INTO `forum_thread_operation` VALUES ('99', '45', '1', 'AUDITFA', '1532942747302', '12', 'bus5280', '192.168.0.135');
+INSERT INTO `forum_thread_operation` VALUES ('100', '2', '1', 'AUDITFA', '1532943340712', '12', 'bus5280', '192.168.0.135');
+INSERT INTO `forum_thread_operation` VALUES ('101', '11', '1', 'AUDITFA', '1532943352237', '12', 'bus5280', '192.168.0.135');
+INSERT INTO `forum_thread_operation` VALUES ('102', '12', '1', 'AUDITFA', '1532943440221', '12', 'bus5280', '192.168.0.135');
+INSERT INTO `forum_thread_operation` VALUES ('103', '13', '1', 'AUDITFA', '1532943440225', '12', 'bus5280', '192.168.0.135');
+INSERT INTO `forum_thread_operation` VALUES ('104', '14', '1', 'AUDITFA', '1532943440230', '12', 'bus5280', '192.168.0.135');
+INSERT INTO `forum_thread_operation` VALUES ('105', '15', '1', 'AUDITFA', '1532943440239', '12', 'bus5280', '192.168.0.135');
+INSERT INTO `forum_thread_operation` VALUES ('106', '18', '1', 'AUDITFA', '1532943440245', '12', 'bus5280', '192.168.0.135');
+INSERT INTO `forum_thread_operation` VALUES ('107', '20', '1', 'AUDITFA', '1532943440260', '12', 'bus5280', '192.168.0.135');
+INSERT INTO `forum_thread_operation` VALUES ('108', '1', '1', 'AUDITFA', '1532943444766', '12', 'bus5280', '192.168.0.135');
+INSERT INTO `forum_thread_operation` VALUES ('109', '4', '1', 'AUDITFA', '1532943444770', '12', 'bus5280', '192.168.0.135');
+INSERT INTO `forum_thread_operation` VALUES ('110', '8', '1', 'AUDITFA', '1532943444773', '12', 'bus5280', '192.168.0.135');
+INSERT INTO `forum_thread_operation` VALUES ('111', '16', '1', 'AUDITFA', '1532943444777', '12', 'bus5280', '192.168.0.135');
+INSERT INTO `forum_thread_operation` VALUES ('112', '17', '1', 'AUDITFA', '1532943444783', '12', 'bus5280', '192.168.0.135');
+INSERT INTO `forum_thread_operation` VALUES ('113', '19', '1', 'AUDITFA', '1532943444790', '12', 'bus5280', '192.168.0.135');
+INSERT INTO `forum_thread_operation` VALUES ('114', '21', '1', 'AUDITFA', '1532943444803', '12', 'bus5280', '192.168.0.135');
+INSERT INTO `forum_thread_operation` VALUES ('115', '22', '1', 'AUDITFA', '1532943444814', '12', 'bus5280', '192.168.0.135');
+INSERT INTO `forum_thread_operation` VALUES ('116', '23', '1', 'AUDITFA', '1532943444821', '12', 'bus5280', '192.168.0.135');
+INSERT INTO `forum_thread_operation` VALUES ('117', '24', '1', 'AUDITFA', '1532943444827', '12', 'bus5280', '192.168.0.135');
+INSERT INTO `forum_thread_operation` VALUES ('118', '25', '1', 'AUDITFA', '1532943444831', '12', 'bus5280', '192.168.0.135');
+INSERT INTO `forum_thread_operation` VALUES ('119', '26', '1', 'AUDITFA', '1532943444836', '12', 'bus5280', '192.168.0.135');
+INSERT INTO `forum_thread_operation` VALUES ('120', '27', '1', 'AUDITFA', '1532943444840', '12', 'bus5280', '192.168.0.135');
+INSERT INTO `forum_thread_operation` VALUES ('121', '28', '1', 'AUDITFA', '1532943444843', '12', 'bus5280', '192.168.0.135');
+INSERT INTO `forum_thread_operation` VALUES ('122', '29', '1', 'AUDITFA', '1532943444846', '12', 'bus5280', '192.168.0.135');
+INSERT INTO `forum_thread_operation` VALUES ('123', '30', '1', 'AUDITFA', '1532943444849', '12', 'bus5280', '192.168.0.135');
+INSERT INTO `forum_thread_operation` VALUES ('124', '31', '1', 'AUDITFA', '1532943444852', '12', 'bus5280', '192.168.0.135');
+INSERT INTO `forum_thread_operation` VALUES ('125', '32', '1', 'AUDITFA', '1532943444855', '12', 'bus5280', '192.168.0.135');
+INSERT INTO `forum_thread_operation` VALUES ('126', '33', '1', 'AUDITFA', '1532943444860', '12', 'bus5280', '192.168.0.135');
+INSERT INTO `forum_thread_operation` VALUES ('127', '34', '1', 'AUDITFA', '1532943444863', '12', 'bus5280', '192.168.0.135');
+INSERT INTO `forum_thread_operation` VALUES ('128', '12', '1', 'AUDITFA', '1532943448322', '12', 'bus5280', '192.168.0.135');
+INSERT INTO `forum_thread_operation` VALUES ('129', '13', '1', 'AUDITFA', '1532943448326', '12', 'bus5280', '192.168.0.135');
+INSERT INTO `forum_thread_operation` VALUES ('130', '14', '1', 'AUDITFA', '1532943448334', '12', 'bus5280', '192.168.0.135');
+INSERT INTO `forum_thread_operation` VALUES ('131', '15', '1', 'AUDITFA', '1532943448340', '12', 'bus5280', '192.168.0.135');
+INSERT INTO `forum_thread_operation` VALUES ('132', '18', '1', 'AUDITFA', '1532943448344', '12', 'bus5280', '192.168.0.135');
+INSERT INTO `forum_thread_operation` VALUES ('133', '20', '1', 'AUDITFA', '1532943448351', '12', 'bus5280', '192.168.0.135');
+INSERT INTO `forum_thread_operation` VALUES ('134', '35', '1', 'AUDITFA', '1532943448358', '12', 'bus5280', '192.168.0.135');
+INSERT INTO `forum_thread_operation` VALUES ('135', '36', '1', 'AUDITFA', '1532943448365', '12', 'bus5280', '192.168.0.135');
+INSERT INTO `forum_thread_operation` VALUES ('136', '37', '1', 'AUDITFA', '1532943448370', '12', 'bus5280', '192.168.0.135');
+INSERT INTO `forum_thread_operation` VALUES ('137', '38', '1', 'AUDITFA', '1532943448379', '12', 'bus5280', '192.168.0.135');
+INSERT INTO `forum_thread_operation` VALUES ('138', '39', '1', 'AUDITFA', '1532943448385', '12', 'bus5280', '192.168.0.135');
+INSERT INTO `forum_thread_operation` VALUES ('139', '40', '1', 'AUDITFA', '1532943448391', '12', 'bus5280', '192.168.0.135');
+INSERT INTO `forum_thread_operation` VALUES ('140', '41', '1', 'AUDITFA', '1532943448395', '12', 'bus5280', '192.168.0.135');
+INSERT INTO `forum_thread_operation` VALUES ('141', '42', '1', 'AUDITFA', '1532943448401', '12', 'bus5280', '192.168.0.135');
+INSERT INTO `forum_thread_operation` VALUES ('142', '43', '1', 'AUDITFA', '1532943448420', '12', 'bus5280', '192.168.0.135');
+INSERT INTO `forum_thread_operation` VALUES ('143', '44', '1', 'AUDITFA', '1532943448429', '12', 'bus5280', '192.168.0.135');
+INSERT INTO `forum_thread_operation` VALUES ('144', '45', '1', 'AUDITFA', '1532943448441', '12', 'bus5280', '192.168.0.135');
 
 -- ----------------------------
--- Table structure for `forum_thread_tag`
+-- Table structure for forum_thread_tag
 -- ----------------------------
 DROP TABLE IF EXISTS `forum_thread_tag`;
 CREATE TABLE `forum_thread_tag` (
@@ -671,21 +758,42 @@ CREATE TABLE `forum_thread_tag` (
   `name` varchar(50) DEFAULT NULL,
   `dateline` bigint(13) DEFAULT NULL,
   `isdelete` int(1) DEFAULT NULL,
+  `count` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of forum_thread_tag
 -- ----------------------------
-INSERT INTO `forum_thread_tag` VALUES ('1', 'springBoot', '1532875048863', null);
-INSERT INTO `forum_thread_tag` VALUES ('2', 'Spring', '1532875049000', null);
-INSERT INTO `forum_thread_tag` VALUES ('3', 'springMvc', '1532875049011', null);
-INSERT INTO `forum_thread_tag` VALUES ('4', 'springBoot', '1532875228799', '0');
-INSERT INTO `forum_thread_tag` VALUES ('5', 'Spring', '1532875228946', '0');
-INSERT INTO `forum_thread_tag` VALUES ('6', 'springMvc', '1532875228955', '0');
+INSERT INTO `forum_thread_tag` VALUES ('7', 'SpringBoot', '1532935741582', '0', '0');
+INSERT INTO `forum_thread_tag` VALUES ('8', 'SpringMvc', '1532935741667', '0', '0');
+INSERT INTO `forum_thread_tag` VALUES ('9', 'SpringBoot1', '1532935741582', '0', '20');
+INSERT INTO `forum_thread_tag` VALUES ('11', 'SpringBoot2', '1532942197746', '0', '1');
+INSERT INTO `forum_thread_tag` VALUES ('12', 'SpringBoot3', '1532942197886', '0', '1');
+INSERT INTO `forum_thread_tag` VALUES ('13', 'SpringBoot5', '1532942198071', '0', '1');
+INSERT INTO `forum_thread_tag` VALUES ('14', 'Java4', '1532942198153', '0', '1');
+INSERT INTO `forum_thread_tag` VALUES ('15', 'SPring0', '1532942198229', '0', '1');
+INSERT INTO `forum_thread_tag` VALUES ('16', 'IOC', '1532942198311', '0', '1');
+INSERT INTO `forum_thread_tag` VALUES ('17', 'IVp', '1532942198387', '0', '1');
+INSERT INTO `forum_thread_tag` VALUES ('18', 'Angualr', '1532942198470', '0', '1');
+INSERT INTO `forum_thread_tag` VALUES ('19', 'Ng-alain', '1532942198545', '0', '1');
+INSERT INTO `forum_thread_tag` VALUES ('20', 'Golang', '1532942198628', '0', '1');
+INSERT INTO `forum_thread_tag` VALUES ('21', 'Golang2', '1532942198712', '0', '1');
+INSERT INTO `forum_thread_tag` VALUES ('22', 'GOlang5', '1532942199035', '0', '1');
+INSERT INTO `forum_thread_tag` VALUES ('23', 'SpringBoot10', '1532942246403', '0', '1');
+INSERT INTO `forum_thread_tag` VALUES ('24', 'SpringBoot20', '1532942246490', '0', '1');
+INSERT INTO `forum_thread_tag` VALUES ('25', 'SpringBoot30', '1532942246563', '0', '1');
+INSERT INTO `forum_thread_tag` VALUES ('26', 'SpringBoot50', '1532942246698', '0', '1');
+INSERT INTO `forum_thread_tag` VALUES ('27', 'Java40', '1532942246830', '0', '1');
+INSERT INTO `forum_thread_tag` VALUES ('28', 'SPring00', '1532942246973', '0', '1');
+INSERT INTO `forum_thread_tag` VALUES ('29', 'IOC0', '1532942247212', '0', '1');
+INSERT INTO `forum_thread_tag` VALUES ('30', 'IVp0', '1532942247416', '0', '1');
+INSERT INTO `forum_thread_tag` VALUES ('31', 'Angualr0', '1532942247516', '0', '1');
+INSERT INTO `forum_thread_tag` VALUES ('32', 'Ng-alain0', '1532942247622', '0', '1');
+INSERT INTO `forum_thread_tag` VALUES ('33', '0G0olang', '1532942247699', '0', '1');
 
 -- ----------------------------
--- Table structure for `forum_thread_tag_link`
+-- Table structure for forum_thread_tag_link
 -- ----------------------------
 DROP TABLE IF EXISTS `forum_thread_tag_link`;
 CREATE TABLE `forum_thread_tag_link` (
@@ -701,16 +809,37 @@ INSERT INTO `forum_thread_tag_link` VALUES ('2', '42');
 INSERT INTO `forum_thread_tag_link` VALUES ('3', '42');
 INSERT INTO `forum_thread_tag_link` VALUES ('4', '43');
 INSERT INTO `forum_thread_tag_link` VALUES ('5', '43');
-INSERT INTO `forum_thread_tag_link` VALUES ('6', '43');
-INSERT INTO `forum_thread_tag_link` VALUES ('4', '44');
-INSERT INTO `forum_thread_tag_link` VALUES ('5', '44');
-INSERT INTO `forum_thread_tag_link` VALUES ('6', '44');
-INSERT INTO `forum_thread_tag_link` VALUES ('4', '45');
-INSERT INTO `forum_thread_tag_link` VALUES ('5', '45');
-INSERT INTO `forum_thread_tag_link` VALUES ('6', '45');
+INSERT INTO `forum_thread_tag_link` VALUES ('9', '43');
+INSERT INTO `forum_thread_tag_link` VALUES ('9', '13');
+INSERT INTO `forum_thread_tag_link` VALUES ('9', '12');
+INSERT INTO `forum_thread_tag_link` VALUES ('9', '44');
+INSERT INTO `forum_thread_tag_link` VALUES ('9', '14');
+INSERT INTO `forum_thread_tag_link` VALUES ('9', '15');
+INSERT INTO `forum_thread_tag_link` VALUES ('9', '16');
+INSERT INTO `forum_thread_tag_link` VALUES ('9', '17');
+INSERT INTO `forum_thread_tag_link` VALUES ('9', '18');
+INSERT INTO `forum_thread_tag_link` VALUES ('9', '19');
+INSERT INTO `forum_thread_tag_link` VALUES ('9', '20');
+INSERT INTO `forum_thread_tag_link` VALUES ('9', '21');
+INSERT INTO `forum_thread_tag_link` VALUES ('9', '22');
+INSERT INTO `forum_thread_tag_link` VALUES ('9', '23');
+INSERT INTO `forum_thread_tag_link` VALUES ('9', '24');
+INSERT INTO `forum_thread_tag_link` VALUES ('9', '25');
+INSERT INTO `forum_thread_tag_link` VALUES ('9', '26');
+INSERT INTO `forum_thread_tag_link` VALUES ('9', '27');
+INSERT INTO `forum_thread_tag_link` VALUES ('9', '28');
+INSERT INTO `forum_thread_tag_link` VALUES ('9', '29');
+INSERT INTO `forum_thread_tag_link` VALUES ('9', '30');
+INSERT INTO `forum_thread_tag_link` VALUES ('9', '31');
+INSERT INTO `forum_thread_tag_link` VALUES ('9', '32');
+INSERT INTO `forum_thread_tag_link` VALUES ('9', '33');
+INSERT INTO `forum_thread_tag_link` VALUES ('9', '34');
+INSERT INTO `forum_thread_tag_link` VALUES ('9', '35');
+INSERT INTO `forum_thread_tag_link` VALUES ('9', '36');
+INSERT INTO `forum_thread_tag_link` VALUES ('9', '11');
 
 -- ----------------------------
--- Table structure for `forum_thread_tag_user`
+-- Table structure for forum_thread_tag_user
 -- ----------------------------
 DROP TABLE IF EXISTS `forum_thread_tag_user`;
 CREATE TABLE `forum_thread_tag_user` (
@@ -727,9 +856,37 @@ INSERT INTO `forum_thread_tag_user` VALUES ('3', '12');
 INSERT INTO `forum_thread_tag_user` VALUES ('4', '12');
 INSERT INTO `forum_thread_tag_user` VALUES ('5', '12');
 INSERT INTO `forum_thread_tag_user` VALUES ('6', '12');
+INSERT INTO `forum_thread_tag_user` VALUES ('4', '13');
+INSERT INTO `forum_thread_tag_user` VALUES ('5', '13');
+INSERT INTO `forum_thread_tag_user` VALUES ('7', '13');
+INSERT INTO `forum_thread_tag_user` VALUES ('8', '13');
+INSERT INTO `forum_thread_tag_user` VALUES ('9', '13');
+INSERT INTO `forum_thread_tag_user` VALUES ('11', '13');
+INSERT INTO `forum_thread_tag_user` VALUES ('12', '13');
+INSERT INTO `forum_thread_tag_user` VALUES ('13', '13');
+INSERT INTO `forum_thread_tag_user` VALUES ('14', '13');
+INSERT INTO `forum_thread_tag_user` VALUES ('15', '13');
+INSERT INTO `forum_thread_tag_user` VALUES ('16', '13');
+INSERT INTO `forum_thread_tag_user` VALUES ('17', '13');
+INSERT INTO `forum_thread_tag_user` VALUES ('18', '13');
+INSERT INTO `forum_thread_tag_user` VALUES ('19', '13');
+INSERT INTO `forum_thread_tag_user` VALUES ('20', '13');
+INSERT INTO `forum_thread_tag_user` VALUES ('21', '13');
+INSERT INTO `forum_thread_tag_user` VALUES ('22', '13');
+INSERT INTO `forum_thread_tag_user` VALUES ('23', '13');
+INSERT INTO `forum_thread_tag_user` VALUES ('24', '13');
+INSERT INTO `forum_thread_tag_user` VALUES ('25', '13');
+INSERT INTO `forum_thread_tag_user` VALUES ('26', '13');
+INSERT INTO `forum_thread_tag_user` VALUES ('27', '13');
+INSERT INTO `forum_thread_tag_user` VALUES ('28', '13');
+INSERT INTO `forum_thread_tag_user` VALUES ('29', '13');
+INSERT INTO `forum_thread_tag_user` VALUES ('30', '13');
+INSERT INTO `forum_thread_tag_user` VALUES ('31', '13');
+INSERT INTO `forum_thread_tag_user` VALUES ('32', '13');
+INSERT INTO `forum_thread_tag_user` VALUES ('33', '13');
 
 -- ----------------------------
--- Table structure for `forum_thread_viewcount`
+-- Table structure for forum_thread_viewcount
 -- ----------------------------
 DROP TABLE IF EXISTS `forum_thread_viewcount`;
 CREATE TABLE `forum_thread_viewcount` (
@@ -744,7 +901,7 @@ INSERT INTO `forum_thread_viewcount` VALUES ('19', '1');
 INSERT INTO `forum_thread_viewcount` VALUES ('18', '1');
 
 -- ----------------------------
--- Table structure for `forum_thread_view_record`
+-- Table structure for forum_thread_view_record
 -- ----------------------------
 DROP TABLE IF EXISTS `forum_thread_view_record`;
 CREATE TABLE `forum_thread_view_record` (
@@ -764,7 +921,7 @@ INSERT INTO `forum_thread_view_record` VALUES ('1', '19', '2018-07-28', '192.168
 INSERT INTO `forum_thread_view_record` VALUES ('2', '18', '2018-07-28', '192.168.0.135', '1532769901704', null);
 
 -- ----------------------------
--- Table structure for `friendlink`
+-- Table structure for friendlink
 -- ----------------------------
 DROP TABLE IF EXISTS `friendlink`;
 CREATE TABLE `friendlink` (
@@ -783,7 +940,7 @@ CREATE TABLE `friendlink` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for `system_resource`
+-- Table structure for system_resource
 -- ----------------------------
 DROP TABLE IF EXISTS `system_resource`;
 CREATE TABLE `system_resource` (
@@ -808,7 +965,7 @@ CREATE TABLE `system_resource` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for `system_role`
+-- Table structure for system_role
 -- ----------------------------
 DROP TABLE IF EXISTS `system_role`;
 CREATE TABLE `system_role` (
@@ -834,7 +991,7 @@ INSERT INTO `system_role` VALUES ('14', '普通用户www');
 INSERT INTO `system_role` VALUES ('15', '普通用户ww');
 
 -- ----------------------------
--- Table structure for `system_role_resource`
+-- Table structure for system_role_resource
 -- ----------------------------
 DROP TABLE IF EXISTS `system_role_resource`;
 CREATE TABLE `system_role_resource` (
@@ -847,7 +1004,7 @@ CREATE TABLE `system_role_resource` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for `system_user_role`
+-- Table structure for system_user_role
 -- ----------------------------
 DROP TABLE IF EXISTS `system_user_role`;
 CREATE TABLE `system_user_role` (
@@ -860,7 +1017,7 @@ CREATE TABLE `system_user_role` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for `user`
+-- Table structure for user
 -- ----------------------------
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
@@ -897,7 +1054,7 @@ INSERT INTO `user` VALUES ('20', 'bus0175', '13569999666', '1', '13553865233@qq.
 INSERT INTO `user` VALUES ('21', 'bus2780', '13656562333', '1', null, '0', null, '1532511602838', null, null, null, null, '0', '192.168.0.135', 'UNKNOWN');
 
 -- ----------------------------
--- Table structure for `user_account`
+-- Table structure for user_account
 -- ----------------------------
 DROP TABLE IF EXISTS `user_account`;
 CREATE TABLE `user_account` (
@@ -926,7 +1083,7 @@ INSERT INTO `user_account` VALUES ('13', '20', '0.00', '0.00', '0.00');
 INSERT INTO `user_account` VALUES ('14', '21', '0.00', '0.00', '0.00');
 
 -- ----------------------------
--- Table structure for `user_safety`
+-- Table structure for user_safety
 -- ----------------------------
 DROP TABLE IF EXISTS `user_safety`;
 CREATE TABLE `user_safety` (
@@ -961,7 +1118,7 @@ INSERT INTO `user_safety` VALUES ('13', '20', '$2a$10$Djb.0YmWJ74Z9gztaT.3V.JZNr
 INSERT INTO `user_safety` VALUES ('14', '21', '$2a$10$Ubld2gBSeoBbRDAlRisQJOXIKmFaJlYzoPy8/CQ1tQDR8jJ5ENHGi', '1532511602838', '192.168.0.135', '0', '0', '0', null, null, '0');
 
 -- ----------------------------
--- Table structure for `web_forum_forum`
+-- Table structure for web_forum_forum
 -- ----------------------------
 DROP TABLE IF EXISTS `web_forum_forum`;
 CREATE TABLE `web_forum_forum` (

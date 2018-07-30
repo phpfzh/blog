@@ -68,7 +68,13 @@ public interface ForumAttachmentService extends IService<ForumAttachment>{
 	* @throws
 	 */
 	public ForumAttachment getForumAttachmentByAid(Long aid);
-	
+
+	/**
+	 * 修改附件的状态为已删除
+	 * @param aid
+	 * @return
+	 */
+	public  void deleteForumAttachmentByAid(Long aid);
 	/**
 	 * 
 	* @Title: getAidByAttach 
