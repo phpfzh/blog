@@ -54,7 +54,7 @@
                                     </li><li>
                                         <a href="#233c73d4f4984779b0310de71da588e6">用户登录</a>
                                     </li>
-                                </ul><span>内容模块</span>
+                                </ul><span>板块模块</span>
                                 <ul class="nav list-group">
                                     
                                     <li>
@@ -65,11 +65,15 @@
                                         <a href="#3812c62c7d734501a882863e42b1c65b">版块信息查询【单个】</a>
                                     </li><li>
                                         <a href="#0cc4ec391286446a8022d507df3f7ea0">版块信息查询【列表】</a>
+                                    </li><li>
+                                        <a href="#3c9ca50daf1f48de8e23c8423c1f34a2">板块查询【首页-不需要登录】</a>
                                     </li>
                                 </ul><span>主题模块</span>
                                 <ul class="nav list-group">
                                     
                                     <li>
+                                        <a href="#6a415d00cd164ecf9c7d4512dbeb4e77">主题查询【首页-不需要登录】</a>
+                                    </li><li>
                                         <a href="#82595cd1c252480dac467160b4dbc96f">主题查询【管理后台-审核列表】</a>
                                     </li><li>
                                         <a href="#4abc970cc545487eb3cc3fb2a357baa9">主题查询【管理后台-删除列表】</a>
@@ -525,7 +529,7 @@
                                     <th>number</th>
                                 </tr>                            </tbody>
                         </table>
-                    </div><h1 id="t_api_doc">内容模块</h1>
+                    </div><h1 id="t_api_doc">板块模块</h1>
                     
                     <div class="api-one">
                         <h3 id="56af914967ca4a04992639bfa5e0bb2b">版块添加</h3>
@@ -1055,9 +1059,331 @@
                                     <th>number</th>
                                 </tr>                            </tbody>
                         </table>
+                    </div><div class="api-one">
+                        <h3 id="3c9ca50daf1f48de8e23c8423c1f34a2">板块查询【首页-不需要登录】</h3>
+                        <p>
+                            <a target="_blank" href="http://apizza.cc/console/project/0fd0f4b93c79ef2306f75823210f5bd6/browse?api=3c9ca50daf1f48de8e23c8423c1f34a2" class="label label-warning">在线测试</a>
+                            <a target="_blank" href="http://apizza.cc/console/project/0fd0f4b93c79ef2306f75823210f5bd6/browse?api=3c9ca50daf1f48de8e23c8423c1f34a2" class="label label-warning">在线浏览</a>
+                        </p>
+                        <p>请求方式：GET</p>
+                        <p>
+                            请求地址：http://localhost:8080/api/forumThreadApi/forumList                        </p>
+                        
+                        
+                        <table class="table table-hover">
+                                <colgroup>
+                                    <col class="col-xs-2">
+                                    <col class="col-xs-1">
+                                    <col class="col-xs-1">
+                                    <col class="col-xs-7">
+                                    <col class="col-xs-2">
+                                </colgroup>
+                                <thead>
+                                <tr>
+                                    <th><span class="label label-success">Query参数名</span></th>
+                                    <th>类型</th>
+                                    <th>必需</th>
+                                    <th>描述</th>
+                                    <th>示例 e.g.</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                        <td>pageSize</td>
+                                        <td>string</td>
+                                        <td>否</td>
+                                        <td>条数</td>
+                                        <td></td>
+                                    </tr><tr>
+                                        <td>pageNum</td>
+                                        <td>string</td>
+                                        <td>否</td>
+                                        <td>页码</td>
+                                        <td></td>
+                                    </tr>                                </tbody>
+                            </table>
+
+                                                
+                        
+                        <p>返回示例：</p>
+                        <div class="highlight">
+                            <pre>
+                                <code class="json hljs">{
+    "code": "88",
+    "data": {
+        "total": 13,
+        "list": [
+            {
+                "commonts": 2,
+                "id": 2,
+                "name": "EEEE",
+                "sort": 100,
+                "threads": 2
+            },
+            {
+                "commonts": 0,
+                "id": 15,
+                "name": "12",
+                "sort": 12,
+                "threads": 0
+            }
+        ]
+    },
+    "message": "操作成功",
+    "time": 1532855905264
+}</code>
+                            </pre>
+                        </div>                        
+                        <table class="table table-hover" style="margin-top: 7px;">
+                            <colgroup>
+                            <col class="col-xs-4">
+                            <col class="col-xs-8">
+                          </colgroup>
+                            <thead>
+                                <tr>
+                                    <th style="padding-left: 0px;"><span class="label label-success">参数名</span></th>
+                                    <th>描述</th>
+                                    <th>类型</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>code</td>
+                                    <td>业务处理状态码88 成功00失败</td>
+                                    <th>number</th>
+                                </tr><tr>
+                                    <td>data</td>
+                                    <td>数据体</td>
+                                    <th>object</th>
+                                </tr><tr>
+                                    <td>data.total</td>
+                                    <td>总条数</td>
+                                    <th>number</th>
+                                </tr><tr>
+                                    <td>data.list</td>
+                                    <td>数组</td>
+                                    <th>array</th>
+                                </tr><tr>
+                                    <td>data.list.commonts</td>
+                                    <td>评论总数</td>
+                                    <th>number</th>
+                                </tr><tr>
+                                    <td>data.list.id</td>
+                                    <td>主键id</td>
+                                    <th>number</th>
+                                </tr><tr>
+                                    <td>data.list.name</td>
+                                    <td>名称</td>
+                                    <th>string</th>
+                                </tr><tr>
+                                    <td>data.list.sort</td>
+                                    <td>排序序号</td>
+                                    <th>number</th>
+                                </tr><tr>
+                                    <td>data.list.threads</td>
+                                    <td>主题总数</td>
+                                    <th>number</th>
+                                </tr><tr>
+                                    <td>message</td>
+                                    <td>描述</td>
+                                    <th>string</th>
+                                </tr><tr>
+                                    <td>time</td>
+                                    <td>服务器处理时间戳</td>
+                                    <th>number</th>
+                                </tr>                            </tbody>
+                        </table>
                     </div><h1 id="t_api_doc">主题模块</h1>
                     
                     <div class="api-one">
+                        <h3 id="6a415d00cd164ecf9c7d4512dbeb4e77">主题查询【首页-不需要登录】</h3>
+                        <p>
+                            <a target="_blank" href="http://apizza.cc/console/project/0fd0f4b93c79ef2306f75823210f5bd6/browse?api=6a415d00cd164ecf9c7d4512dbeb4e77" class="label label-warning">在线测试</a>
+                            <a target="_blank" href="http://apizza.cc/console/project/0fd0f4b93c79ef2306f75823210f5bd6/browse?api=6a415d00cd164ecf9c7d4512dbeb4e77" class="label label-warning">在线浏览</a>
+                        </p>
+                        <p>请求方式：GET</p>
+                        <p>
+                            请求地址：http://localhost:8080/api/forumThreadApi/list                        </p>
+                        
+                        
+                        <table class="table table-hover">
+                                <colgroup>
+                                    <col class="col-xs-2">
+                                    <col class="col-xs-1">
+                                    <col class="col-xs-1">
+                                    <col class="col-xs-7">
+                                    <col class="col-xs-2">
+                                </colgroup>
+                                <thead>
+                                <tr>
+                                    <th><span class="label label-success">Query参数名</span></th>
+                                    <th>类型</th>
+                                    <th>必需</th>
+                                    <th>描述</th>
+                                    <th>示例 e.g.</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                        <td>pageSize</td>
+                                        <td>string</td>
+                                        <td>否</td>
+                                        <td>每页条数</td>
+                                        <td></td>
+                                    </tr><tr>
+                                        <td>pageNum</td>
+                                        <td>string</td>
+                                        <td>否</td>
+                                        <td>页码</td>
+                                        <td></td>
+                                    </tr><tr>
+                                        <td>fid</td>
+                                        <td>string</td>
+                                        <td>否</td>
+                                        <td>板块id</td>
+                                        <td></td>
+                                    </tr>                                </tbody>
+                            </table>
+
+                                                
+                        
+                        <p>返回示例：</p>
+                        <div class="highlight">
+                            <pre>
+                                <code class="json hljs">{
+    "code": "88",
+    "data": {
+        "total": 11,
+        "list": [
+            {
+                "baseid": 13,
+                "content": "<p>23<img id='aimg_21' aid='21' src='http://image.wangdaibus.com/group1/M00/00/4F/rBMV6Vta9xiAbd_2AAH2zm9o7qQ808.png' class='zoom'>是的撒的是的撒的地方大幅度</p>",
+                "dateline": 1532689045954,
+                "fid": 3,
+                "fname": "golang",
+                "headurl": "",
+                "id": 18,
+                "replies": 14,
+                "subject": "12321",
+                "threadtype": 1,
+                "threadtypename": "原创",
+                "username": "bus0348",
+                "views": 13
+            },
+            {
+                "baseid": 12,
+                "content": "<p>sdsdssdsd</p>",
+                "dateline": 1532689045954,
+                "fid": 3,
+                "fname": "golang",
+                "headurl": "",
+                "id": 20,
+                "replies": 12,
+                "subject": "sdsdsdsdsd",
+                "threadtype": 1,
+                "threadtypename": "原创",
+                "username": "bus5280",
+                "views": 12
+            }
+        ]
+    },
+    "message": "操作成功",
+    "time": 1532854700390
+}</code>
+                            </pre>
+                        </div>                        
+                        <table class="table table-hover" style="margin-top: 7px;">
+                            <colgroup>
+                            <col class="col-xs-4">
+                            <col class="col-xs-8">
+                          </colgroup>
+                            <thead>
+                                <tr>
+                                    <th style="padding-left: 0px;"><span class="label label-success">参数名</span></th>
+                                    <th>描述</th>
+                                    <th>类型</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>code</td>
+                                    <td>业务处理状态 88成功 00失败</td>
+                                    <th>number</th>
+                                </tr><tr>
+                                    <td>data</td>
+                                    <td>数据对象</td>
+                                    <th>object</th>
+                                </tr><tr>
+                                    <td>data.total</td>
+                                    <td>总条数</td>
+                                    <th>number</th>
+                                </tr><tr>
+                                    <td>data.list</td>
+                                    <td>数组</td>
+                                    <th>array</th>
+                                </tr><tr>
+                                    <td>data.list.baseid</td>
+                                    <td>作者id</td>
+                                    <th>number</th>
+                                </tr><tr>
+                                    <td>data.list.content</td>
+                                    <td>内容</td>
+                                    <th>string</th>
+                                </tr><tr>
+                                    <td>data.list.dateline</td>
+                                    <td>发布时间戳</td>
+                                    <th>number</th>
+                                </tr><tr>
+                                    <td>data.list.fid</td>
+                                    <td>板块id</td>
+                                    <th>number</th>
+                                </tr><tr>
+                                    <td>data.list.fname</td>
+                                    <td>板块名称</td>
+                                    <th>string</th>
+                                </tr><tr>
+                                    <td>data.list.headurl</td>
+                                    <td>头像地址</td>
+                                    <th>string</th>
+                                </tr><tr>
+                                    <td>data.list.id</td>
+                                    <td>主键id</td>
+                                    <th>number</th>
+                                </tr><tr>
+                                    <td>data.list.replies</td>
+                                    <td>回复数</td>
+                                    <th>number</th>
+                                </tr><tr>
+                                    <td>data.list.subject</td>
+                                    <td>主题</td>
+                                    <th>number</th>
+                                </tr><tr>
+                                    <td>data.list.threadtype</td>
+                                    <td>主题类型</td>
+                                    <th>number</th>
+                                </tr><tr>
+                                    <td>data.list.threadtypename</td>
+                                    <td>主题类型名称</td>
+                                    <th>string</th>
+                                </tr><tr>
+                                    <td>data.list.username</td>
+                                    <td>用户名</td>
+                                    <th>string</th>
+                                </tr><tr>
+                                    <td>data.list.views</td>
+                                    <td>浏览数</td>
+                                    <th>number</th>
+                                </tr><tr>
+                                    <td>message</td>
+                                    <td>返回描述</td>
+                                    <th>string</th>
+                                </tr><tr>
+                                    <td>time</td>
+                                    <td>服务器处理时间戳</td>
+                                    <th>number</th>
+                                </tr>                            </tbody>
+                        </table>
+                    </div><div class="api-one">
                         <h3 id="82595cd1c252480dac467160b4dbc96f">主题查询【管理后台-审核列表】</h3>
                         <p>
                             <a target="_blank" href="http://apizza.cc/console/project/0fd0f4b93c79ef2306f75823210f5bd6/browse?api=82595cd1c252480dac467160b4dbc96f" class="label label-warning">在线测试</a>
@@ -1916,6 +2242,12 @@
                                             <td>否</td>
                                             <td>是否带签名 1是0否</td>
                                             <td></td>
+                                        </tr><tr>
+                                            <td>tags</td>
+                                            <td>string</td>
+                                            <td>是</td>
+                                            <td>springBoot,SpringMvc</td>
+                                            <td></td>
                                         </tr>                                    </tbody>
                                 </table>                        
                         
@@ -1930,7 +2262,37 @@
 }</code>
                             </pre>
                         </div>                        
-                        
+                        <table class="table table-hover" style="margin-top: 7px;">
+                            <colgroup>
+                            <col class="col-xs-4">
+                            <col class="col-xs-8">
+                          </colgroup>
+                            <thead>
+                                <tr>
+                                    <th style="padding-left: 0px;"><span class="label label-success">参数名</span></th>
+                                    <th>描述</th>
+                                    <th>类型</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>code</td>
+                                    <td></td>
+                                    <th>number</th>
+                                </tr><tr>
+                                    <td>data</td>
+                                    <td></td>
+                                    <th>object</th>
+                                </tr><tr>
+                                    <td>message</td>
+                                    <td></td>
+                                    <th>string</th>
+                                </tr><tr>
+                                    <td>time</td>
+                                    <td></td>
+                                    <th>number</th>
+                                </tr>                            </tbody>
+                        </table>
                     </div><div class="api-one">
                         <h3 id="d0bd637dda1041fbaf6bce8a4f96f872">主题审核</h3>
                         <p>

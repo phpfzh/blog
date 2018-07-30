@@ -18,11 +18,7 @@ public class ForumThreadTag extends SuperEntity<ForumThreadTag> {
     /**
      * 添加时间
      */
-    private String dateline;
-    /**
-     * 用户id
-     */
-    private String uid;
+    private Long dateline;
     /**
      * 是否删除
      */
@@ -37,20 +33,12 @@ public class ForumThreadTag extends SuperEntity<ForumThreadTag> {
         this.name = name;
     }
 
-    public String getDateline() {
+    public Long getDateline() {
         return this.dateline;
     }
 
-    public void setDateline(String dateline) {
+    public void setDateline(Long dateline) {
         this.dateline = dateline;
-    }
-
-    public String getUid() {
-        return this.uid;
-    }
-
-    public void setUid(String uid) {
-        this.uid = uid;
     }
 
     public Integer getIsdelete() {

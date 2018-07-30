@@ -83,6 +83,16 @@ export class ForumThreadViewListComponent implements OnInit {
         }
       }
     },
+    {
+      title: '是否删除', index: 'isdelete', className: 'text-center', format: (cell: any, row: any) => {
+        switch (cell.isdelete) {
+          case 1:
+            return "是";
+          default:
+            return "否";
+        }
+      }
+    },
     {title: '作者', index: 'username', className: 'text-center'},
     {title: '发表时间', type: 'date', index: 'dateline', className: 'text-center', dateFormat: 'YYYY-MM-DD HH:mm:ss'}
 

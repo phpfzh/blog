@@ -21,7 +21,9 @@ public interface ForumThreadService extends IService<ForumThread>{
 	 * @return
 	 */
 	public int insertForumThread(Long baseid,String fid,String threadtype, 
-			String subject,String content,String userip,String usesig,Meta meta);
+			String subject,String content,String userip,String usesig,String tags,Meta meta);
+
+
 
 	/**
 	 * 添加主题浏览量

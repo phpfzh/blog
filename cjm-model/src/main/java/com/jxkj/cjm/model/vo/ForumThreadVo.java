@@ -90,6 +90,18 @@ public class ForumThreadVo {
      * 版块名称
      */
     private String fname;
+    /**
+     * 用户头像地址
+     */
+    private String headurl;
+    /**
+     * 内容
+     */
+    private String content;
+    /**
+     * 主题类型名称
+     */
+    private String  threadtypename;
 
     public Long getId() {
         return id;
@@ -265,5 +277,29 @@ public class ForumThreadVo {
 
     public void setFname(String fname) {
         this.fname = fname;
+    }
+
+    public String getHeadurl() {
+        return headurl;
+    }
+
+    public void setHeadurl(String headurl) {
+        this.headurl = headurl;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public String getThreadtypename() {
+        return threadtypename;
+    }
+
+    public void setThreadtypename(String threadtypename) {
+        this.threadtypename = threadtypename;
     }
 }
