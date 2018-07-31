@@ -150,6 +150,13 @@ public class AES {
 //		System.out.println("decrypted = " + decrypted);
 
 		System.out.println(getRawKey());
-			 	 
+		String no = StringUtil.getNo();
+		String mark = getEncrypt(no);
+		System.out.println(no);
+		System.out.println(no.length());
+
+		System.out.println(mark);
+		System.out.println(mark.length());
+
 	}
 }

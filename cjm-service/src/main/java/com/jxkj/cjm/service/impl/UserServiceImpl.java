@@ -51,6 +51,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements Use
 
 	private Lock sendSSMLock = new ReentrantLock();//发送短信验证码lock
 
+	private static final String  DEFAULT_HEAD_URL = "group1/M00/00/4F/rBMV6Vta-E6ANHtbAACcTGfVsvc729.png";//默认用户头像地址
+
 	@Resource
 	private RedisUtilComponent redisUtilComponent;
 	
@@ -132,7 +134,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements Use
  				processBack.setMessage("未找到该用户");
 				return processBack;
      		}
-  			
+
   			String lastloginip = IPUtil.getIpAdd(request);
   			Long lastlogintime = System.currentTimeMillis();
   			userSafety.setLastlogintime(lastlogintime);//最后登录时间
@@ -261,7 +263,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements Use
 			commonMember.setMobilestatus(1);//手机是否验证 0未验证 1已验证
 			commonMember.setRelastatus(0);//身份证是否验证 0未验证 1已验证
 			commonMember.setRegip(ip);//注册IP
- 			if(device != null && device.getDevicePlatform() != null){
+			commonMember.setImg(DEFAULT_HEAD_URL);//用户头像
+  			if(device != null && device.getDevicePlatform() != null){
  				commonMember.setDevice(device.getDevicePlatform().name());//注册来源  
 			}
 			

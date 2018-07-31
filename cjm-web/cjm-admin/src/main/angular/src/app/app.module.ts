@@ -40,9 +40,9 @@ export function ueditorConfig(): UEditorConfig {
       UE.Editor.prototype._bkGetActionUrl = UE.Editor.prototype.getActionUrl;
       UE.Editor.prototype.getActionUrl = function (action) {
         if (action == 'uploadimage' || action == 'uploadscrawl' || action == 'uploadimage') {
-          return 'http://localhost:8080/uploadimage';
+          return 'http://localhost:8080/uploadImage';
         } else if (action == 'uploadvideo') {
-          return 'http://localhost:8080/uploadvideo';
+          return 'http://localhost:8080/uploadVideo';
         } else {
           return this._bkGetActionUrl.call(this, action);
         }

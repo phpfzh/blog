@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50636
 File Encoding         : 65001
 
-Date: 2018-07-30 19:05:16
+Date: 2018-07-31 19:16:57
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -27,7 +27,7 @@ CREATE TABLE `forum_attachment` (
   `tableid` int(1) DEFAULT NULL,
   `downloads` int(6) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of forum_attachment
@@ -56,6 +56,12 @@ INSERT INTO `forum_attachment` VALUES ('21', '18', '15', '999999', '8', '0');
 INSERT INTO `forum_attachment` VALUES ('22', '19', '16', '999999', '9', '0');
 INSERT INTO `forum_attachment` VALUES ('23', '19', '16', '999999', '9', '0');
 INSERT INTO `forum_attachment` VALUES ('24', '19', '16', '10', '9', '0');
+INSERT INTO `forum_attachment` VALUES ('25', '47', '44', '999999', '7', '0');
+INSERT INTO `forum_attachment` VALUES ('26', '0', '0', '999999', '127', '0');
+INSERT INTO `forum_attachment` VALUES ('27', '0', '0', '999999', '127', '0');
+INSERT INTO `forum_attachment` VALUES ('28', '0', '0', '999999', '127', '0');
+INSERT INTO `forum_attachment` VALUES ('29', '0', '0', '999999', '127', '0');
+INSERT INTO `forum_attachment` VALUES ('30', '0', '0', '999999', '127', '0');
 
 -- ----------------------------
 -- Table structure for forum_attachment_0
@@ -299,6 +305,7 @@ CREATE TABLE `forum_attachment_7` (
 -- ----------------------------
 -- Records of forum_attachment_7
 -- ----------------------------
+INSERT INTO `forum_attachment_7` VALUES ('25', '47', '44', '999999', '1533019582092', '010305k4iyl5yywqy5h5qd.jpg', '58547', 'group1/M00/00/4F/rBMV6VtgBb6ALVjmAADks5uFQOw236.jpg', 'group1/M00/00/4F/rBMV6VtgBb6ALVjmAADks5uFQOw236_200x80.jpg', '', '0', '', '0', '0', '1', '638', null, '0');
 
 -- ----------------------------
 -- Table structure for forum_attachment_8
@@ -408,6 +415,11 @@ INSERT INTO `forum_attachment_unused` VALUES ('17', null, null, '999999', '15326
 INSERT INTO `forum_attachment_unused` VALUES ('18', null, null, '999999', '1532683556819', '122654dh11h1hppuxbucxp.jpg', '41494', 'group1/M00/00/4F/rBMV6Vta5SiAF05zAACiFvMrg30065.jpg', 'group1/M00/00/4F/rBMV6Vta5SiAF05zAACiFvMrg30065_200x80.jpg', '', '0', null, null, null, '1', '1000');
 INSERT INTO `forum_attachment_unused` VALUES ('19', null, null, '999999', '1532683565306', '122654dh11h1hppuxbucxp.jpg', '41494', 'group1/M00/00/4F/rBMV6Vta5TCAYvfBAACiFvMrg30779.jpg', 'group1/M00/00/4F/rBMV6Vta5TCAYvfBAACiFvMrg30779_200x80.jpg', '', '0', null, null, null, '1', '1000');
 INSERT INTO `forum_attachment_unused` VALUES ('20', null, null, '999999', '1532686249228', '01发帖.png', '63343', 'group1/M00/00/4F/rBMV6Vta76yAcv1WAAD3b2XOn7c527.png', 'group1/M00/00/4F/rBMV6Vta76yAcv1WAAD3b2XOn7c527_200x80.png', '', '0', null, null, null, '1', '750');
+INSERT INTO `forum_attachment_unused` VALUES ('26', null, null, '999999', '1533020551894', '010305k4iyl5yywqy5h5qd.jpg', '58547', 'group1/M00/00/4F/rBMV6VtgCYiASsNJAADks5uFQOw076.jpg', 'group1/M00/00/4F/rBMV6VtgCYiASsNJAADks5uFQOw076_200x80.jpg', '', '0', null, null, null, '1', '638');
+INSERT INTO `forum_attachment_unused` VALUES ('27', null, null, '999999', '1533021019166', '010305k4iyl5yywqy5h5qd.jpg', '58547', 'group1/M00/00/4F/rBMV6VtgC1uAMDizAADks5uFQOw818.jpg', 'group1/M00/00/4F/rBMV6VtgC1uAMDizAADks5uFQOw818_200x80.jpg', '', '0', null, null, null, '1', '638');
+INSERT INTO `forum_attachment_unused` VALUES ('28', null, null, '999999', '1533021193951', '010305k4iyl5yywqy5h5qd.jpg', '58547', 'group1/M00/00/4F/rBMV6VtgDAqAClrcAADks5uFQOw374.jpg', 'group1/M00/00/4F/rBMV6VtgDAqAClrcAADks5uFQOw374_200x80.jpg', '', '0', null, null, null, '1', '638');
+INSERT INTO `forum_attachment_unused` VALUES ('29', null, null, '999999', '1533021295256', '010305g8kipgkoxph1o0xp.png', '25990', 'group1/M00/00/4F/rBMV6VtgDG-AU_6iAABlhgKZH3g485.png', 'group1/M00/00/4F/rBMV6VtgDG-AU_6iAABlhgKZH3g485_200x80.png', '', '0', null, null, null, '1', '870');
+INSERT INTO `forum_attachment_unused` VALUES ('30', null, null, '999999', '1533021408819', '010305g8kipgkoxph1o0xp.png', '25990', 'group1/M00/00/4F/rBMV6VtgDOGAZuXIAABlhgKZH3g745.png', 'group1/M00/00/4F/rBMV6VtgDOGAZuXIAABlhgKZH3g745_200x80.png', '', '0', null, null, null, '1', '870');
 
 -- ----------------------------
 -- Table structure for forum_forum
@@ -468,7 +480,7 @@ CREATE TABLE `forum_post` (
   `dateline` bigint(13) DEFAULT NULL,
   `updateline` bigint(13) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of forum_post
@@ -512,6 +524,7 @@ INSERT INTO `forum_post` VALUES ('39', '3', '42', '12', '20180729主题测试', 
 INSERT INTO `forum_post` VALUES ('40', '3', '43', '12', '20180729主题测试', '<p>侧是是是所所所所</p>', '0', '0', '192.168.1.2', '0', '1', null, null);
 INSERT INTO `forum_post` VALUES ('41', '3', '44', '12', '20180729主题测试', '<p>侧是是是所所所所</p>', '0', '0', '192.168.1.2', '0', '1', null, null);
 INSERT INTO `forum_post` VALUES ('42', '2', '45', '12', '20180729主题测试', '1212', '0', '0', '192.168.1.2', '0', '1', null, '1532935255433');
+INSERT INTO `forum_post` VALUES ('44', '3', '47', '12', '1212', '<p>[attach]25[/attach]</p>', '-1', '0', '192.168.146.1', '1', '1', '1533019592706', null);
 
 -- ----------------------------
 -- Table structure for forum_thread
@@ -541,7 +554,7 @@ CREATE TABLE `forum_thread` (
   `upbaseid` bigint(19) DEFAULT NULL,
   `moderatline` bigint(13) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of forum_thread
@@ -585,6 +598,7 @@ INSERT INTO `forum_thread` VALUES ('42', '3', '12', '20180729主题测试', '153
 INSERT INTO `forum_thread` VALUES ('43', '3', '12', '20180729主题测试', '1532875228658', null, null, '0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '1', null, null);
 INSERT INTO `forum_thread` VALUES ('44', '3', '12', '20180729主题测试', '1532875239850', null, null, '0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '1', null, null);
 INSERT INTO `forum_thread` VALUES ('45', '2', '12', '1212', '1532875283541', null, null, '0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '1', null, null);
+INSERT INTO `forum_thread` VALUES ('47', '3', '12', '1212', '1533019592706', null, null, '0', '0', '0', '2', '0', '0', '0', '0', '0', '-1', '0', '0', '1', null, null);
 
 -- ----------------------------
 -- Table structure for forum_thread_operation
@@ -750,6 +764,77 @@ INSERT INTO `forum_thread_operation` VALUES ('143', '44', '1', 'AUDITFA', '15329
 INSERT INTO `forum_thread_operation` VALUES ('144', '45', '1', 'AUDITFA', '1532943448441', '12', 'bus5280', '192.168.0.135');
 
 -- ----------------------------
+-- Table structure for forum_thread_reply
+-- ----------------------------
+DROP TABLE IF EXISTS `forum_thread_reply`;
+CREATE TABLE `forum_thread_reply` (
+  `id` bigint(19) NOT NULL AUTO_INCREMENT,
+  `first` int(1) DEFAULT NULL,
+  `parentid` bigint(19) DEFAULT NULL,
+  `firstmark` varchar(100) DEFAULT NULL,
+  `tid` bigint(19) DEFAULT NULL,
+  `baseid` bigint(19) DEFAULT NULL,
+  `tbaseid` bigint(19) DEFAULT NULL,
+  `datetime` bigint(13) DEFAULT NULL,
+  `message` mediumtext,
+  `userip` varchar(40) DEFAULT NULL,
+  `status` int(1) DEFAULT NULL,
+  `like` int(6) DEFAULT NULL,
+  `hate` int(6) DEFAULT NULL,
+  `isdelete` int(1) DEFAULT NULL,
+  `opermanid` bigint(19) DEFAULT NULL,
+  `operman` varchar(100) DEFAULT NULL,
+  `operdatetiem` bigint(13) DEFAULT NULL,
+  `remark` varchar(1000) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of forum_thread_reply
+-- ----------------------------
+INSERT INTO `forum_thread_reply` VALUES ('1', '1', '0', '20180731184126120307', '11', '13', null, '1533033686273', '评论测试1', '192.168.146.1', '-1', '0', '0', '0', null, null, null, null);
+INSERT INTO `forum_thread_reply` VALUES ('2', '0', '1', '20180731184126120307', '11', '13', '13', '1533033745480', '评论测试12', '192.168.146.1', '-1', '0', '0', '0', null, null, null, null);
+INSERT INTO `forum_thread_reply` VALUES ('3', '0', '2', '20180731184126120307', '11', '13', '13', '1533033774304', '评论测试12', '192.168.146.1', '-1', '0', '0', '0', null, null, null, null);
+INSERT INTO `forum_thread_reply` VALUES ('4', '0', '2', '20180731184126120307', '11', '13', '13', '1533033910148', '评论测试12', '192.168.146.1', '-1', '0', '0', '0', null, null, null, null);
+INSERT INTO `forum_thread_reply` VALUES ('5', '0', '2', '20180731184126120307', '11', '13', '13', '1533034003384', '评论测试12', '192.168.146.1', '-1', '0', '0', '0', null, null, null, null);
+INSERT INTO `forum_thread_reply` VALUES ('6', '0', '2', '20180731184126120307', '11', '13', '13', '1533034023428', '评论测试12', '192.168.146.1', '-1', '0', '0', '0', null, null, null, null);
+INSERT INTO `forum_thread_reply` VALUES ('7', '0', '2', '20180731184126120307', '11', '13', '13', '1533034402493', '评论测试12', '192.168.146.1', '-1', '0', '0', '0', null, null, null, null);
+INSERT INTO `forum_thread_reply` VALUES ('8', '0', '2', '20180731184126120307', '11', '13', '13', '1533034703331', '评论测试12', '192.168.146.1', '-1', '0', '0', '0', null, null, null, null);
+INSERT INTO `forum_thread_reply` VALUES ('9', '0', '2', '20180731184126120307', '11', '13', '13', '1533035075540', '评论测试12', '192.168.146.1', '-1', '0', '0', '0', null, null, null, null);
+INSERT INTO `forum_thread_reply` VALUES ('10', '0', '2', '20180731184126120307', '11', '13', '13', '1533035538776', '评论测试12', '192.168.146.1', '-1', '0', '0', '0', null, null, null, null);
+INSERT INTO `forum_thread_reply` VALUES ('11', '0', '2', '20180731184126120307', '11', '13', '13', '1533035667135', '评论测试12', '192.168.146.1', '-1', '0', '0', '0', null, null, null, null);
+INSERT INTO `forum_thread_reply` VALUES ('12', '0', '2', '20180731184126120307', '11', '13', '13', '1533035716139', '评论测试12', '192.168.146.1', '-1', '0', '0', '0', null, null, null, null);
+
+-- ----------------------------
+-- Table structure for forum_thread_reply_attach
+-- ----------------------------
+DROP TABLE IF EXISTS `forum_thread_reply_attach`;
+CREATE TABLE `forum_thread_reply_attach` (
+  `id` bigint(19) NOT NULL AUTO_INCREMENT,
+  `replyid` bigint(19) DEFAULT NULL,
+  `baseid` bigint(19) DEFAULT NULL,
+  `dateline` bigint(13) DEFAULT NULL,
+  `status` int(1) DEFAULT NULL,
+  `attach` varchar(255) DEFAULT NULL,
+  `thumbattach` varchar(255) DEFAULT NULL,
+  `filename` varchar(255) DEFAULT NULL,
+  `filesize` int(11) DEFAULT NULL,
+  `isdelete` int(1) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of forum_thread_reply_attach
+-- ----------------------------
+INSERT INTO `forum_thread_reply_attach` VALUES ('1', '12', '13', '1533012467826', '1', 'group1/M00/00/4F/rBMV6Vtf6fSAXPH6AADks5uFQOw784.jpg', 'group1/M00/00/4F/rBMV6Vtf6fSAXPH6AADks5uFQOw784_200x80.jpg', '010305k4iyl5yywqy5h5qd.jpg', '58547', '0');
+INSERT INTO `forum_thread_reply_attach` VALUES ('2', '12', '13', '1533018131739', '1', 'group1/M00/00/4F/rBMV6VtgABSAZio8AADks5uFQOw878.jpg', 'group1/M00/00/4F/rBMV6VtgABSAZio8AADks5uFQOw878_200x80.jpg', '010305k4iyl5yywqy5h5qd.jpg', '58547', '0');
+INSERT INTO `forum_thread_reply_attach` VALUES ('3', '0', '999999', '1533018212684', '0', 'group1/M00/00/4F/rBMV6VtgAGSAPAB3AADks5uFQOw585.jpg', 'group1/M00/00/4F/rBMV6VtgAGSAPAB3AADks5uFQOw585_200x80.jpg', '010305k4iyl5yywqy5h5qd.jpg', '58547', '0');
+INSERT INTO `forum_thread_reply_attach` VALUES ('4', '0', '999999', '1533018234098', '0', 'group1/M00/00/4F/rBMV6VtgAHqAHP1UAADks5uFQOw459.jpg', 'group1/M00/00/4F/rBMV6VtgAHqAHP1UAADks5uFQOw459_200x80.jpg', '010305k4iyl5yywqy5h5qd.jpg', '58547', '0');
+INSERT INTO `forum_thread_reply_attach` VALUES ('5', '0', '999999', '1533018264726', '0', 'group1/M00/00/4F/rBMV6VtgAJmAbfUCAADks5uFQOw177.jpg', 'group1/M00/00/4F/rBMV6VtgAJmAbfUCAADks5uFQOw177_200x80.jpg', '010305k4iyl5yywqy5h5qd.jpg', '58547', '0');
+INSERT INTO `forum_thread_reply_attach` VALUES ('6', '0', '999999', '1533019258646', '0', 'group1/M00/00/4F/rBMV6VtgBHuAHSsxAADks5uFQOw170.jpg', 'group1/M00/00/4F/rBMV6VtgBHuAHSsxAADks5uFQOw170_200x80.jpg', '010305k4iyl5yywqy5h5qd.jpg', '58547', '0');
+INSERT INTO `forum_thread_reply_attach` VALUES ('7', '0', '999999', '1533019502870', '0', 'group1/M00/00/4F/rBMV6VtgBW-AAiOxAADks5uFQOw193.jpg', 'group1/M00/00/4F/rBMV6VtgBW-AAiOxAADks5uFQOw193_200x80.jpg', '010305k4iyl5yywqy5h5qd.jpg', '58547', '0');
+
+-- ----------------------------
 -- Table structure for forum_thread_tag
 -- ----------------------------
 DROP TABLE IF EXISTS `forum_thread_tag`;
@@ -760,7 +845,7 @@ CREATE TABLE `forum_thread_tag` (
   `isdelete` int(1) DEFAULT NULL,
   `count` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of forum_thread_tag
@@ -791,6 +876,7 @@ INSERT INTO `forum_thread_tag` VALUES ('30', 'IVp0', '1532942247416', '0', '1');
 INSERT INTO `forum_thread_tag` VALUES ('31', 'Angualr0', '1532942247516', '0', '1');
 INSERT INTO `forum_thread_tag` VALUES ('32', 'Ng-alain0', '1532942247622', '0', '1');
 INSERT INTO `forum_thread_tag` VALUES ('33', '0G0olang', '1532942247699', '0', '1');
+INSERT INTO `forum_thread_tag` VALUES ('34', '12', '1533019592993', '0', null);
 
 -- ----------------------------
 -- Table structure for forum_thread_tag_link
@@ -837,6 +923,7 @@ INSERT INTO `forum_thread_tag_link` VALUES ('9', '34');
 INSERT INTO `forum_thread_tag_link` VALUES ('9', '35');
 INSERT INTO `forum_thread_tag_link` VALUES ('9', '36');
 INSERT INTO `forum_thread_tag_link` VALUES ('9', '11');
+INSERT INTO `forum_thread_tag_link` VALUES ('34', '47');
 
 -- ----------------------------
 -- Table structure for forum_thread_tag_user
@@ -884,6 +971,7 @@ INSERT INTO `forum_thread_tag_user` VALUES ('30', '13');
 INSERT INTO `forum_thread_tag_user` VALUES ('31', '13');
 INSERT INTO `forum_thread_tag_user` VALUES ('32', '13');
 INSERT INTO `forum_thread_tag_user` VALUES ('33', '13');
+INSERT INTO `forum_thread_tag_user` VALUES ('34', '12');
 
 -- ----------------------------
 -- Table structure for forum_thread_viewcount
@@ -1083,6 +1171,25 @@ INSERT INTO `user_account` VALUES ('13', '20', '0.00', '0.00', '0.00');
 INSERT INTO `user_account` VALUES ('14', '21', '0.00', '0.00', '0.00');
 
 -- ----------------------------
+-- Table structure for user_avatar
+-- ----------------------------
+DROP TABLE IF EXISTS `user_avatar`;
+CREATE TABLE `user_avatar` (
+  `id` bigint(19) NOT NULL AUTO_INCREMENT,
+  `baseid` bigint(19) DEFAULT NULL,
+  `status` int(1) DEFAULT NULL,
+  `bigattach` varchar(255) DEFAULT NULL,
+  `smallattach` varchar(255) DEFAULT NULL,
+  `middleattach` varchar(255) DEFAULT NULL,
+  `dateline` bigint(13) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of user_avatar
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for user_safety
 -- ----------------------------
 DROP TABLE IF EXISTS `user_safety`;
@@ -1106,8 +1213,8 @@ CREATE TABLE `user_safety` (
 -- ----------------------------
 INSERT INTO `user_safety` VALUES ('3', '10', '$2a$10$ACjqzR0Ofpv7XhvFFjzX/.bp858SmLQWc/50UBpidlt2bb2oGv4cK', '1525962629832', '192.168.1.2', '0', '0', '0', '1529894542525', '116.30.192.154', '1');
 INSERT INTO `user_safety` VALUES ('4', '11', '$2a$10$eL6LLzvX0CGQP2HOGtwNBueDsqrSsBZOJ6c7F1OsrpRr/OhNWquRe', '1525966002464', '192.168.1.2', '0', '0', '0', '1531303965923', '192.168.0.135', '1');
-INSERT INTO `user_safety` VALUES ('5', '12', '$2a$10$AS4A.9EHQRSKI6ricrzjceAvvcBl/Xz8q4mEgzDeEPiqQ.Nt3M3Ka', '1529922798913', '113.116.158.149', '0', '0', '0', '1532768971128', '192.168.0.135', '0');
-INSERT INTO `user_safety` VALUES ('6', '13', '$2a$10$Aya1mS17TevU.o7YMTvrH.enAL6QYnTDSaTgjvzld7SFi8gzL47i.', '1529923467671', '113.116.158.149', '0', '0', '0', '1532503648671', '192.168.0.135', '0');
+INSERT INTO `user_safety` VALUES ('5', '12', '$2a$10$AS4A.9EHQRSKI6ricrzjceAvvcBl/Xz8q4mEgzDeEPiqQ.Nt3M3Ka', '1529922798913', '113.116.158.149', '0', '0', '0', '1533021568427', '192.168.146.1', '0');
+INSERT INTO `user_safety` VALUES ('6', '13', '$2a$10$Aya1mS17TevU.o7YMTvrH.enAL6QYnTDSaTgjvzld7SFi8gzL47i.', '1529923467671', '113.116.158.149', '0', '0', '0', '1533033646327', '192.168.146.1', '0');
 INSERT INTO `user_safety` VALUES ('7', '14', '$2a$10$KuyN5c29G/YJaMVSayTksuEhE3vx2sx.vYuIVnWup2A.aV4E7rO4C', '1531304039336', '192.168.0.135', '0', '0', '0', null, null, '0');
 INSERT INTO `user_safety` VALUES ('8', '15', '$2a$10$gFy5fwAvRWQtkkIT2muDrO3jQWvOqmEwl/ZsrFPaAaAwovQ/wGaJC', '1531304039369', '192.168.0.135', '0', '0', '0', null, null, '0');
 INSERT INTO `user_safety` VALUES ('9', '16', '$2a$10$g5Yo5VgJooF9ucCmllJEDuGsV8Jf3SWkG7nM/7ZnFAYYWs77P8z4S', '1531304577046', '192.168.0.135', '0', '0', '0', null, null, '0');

@@ -26,12 +26,11 @@ import java.io.UnsupportedEncodingException;
 *   
  */
 @Controller
-@CrossOrigin
 public class UeditorController {
 
  	@RequestMapping("/config")
 	public void config(HttpServletRequest request,HttpServletResponse response) throws UnsupportedEncodingException, JSONException{
-		  response.setContentType("application/json");
+		    response.setContentType("application/json");
 	        String rootPath = request.getSession().getServletContext().getRealPath("/");
 	        try {
 	            //

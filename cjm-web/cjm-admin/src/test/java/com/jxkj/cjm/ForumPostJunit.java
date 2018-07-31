@@ -2,9 +2,11 @@ package com.jxkj.cjm;
 
 import com.alibaba.fastjson.JSON;
 import com.jxkj.cjm.common.response.ProcessBack;
+import com.jxkj.cjm.model.ForumThreadReplyAttach;
 import com.jxkj.cjm.model.User;
 import com.jxkj.cjm.model.vo.ForumPostVo;
 import com.jxkj.cjm.service.ForumPostService;
+import com.jxkj.cjm.service.ForumThreadReplyAttachService;
 import com.jxkj.cjm.service.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,14 +21,12 @@ import java.sql.SQLException;
 public class ForumPostJunit {
 	
 	@Autowired
-	ForumPostService forumPostService;
+	ForumThreadReplyAttachService forumThreadReplyAttachService;
 
 
 	@Test
 	public void test() throws SQLException{
-		Long tid = (long)19;
-		ForumPostVo forumPostVo = forumPostService.getForumPostByTid(tid);
-		System.out.println(JSON.toJSONString(forumPostVo));
-	   
+		ForumThreadReplyAttach forumThreadReplyAttach = forumThreadReplyAttachService.getForumThreadReplyAttachByAttach("group1/M00/00/4F/rBMV6VtgAHqAHP1UAADks5uFQOw459_200x80.jpg");
+		System.out.println(forumThreadReplyAttach);
 	}
 }
