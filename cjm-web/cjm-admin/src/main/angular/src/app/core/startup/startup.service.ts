@@ -133,6 +133,29 @@ export class StartupService {
                 link:'/forumThread/restoreList'
               }
             ]
+          },
+          {
+            text: '评论管理',
+            link: '',
+            icon: 'anticon anticon-appstore-o',
+            hideInBreadcrumb: false,
+            children:[
+              {
+                text:'评论审核',
+                hideInBreadcrumb: false,
+                link:'/threadReplay/list'
+              },
+              {
+                text:'评论查看',
+                hideInBreadcrumb: false,
+                link:'/threadReplay/viewList'
+              },
+              {
+                text:'评论删除',
+                hideInBreadcrumb: false,
+                link:'/threadReplay/delList'
+              }
+            ]
           }
         ]
       }

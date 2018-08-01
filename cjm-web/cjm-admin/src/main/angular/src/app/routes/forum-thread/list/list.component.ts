@@ -95,7 +95,6 @@ export class ForumThreadListComponent implements OnInit {
 
   //批量审核
   auditBatch(item: number) {
-    console.log(this.selectedRows.length)
     if (!(this.selectedRows.length > 0)) {
       this.nzSer.error("请至少选择一个进行审核");
       return;

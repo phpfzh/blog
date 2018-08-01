@@ -72,6 +72,8 @@ public class ForumThreadReplyVo {
      */
     private Integer first;
 
+    private List<ForumThreadReplyAttachVo> attachs;
+
     public Long getId() {
         return id;
     }
@@ -198,5 +200,13 @@ public class ForumThreadReplyVo {
 
     public void setFirst(Integer first) {
         this.first = first;
+    }
+
+    public List<ForumThreadReplyAttachVo> getAttachs() {
+        return attachs;
+    }
+
+    public void setAttachs(List<ForumThreadReplyAttachVo> attachs) {
+        this.attachs = attachs;
     }
 }

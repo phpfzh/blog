@@ -6,7 +6,9 @@ import com.jxkj.cjm.common.response.AjaxResult;
 import com.jxkj.cjm.common.response.ProcessBack;
 import com.jxkj.cjm.common.util.AttachUtil;
 import com.jxkj.cjm.common.util.StringUtil;
+import com.jxkj.cjm.mapper.ForumThreadMapper;
 import com.jxkj.cjm.mapper.ForumThreadReplyAttachMapper;
+import com.jxkj.cjm.model.ForumThread;
 import com.jxkj.cjm.model.ForumThreadReplyAttach;
 import com.jxkj.cjm.model.vo.ForumThreadReplyVo;
 import com.jxkj.cjm.model.vo.GroupSave;
@@ -46,7 +48,11 @@ public class ForumThreadReplyServiceImpl extends ServiceImpl<ForumThreadReplyMap
     @Resource
     private ForumThreadReplyAttachService forumThreadReplyAttachService;
 
+    @Resource
+    private ForumThreadMapper forumThreadMapper;
+
     @Transactional
+    @Override
     public ProcessBack insertForumThreadReplay(Long baseid, String userip, ForumThreadReplyVo forumThreadReplyVo) {
         ProcessBack processBack = new ProcessBack();
         try {
@@ -69,8 +75,17 @@ public class ForumThreadReplyServiceImpl extends ServiceImpl<ForumThreadReplyMap
             if (forumThreadReplyVo.getParentid() != null) {
                 parentForumThreadReply = baseMapper.selectById(forumThreadReplyVo.getParentid());
                 if (parentForumThreadReply == null) {
-                    throw new IllegalArgumentException("父回复信息找不到");
+                    processBack.setCode(ProcessBack.FAIL_CODE);
+                    processBack.setMessage("parentid 错误");
+                    return processBack;
                 }
+            }
+
+            ForumThread forumThread = forumThreadMapper.selectById(forumThreadReplyVo.getTid());
+            if (forumThread == null) {
+                processBack.setCode(ProcessBack.FAIL_CODE);
+                processBack.setMessage("主题信息找不到");
+                return processBack;
             }
 
             String firstmark = StringUtil.getNo();
@@ -101,6 +116,8 @@ public class ForumThreadReplyServiceImpl extends ServiceImpl<ForumThreadReplyMap
                 forumThreadReply.setTbaseid(forumThreadReplyVo.getTbaseid());
                 forumThreadReply.setParentid(parentForumThreadReply.getId());
                 forumThreadReply.setFirstmark(parentForumThreadReply.getFirstmark());
+            } else {
+                forumThreadReply.setTbaseid(forumThread.getBaseid());//首次评论主题
             }
 
             int count = 0;
@@ -141,6 +158,7 @@ public class ForumThreadReplyServiceImpl extends ServiceImpl<ForumThreadReplyMap
     }
 
     @Transactional
+    @Override
     public ProcessBack delForumThreadReplay(Long repayId) {
         ProcessBack processBack = new ProcessBack();
         try {
@@ -168,6 +186,99 @@ public class ForumThreadReplyServiceImpl extends ServiceImpl<ForumThreadReplyMap
             processBack.setMessage("删除成功");
             return processBack;
 
+        } catch (RuntimeException e) {
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();//数据回滚
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        processBack.setCode(ProcessBack.FAIL_CODE);
+        processBack.setMessage(ProcessBack.EXCEPTION_MESSAGE);
+        return processBack;
+    }
+
+    @Override
+    @Transactional
+    public ProcessBack auditBatchForumThreadReplay(Long baseid, String repayIds, String status, String remark) {
+        ProcessBack processBack = new ProcessBack();
+        try {
+
+            if (StringUtil.isEmpty(repayIds)) {
+                processBack.setCode(ProcessBack.FAIL_CODE);
+                processBack.setMessage("repayIds 不能为空");
+                return processBack;
+            }
+
+            if (StringUtil.isEmpty(status)) {
+                processBack.setCode(ProcessBack.FAIL_CODE);
+                processBack.setMessage("status 不能为空");
+                return processBack;
+            }
+
+            String[] strs = repayIds.split(",");
+            Long dateline = System.currentTimeMillis();
+            for (String s : strs) {
+                Long res = Long.valueOf(s);
+                ForumThreadReply forumThreadReply = baseMapper.selectById(res);
+                if (forumThreadReply != null) {
+                    forumThreadReply.setStatus(-2);//默认审核不通过
+                    forumThreadReply.setOpermanid(baseid);
+                    forumThreadReply.setOperdatetime(dateline);
+                    forumThreadReply.setRemark(remark);
+                    if (status.equals("1")) {//审核通过
+                        forumThreadReply.setStatus(0);
+                        forumThreadReply.setIsdelete(0);
+                    }
+                    int count = 0;
+                    count = baseMapper.updateById(forumThreadReply);
+                    if (!(count > 0)) {
+                        throw new IllegalArgumentException("更新失败");
+                    }
+                }
+            }
+            processBack.setCode(ProcessBack.SUCCESS_CODE);
+            processBack.setMessage("操作成功");
+            return processBack;
+        } catch (RuntimeException e) {
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();//数据回滚
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        processBack.setCode(ProcessBack.FAIL_CODE);
+        processBack.setMessage(ProcessBack.EXCEPTION_MESSAGE);
+        return processBack;
+    }
+
+    @Override
+    @Transactional
+    public ProcessBack delBatchForumThreadReplay(String repayIds) {
+        ProcessBack processBack = new ProcessBack();
+        try {
+
+            if (StringUtil.isEmpty(repayIds)) {
+                processBack.setCode(ProcessBack.FAIL_CODE);
+                processBack.setMessage("repayIds 不能为空");
+                return processBack;
+            }
+
+            String[] strs = repayIds.split(",");
+            for (String s : strs) {
+                Long repayId = Long.valueOf(s);
+                Wrapper<ForumThreadReplyAttach> forumThreadReplyAttachWrapper = Condition.create();
+                forumThreadReplyAttachWrapper.eq("replyid", repayId);
+                List<ForumThreadReplyAttach> lists = forumThreadReplyAttachService.selectList(forumThreadReplyAttachWrapper);
+                for (ForumThreadReplyAttach forumThreadReplyAttach : lists) {
+                    forumThreadReplyAttach.setIsdelete(1);
+                    forumThreadReplyAttachService.updateById(forumThreadReplyAttach);
+                }
+                int count = 0;
+                count = baseMapper.deleteById(repayId);
+                if (!(count > 0)) {
+                    throw new IllegalArgumentException("删除失败");
+                }
+            }
+            processBack.setCode(ProcessBack.SUCCESS_CODE);
+            processBack.setMessage("操作成功");
+            return processBack;
         } catch (RuntimeException e) {
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();//数据回滚
         } catch (Exception e) {

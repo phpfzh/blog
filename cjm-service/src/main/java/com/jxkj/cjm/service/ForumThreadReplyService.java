@@ -9,4 +9,10 @@ public interface ForumThreadReplyService extends IService<ForumThreadReply>{
     public ProcessBack insertForumThreadReplay(Long baseid,String userip,ForumThreadReplyVo forumThreadReplyVo);
 
     public ProcessBack delForumThreadReplay(Long repayId);
+
+    public ProcessBack auditBatchForumThreadReplay(Long baseid,String repayIds,String status,String remark);
+
+    public ProcessBack delBatchForumThreadReplay(String repayIds);
+
+
 }

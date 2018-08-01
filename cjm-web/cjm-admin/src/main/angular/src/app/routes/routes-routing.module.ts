@@ -32,6 +32,9 @@ const routes: Routes = [
       { path: 'forumForum', loadChildren: './forum-forum/forum-forum.module#ForumForumModule' },
       //主题
       { path: 'forumThread', loadChildren: './forum-thread/forum-thread.module#ForumThreadModule' },
+      //评论
+      { path: 'threadReplay', loadChildren: './thread-replay/thread-replay.module#ThreadReplayModule' },
+
 
       // 业务子模块
       // { path: 'widgets', loadChildren: './widgets/widgets.module#WidgetsModule' }

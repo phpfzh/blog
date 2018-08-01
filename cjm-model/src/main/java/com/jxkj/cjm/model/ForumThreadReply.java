@@ -68,13 +68,9 @@ public class ForumThreadReply extends SuperEntity<ForumThreadReply> {
      */
     private Long opermanid;
     /**
-     * 操作人用户名
-     */
-    private String operman;
-    /**
      * 操作时间
      */
-    private String operdatetiem;
+    private Long operdatetime;
     /**
      * 操作备注
      */
@@ -185,22 +181,6 @@ public class ForumThreadReply extends SuperEntity<ForumThreadReply> {
         this.opermanid = opermanid;
     }
 
-    public String getOperman() {
-        return operman;
-    }
-
-    public void setOperman(String operman) {
-        this.operman = operman;
-    }
-
-    public String getOperdatetiem() {
-        return operdatetiem;
-    }
-
-    public void setOperdatetiem(String operdatetiem) {
-        this.operdatetiem = operdatetiem;
-    }
-
     public String getRemark() {
         return remark;
     }
@@ -215,5 +195,13 @@ public class ForumThreadReply extends SuperEntity<ForumThreadReply> {
 
     public void setFirstmark(String firstmark) {
         this.firstmark = firstmark;
+    }
+
+    public Long getOperdatetime() {
+        return operdatetime;
+    }
+
+    public void setOperdatetime(Long operdatetime) {
+        this.operdatetime = operdatetime;
     }
 }
