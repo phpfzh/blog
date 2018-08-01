@@ -163,6 +163,11 @@ public class ForumThreadReplyServiceImpl extends ServiceImpl<ForumThreadReplyMap
             if (!(count > 0)) {
                 throw new IllegalArgumentException("删除失败");
             }
+
+            processBack.setCode(ProcessBack.SUCCESS_CODE);
+            processBack.setMessage("删除成功");
+            return processBack;
+
         } catch (RuntimeException e) {
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();//数据回滚
         } catch (Exception e) {
