@@ -1,5 +1,8 @@
 
   <sf [schema]="schema" (formSubmit)="submit($event)" ></sf>
 
+<!--
+<ueditor></ueditor>
+-->
 
-
+  <ueditor [(ngModel)]="full_source" #full (onPreReady)="onPreReady($event)"></ueditor>

@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild,AfterViewInit,ViewEncapsulation} from '@angular/core';
 import {SFSchema} from "@delon/form";
 import {UEditorComponent} from "ngx-ueditor";
 import {NzMessageService} from "ng-zorro-antd";
@@ -14,6 +14,8 @@ declare const UE: any;
 export class UeditorComponent implements OnInit {
 
   @ViewChild('full') full: UEditorComponent;
+  full_source: string;
+
   schema: SFSchema = {
     properties: {
       subject: {
@@ -46,8 +48,8 @@ export class UeditorComponent implements OnInit {
       tags: {
         type: 'string',
         title: 'tags'
-      },
-      content: {
+      }
+      /*content: {
         type: 'string',
         title:
           '',
@@ -55,22 +57,23 @@ export class UeditorComponent implements OnInit {
           {
             widget: 'ueditor'
           }
-      }
+      }*/
     },
-    required:['content','subject','threadtype']
+    required:['subject','threadtype']
   }
   ;
 
   constructor(public msg: NzMessageService,
+              private el: ElementRef,
               private forumThreadService:ForumThreadService) {
   }
 
   submit(value: any) {
-    console.log(JSON.stringify(value))
+    console.log("========getContent==========="+this.full.Instance.getContent());
     const fid = 3;
     const threadtype = value.threadtype;
     const subject = value.subject;
-    const content = value.content;
+    const content = this.full.Instance.getContent();
     const usesig = value.usesig;
     const tags = value.tags;
 
@@ -89,5 +92,19 @@ export class UeditorComponent implements OnInit {
 
   }
 
+  onPreReady(comp: UEditorComponent) {
+    UE.Editor.prototype._bkGetActionUrl = UE.Editor.prototype.getActionUrl;
+    UE.Editor.prototype.getActionUrl = function (action) {
+      console.log("========action======"+action);
+      if (action == 'uploadimage' || action == 'uploadscrawl' || action == 'uploadimage') {
+        return 'http://localhost:8080/uploadImage';
+      } else if (action == 'uploadvideo') {
+        return 'http://localhost:8080/uploadVideo';
+      } else {
+        return this._bkGetActionUrl.call(this, action);
+      }
+    }
+
+  }
 
 }

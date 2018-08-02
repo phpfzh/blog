@@ -12,7 +12,7 @@ import {RouteReuseStrategy} from '@angular/router';
 import {throwIfAlreadyLoaded} from '@core/module-import-guard';
 
 import {NgZorroAntdModule} from 'ng-zorro-antd';
-import {ALAIN_I18N_TOKEN, AlainI18NService, AlainThemeModule} from '@delon/theme';
+import {ALAIN_I18N_TOKEN, AlainI18NService, AlainThemeModule, WINDOW} from '@delon/theme';
 import {DelonABCModule, ReuseTabService, ReuseTabStrategy} from '@delon/abc';
 import {DelonAuthModule} from '@delon/auth';
 import {DelonACLModule} from '@delon/acl';
@@ -99,7 +99,7 @@ export class DelonModule {
         {provide: AdPageHeaderConfig, useFactory: pageHeaderConfig},
         {provide: DelonAuthConfig, useFactory: delonAuthConfig},
         //http 域名配置
-        {provide: BASE_PATH, useValue: "http://localhost:8080"}
+        {provide: BASE_PATH, useValue: "http://api.chenjiaming.com/"}
       ],
     };
   }

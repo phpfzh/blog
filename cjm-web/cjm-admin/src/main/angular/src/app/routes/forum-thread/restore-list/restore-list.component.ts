@@ -118,7 +118,7 @@ export class ForumThreadRestoreListComponent implements OnInit {
     this.forumThreadService.restore(val.id)
       .subscribe(rep => {
         if (rep.code == "88") {
-          this.nzSer.success("删除成功");
+          this.nzSer.success("恢复成功");
           this.st.reload();
           return;
         }

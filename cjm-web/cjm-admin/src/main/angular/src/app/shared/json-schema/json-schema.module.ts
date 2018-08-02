@@ -1,12 +1,10 @@
 import { NgModule } from '@angular/core';
 import { SharedModule } from '@shared/shared.module';
 import { DelonFormModule, WidgetRegistry } from '@delon/form';
-import {UeditorWidget} from "../../widgets-third/ueditor/ueditor.widget";
 
 
 export const SCHEMA_THIRDS_COMPONENTS = [
   // TinymceWidget,
-   UeditorWidget
 ];
 
 @NgModule({
@@ -22,6 +20,6 @@ export const SCHEMA_THIRDS_COMPONENTS = [
 })
 export class JsonSchemaModule {
   constructor(widgetRegistry: WidgetRegistry) {
-    widgetRegistry.register(UeditorWidget.KEY, UeditorWidget);
+   /* widgetRegistry.register(UeditorWidget.KEY, UeditorWidget);*/
   }
 }
