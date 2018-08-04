@@ -17,17 +17,17 @@ import {UserLockComponent} from './passport/lock/lock.component';
 import {Exception403Component} from './exception/403.component';
 import {Exception404Component} from './exception/404.component';
 import {Exception500Component} from './exception/500.component';
-import {ForumForumModule} from "./forum-forum/forum-forum.module";
-import {ForumThreadModule} from "./forum-thread/forum-thread.module";
 import {UeditorComponent} from "./ueditor/ueditor.component";
+import {HomeIndexComponent} from "./home/home-index/home-index.component";
 
 const routes: Routes = [
+  //默认打开首页
+  {path: '', redirectTo: 'index', pathMatch: 'full'},
   {
     path: '',
     component: LayoutDefaultComponent,
     children: [
-      {path: '', redirectTo: 'dashboard', pathMatch: 'full', data: {title: '用户管理'}},
-      {path: 'dashboard', component: DashboardComponent, data: {title: '仪表盘', titleI18n: 'dashboard'}},
+       {path: 'admin', component: DashboardComponent, data: {title: '后台首页'}},
       //版块
       { path: 'forumForum', loadChildren: './forum-forum/forum-forum.module#ForumForumModule' },
       //主题
@@ -52,23 +52,24 @@ const routes: Routes = [
     path: 'passport',
     component: LayoutPassportComponent,
     children: [
-      {path: 'login', component: UserLoginComponent, data: {title: '登录', titleI18n: 'pro-login'}},
-      {path: 'register', component: UserRegisterComponent, data: {title: '注册', titleI18n: 'pro-register'}},
+      {path: 'login', component: UserLoginComponent, data: {title: '登录'}},
+      {path: 'register', component: UserRegisterComponent, data: {title: '注册'}},
       {
         path: 'register-result',
         component: UserRegisterResultComponent,
-        data: {title: '注册结果', titleI18n: 'pro-register-result'}
+        data: {title: '注册结果'}
       }
     ]
   },
   // 单页不包裹Layout
   {path: 'callback/:type', component: CallbackComponent},
-  {path: 'editor', component: UeditorComponent, data: {title: '编辑页', titleI18n: 'editor'}},
-  {path: 'lock', component: UserLockComponent, data: {title: '锁屏', titleI18n: 'lock'}},
+  {path: 'editor', component: UeditorComponent, data: {title: '编辑页'}},
+  {path: 'lock', component: UserLockComponent, data: {title: '锁屏'}},
+  {path: 'index', component: HomeIndexComponent, data: {title: '首页'}},
   {path: '403', component: Exception403Component},
   {path: '404', component: Exception404Component},
   {path: '500', component: Exception500Component},
-  {path: '**', redirectTo: 'dashboard'}
+  {path: '**', redirectTo: 'index'}
 ];
 
 @NgModule({

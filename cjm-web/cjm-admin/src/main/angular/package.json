@@ -32,7 +32,6 @@
     "@delon/auth": "^1.1.5",
     "@delon/cache": "^1.1.5",
     "@delon/form": "^1.1.5",
-    "@delon/mock": "^1.1.5",
     "@delon/theme": "^1.1.5",
     "@delon/util": "^1.1.5",
     "ajv": "^6.4.0",

@@ -21,7 +21,12 @@ registerLocaleData(localeZhHans);
 // @delon/form: JSON Schema form
 import {JsonSchemaModule} from '@shared/json-schema/json-schema.module';
 import {UeditorComponent} from "./routes/ueditor/ueditor.component";
-import {UEditorConfig, UEditorModule} from "ngx-ueditor";
+import {UEditorModule} from "ngx-ueditor";
+import { HearderComponent } from './routes/home/home-index/hearder/hearder.component';
+import { FooterComponent } from './routes/home/home-index/footer/footer.component';
+import { ContentComponent } from './routes/home/home-index/content/content.component';
+import { HomeIndexComponent } from './routes/home/home-index/home-index.component';
+
 
 export function StartupServiceFactory(startupService: StartupService): Function {
   return () => startupService.load();
@@ -30,7 +35,11 @@ export function StartupServiceFactory(startupService: StartupService): Function 
 @NgModule({
   declarations: [
     AppComponent,
-    UeditorComponent
+    UeditorComponent,
+    HearderComponent,
+    FooterComponent,
+    ContentComponent,
+    HomeIndexComponent
   ],
   imports: [
     BrowserModule,
@@ -43,11 +52,11 @@ export function StartupServiceFactory(startupService: StartupService): Function 
     RoutesModule,
     UEditorModule.forRoot({
       js: [
-        `http://localhost:4200/assets/ueditor/ueditor.all.js`,
-        `http://localhost:4200/assets/ueditor/ueditor.config.js`,
+        `http://admin.chenjiaming.com/admin/assets/ueditor/ueditor.all.js`,
+        `http://admin.chenjiaming.com/admin/assets/ueditor/ueditor.config.js`,
       ],
       options: {
-        UEDITOR_HOME_URL: 'http://localhost:4200/assets/ueditor/'
+        UEDITOR_HOME_URL: 'http://admin.chenjiaming.com/admin/assets/ueditor/'
       }
     }),
     // JSON-Schema form

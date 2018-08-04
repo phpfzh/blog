@@ -1,8 +1,14 @@
-import {Component, ElementRef, OnInit, ViewChild,AfterViewInit,ViewEncapsulation} from '@angular/core';
+import {
+  Component, ElementRef, OnInit, ViewChild, AfterViewInit, ViewEncapsulation, Inject,
+  Optional
+} from '@angular/core';
 import {SFSchema} from "@delon/form";
 import {UEditorComponent} from "ngx-ueditor";
 import {NzMessageService} from "ng-zorro-antd";
 import {ForumThreadService} from "../../generated/service/forum-thread.service";
+import {BASE_PATH} from "../../generated/variables";
+import {TokenService} from "@delon/auth";
+import {Router} from "@angular/router";
 
 declare const UE: any;
 
@@ -15,6 +21,7 @@ export class UeditorComponent implements OnInit {
 
   @ViewChild('full') full: UEditorComponent;
   full_source: string;
+  basePath: string;
 
   schema: SFSchema = {
     properties: {
@@ -65,7 +72,11 @@ export class UeditorComponent implements OnInit {
 
   constructor(public msg: NzMessageService,
               private el: ElementRef,
-              private forumThreadService:ForumThreadService) {
+               private forumThreadService:ForumThreadService,
+              @Optional() @Inject(BASE_PATH) basePath: string) {
+    if (basePath) {
+      this.basePath = basePath;
+    }
   }
 
   submit(value: any) {
@@ -92,14 +103,14 @@ export class UeditorComponent implements OnInit {
 
   }
 
-  onPreReady(comp: UEditorComponent) {
+  onReady(comp: UEditorComponent) {
     UE.Editor.prototype._bkGetActionUrl = UE.Editor.prototype.getActionUrl;
     UE.Editor.prototype.getActionUrl = function (action) {
       console.log("========action======"+action);
       if (action == 'uploadimage' || action == 'uploadscrawl' || action == 'uploadimage') {
-        return 'http://localhost:8080/uploadImage';
+        return `${this.basePath}/uploadImage`;
       } else if (action == 'uploadvideo') {
-        return 'http://localhost:8080/uploadVideo';
+        return `${this.basePath}/uploadVideo`;
       } else {
         return this._bkGetActionUrl.call(this, action);
       }
