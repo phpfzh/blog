@@ -31,7 +31,7 @@ export class ForumThreadService {
   }
 
 //审核
-  audit(status: number, tid: string) : Observable<any> {
+  audit(status: number, tid: string): Observable<any> {
     return this.httpClient.post<any>(`${this.basePath}/api/forumThread/auditForumThread`, null, {
       "status": status,
       "tid": tid
@@ -39,7 +39,7 @@ export class ForumThreadService {
   }
 
   //恢复
-  restore(tid: string) : Observable<any> {
+  restore(tid: string): Observable<any> {
     return this.httpClient.post<any>(`${this.basePath}/api/forumThread/auditForumThread`, null, {
       "status": 1,
       "tid": tid
@@ -47,7 +47,7 @@ export class ForumThreadService {
   }
 
   //批量恢复
-  restoreBatchThread(tids: string) : Observable<any> {
+  restoreBatchThread(tids: string): Observable<any> {
     return this.httpClient.post<any>(`${this.basePath}/api/forumThread/auditBatchForumThread`, null, {
       "status": 1,
       "tids": tids
@@ -55,7 +55,7 @@ export class ForumThreadService {
   }
 
   //删除
-  delThread(tid: string) : Observable<any> {
+  delThread(tid: string): Observable<any> {
     return this.httpClient.post<any>(`${this.basePath}/api/forumThread/auditForumThread`, null, {
       "status": 0,
       "tid": tid
@@ -63,7 +63,7 @@ export class ForumThreadService {
   }
 
   //批量删除
-  delBatchThread(tids: string) : Observable<any> {
+  delBatchThread(tids: string): Observable<any> {
     return this.httpClient.post<any>(`${this.basePath}/api/forumThread/auditBatchForumThread`, null, {
       "status": 0,
       "tids": tids
@@ -71,8 +71,8 @@ export class ForumThreadService {
   }
 
 //保存
-  insertForumThread(fid:number,threadtype:number,subject:string,content:string,tags?:string,usesig?:number): Observable<any> {
-    return this.httpClient.post<any>(`${this.basePath}/api/forumThread/insertForumThread`, null,{
+  insertForumThread(fid: number, threadtype: number, subject: string, content: string, tags?: string, usesig?: number): Observable<any> {
+    return this.httpClient.post<any>(`${this.basePath}/api/forumThread/insertForumThread`, null, {
       "fid": fid,
       "threadtype": threadtype,
       "subject": subject,
@@ -82,4 +82,13 @@ export class ForumThreadService {
     });
   }
 
+
+  indexList(pageSize?: any, pageNum?: any, fid?: any): Observable<any> {
+    return this.httpClient.get<any>(`${this.basePath}/api/forumThreadApi/list`, {
+      "pageNum": pageNum == undefined ? "" : pageNum,
+      "pageSize": pageSize == undefined ? "" : pageSize,
+      "fid": fid == undefined ? "" : fid,
+      "_allow_anonymous": true
+    });
+  }
 }

@@ -1,26 +1,80 @@
-<div id="header_main">
-  <div id="header_main_box" nz-row>
-    <div nz-col nzspan="4" id="box_img">
-      <a href="/">
-        <img src="http://img.ui.cn/data/vip/1522148933.jpeg" width="80px" height="70px">
+<div id="header_box">
+  <div id="header_box_main" nz-row>
+    <div nz-col nzSpan="20" class="m_nav_main" nz-row>
+      <a href="/" class="img">
+        <div nz-col nzSpan="1"  >
+          <img src="https://i.ng-alain.com/18/0603/02ae06d9-1679-4960-b48b-149f39e0b8ee.png_/format/webp/lossless/true"
+               width="120px" height="70px"/>
+        </div>
       </a>
+      <div nz-col nzSpan="16" class="nav">
+        <ul>
+          <li>
+            <a>
+              JAVA
+            </a>
+          </li>
+          <li>
+            <a>
+              JAVA
+            </a>
+          </li>
+          <li>
+            <a>
+              Golang
+            </a>
+          </li>
+          <li>
+            <a>
+              Javascript
+            </a>
+          </li>
+          <li>
+            <a>
+              其他
+            </a>
+          </li>
+          <li>
+            <a>
+              其他
+            </a>
+          </li>
+          <li>
+            <a>
+              其他
+            </a>
+          </li>
+          <li>
+            <a>
+              其他
+            </a>
+          </li>
+          <li>
+            <a>
+              其他
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div nz-col nzSpan="6" class="search">
+        <nz-input-group nzSearch nzSize="large" [nzSuffix]="suffixButton">
+          <input type="text" nz-input placeholder="请输入">
+          <ng-template #suffixButton>
+            <button nz-button nzType="primary" nzSize="large" nzSearch>Search</button>
+          </ng-template>
+        </nz-input-group>
+      </div>
     </div>
-    <div nz-col nzspan="16" id="box_nav">
+    <div nz-col nzSpan="4" class="m_login">
       <ul>
         <li>
-          <a href="javascript:void(0)">首页</a>
+          <a href="javascript:void(0)">注册</a>
         </li>
         <li>
-          <a href="javascript:void(0)">首页</a>
-        </li>
-        <li>
-          <a href="javascript:void(0)">首页</a>
+          <a href="javascript:void(0)">登录</a>
         </li>
       </ul>
     </div>
-    <div nz-col nzspan="4">
-
-    </div>
   </div>
-
 </div>
+<div style="margin-bottom: 15px;"></div>

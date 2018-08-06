@@ -26,11 +26,14 @@ import { HearderComponent } from './routes/home/home-index/hearder/hearder.compo
 import { FooterComponent } from './routes/home/home-index/footer/footer.component';
 import { ContentComponent } from './routes/home/home-index/content/content.component';
 import { HomeIndexComponent } from './routes/home/home-index/home-index.component';
+import {HeaderSearchComponent} from "./routes/home/home_search.component";
+import {HomeDetailComponent} from "./routes/home/home-index/home-detail/home-detail.component";
+import {HomeProjectListComponent} from "./routes/home/home-index/home-project-list/home-project-list.component";
 
 
-export function StartupServiceFactory(startupService: StartupService): Function {
+/*export function StartupServiceFactory(startupService: StartupService): Function {
   return () => startupService.load();
-}
+}*/
 
 @NgModule({
   declarations: [
@@ -39,7 +42,10 @@ export function StartupServiceFactory(startupService: StartupService): Function 
     HearderComponent,
     FooterComponent,
     ContentComponent,
-    HomeIndexComponent
+    HomeIndexComponent,
+    HeaderSearchComponent,
+    HomeDetailComponent,
+    HomeProjectListComponent
   ],
   imports: [
     BrowserModule,
@@ -66,13 +72,13 @@ export function StartupServiceFactory(startupService: StartupService): Function 
     {provide: LOCALE_ID, useValue: 'zh-Hans'},
     {provide: HTTP_INTERCEPTORS, useClass: SimpleInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: DefaultInterceptor, multi: true},
-    StartupService,
-    {
+    StartupService
+    /*{
       provide: APP_INITIALIZER,
       useFactory: StartupServiceFactory,
       deps: [StartupService],
       multi: true
-    }
+    }*/
   ],
   bootstrap: [AppComponent]
 })

@@ -1,14 +1,15 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import {ForumThreadService} from "../../../../generated/service/forum-thread.service";
 import {_HttpClient} from "@delon/theme";
 import {NzMessageService} from "ng-zorro-antd";
-import {ForumThreadService} from "../../../../generated/service/forum-thread.service";
 
 @Component({
-  selector: 'app-home-index-content',
-  templateUrl: './content.component.html',
-  styleUrls: ['./content.component.less']
+  selector: 'app-home-project-list',
+  templateUrl: './home-project-list.component.html',
+  styleUrls: ['./home.project.list.component.less']
 })
-export class ContentComponent implements OnInit {
+export class HomeProjectListComponent implements OnInit {
+
   q: any = {
     ps: 8,
     categories: [],
@@ -44,5 +45,6 @@ export class ContentComponent implements OnInit {
       this.loading = false;
     });*/
   }
+
 
 }

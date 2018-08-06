@@ -19,10 +19,11 @@ import {Exception404Component} from './exception/404.component';
 import {Exception500Component} from './exception/500.component';
 import {UeditorComponent} from "./ueditor/ueditor.component";
 import {HomeIndexComponent} from "./home/home-index/home-index.component";
+import {HomeDetailComponent} from "./home/home-index/home-detail/home-detail.component";
 
 const routes: Routes = [
   //默认打开首页
-  {path: '', redirectTo: 'index', pathMatch: 'full'},
+  {path: '', redirectTo: 'detail', pathMatch: 'full'},
   {
     path: '',
     component: LayoutDefaultComponent,
@@ -66,10 +67,11 @@ const routes: Routes = [
   {path: 'editor', component: UeditorComponent, data: {title: '编辑页'}},
   {path: 'lock', component: UserLockComponent, data: {title: '锁屏'}},
   {path: 'index', component: HomeIndexComponent, data: {title: '首页'}},
+  {path: 'detail', component: HomeDetailComponent, data: {title: '首页'}},
   {path: '403', component: Exception403Component},
   {path: '404', component: Exception404Component},
   {path: '500', component: Exception500Component},
-  {path: '**', redirectTo: 'index'}
+  {path: '**', redirectTo: 'detail'}
 ];
 
 @NgModule({
