@@ -4,9 +4,10 @@
   background: #fff;
   height: 70px;
   overflow: hidden;
+  border-bottom: 1px solid #f0f0f0;
 }
 #header_box_main {
-  width: 80%;
+  width: 1270px;
   margin: 0 auto;
 }
 #header_box_main .nav {
@@ -16,7 +17,6 @@
 }
 #header_box_main .nav ul {
   margin: 0;
-  padding: 0 120px;
 }
 #header_box_main .nav ul li {
   float: left;
@@ -41,6 +41,7 @@
 }
 #header_box_main .search {
   line-height: 70px;
+  margin-right: 5px;
 }
 #header_box_main .m_login ul {
   padding: 0;
