@@ -23,7 +23,7 @@ import {HomeDetailComponent} from "./home/home-index/home-detail/home-detail.com
 
 const routes: Routes = [
   //默认打开首页
-  {path: '', redirectTo: 'detail', pathMatch: 'full'},
+  {path: '', redirectTo: 'index', pathMatch: 'full'},
   {
     path: '',
     component: LayoutDefaultComponent,

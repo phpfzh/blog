@@ -19,7 +19,7 @@ body, span, p, h1, h2, h3, h4, h5, h6, ul, li {
   overflow: hidden;
   float: left;
   width: 890px;
- }
+}
 
 #detail_main_box .b_right {
   float: left;
@@ -38,6 +38,10 @@ body, span, p, h1, h2, h3, h4, h5, h6, ul, li {
   float: right;
   width: 780px;
   overflow: hidden;
+}
+
+#detail_main_box .b_left .l_content img {
+  width: 100%;
 }
 
 #detail_main_box .b_left .l_tag ul li {
@@ -93,6 +97,29 @@ body, span, p, h1, h2, h3, h4, h5, h6, ul, li {
   margin: 0;
 }
 
+#detail_main_box .b_left .l_content .header_subject .subject_type {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  text-align: center;
+  font-size: 16px;
+}
+
+#detail_main_box .b_left .l_content .header_subject .type_1 {
+  color: #ca0c16;
+  border: 1px solid #f4ced0;
+}
+
+#detail_main_box .b_left .l_content .header_subject .type_2 {
+  color: #86ca5e;
+  border: 1px solid #86ca5e;
+}
+
+#detail_main_box .b_left .l_content .header_subject .type_3 {
+  color: #ff8833;
+  border: 1px solid #ff8833;
+}
+
 #detail_main_box .b_left .header_author .header_username {
   height: 60px;
   line-height: 60px;
@@ -143,11 +170,145 @@ body, span, p, h1, h2, h3, h4, h5, h6, ul, li {
   margin: 25px 0 35px;
 }
 
+//右侧css start
 
-
-//右侧css
-#detail_main_box .b_right .author_info{
+//用户信息
+#detail_main_box .b_right .author_info {
+  overflow: hidden;
   width: 340px;
   background-color: #fafafa;
-  height: 600px;
- }
+  padding: 30px 0 30px 0;
+  text-align: center;
+  margin-bottom: 35px;
+}
+
+#detail_main_box .b_right .author_info .author_img {
+  position: relative;
+  width: 98px;
+  height: 98px;
+  border-radius: 49px;
+  overflow: hidden;
+  left: 50%;
+  margin-left: -49px;
+}
+
+#detail_main_box .b_right .author_info .author_img img {
+  width: 100%;
+}
+
+#detail_main_box .b_right .author_info .auhtor_username {
+  font-size: 16px;
+  margin: 15px 0;
+}
+
+#detail_main_box .b_right .author_info .auhtor_username a {
+  text-decoration: none;
+  color: #000;
+}
+
+#detail_main_box .b_right .author_info .auhtor_username a:hover {
+  color: #3cb7f7;
+}
+
+#detail_main_box .b_right .author_info .author-one {
+  color: #bbb;
+  margin: 12px 8px 12px 8px;
+  font-size: 14px;
+}
+
+#detail_main_box .b_right .author_info .author-article-box {
+  color: #bbb;
+}
+
+#detail_main_box .b_right .author_info .author-article-box ul li a {
+  color: #bbb;
+  text-decoration: none;
+}
+
+#detail_main_box .b_right .author_info .author-article-box ul li a:hover {
+  color: #000;
+}
+
+//标签
+#detail_main_box .b_right .hot_tag {
+  width: 340px;
+  overflow: hidden;
+  background-color: #fafafa;
+  position: absolute;
+}
+
+#detail_main_box .b_right .hot_tag h3 {
+  font-size: 20px;
+  font-weight: 500;
+  padding: 30px 30px 0 30px;
+  margin-bottom: 10px;
+}
+
+#detail_main_box .b_right .hot_tag .tag_all {
+  position: absolute;
+  margin-top: -35px;
+  right: 30px;
+  float: left;
+}
+
+#detail_main_box .b_right .hot_tag .tag_all a {
+  color: #666;
+}
+
+#detail_main_box .b_right .hot_tag .tag_all a:hover {
+  color: #ccc;
+}
+
+#detail_main_box .b_right .hot_tag .mark {
+  display: inline-block;
+  background-color: #f63756;
+  position: absolute;
+  z-index: 1;
+  height: 20px;
+  line-height: 20px;
+  margin: -35px 0 0 0;
+  width: 4px;
+}
+
+#detail_main_box .b_right .hot_tag .tag_box ul {
+  margin: 10px 0 0 0;
+  display: inline-block;
+}
+
+#detail_main_box .b_right .hot_tag .tag_box ul li {
+  float: left;
+  height: 35px;
+  border: 1px solid #f0f0f0;
+  margin: 0 20px 20px 10px;
+  padding: 0 15px;
+  cursor: pointer;
+  list-style-type: none;
+}
+
+#detail_main_box .b_right .hot_tag .tag_box ul li a {
+  color: #3ca5f6;
+  font-weight: 700;
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  font-size: 16px;
+  line-height: 33px;
+  text-decoration: none;
+}
+
+#detail_main_box .b_right .hot_tag .tag_box ul li:hover {
+  -webkit-transform: scale(1.2) rotate(-10deg);
+  -moz-transform: scale(1.2) rotate(-10deg);
+  -o-transform: scale(1.2) rotate(-10deg);
+  transform: scale(1.2) rotate(-10deg);
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+#detail_main_box .b_right .hot_tag .tag_box ul li a:hover {
+  color: #ccc;
+}
+
+

@@ -9,6 +9,9 @@ import {ForumThreadService} from "../../../../generated/service/forum-thread.ser
   styleUrls: ['./content.component.less']
 })
 export class ContentComponent implements OnInit {
+
+  array = [ 1, 2, 3,4,5 ];
+
   q: any = {
     ps: 8,
     categories: [],
