@@ -2,13 +2,15 @@ import {
   Component, ElementRef, OnInit, ViewChild, AfterViewInit, ViewEncapsulation, Inject,
   Optional
 } from '@angular/core';
-import {SFSchema} from "@delon/form";
+import {SFComponent, SFSchema} from "@delon/form";
 import {UEditorComponent} from "ngx-ueditor";
 import {NzMessageService} from "ng-zorro-antd";
 import {ForumThreadService} from "../../generated/service/forum-thread.service";
 import {BASE_PATH} from "../../generated/variables";
 import {TokenService} from "@delon/auth";
 import {Router} from "@angular/router";
+import {HomeIndexService} from "../../generated/service/home-index.service";
+import {map} from "rxjs/internal/operators";
 
 declare const UE: any;
 
@@ -20,6 +22,7 @@ declare const UE: any;
 export class UeditorComponent implements OnInit {
 
   @ViewChild('full') full: UEditorComponent;
+  @ViewChild('sf') sf: SFComponent;
   full_source: string;
   basePath: string;
 
@@ -37,6 +40,14 @@ export class UeditorComponent implements OnInit {
           {label: '转载', value: 2},
           {label: '翻译', value: 3},
         ],
+        ui: {
+          widget: 'select'
+        }
+      },
+      fid: {
+        type: 'number',
+        title: '栏目',
+        enum: [],
         ui: {
           widget: 'select'
         }
@@ -66,13 +77,14 @@ export class UeditorComponent implements OnInit {
           }
       }*/
     },
-    required:['subject','threadtype']
+    required: ['subject', 'threadtype']
   }
   ;
 
   constructor(public msg: NzMessageService,
               private el: ElementRef,
-               private forumThreadService:ForumThreadService,
+              private  homeIndexService: HomeIndexService,
+              private forumThreadService: ForumThreadService,
               @Optional() @Inject(BASE_PATH) basePath: string) {
     if (basePath) {
       this.basePath = basePath;
@@ -80,7 +92,6 @@ export class UeditorComponent implements OnInit {
   }
 
   submit(value: any) {
-    console.log("========getContent==========="+this.full.Instance.getContent());
     const fid = 3;
     const threadtype = value.threadtype;
     const subject = value.subject;
@@ -88,25 +99,30 @@ export class UeditorComponent implements OnInit {
     const usesig = value.usesig;
     const tags = value.tags;
 
-    this.forumThreadService.insertForumThread(fid,threadtype,subject,content,tags,usesig)
+    this.forumThreadService.insertForumThread(fid, threadtype, subject, content, tags, usesig)
       .subscribe(rep => {
-        console.log(rep+"==="+JSON.stringify(rep))
-          if(rep.code == "88"){
-              this.msg.success(rep.message);
-              return;
-          }
-          this.msg.error(rep.message);
-     })
+        if (rep.code == "88") {
+          this.msg.success(rep.message);
+          return;
+        }
+        this.msg.error(rep.message);
+      })
   }
 
   ngOnInit() {
-
+    this.homeIndexService.forumList().subscribe(rep => {
+      if (rep.code == "88") {
+          
+      }
+      this.schema.properties.fid.enum = [rep.data.name, rep.data.id];
+      this.sf.refreshSchema();
+    });
   }
 
   onReady(comp: UEditorComponent) {
     UE.Editor.prototype._bkGetActionUrl = UE.Editor.prototype.getActionUrl;
     UE.Editor.prototype.getActionUrl = function (action) {
-      console.log("========action======"+action);
+      console.log("========action======" + action);
       if (action == 'uploadimage' || action == 'uploadscrawl' || action == 'uploadimage') {
         return `${this.basePath}/uploadImage`;
       } else if (action == 'uploadvideo') {

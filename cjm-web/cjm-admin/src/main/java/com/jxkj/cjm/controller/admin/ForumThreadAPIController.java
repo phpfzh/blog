@@ -17,6 +17,7 @@ import com.jxkj.cjm.model.vo.ForumPostVo;
 import com.jxkj.cjm.model.vo.ForumThreadTagVo;
 import com.jxkj.cjm.model.vo.ForumThreadVo;
 import com.jxkj.cjm.service.*;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -55,6 +56,9 @@ public class ForumThreadAPIController extends BaseController {
 
     @Resource
     private CjmJwtTokenComponent cjmJwtTokenComponent;
+
+    @Value("${cjm.fdfs.host}")
+    private String fdfsurl;//图片服务器路径
 
     /**
      * 查询板块列表信息
@@ -110,24 +114,34 @@ public class ForumThreadAPIController extends BaseController {
             String fid = request.getParameter("fid");
             String pageNum = request.getParameter("pageNum");
             String pageSize = request.getParameter("pageSize");
+            String orderType = request.getParameter("orderType");
             forumThread.setIsdelete(0);
             forumThread.setStatus(0);
             if (fid != null && StringUtil.isNotEmpty(fid)) {
                 forumThread.setFid(Long.valueOf(fid));
             }
 
+            if (orderType != null && StringUtil.isNotEmpty(orderType)) {
+                if (orderType.equals("views")) {//
+                    PageHelper.orderBy("views DESC，replies DESC，dateline DESC");
+                } else if (orderType.equals("replies")) {
+                    PageHelper.orderBy("views DESC，replies DESC，dateline DESC");
+                } else {
+                    PageHelper.orderBy("dateline DESC,replies DESC,views DESC");
+                }
+            } else {
+                PageHelper.orderBy("dateline DESC,replies DESC,views DESC");
+            }
             // 处理分页请求
             Map<String, Object> map = new HashMap<>();
             initPage(map, pageNum, pageSize);
-            PageHelper.orderBy("dateline DESC,replies DESC,views DESC");
             List<ForumThread> lists = forumThreadService.selectByMap(TransferUtil.beanToMap(forumThread));
             List<ForumThreadVo> voLists = new ArrayList<>();
             for (ForumThread entity1 : lists) {
                 ForumThreadVo en = new ForumThreadVo();
                 User user = userService.selectById(entity1.getBaseid());
                 ForumForum forumForum = forumForumService.selectById(entity1.getFid());
-                //   ForumPostVo forumPostVo = forumPostService.getForumPostByTid(entity1.getId());
-                String Headurl = user.getImg() == null ? "" : user.getImg();
+                ForumPostVo forumPostVo = forumPostService.getForumPostByTid(entity1.getId());
                 String threadTypeName = "原创";
                 if (entity1.getThreadtype() != null && entity1.getThreadtype().equals(2)) {
                     threadTypeName = "转载";
@@ -140,12 +154,17 @@ public class ForumThreadAPIController extends BaseController {
                 en.setThreadtype(entity1.getThreadtype());//主题类型
                 en.setFname(forumForum.getName());//板块名称
                 en.setId(entity1.getId());//tid
-                en.setHeadurl(Headurl);//用户头像地址
+                en.setHeadurl(forumPostVo.getHeadurl());//用户头像地址
                 en.setViews(entity1.getViews());//浏览数
                 en.setReplies(entity1.getReplies());//回复数
                 en.setFid(entity1.getFid());//板块id
                 en.setBaseid(entity1.getBaseid());//用户id
                 en.setThreadtypename(threadTypeName);
+                String comme = entity1.getCoverimg();
+                if (StringUtil.isEmpty(comme)) {
+                    comme = getDefaultCoverimg();
+                }
+                en.setCoverimg(this.fdfsurl + comme);
                 /*if (forumPostVo != null) {
                     en.setContent(forumPostVo.getContent());
                 }*/
@@ -313,6 +332,8 @@ public class ForumThreadAPIController extends BaseController {
                 throw new IllegalArgumentException("未找到帖子信息");
             }
 
+            ForumForum forumForum = forumForumService.selectById(forumThread.getFid());
+            List<ForumThreadTagVo> threadTagVos = forumThreadTagService.getForumThreadTagsByTid(forumThread.getId());
             if (forumPostVo.getIsdelete().equals(1)) {//是否删除1是0否
                 AjaxResult ajaxResult = new AjaxResult();
                 ajaxResult.setCode("22");
@@ -320,7 +341,7 @@ public class ForumThreadAPIController extends BaseController {
                 return ajaxResult;
             }
 
-            ForumThreadVo  en = new ForumThreadVo();
+            ForumThreadVo en = new ForumThreadVo();
             String threadTypeName = "原创";
             if (forumThread.getThreadtype() != null && forumThread.getThreadtype().equals(2)) {
                 threadTypeName = "转载";
@@ -329,9 +350,9 @@ public class ForumThreadAPIController extends BaseController {
             }
 
             Wrapper<ForumThread> forumThreadWrapper = Condition.create();
-            forumThreadWrapper.eq("baseid",forumThread.getBaseid());
-            forumThreadWrapper.eq("isdelete",0);
-            int count =  forumThreadService.selectCount(forumThreadWrapper);
+            forumThreadWrapper.eq("baseid", forumThread.getBaseid());
+            forumThreadWrapper.eq("isdelete", 0);
+            int count = forumThreadService.selectCount(forumThreadWrapper);
 
             en.setViews(forumThread.getViews());//浏览数
             en.setCount(count);//作者总主题数
@@ -339,7 +360,8 @@ public class ForumThreadAPIController extends BaseController {
             en.setThreadtype(forumThread.getThreadtype());//主题类型
             en.setId(forumThread.getId());//tid
             en.setFid(forumThread.getFid());//板块id
-            en.setPid(forumPostVo.getId());
+            en.setFname(forumForum.getName());//版块名称
+            en.setPid(forumPostVo.getId());//帖子id
             en.setUsername(forumPostVo.getUsername());//用户名
             en.setSubject(forumPostVo.getSubject());//标题
             en.setDateline(forumPostVo.getDateline());//时间戳
@@ -348,7 +370,13 @@ public class ForumThreadAPIController extends BaseController {
             en.setBaseid(forumPostVo.getBaseid());//用户id
             en.setThreadtypename(threadTypeName);
             en.setContent(forumPostVo.getContent());
-             if (baseid != null && baseid.equals(forumPostVo.getBaseid())) {
+            en.setListtags(threadTagVos);
+            String comme = forumThread.getCoverimg();
+            if (StringUtil.isEmpty(comme)) {
+                comme = getDefaultCoverimg();
+            }
+            en.setCoverimg(this.fdfsurl + comme);
+            if (baseid != null && baseid.equals(forumPostVo.getBaseid())) {
                 //是作者本人则不判断是否审核状态
                 forumThreadService.addForumThreadView(tid, userip, baseid);
                 return AjaxResult.successAjaxResult(en);
@@ -369,4 +397,14 @@ public class ForumThreadAPIController extends BaseController {
         return AjaxResult.failAjaxResult(AjaxResult.MESSAGE);
     }
 
+
+    /**
+     * 获取默认封面图片
+     *
+     * @return
+     */
+    private String getDefaultCoverimg() {
+        String coverimg = "group1/M00/00/01/rBKphltr9JqAM-ouAABQzi7kwNo368.jpg";
+        return coverimg;
+    }
 }

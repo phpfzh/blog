@@ -5,6 +5,7 @@ import org.hibernate.validator.constraints.Range;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 public class ForumThreadVo {
 
@@ -128,6 +129,12 @@ public class ForumThreadVo {
      * 主题总数
      */
     private Integer count;
+    /**
+     * 封面图
+     */
+    private String coverimg;
+
+    private List<ForumThreadTagVo> listtags;
 
     public Long getId() {
         return id;
@@ -351,5 +358,21 @@ public class ForumThreadVo {
 
     public void setCount(Integer count) {
         this.count = count;
+    }
+
+    public String getCoverimg() {
+        return coverimg;
+    }
+
+    public void setCoverimg(String coverimg) {
+        this.coverimg = coverimg;
+    }
+
+    public List<ForumThreadTagVo> getListtags() {
+        return listtags;
+    }
+
+    public void setListtags(List<ForumThreadTagVo> listtags) {
+        this.listtags = listtags;
     }
 }

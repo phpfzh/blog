@@ -5,6 +5,7 @@ import { SFSchema } from '@delon/form';
 import {NzMessageService} from "ng-zorro-antd";
 import {ForumThreadService} from "../../../generated/service/forum-thread.service";
 import {BASE_PATH} from "../../../generated/variables";
+import {StartupService} from "@core/startup/startup.service";
 
 @Component({
   selector: 'app-forum-thread-restore-list',
@@ -78,10 +79,12 @@ export class ForumThreadRestoreListComponent implements OnInit {
               private modal: ModalHelper,
               private nzSer: NzMessageService,
               private forumThreadService :ForumThreadService,
+              private startupService:StartupService,
               @Optional() @Inject(BASE_PATH) basePath: string) {
     if (basePath) {
       this.basePath = basePath;
     }
+    this.startupService.load();
   }
 
   ngOnInit() {

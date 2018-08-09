@@ -82,13 +82,4 @@ export class ForumThreadService {
     });
   }
 
-
-  indexList(pageSize?: any, pageNum?: any, fid?: any): Observable<any> {
-    return this.httpClient.get<any>(`${this.basePath}/api/forumThreadApi/list`, {
-      "pageNum": pageNum == undefined ? "" : pageNum,
-      "pageSize": pageSize == undefined ? "" : pageSize,
-      "fid": fid == undefined ? "" : fid,
-      "_allow_anonymous": true
-    });
-  }
 }

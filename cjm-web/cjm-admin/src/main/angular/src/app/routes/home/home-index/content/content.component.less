@@ -6,12 +6,15 @@
 
 #content_main .main_left {
   float: left;
+  overflow: hidden;
   width: 820px;
 }
 
 #content_main .main_right {
   float: right;
   width: 340px;
+  overflow: hidden;
+  margin-right: 5px;
 }
 
 [nz-carousel-content] {
@@ -142,11 +145,301 @@ h3 {
   margin-left: 5px;
 }
 
-#content_main .main_left .i_content .user_item .forum{
+#content_main .main_left .i_content .user_item .forum {
   float: right;
 }
 
-#content_main .main_left .i_content .user_item .forum a{
+#content_main .main_left .i_content .user_item .forum a {
   color: #3ca5f6;
 }
 
+#content_main .main_right .r_box {
+  background-color: #fafafa;
+  overflow: hidden;
+  text-align: center;
+  width: 340px;
+}
+
+//常用站点 start
+#content_main .main_right .like_site {
+  width: 340px;
+  position: relative;
+  height: 295px;
+}
+
+#content_main .main_right .like_site h3 {
+  font-size: 20px;
+  font-weight: 500;
+  padding: 30px 200px 0 30px;
+  margin-bottom: 10px;
+  color: #000;
+}
+
+#content_main .main_right .like_site .like_site_all {
+  position: absolute;
+  margin-top: -35px;
+  right: 30px;
+  float: left;
+}
+
+#content_main .main_right .like_site .like_site_all a {
+  color: #666;
+}
+
+#content_main .main_right .like_site .like_site_all a:hover {
+  color: #ccc;
+}
+
+#content_main .main_right .like_site .mark {
+  display: inline-block;
+  background-color: #f63756;
+  position: absolute;
+  z-index: 1;
+  height: 20px;
+  line-height: 20px;
+  margin: -35px 0 0 0;
+  width: 4px;
+  left: 0;
+}
+
+#content_main .main_right .like_site .like_site_box ul {
+  margin: 10px 0 0 0;
+  display: inline-block;
+}
+
+#content_main .main_right .like_site .like_site_box ul li {
+  float: left;
+  height: 35px;
+  border: 1px solid #f0f0f0;
+  margin: 0 20px 20px 10px;
+  padding: 0 15px;
+  cursor: pointer;
+  list-style-type: none;
+}
+
+#content_main .main_right .like_site .like_site_box ul li a {
+  color: #ccc;
+  font-weight: 700;
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  font-size: 16px;
+  line-height: 33px;
+  text-decoration: none;
+}
+
+#content_main .main_right .like_site .like_site_box ul li:hover {
+  -webkit-transform: scale(1.2) translate(1px, 5px);
+  -moz-transform: scale(1.2) translate(1px, 5px);
+  -o-transform: scale(1.2) translate(1px, 5px);
+  transform: scale(1.2) translate(1px, 5px);
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+#content_main .main_right .like_site .like_site_box ul li a:hover {
+  color: #3ca5f6;
+}
+
+//常用站点 end
+
+//点击排行 start
+#content_main .main_right .hot_article {
+  margin-top: 25px;
+  width: 340px;
+  position: relative;
+}
+
+#content_main .main_right .hot_article h3 {
+  font-size: 20px;
+  font-weight: 500;
+  padding: 30px 200px 0 30px;
+  margin-bottom: 10px;
+  color: #000;
+}
+
+#content_main .main_right .hot_article .all {
+  position: absolute;
+  margin-top: -35px;
+  right: 30px;
+  float: left;
+}
+
+#content_main .main_right .hot_article .all a {
+  color: #666;
+}
+
+#content_main .main_right .hot_article .all a:hover {
+  color: #ccc;
+}
+
+#content_main .main_right .hot_article .mark {
+  display: inline-block;
+  background-color: #f63756;
+  position: absolute;
+  z-index: 1;
+  height: 20px;
+  line-height: 20px;
+  margin: -35px 0 0 0;
+  width: 4px;
+  left: 0;
+}
+
+#content_main .main_right .hot_article .box ul {
+  margin: 5px 10px;
+  padding: 0;
+}
+
+#content_main .main_right .hot_article .box ul li {
+  float: left;
+  width: 320px;
+  height: 45px;
+  line-height: 45px;
+  cursor: pointer;
+  list-style-type: none;
+  text-align: center;
+
+}
+
+#content_main .main_right .hot_article .box ul li a {
+  color: #000;
+  font-family: "微软雅黑";
+  font-size: 14px;
+  text-decoration: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  display: block;
+}
+
+#content_main .main_right .hot_article .box ul li a span{
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  display:inline-block ;
+  background: #979598;
+  color: #fff;
+  border-radius: 5px;
+}
+
+#content_main .main_right .hot_article .box ul li a .one{
+  background: #ff858e;
+}
+
+#content_main .main_right .hot_article .box ul li a .two{
+  background: #77d549;
+}
+
+#content_main .main_right .hot_article .box ul li a .three{
+  background: #62c1ff;
+}
+
+/*#content_main .main_right .hot_article .box ul li:hover {
+  -webkit-transform: scale(1.2) translate(1px, 5px);
+  -moz-transform: scale(1.2) translate(1px, 5px);
+  -o-transform: scale(1.2) translate(1px, 5px);
+  transform: scale(1.2) translate(1px, 5px);
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}*/
+
+#content_main .main_right .hot_article .box ul li a:hover {
+  color: #3ca5f6;
+}
+
+//点击排行 end
+
+
+
+//友情链接 start
+#content_main .main_right .friendly_link {
+  width: 340px;
+  position: relative;
+  margin-top: 25px;
+ }
+
+#content_main .main_right .friendly_link h3 {
+  font-size: 20px;
+  font-weight: 500;
+  padding: 30px 200px 0 30px;
+  margin-bottom: 10px;
+  color: #000;
+}
+
+#content_main .main_right .friendly_link .all {
+  position: absolute;
+  margin-top: -35px;
+  right: 30px;
+  float: left;
+}
+
+#content_main .main_right .friendly_link .all a {
+  color: #666;
+}
+
+#content_main .main_right .friendly_link .all a:hover {
+  color: #ccc;
+}
+
+#content_main .main_right .friendly_link .mark {
+  display: inline-block;
+  background-color: #f63756;
+  position: absolute;
+  z-index: 1;
+  height: 20px;
+  line-height: 20px;
+  margin: -35px 0 0 0;
+  width: 4px;
+  left: 0;
+}
+
+#content_main .main_right .friendly_link .box ul {
+  margin: 10px 0 0 0;
+  display: inline-block;
+}
+
+#content_main .main_right .friendly_link .box ul li {
+  float: left;
+  height: 35px;
+  border: 1px solid #f0f0f0;
+  margin: 0 20px 20px 10px;
+  padding: 0 15px;
+  cursor: pointer;
+  list-style-type: none;
+}
+
+#content_main .main_right .friendly_link .box ul li a {
+  color: #ccc;
+  font-weight: 700;
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  font-size: 16px;
+  line-height: 33px;
+  text-decoration: none;
+}
+
+#content_main .main_right .friendly_link .box ul li:hover {
+  -webkit-transform: scale(1.2) translate(1px, 5px);
+  -moz-transform: scale(1.2) translate(1px, 5px);
+  -o-transform: scale(1.2) translate(1px, 5px);
+  transform: scale(1.2) translate(1px, 5px);
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+#content_main .main_right .friendly_link .box ul li a:hover {
+  color: #3ca5f6;
+}
+
+//友情链接 end

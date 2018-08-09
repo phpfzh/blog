@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {HomeIndexService} from "../../../../generated/service/home-index.service";
 
 @Component({
   selector: 'app-home-index-hearder',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HearderComponent implements OnInit {
 
-  constructor() { }
+  headerdata: any[] = [];
+
+  constructor(private  homeIndexService: HomeIndexService) { }
 
   ngOnInit() {
+    this.homeIndexService.forumList().subscribe(rep => {
+      if (rep.code == "88") {
+        this.headerdata = rep.data.list
+      }
+    });
   }
 
 }

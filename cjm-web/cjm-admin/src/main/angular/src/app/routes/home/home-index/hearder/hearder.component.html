@@ -9,51 +9,12 @@
       </a>
       <div nz-col nzSpan="15" class="nav">
         <ul>
-          <li>
-            <a>
-              JAVA
+           <li *ngFor="let item of headerdata">
+            <a href="javscript:void(0)" target="_blank">
+              {{item.name}}
             </a>
           </li>
-          <li>
-            <a>
-              JAVA
-            </a>
-          </li>
-          <li>
-            <a>
-              Golang
-            </a>
-          </li>
-          <li>
-            <a>
-              Javascript
-            </a>
-          </li>
-          <li>
-            <a>
-              其他
-            </a>
-          </li>
-          <li>
-            <a>
-              其他
-            </a>
-          </li>
-          <li>
-            <a>
-              其他
-            </a>
-          </li>
-          <li>
-            <a>
-              其他
-            </a>
-          </li>
-          <li>
-            <a>
-              其他
-            </a>
-          </li>
+
         </ul>
       </div>
       <div nz-col nzSpan="6" class="search">

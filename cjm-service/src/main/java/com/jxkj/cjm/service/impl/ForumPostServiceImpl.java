@@ -18,6 +18,7 @@ import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.jxkj.cjm.model.ForumPost;
 import com.jxkj.cjm.service.ForumPostService;
 import com.jxkj.cjm.mapper.ForumPostMapper;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -35,6 +36,9 @@ public class ForumPostServiceImpl extends ServiceImpl<ForumPostMapper, ForumPost
 
     @Resource
     private ForumAttachmentService forumAttachmentService;
+
+    @Value("${cjm.fdfs.host}")
+    private String fdfsurl;//图片服务器路径
 
     /**
      * @param tid      主题id
@@ -79,14 +83,14 @@ public class ForumPostServiceImpl extends ServiceImpl<ForumPostMapper, ForumPost
             forumPostVo.setStatus(forumPost.getStatus());  //状态-1审核中 -2审核失败 0审核通过
             forumPostVo.setDateline(forumPost.getDateline());  //添加时间
             forumPostVo.setUpdateline(forumPost.getUpdateline());  //修改时间
-             forumPostVo.setUseip(forumPost.getUseip());  //用户ip
+            forumPostVo.setUseip(forumPost.getUseip());  //用户ip
             forumPostVo.setAttachment(forumPost.getAttachment());  //附件个数
             forumPostVo.setIsdelete(forumPost.getIsdelete());  //是否删除1是0否
             forumPostVo.setUsesig(forumPost.getUsesig());  //是否带签名1是0否
 
             //默认值“”
             forumPostVo.setUsername("");  //作者用户名
-            forumPostVo.setHeadurl("");  //作者头像地址
+            forumPostVo.setHeadurl(this.fdfsurl+"group1/M00/00/01/rBKphltr9kqAGgL-AAA0itDQK1w032.jpg");  //作者头像地址
             forumPostVo.setFname("");  //版块名称
             forumPostVo.setUpusername("");  //修改人用户名
 
@@ -100,8 +104,8 @@ public class ForumPostServiceImpl extends ServiceImpl<ForumPostMapper, ForumPost
                 forumPostVo.setFname(forumForum.getName());  //版块名称
             }
 
-            if (user != null && user.getImg() != null) {
-                forumPostVo.setHeadurl(user.getImg());  //作者头像地址
+            if (user != null && user.getImg() != null && StringUtil.isNotEmpty(user.getImg())) {
+                forumPostVo.setHeadurl(this.fdfsurl+user.getImg());  //作者头像地址
             }
 
             //转换 content

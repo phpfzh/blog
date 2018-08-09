@@ -67,7 +67,7 @@ const routes: Routes = [
   {path: 'editor', component: UeditorComponent, data: {title: '编辑页'}},
   {path: 'lock', component: UserLockComponent, data: {title: '锁屏'}},
   {path: 'index', component: HomeIndexComponent, data: {title: '首页'}},
-  {path: 'detail', component: HomeDetailComponent, data: {title: '首页'}},
+  {path: 'article/:tid', component: HomeDetailComponent},
   {path: '403', component: Exception403Component},
   {path: '404', component: Exception404Component},
   {path: '500', component: Exception500Component},

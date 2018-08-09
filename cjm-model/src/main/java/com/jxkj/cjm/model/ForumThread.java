@@ -28,6 +28,10 @@ public class ForumThread extends SuperEntity<ForumThread> {
      */
     private String subject;
     /**
+     * 封面图
+     */
+    private String coverimg;
+    /**
      * 发布时间
      */
     private Long dateline;
@@ -266,5 +270,13 @@ public class ForumThread extends SuperEntity<ForumThread> {
 
     public void setModeratline(Long moderatline) {
         this.moderatline = moderatline;
+    }
+
+    public String getCoverimg() {
+        return coverimg;
+    }
+
+    public void setCoverimg(String coverimg) {
+        this.coverimg = coverimg;
     }
 }

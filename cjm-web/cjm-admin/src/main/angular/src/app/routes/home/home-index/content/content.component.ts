@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {_HttpClient} from "@delon/theme";
 import {NzMessageService} from "ng-zorro-antd";
 import {ForumThreadService} from "../../../../generated/service/forum-thread.service";
@@ -8,44 +8,26 @@ import {ForumThreadService} from "../../../../generated/service/forum-thread.ser
   templateUrl: './content.component.html',
   styleUrls: ['./content.component.less']
 })
-export class ContentComponent implements OnInit {
+export class ContentComponent {
 
-  array = [ 1, 2, 3,4,5 ];
+  @Input() array: any = [1, 2, 3, 4, 5];
 
-  q: any = {
-    ps: 8,
-    categories: [],
-    owners: ['zxx'],
-  };
+  @Input() list: any[] = [];
 
-  list: any[] = [];
+  @Input() pageIndex: any = 1;
 
-  loading = true;
+  @Input() total: number;
 
-  constructor(private http: _HttpClient,
-              private forumThreadService: ForumThreadService,
-              public msg: NzMessageService) {
+  @Input() pageSize:number;
+
+  @Output() chPageIndexChange = new EventEmitter<number>();
+  @Output() chPageSizeChange = new EventEmitter<number>();
+
+  nzPageIndexChange(va:number){
+     this.chPageIndexChange.emit(va);
   }
 
-  ngOnInit() {
-    this.getData();
+  nzPageSizeChange(val:number){
+    this.chPageSizeChange.emit(val);
   }
-
-  getData() {
-    this.loading = true;
-    this.forumThreadService.indexList().subscribe((res: any) => {
-      console.log(res);
-      this.loading = false;
-      if (res.code == "88") {
-        this.list = this.list.concat(res.data.list);
-      }else{
-        this.msg.error(res.message);
-      }
-    });
-    /*this.http.get('/api/list', {count: this.q.ps, "_allow_anonymous": true}).subscribe((res: any) => {
-      this.list = this.list.concat(res);
-      this.loading = false;
-    });*/
-  }
-
 }

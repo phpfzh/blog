@@ -4,6 +4,7 @@ import {SimpleTableColumn, SimpleTableComponent} from '@delon/abc';
 import {SFSchema, SFUISchema} from '@delon/form';
 import {BASE_PATH} from "../../../generated/variables";
 import {ForumForumEditComponent} from "../edit/edit.component";
+import {StartupService} from "@core/startup/startup.service";
 
 @Component({
   selector: 'app-forum-forum-list',
@@ -72,12 +73,14 @@ export class ForumForumListComponent implements OnInit {
 
   constructor(private http: _HttpClient,
               private modal: ModalHelper,
+              private startupService:StartupService,
               @Optional() @Inject(BASE_PATH) basePath: string) {
     if (basePath) {
       this.basePath = basePath;
     }
+    this.startupService.load();
   }
- 
+
   add() {
     this.modal
       .createStatic(ForumForumEditComponent, {i: {id: 0}})

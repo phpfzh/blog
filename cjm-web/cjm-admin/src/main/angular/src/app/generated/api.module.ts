@@ -6,6 +6,7 @@ import {UserLoginService} from "./service/user-login.service";
 import {UserRegisterService} from "./service/user-register.service";
 import {ForumThreadService} from "./service/forum-thread.service";
 import {ThreadReplayService} from "./service/thread-replay.service";
+import {HomeIndexService} from "./service/home-index.service";
 
 @NgModule({
   imports: [CommonModule, HttpClientModule],
@@ -15,7 +16,8 @@ import {ThreadReplayService} from "./service/thread-replay.service";
     UserLoginService,
     UserRegisterService,
     ForumThreadService,
-    ThreadReplayService
+    ThreadReplayService,
+    HomeIndexService
   ]
 })
 
