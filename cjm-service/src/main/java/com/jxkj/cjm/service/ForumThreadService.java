@@ -22,7 +22,7 @@ public interface ForumThreadService extends IService<ForumThread>{
 	 * @param usesig  是否带签名
 	 * @return
 	 */
-	public int insertForumThread(Long baseid,String fid,String threadtype, 
+	public int insertForumThread(Long baseid,String coverimg,String fid,String threadtype,
 			String subject,String content,String userip,String usesig,String tags,Meta meta);
 
 

@@ -71,8 +71,9 @@ export class ForumThreadService {
   }
 
 //保存
-  insertForumThread(fid: number, threadtype: number, subject: string, content: string, tags?: string, usesig?: number): Observable<any> {
+  insertForumThread(fid: number, threadtype: number, subject: string, content: string, tags?: string, usesig?: number,coverimg?:string): Observable<any> {
     return this.httpClient.post<any>(`${this.basePath}/api/forumThread/insertForumThread`, null, {
+      "coverimg":coverimg,
       "fid": fid,
       "threadtype": threadtype,
       "subject": subject,

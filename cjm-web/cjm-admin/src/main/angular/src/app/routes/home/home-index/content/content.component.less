@@ -290,53 +290,53 @@ h3 {
 #content_main .main_right .hot_article .box ul {
   margin: 5px 10px;
   padding: 0;
+  overflow: hidden;
 }
 
 #content_main .main_right .hot_article .box ul li {
   float: left;
-  width: 320px;
+  width: 300px;
+  margin-left: 5px;
   height: 45px;
   line-height: 45px;
-  cursor: pointer;
+  overflow: hidden;
+  white-space: nowrap;
+  text-align: justify;
+  text-overflow: ellipsis;
   list-style-type: none;
-  text-align: center;
-
+  word-break: normal;
+  word-wrap: normal;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
 }
 
 #content_main .main_right .hot_article .box ul li a {
   color: #000;
   font-family: "微软雅黑";
-  font-size: 14px;
   text-decoration: none;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  word-break: normal;
-  word-wrap: normal;
-  white-space: nowrap;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 1;
-  display: block;
+  display: inline-block;
 }
 
-#content_main .main_right .hot_article .box ul li a span{
+#content_main .main_right .hot_article .box ul li a span {
+  text-align: center;
   width: 20px;
   height: 20px;
   line-height: 20px;
-  display:inline-block ;
+  display: inline-block;
   background: #979598;
   color: #fff;
   border-radius: 5px;
 }
 
-#content_main .main_right .hot_article .box ul li a .one{
+#content_main .main_right .hot_article .box ul li a .one {
   background: #ff858e;
 }
 
-#content_main .main_right .hot_article .box ul li a .two{
+#content_main .main_right .hot_article .box ul li a .two {
   background: #77d549;
 }
 
-#content_main .main_right .hot_article .box ul li a .three{
+#content_main .main_right .hot_article .box ul li a .three {
   background: #62c1ff;
 }
 
@@ -357,14 +357,12 @@ h3 {
 
 //点击排行 end
 
-
-
 //友情链接 start
 #content_main .main_right .friendly_link {
   width: 340px;
   position: relative;
   margin-top: 25px;
- }
+}
 
 #content_main .main_right .friendly_link h3 {
   font-size: 20px;

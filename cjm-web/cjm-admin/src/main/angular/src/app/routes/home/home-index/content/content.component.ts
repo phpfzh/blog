@@ -14,6 +14,9 @@ export class ContentComponent {
 
   @Input() list: any[] = [];
 
+  @Input() viewList: any[] = [];
+
+
   @Input() pageIndex: any = 1;
 
   @Input() total: number;

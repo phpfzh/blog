@@ -56,7 +56,38 @@ public class FastDFSUploadComponent {
 	
 	@Value("${cjm.fdfs.host}")
 	private String hostUrl; //application.properties  配置的图片服务器域名
-	
+
+	/**
+	 * 文件上传
+	 * @param multipartFile
+	 * @return
+	 */
+	public Map<String,Object> uploadFile(MultipartFile multipartFile){
+		Map<String,Object> res = new HashMap<>();
+		res.put(FDFS_STATE, FDFS_FAIL_STATUS);
+		res.put(FDFS_MSG, "文件上传失败");
+		try{
+
+			String originalFilename = multipartFile.getOriginalFilename();
+			StorePath storePath =  defaultFastFileStorageClient.uploadFile(multipartFile.getInputStream(),
+					multipartFile.getSize(), FilenameUtils.getExtension(multipartFile.getOriginalFilename()), null);
+			if(storePath != null){
+				//缩略图路径
+ 				String url = storePath.getFullPath();
+				res.put(FDFS_URL, url);
+				res.put(FDFS_STATE, FDFS_SUCCESS_STATUS);
+				res.put(FDFS_MSG, "文件上传成功");
+				res.put(FDFS_TITLE, originalFilename);
+				res.put(FDFS_ORIGINAL, originalFilename);
+ 				return res;
+			}
+			return res;
+		}catch(Exception e){
+			e.printStackTrace();
+			return res;
+		}
+	}
+
 	/**
 	 * 
 	* @Title: uploadImageAndCrtThumbImage 

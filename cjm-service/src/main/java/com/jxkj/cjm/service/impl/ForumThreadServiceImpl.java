@@ -18,6 +18,8 @@ import com.jxkj.cjm.mapper.*;
 import com.jxkj.cjm.model.*;
 import com.jxkj.cjm.model.vo.ForumThreadVo;
 import com.jxkj.cjm.model.vo.GroupUpdate;
+import com.jxkj.cjm.service.ForumThreadCoverimgService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
@@ -62,10 +64,14 @@ public class ForumThreadServiceImpl extends ServiceImpl<ForumThreadMapper, Forum
 
     private Lock saveLock = new ReentrantLock();
 
+    @Resource
+    private  ForumThreadCoverimgService forumThreadCoverimgService;
+
+    @Value("${cjm.fdfs.host}")
+    private String fdfsurl;//图片服务器路径
     /**
      * Title: insertForumThread
      * TODO:(保存主题信息)
-     *
      * @param baseid     用户id
      * @param threadtype 主题类型
      * @param subject    主题
@@ -74,7 +80,7 @@ public class ForumThreadServiceImpl extends ServiceImpl<ForumThreadMapper, Forum
      * @return
      */
     @Transactional
-    public int insertForumThread(Long baseid, String fid, String threadtype,
+    public int insertForumThread(Long baseid, String coverimg,String fid, String threadtype,
                                  String subject, String content, String userip, String usesig, String tags, Meta meta) {
         try {
 
@@ -99,6 +105,12 @@ public class ForumThreadServiceImpl extends ServiceImpl<ForumThreadMapper, Forum
                 attachment = 2;
             }
 
+            if(StringUtil.isNotEmpty(coverimg)){
+                coverimg = coverimg.substring(this.fdfsurl.length());
+                System.out.println(coverimg);
+                forumThreadCoverimgService.updateStatus(coverimg);
+            }
+
             //保存主题信息
             ForumThread forumThread = new ForumThread();
             forumThread.setFid(Long.valueOf(fid));  //板块id
@@ -117,6 +129,7 @@ public class ForumThreadServiceImpl extends ServiceImpl<ForumThreadMapper, Forum
             forumThread.setStatus(-1);  //状态-1审核中 -2审核失败 0审核通过
             forumThread.setIsdelete(0);  //是否删除1是0否
             forumThread.setSort(0);  //排序
+            forumThread.setCoverimg(coverimg);
             forumThread.setThreadtype(Integer.valueOf(threadtype));  //主题类型 1原创2 转载 3翻译
             int count = 0;
             count = baseMapper.insert(forumThread);

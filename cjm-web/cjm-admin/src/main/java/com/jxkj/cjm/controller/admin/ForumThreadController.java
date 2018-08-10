@@ -484,10 +484,11 @@ public class ForumThreadController extends AbstractVoBaseController<ForumThread,
             String subject = request.getParameter("subject");
             String content = request.getParameter("content");
             String tags = request.getParameter("tags");
+            String coverimg = request.getParameter("coverimg");
             String userip = IPUtil.getIpAdd(request);
             String usesig = request.getParameter("usesig");
             Meta meta = new Meta();
-            int count = forumThreadService.insertForumThread(Long.valueOf(baseId), fid, threadtype,
+            int count = forumThreadService.insertForumThread(Long.valueOf(baseId),coverimg, fid, threadtype,
                     subject, content, userip, usesig,tags, meta);
             if (count == 2) {//校验不通过
                 return AjaxResult.failAjaxResult(meta.getMessage());

@@ -106,10 +106,8 @@ export class UserLoginComponent implements OnDestroy {
     setTimeout(() => {
       this.loading = false;
       if (this.type === 0) {
-
         this.userLogin.login(this.userName.value ,this.password.value).subscribe(
           rep => {
-            console.log(rep)
             if(!(rep.code == "88")){
               this.msg.error(rep.message);
               return ;

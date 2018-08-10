@@ -10,7 +10,7 @@
     <!--item_box start-->
     <div class="item_box" *ngFor="let item of list">
       <div class="i_img">
-        <a routerLink="/article/{{item.id}}"  target="_blank">
+        <a routerLink="/article/{{item.id}}" target="_blank">
           <img
             src={{item.coverimg}}/>
         </a>
@@ -46,9 +46,6 @@
       </div>
     </div>
     <!--item_box end-->
-
-
-
 
 
     <!--page start-->
@@ -94,7 +91,6 @@
     <!--like_site end-->
 
 
-
     <!--hot_article start-->
     <div class="r_box hot_article">
       <h3>点击排行</h3>
@@ -106,79 +102,26 @@
       <span class="mark"></span>
       <div class="box">
         <ul>
-          <li>
-            <a href="http://www.ruanyifeng.com/blog/" target="_blank">
-              <span class="one">1</span>
-              偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代
+          <li *ngFor="let item of viewList; let index=index">
+            <a routerLink="/article/{{item.id}}" target="_blank">
+              <ng-container [ngSwitch]="index">
+                <ng-container *ngSwitchCase="'0'">
+                  <span class="one">{{index+1}}</span>
+                </ng-container>
+                <ng-container *ngSwitchCase="'1'">
+                  <span class="two">{{index+1}}</span>
+                </ng-container>
+                <ng-container *ngSwitchCase="'2'">
+                  <span class="three">{{index+1}}</span>
+                </ng-container>
+                <ng-container *ngSwitchDefault>
+                  <span>{{index+1}}</span>
+                </ng-container>
+              </ng-container>
+              &nbsp;
+              {{item.subject}}
             </a>
           </li>
-          <li>
-            <a href="http://www.ruanyifeng.com/blog/" target="_blank">
-              <span class="two">2</span>
-              偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代
-            </a>
-          </li>
-          <li>
-            <a href="http://www.ruanyifeng.com/blog/" target="_blank">
-              <span class="three">3</span>
-              偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代
-            </a>
-          </li>
-          <li>
-            <a href="http://www.ruanyifeng.com/blog/" target="_blank">
-              <span>1</span>
-              偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代
-            </a>
-          </li>
-          <li>
-            <a href="http://www.ruanyifeng.com/blog/" target="_blank">
-              <span>2</span>
-              偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代
-            </a>
-          </li>
-          <li>
-            <a href="http://www.ruanyifeng.com/blog/" target="_blank">
-              <span>3</span>
-              偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代
-            </a>
-          </li>
-          <li>
-            <a href="http://www.ruanyifeng.com/blog/" target="_blank">
-              <span>1</span>
-              偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代
-            </a>
-          </li>
-          <li>
-            <a href="http://www.ruanyifeng.com/blog/" target="_blank">
-              <span class="num">2</span>
-              偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代
-            </a>
-          </li>
-          <li>
-            <a href="http://www.ruanyifeng.com/blog/" target="_blank">
-              <span class="num">3</span>
-              偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代
-            </a>
-          </li>
-          <li>
-            <a href="http://www.ruanyifeng.com/blog/" target="_blank">
-              <span class="num">1</span>
-              偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代
-            </a>
-          </li>
-          <li>
-            <a href="http://www.ruanyifeng.com/blog/" target="_blank">
-              <span class="num">2</span>
-              偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代
-            </a>
-          </li>
-          <li>
-            <a href="http://www.ruanyifeng.com/blog/" target="_blank">
-              <span class="num">3</span>
-              偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代偶像的魔幻时代
-            </a>
-          </li>
-
         </ul>
       </div>
     </div>

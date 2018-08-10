@@ -120,12 +120,12 @@ public class ForumThreadAPIController extends BaseController {
             if (fid != null && StringUtil.isNotEmpty(fid)) {
                 forumThread.setFid(Long.valueOf(fid));
             }
-
+            PageHelper.orderBy(null);
             if (orderType != null && StringUtil.isNotEmpty(orderType)) {
                 if (orderType.equals("views")) {//
-                    PageHelper.orderBy("views DESC，replies DESC，dateline DESC");
+                    PageHelper.orderBy("views DESC,replies DESC,dateline DESC");
                 } else if (orderType.equals("replies")) {
-                    PageHelper.orderBy("views DESC，replies DESC，dateline DESC");
+                    PageHelper.orderBy("replies DESC,views DESC,dateline DESC");
                 } else {
                     PageHelper.orderBy("dateline DESC,replies DESC,views DESC");
                 }
@@ -326,7 +326,13 @@ public class ForumThreadAPIController extends BaseController {
             }
 
             Long tid = Long.valueOf(tidStr);
-            String userip = IPUtil.getIpAdd(request);
+            String userip = "";
+            try {
+                userip =  IPUtil.getIpAdd(request);
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+
             ForumPostVo forumPostVo = forumPostService.getForumPostByTid(tid);
             if (forumPostVo == null) {
                 throw new IllegalArgumentException("未找到帖子信息");
@@ -375,6 +381,7 @@ public class ForumThreadAPIController extends BaseController {
             if (StringUtil.isEmpty(comme)) {
                 comme = getDefaultCoverimg();
             }
+
             en.setCoverimg(this.fdfsurl + comme);
             if (baseid != null && baseid.equals(forumPostVo.getBaseid())) {
                 //是作者本人则不判断是否审核状态

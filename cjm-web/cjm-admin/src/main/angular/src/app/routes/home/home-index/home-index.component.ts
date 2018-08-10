@@ -17,6 +17,7 @@ export class HomeIndexComponent implements OnInit {
 
   ngOnInit() {
      this.getTheadData(this.pageSize,1);
+     this.getViewTheadData();
    }
 
   chPageIndexChange(val:number){
@@ -35,5 +36,16 @@ export class HomeIndexComponent implements OnInit {
            this.total = rep.data.total;
         }
     });
+  }
+
+  viewList:any[];
+  getViewTheadData(){
+    this.homeIndexService.viewThreadList(10,1).subscribe(
+      rep => {
+         if(rep.code == "88"){
+          this.viewList = rep.data.list;
+         }
+      }
+    );
   }
 }

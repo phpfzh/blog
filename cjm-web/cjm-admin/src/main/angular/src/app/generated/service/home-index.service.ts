@@ -42,6 +42,17 @@ export class HomeIndexService {
     });
   }
 
+  //查询主题列表
+  viewThreadList(pageSize?: any, pageNum?: any, fid?: any,orderType?:string): Observable<any> {
+    return this.httpClient.get<any>(`${this.basePath}/api/forumThreadApi/list`, {
+      "pageNum": pageNum == undefined ? "" : pageNum,
+      "pageSize": pageSize == undefined ? "" : pageSize,
+      "fid": fid == undefined ? "" : fid,
+      "orderType": "views",
+      "_allow_anonymous": true
+    });
+  }
+
   //查询单个主题
   forumThreadView(tid: number): Observable<any> {
     return this.httpClient.get<any>(`${this.basePath}/api/forumThreadApi/forumThreadView`, {

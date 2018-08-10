@@ -1,0 +1,29 @@
+#edi_main {
+  width: 1280px;
+  margin: 20px auto;
+  height: 100%;
+  overflow: hidden;
+}
+#edi_main .m_left {
+  width: 800px;
+  float: left;
+}
+#edi_main .m_right {
+  margin-left: 5px;
+  float: right;
+  width: 400px;
+}
+.m_right img {
+  width: 100%;
+}
+:host ::ng-deep .avatar-uploader > .ant-upload {
+  width: 400px;
+}
+:host ::ng-deep .ant-upload-select-picture-card i {
+  font-size: 32px;
+  color: #999;
+}
+:host ::ng-deep .ant-upload-select-picture-card .ant-upload-text {
+  margin-top: 8px;
+  color: #666;
+}
