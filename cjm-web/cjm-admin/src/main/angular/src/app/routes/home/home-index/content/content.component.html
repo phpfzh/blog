@@ -10,14 +10,14 @@
     <!--item_box start-->
     <div class="item_box" *ngFor="let item of list">
       <div class="i_img">
-        <a routerLink="/article/{{item.id}}" target="_blank">
+        <a [routerLink]="['/article', item.id]" target="_blank">
           <img
             src={{item.coverimg}}/>
         </a>
       </div>
       <div class="i_content">
         <h2>
-          <a routerLink="/article/{{item.id}}" target="_blank">
+          <a [routerLink]="['/article', item.id]" target="_blank">
             {{item.subject}}
           </a>
         </h2>
@@ -103,7 +103,7 @@
       <div class="box">
         <ul>
           <li *ngFor="let item of viewList; let index=index">
-            <a routerLink="/article/{{item.id}}" target="_blank">
+            <a [routerLink]="['/article', item.id]" target="_blank">
               <ng-container [ngSwitch]="index">
                 <ng-container *ngSwitchCase="'0'">
                   <span class="one">{{index+1}}</span>

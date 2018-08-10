@@ -54,7 +54,7 @@ export class HomeIndexService {
   }
 
   //查询单个主题
-  forumThreadView(tid: number): Observable<any> {
+  forumThreadView(tid: any): Observable<any> {
     return this.httpClient.get<any>(`${this.basePath}/api/forumThreadApi/forumThreadView`, {
       "tid": tid,
       "_allow_anonymous": true

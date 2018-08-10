@@ -134,9 +134,9 @@ export class UeditorComponent implements OnInit {
     UE.Editor.prototype.getActionUrl = function (action) {
       console.log("========action======" + action);
       if (action == 'uploadimage' || action == 'uploadscrawl' || action == 'uploadimage') {
-        return `${this.basePath}/uploadImage`;
+        return `http://localhost:8080/uploadImage`;
       } else if (action == 'uploadvideo') {
-        return `${this.basePath}/uploadVideo`;
+        return `http://localhost:8080/uploadVideo`;
       } else {
         return this._bkGetActionUrl.call(this, action);
       }
