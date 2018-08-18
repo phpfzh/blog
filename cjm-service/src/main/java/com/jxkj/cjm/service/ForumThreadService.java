@@ -7,6 +7,8 @@ import com.jxkj.cjm.common.response.ProcessBack;
 import com.jxkj.cjm.model.ForumThread;
 import com.jxkj.cjm.model.vo.ForumThreadVo;
 
+import java.util.List;
+
 public interface ForumThreadService extends IService<ForumThread>{ 
 
 	/**
@@ -88,4 +90,21 @@ public interface ForumThreadService extends IService<ForumThread>{
 	 * @return
 	 */
 	public int delBatchForumThread(String tids,String status,Long baseid,String userip,Meta meta);
- }
+
+	/**
+	 *
+	 * @param pageNum 页码
+	 * @param pageSize 条数
+	 * @param forumThread 查询条件
+	 * @return
+	 */
+	public ProcessBack getForumThreads(String pageNum,String pageSize,String orderType,ForumThread forumThread);
+
+	/**
+	 *  查询点击排行主题数
+	 * @param pageNum
+	 * @param pageSize
+	 * @return
+	 */
+	public List<ForumThreadVo> getForumThreadsByViewOrder(String pageNum,String pageSize);
+}
