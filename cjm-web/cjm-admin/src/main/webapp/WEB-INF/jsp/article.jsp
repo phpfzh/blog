@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>陈嘉明个人博客-分享web前端和Java技术的个人博客网站</title>
+    <title>${en.subject}-陈嘉明个人博客-分享web前端和Java技术的个人博客网站</title>
     <meta name="keywords" content="陈嘉明,陈嘉明个人博客,个人博客,个人博客网站">
     <meta name="description" content="陈嘉明个人博客，分享web前端技术和Java技术的个人博客网站">
     <meta http-equiv="Cache-Control" content="no-transform ">
