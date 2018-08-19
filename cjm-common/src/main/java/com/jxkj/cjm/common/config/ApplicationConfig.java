@@ -72,7 +72,9 @@ public class ApplicationConfig extends WebMvcConfigurationSupport {
 	@Override
 	protected void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/static/**").addResourceLocations("/static/");
-   		super.addResourceHandlers(registry);
+		registry.addResourceHandler("/pages/**").addResourceLocations("/pages/");
+
+		super.addResourceHandlers(registry);
 	}
  	
 	//配置fastjson 中文乱码

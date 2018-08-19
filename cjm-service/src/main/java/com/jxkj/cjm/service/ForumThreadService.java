@@ -7,6 +7,7 @@ import com.jxkj.cjm.common.response.ProcessBack;
 import com.jxkj.cjm.model.ForumThread;
 import com.jxkj.cjm.model.vo.ForumThreadVo;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 public interface ForumThreadService extends IService<ForumThread>{ 
@@ -107,4 +108,11 @@ public interface ForumThreadService extends IService<ForumThread>{
 	 * @return
 	 */
 	public List<ForumThreadVo> getForumThreadsByViewOrder(String pageNum,String pageSize);
+
+	/**
+	 * 根据tid 查询主题详情信息
+	 * @param tid
+	 * @return
+	 */
+	public ProcessBack getSingleForumThreadByTid(Long tid, Long baseid,HttpServletRequest request);
 }
