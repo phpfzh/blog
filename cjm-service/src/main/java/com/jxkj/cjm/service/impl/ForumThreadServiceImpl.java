@@ -286,7 +286,7 @@ public class ForumThreadServiceImpl extends ServiceImpl<ForumThreadMapper, Forum
             forumThread.setFid(forumThreadVo.getFid());
             forumThread.setThreadtype(forumThreadVo.getThreadtype());
             forumThread.setAttachment(attachment);
-            forumThread.setStatus(-1);
+            forumThread.setStatus(0);
             if (adminBaseid != null) {//管理员修改
                 forumThread.setUpbaseid(adminBaseid);
                 forumThread.setModeratline(updateLine);
@@ -334,9 +334,9 @@ public class ForumThreadServiceImpl extends ServiceImpl<ForumThreadMapper, Forum
                     forumAttachmentService.deleteForumAttachmentByAid(aid);
                 }
             }
-
+            forumPost.setUsesig(forumThreadVo.getUsesig());
             forumPost.setContent(content);
-            forumPost.setStatus(-1);
+            forumPost.setStatus(0);
             forumPost.setFid(forumThread.getFid());
             forumPost.setAttachment(map.size());
             if (baseid != null) {
@@ -896,6 +896,7 @@ public class ForumThreadServiceImpl extends ServiceImpl<ForumThreadMapper, Forum
             if(forumThread.getDateline() != null){
                 datelineStr = DateUtils.formatDate(forumThread.getDateline());
             }
+            en.setUsesig(forumPostVo.getUsesig());
             en.setDatelinestr(datelineStr);
             en.setStaticlink(forumThread.getStaticlink());//静态化url
             en.setViews(forumThread.getViews());//浏览数

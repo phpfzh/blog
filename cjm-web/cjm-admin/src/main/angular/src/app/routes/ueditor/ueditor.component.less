@@ -1,33 +1,41 @@
-#edi_main{
-  width: 1280px;
-  margin:20px auto;
-  height: 100%;
+#editor_box{
+  width: 1180px;
+  margin: 25px auto;
   overflow: hidden;
 }
 
-#edi_main .m_left{
-  width: 800px;
-  float: left;
+#editor_box .editor_box_left{
+    width: 680px;
+    float: left;
+    overflow: hidden;
 }
 
-#edi_main .m_right{
-  margin-left: 5px;
+#editor_box .editor_box_right{
+  width: 480px;
   float: right;
-  width: 400px;
- }
+  overflow: hidden;
+}
 
-.m_right img{
-  width: 100%;
+#editor_box .editor_box_right .m_right{
+  width: 300px;
+  margin: 0 auto;
+}
+
+#editor_box .editor_box_right .m_right img{
+  max-width: 100%;
 }
 
 :host ::ng-deep .avatar-uploader > .ant-upload {
-  width: 400px;
+  width: 200px;
+  height: 100px;
+  text-align: center;
   }
 
 :host ::ng-deep .ant-upload-select-picture-card i {
   font-size: 32px;
   color: #999;
 }
+
 :host ::ng-deep .ant-upload-select-picture-card .ant-upload-text {
   margin-top: 8px;
   color: #666;

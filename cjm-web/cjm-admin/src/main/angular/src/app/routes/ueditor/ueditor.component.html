@@ -1,33 +1,36 @@
-<div id="edi_main">
-  <div class="m_left">
-    <div style="width: 400px;">
-       <sf #sf [schema]="schema" (formSubmit)="submit($event)"></sf>
-    </div>
-    <ueditor [(ngModel)]="full_source" #full (onReady)="onReady($event)"></ueditor>
-  </div>
-  <div class="m_right">
-    <nz-upload class="avatar-uploader"
-               [nzName]="'upfile'"
-               [nzAction]="basePath+'uploadCoverimg'"
-               nzListType="picture-card"
-               [nzBeforeUpload]="beforeUpload"
-               [nzPreview]="handlePreview"
-               (nzChange)="handleChange($event)"
-    >
-      <ng-container *ngIf="!avatarUrl">
-        <i class="anticon anticon-plus"></i>
-        <div class="ant-upload-text">上传文章封面</div>
-      </ng-container>
-      <img *ngIf="avatarUrl" [src]="avatarUrl" class="avatar">
-    </nz-upload>
+<div id="editor_box">
+       <div class="editor_box_left">
+        <ueditor [(ngModel)]="full_source" #full (onReady)="onReady($event)"></ueditor>
+      </div>
+      <div class="editor_box_right">
+         <div class="m_right">
+          <nz-upload class="avatar-uploader"
+                     [nzName]="'upfile'"
+                     [nzAction]="basePath+'/uploadCoverimg'"
+                     nzListType="picture-card"
+                     [nzBeforeUpload]="beforeUpload"
+                     [nzPreview]="handlePreview"
+                     (nzChange)="handleChange($event)"
+          >
+            <ng-container *ngIf="!avatarUrl">
+              <i class="anticon anticon-plus"></i>
+              <div class="ant-upload-text">上传文章封面</div>
+            </ng-container>
+            <img *ngIf="avatarUrl" [src]="avatarUrl" class="avatar">
+          </nz-upload>
 
-    <nz-modal [nzVisible]="previewVisible" [nzContent]="modalContent" [nzFooter]="null" (nzOnCancel)="previewVisible=false">
-      <ng-template #modalContent>
-        <img [src]="previewImage" [ngStyle]="{ 'width': '100%' }" />
-      </ng-template>
-    </nz-modal>
-  </div>
+          <nz-modal [nzVisible]="previewVisible" [nzContent]="modalContent" [nzFooter]="null" (nzOnCancel)="previewVisible=false">
+            <ng-template #modalContent>
+              <img [src]="previewImage" [ngStyle]="{ 'width': '100%' }" />
+            </ng-template>
+          </nz-modal>
+        </div>
+
+        <div style="width: 340px;">
+          <sf #sf [schema]="schema" (formSubmit)="submit($event)"></sf>
+        </div>
+
+      </div>
 </div>
-
 
 
