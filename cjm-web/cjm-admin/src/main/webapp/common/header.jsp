@@ -11,7 +11,7 @@
             </div>
             <ul>
                 <li>
-                    <a href="/">首页</a>
+                    <a href="${basePath}">首页</a>
                 </li>
                 <li>
                     <a href="javascript:void(0)">Java</a>

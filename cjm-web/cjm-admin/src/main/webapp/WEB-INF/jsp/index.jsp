@@ -107,15 +107,33 @@
                 <!--item_box start-->
                 <div class="item_box">
                     <div class="i_img">
-                        <a href="${basePath}/article/${item.id}" target="_blank">
-                            <img src="${item.coverimg}"/>
-                        </a>
-                    </div>
+                        <c:choose>
+                            <c:when test="${not empty item.staticlink and item.staticlink.length() > 5}">
+                                <a href="${basePath}/${item.staticlink}" target="_blank">
+                                    <img src="${item.coverimg}"/>
+                                </a>
+                            </c:when>
+                            <c:otherwise>
+                                <a href="${basePath}/article/${item.id}" target="_blank">
+                                    <img src="${item.coverimg}"/>
+                                </a>
+                            </c:otherwise>
+                        </c:choose>
+                     </div>
                     <div class="i_content">
                         <h2>
-                            <a href="${basePath}/article/${item.id}" target="_blank">
-                                    ${item.subject}
-                            </a>
+                            <c:choose>
+                                <c:when test="${not empty item.staticlink and item.staticlink.length() > 5}">
+                                    <a href="${basePath}/${item.staticlink}" target="_blank">
+                                            ${item.subject}
+                                    </a>
+                                </c:when>
+                                <c:otherwise>
+                                    <a href="${basePath}/article/${item.id}" target="_blank">
+                                            ${item.subject}
+                                    </a>
+                                </c:otherwise>
+                            </c:choose>
                         </h2>
                         <div class="user_item">
                             <div class="user_info">
@@ -127,7 +145,7 @@
                                 <a href="javascript:void(0)" target="_blank">
                                     <span class="author-name">${item.username}</span>
                                 </a>
-                                <span class="datetime">${item.dateline}</span>
+                                <span class="datetime">${item.datelinestr}</span>
                                 <i class="glyphicon glyphicon-eye-open"></i>
                                 <em>${item.views}</em>
                                 <i class="glyphicon glyphicon-comment"></i>
@@ -171,24 +189,47 @@
                     <ul>
                         <c:forEach var="hotVoLists" items="${hotVoLists}" varStatus="index">
                              <li>
-                                <a href="${basePath}/article/${hotVoLists.id}" target="_blank">
-                                    <c:choose>
-                                        <c:when test="${index.index == 0}">
-                                            <span class="one">${index.index+1}</span>
-                                        </c:when>
-                                        <c:when test="${index.index == 1}">
-                                            <span class="two">${index.index+1}</span>
-                                        </c:when>
-                                        <c:when test="${index.index == 2}">
-                                            <span class="three">${index.index+1}</span>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <span>${index.index+1}</span>
-                                        </c:otherwise>
-                                    </c:choose>
-                                     ${hotVoLists.subject}
-                                </a>
-                            </li>
+                                 <c:choose>
+                                     <c:when test="${not empty hotVoLists.staticlink and hotVoLists.staticlink.length() > 5}">
+                                         <a href="${basePath}/${hotVoLists.staticlink}" target="_blank">
+                                             <c:choose>
+                                                 <c:when test="${index.index == 0}">
+                                                     <span class="one">${index.index+1}</span>
+                                                 </c:when>
+                                                 <c:when test="${index.index == 1}">
+                                                     <span class="two">${index.index+1}</span>
+                                                 </c:when>
+                                                 <c:when test="${index.index == 2}">
+                                                     <span class="three">${index.index+1}</span>
+                                                 </c:when>
+                                                 <c:otherwise>
+                                                     <span>${index.index+1}</span>
+                                                 </c:otherwise>
+                                             </c:choose>
+                                                 ${hotVoLists.subject}
+                                         </a>
+                                     </c:when>
+                                     <c:otherwise>
+                                         <a href="${basePath}/article/${hotVoLists.id}" target="_blank">
+                                             <c:choose>
+                                                 <c:when test="${index.index == 0}">
+                                                     <span class="one">${index.index+1}</span>
+                                                 </c:when>
+                                                 <c:when test="${index.index == 1}">
+                                                     <span class="two">${index.index+1}</span>
+                                                 </c:when>
+                                                 <c:when test="${index.index == 2}">
+                                                     <span class="three">${index.index+1}</span>
+                                                 </c:when>
+                                                 <c:otherwise>
+                                                     <span>${index.index+1}</span>
+                                                 </c:otherwise>
+                                             </c:choose>
+                                                 ${hotVoLists.subject}
+                                         </a>
+                                     </c:otherwise>
+                                 </c:choose>
+                             </li>
                         </c:forEach>
                      </ul>
                 </div>

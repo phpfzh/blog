@@ -104,6 +104,11 @@ public class ForumThread extends SuperEntity<ForumThread> {
      */
     private Long moderatline;
 
+    /***
+     * 静态化url
+     */
+    private String staticlink;
+
     public Long getFid() {
         return fid;
     }
@@ -278,5 +283,13 @@ public class ForumThread extends SuperEntity<ForumThread> {
 
     public void setCoverimg(String coverimg) {
         this.coverimg = coverimg;
+    }
+
+    public String getStaticlink() {
+        return staticlink;
+    }
+
+    public void setStaticlink(String staticlink) {
+        this.staticlink = staticlink;
     }
 }

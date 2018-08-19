@@ -218,8 +218,7 @@ a {
 }
 
 #article_box .article_left .l_content .l_content_img img {
-    height: 100%;
-    width: 100%;
+     max-width: 100%;
 }
 
 #article_box .article_left .l_content .l_content_con {
@@ -230,9 +229,8 @@ a {
 }
 
 #article_box .article_left .l_content .l_content_con img {
-    width: 100%;
-    height: 100%;
-}
+    max-width: 100%;
+ }
 
 /**文章右侧盒子**/
 #article_box .article_right {
@@ -262,9 +260,8 @@ a {
 }
 
 #article_box .article_right .author_info .author_img img {
-    width: 100%;
-    height: 100%;
-}
+    max-width: 100%;
+ }
 
 #article_box .article_right .author_info .auhtor_username {
     font-size: 16px;

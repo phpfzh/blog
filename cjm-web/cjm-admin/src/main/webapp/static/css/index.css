@@ -338,7 +338,7 @@ a {
 /**文章右侧 列表**/
 #article_box .article_right {
     float: right;
-    width: 390px;
+    width: 340px;
     overflow: hidden;
 }
 
@@ -352,7 +352,7 @@ a {
 /**点击排行 start**/
 #article_box .article_right .hot_article {
     width: 340px;
-    margin-left: 50px;
+   /* margin-left: 50px;*/
     position: relative;
 }
 
@@ -464,7 +464,7 @@ a {
 /**友情链接 start **/
 #article_box .article_right .friendly_link {
     width: 340px;
-    margin-left: 50px;
+    /*margin-left: 50px;*/
     margin-top: 25px;
     position: relative;
 }

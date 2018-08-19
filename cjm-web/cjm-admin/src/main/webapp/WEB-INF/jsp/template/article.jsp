@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@include file="../../common/taglib.jsp" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
+<%@include file="../../../common/taglib.jsp" %>
 <html>
 <head>
     <meta charset="utf-8">
@@ -10,11 +10,10 @@
     <meta http-equiv="Cache-Control" content="no-siteapp">
     <meta http-equiv="Window-target" content="_top">
     <link href="${basePath }/static/css/article.css" rel="stylesheet" type="text/css">
-    <%@include file="../../common/public.jsp" %>
+    <%@include file="../../../common/public.jsp" %>
 </head>
 <body>
-<%@include file="../../common/header.jsp"%>
-
+<%@include file="../../../common/header.jsp"%>
 <!--内容开始-->
 <div id="article">
     <div id="article_box">
