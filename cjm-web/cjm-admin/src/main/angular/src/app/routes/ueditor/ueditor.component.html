@@ -27,7 +27,11 @@
         </div>
 
         <div style="width: 340px;">
-          <sf #sf [schema]="schema" (formSubmit)="submit($event)"></sf>
+          <sf #sf [button]="null" [schema]="schema" (formSubmit)="submit($event)">
+            <button type="submit" nz-button [disabled]="!sf.valid">保存</button>
+            <button (click)="sf.reset()" type="button" nz-button>重置</button>
+            <button type="button" nz-button [routerLink]="['/']">返回</button>
+          </sf>
         </div>
 
       </div>

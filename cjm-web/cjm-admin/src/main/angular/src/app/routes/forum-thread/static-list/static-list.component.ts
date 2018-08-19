@@ -1,11 +1,12 @@
 import {Component, Inject, OnInit, Optional, ViewChild} from '@angular/core';
-import { _HttpClient, ModalHelper } from '@delon/theme';
+import {_HttpClient, ModalHelper} from '@delon/theme';
 import {SimpleTableColumn, SimpleTableComponent, SimpleTableData} from '@delon/abc';
-import { SFSchema } from '@delon/form';
+import {SFSchema} from '@delon/form';
 import {StartupService} from "@core/startup/startup.service";
 import {ForumThreadService} from "../../../generated/service/forum-thread.service";
 import {BASE_PATH} from "../../../generated/variables";
 import {NzMessageService} from "ng-zorro-antd";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-forum-thread-static-list',
@@ -73,6 +74,8 @@ export class ForumThreadStaticListComponent implements OnInit {
       title: '操作',
       buttons: [
         {type: 'del', text: '静态化', popTitle: '您正在进行静态化操作', click: (item: any) => this.staticHtml(item)},
+        {type: 'none', text: '修改', click: (item: any) => this.upde(item)},
+
       ]
     }
   ];
@@ -80,8 +83,9 @@ export class ForumThreadStaticListComponent implements OnInit {
   constructor(private http: _HttpClient,
               private modal: ModalHelper,
               private nzSer: NzMessageService,
+              private router: Router,
               private forumThreadService: ForumThreadService,
-              private startupService:StartupService,
+              private startupService: StartupService,
               @Optional() @Inject(BASE_PATH) basePath: string) {
     if (basePath) {
       this.basePath = basePath;
@@ -97,9 +101,20 @@ export class ForumThreadStaticListComponent implements OnInit {
     this.selectedRows = list;
   }
 
+  upde(val: any) {
+    if(val.id > 0){
+      this.router.navigate(['editor'], {
+          queryParams : {
+            tid: val.id
+          }
+      });
+    }
+
+  }
+
   //批量静态化
   batchStaticHtml() {
-     if (!(this.selectedRows.length > 0)) {
+    if (!(this.selectedRows.length > 0)) {
       this.nzSer.error("请至少选择一个进行静态化");
       return;
     }
