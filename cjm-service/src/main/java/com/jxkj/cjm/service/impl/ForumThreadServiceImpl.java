@@ -8,6 +8,7 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
@@ -50,6 +51,9 @@ public class ForumThreadServiceImpl extends ServiceImpl<ForumThreadMapper, Forum
 
     @Resource
     private ForumAttachmentService forumAttachmentService;
+
+    @Resource
+    private ForumThreadService forumThreadService;
 
     @Resource
     private UserMapper userMapper;
@@ -754,6 +758,13 @@ public class ForumThreadServiceImpl extends ServiceImpl<ForumThreadMapper, Forum
                 } else if (entity1.getThreadtype() != null && entity1.getThreadtype().equals(3)) {
                     threadTypeName = "翻译";
                 }
+
+                String datelineStr = "";
+                if(entity1.getDateline() != null){
+                    datelineStr = DateUtils.formatDate(entity1.getDateline());
+                }
+                en.setDatelinestr(datelineStr);
+                en.setStaticlink(entity1.getStaticlink());//静态化url
                 en.setListtags(threadTagVos);//标签
                 en.setUsername(user.getUsername());//用户名
                 en.setSubject(entity1.getSubject());//标题
@@ -830,11 +841,100 @@ public class ForumThreadServiceImpl extends ServiceImpl<ForumThreadMapper, Forum
                 ForumThreadVo en = new ForumThreadVo();
                 en.setSubject(entity1.getSubject());//标题
                 en.setId(entity1.getId());//tid
+                en.setStaticlink(entity1.getStaticlink());
                 voLists.add(en);
             }
             return voLists;
     }
 
+    /**
+     * 根据tid 查询主题详情信息
+     * @param tid
+     * @return
+     */
+    public ProcessBack getSingleForumThreadByTid(Long tid, Long baseid,HttpServletRequest request){
+        ProcessBack processBack = new ProcessBack();
+        try{
+
+            if (tid == null) {
+                throw new IllegalArgumentException("tid 不能为空");
+            }
+
+            ForumThread forumThread = baseMapper.selectById(tid);
+            if (forumThread == null) {
+                throw new IllegalArgumentException("未找到主题信息");
+            }
+            String userip = "";
+            try {
+                userip = IPUtil.getIpAdd(request);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            ForumPostVo forumPostVo = forumPostService.getForumPostByTid(tid);
+            if (forumPostVo == null) {
+                throw new IllegalArgumentException("未找到帖子信息");
+            }
+
+            ForumForum forumForum = forumForumService.selectById(forumThread.getFid());
+            List<ForumThreadTagVo> threadTagVos = forumThreadTagService.getForumThreadTagsByTid(forumThread.getId());
+
+
+            ForumThreadVo en = new ForumThreadVo();
+            String threadTypeName = "原创";
+            if (forumThread.getThreadtype() != null && forumThread.getThreadtype().equals(2)) {
+                threadTypeName = "转载";
+            } else if (forumThread.getThreadtype() != null && forumThread.getThreadtype().equals(3)) {
+                threadTypeName = "翻译";
+            }
+
+            Wrapper<ForumThread> forumThreadWrapper = Condition.create();
+            forumThreadWrapper.eq("baseid", forumThread.getBaseid());
+            forumThreadWrapper.eq("isdelete", 0);
+            int count = baseMapper.selectCount(forumThreadWrapper);//查询作者总主题数
+            String datelineStr = "";
+            if(forumThread.getDateline() != null){
+                datelineStr = DateUtils.formatDate(forumThread.getDateline());
+            }
+            en.setDatelinestr(datelineStr);
+            en.setStaticlink(forumThread.getStaticlink());//静态化url
+            en.setViews(forumThread.getViews());//浏览数
+            en.setCount(count);//作者总主题数
+            en.setReplies(forumThread.getReplies());//回复数
+            en.setThreadtype(forumThread.getThreadtype());//主题类型
+            en.setId(forumThread.getId());//tid
+            en.setFid(forumThread.getFid());//板块id
+            en.setFname(forumForum.getName());//版块名称
+            en.setPid(forumPostVo.getId());//帖子id
+            en.setUsername(forumPostVo.getUsername());//用户名
+            en.setSubject(forumPostVo.getSubject());//标题
+            en.setDateline(forumPostVo.getDateline());//时间戳
+            en.setHeadurl(forumPostVo.getHeadurl());//用户头像地址
+            en.setFname(forumPostVo.getFname());//板块名称
+            en.setBaseid(forumPostVo.getBaseid());//用户id
+            en.setThreadtypename(threadTypeName);
+            en.setIsdelete(forumThread.getIsdelete());
+            en.setStatus(forumThread.getStatus());
+            en.setContent(forumPostVo.getContent());
+            en.setListtags(threadTagVos);
+            String comme = forumThread.getCoverimg();
+            if (StringUtil.isEmpty(comme)) {
+                comme = getDefaultCoverimg();
+            }
+
+            en.setCoverimg(this.fdfsurl + comme);
+            forumThreadService.addForumThreadView(tid, userip, baseid);
+            processBack.setMessage("查询成功");
+            processBack.setCode(ProcessBack.SUCCESS_CODE);
+            processBack.setData(en);
+            return processBack;
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        processBack.setMessage(ProcessBack.EXCEPTION_MESSAGE);
+        processBack.setCode(ProcessBack.FAIL_CODE);
+        return processBack;
+    }
 
     //添加操作日志
     private int insertForumThreadOperation(Long tid, Integer status, String type, Long baseid, String userip) {

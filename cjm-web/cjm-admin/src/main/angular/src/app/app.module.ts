@@ -22,13 +22,6 @@ registerLocaleData(localeZhHans);
 import {JsonSchemaModule} from '@shared/json-schema/json-schema.module';
 import {UeditorComponent} from "./routes/ueditor/ueditor.component";
 import {UEditorModule} from "ngx-ueditor";
-import { HearderComponent } from './routes/home/home-index/hearder/hearder.component';
-import { FooterComponent } from './routes/home/home-index/footer/footer.component';
-import { ContentComponent } from './routes/home/home-index/content/content.component';
-import { HomeIndexComponent } from './routes/home/home-index/home-index.component';
-import {HeaderSearchComponent} from "./routes/home/home_search.component";
-import {HomeDetailComponent} from "./routes/home/home-index/home-detail/home-detail.component";
-import {HomeProjectListComponent} from "./routes/home/home-index/home-project-list/home-project-list.component";
 
 
 /*export function StartupServiceFactory(startupService: StartupService): Function {
@@ -38,14 +31,7 @@ import {HomeProjectListComponent} from "./routes/home/home-index/home-project-li
 @NgModule({
   declarations: [
     AppComponent,
-    UeditorComponent,
-    HearderComponent,
-    FooterComponent,
-    ContentComponent,
-    HomeIndexComponent,
-    HeaderSearchComponent,
-    HomeDetailComponent,
-    HomeProjectListComponent
+    UeditorComponent
   ],
   imports: [
     BrowserModule,
@@ -58,11 +44,11 @@ import {HomeProjectListComponent} from "./routes/home/home-index/home-project-li
     RoutesModule,
     UEditorModule.forRoot({
       js: [
-        `./assets/ueditor/ueditor.all.js`,
-        `./assets/ueditor/ueditor.config.js`,
+        `http://admin.chenjiaming.com/admin/assets/ueditor/ueditor.all.js`,
+        `http://admin.chenjiaming.com/admin/assets/ueditor/ueditor.config.js`,
       ],
       options: {
-        UEDITOR_HOME_URL: './assets/ueditor/'
+        UEDITOR_HOME_URL: 'http://admin.chenjiaming.com/admin/assets/ueditor/'
       }
     }),
     // JSON-Schema form

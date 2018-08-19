@@ -134,6 +134,12 @@ public class ForumThreadVo {
      */
     private String coverimg;
 
+    private String datelinestr;
+    /***
+     * 静态化url
+     */
+    private String staticlink;
+
     private List<ForumThreadTagVo> listtags;
 
     public Long getId() {
@@ -374,5 +380,21 @@ public class ForumThreadVo {
 
     public void setListtags(List<ForumThreadTagVo> listtags) {
         this.listtags = listtags;
+    }
+
+    public String getDatelinestr() {
+        return datelinestr;
+    }
+
+    public void setDatelinestr(String datelinestr) {
+        this.datelinestr = datelinestr;
+    }
+
+    public String getStaticlink() {
+        return staticlink;
+    }
+
+    public void setStaticlink(String staticlink) {
+        this.staticlink = staticlink;
     }
 }
