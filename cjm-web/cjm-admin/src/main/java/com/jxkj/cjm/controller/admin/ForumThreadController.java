@@ -22,12 +22,10 @@ import com.jxkj.cjm.service.ForumPostService;
 import com.jxkj.cjm.service.ForumThreadService;
 import com.jxkj.cjm.service.UserService;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -523,6 +521,28 @@ public class ForumThreadController extends AbstractVoBaseController<ForumThread,
         return AjaxResult.failAjaxResult(AjaxResult.MESSAGE);
     }
 
+
+    /**
+     * Title: getForumThreadByTid
+     * TODO:(查询主题信息)
+     *
+     * @return
+     */
+    @ResponseBody
+    @GetMapping("/getForumThreadByTid")
+    public AjaxResult getForumThreadByTid(Long tid) {
+        try {
+            String baseId = cjmJwtTokenComponent.getUserBaseId(request);
+            ProcessBack processBack = forumThreadService.getSingleForumThreadByTid(tid, Long.valueOf(baseId),request);
+            if(processBack.getCode().equals(ProcessBack.FAIL_CODE)){
+                return AjaxResult.failAjaxResult(processBack.getMessage());
+            }
+            return AjaxResult.successAjaxResult("查询成功",processBack.getData());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return AjaxResult.failAjaxResult(AjaxResult.MESSAGE);
+    }
 
     @Override
     public AjaxResult saveEntity(ForumThreadVo forumThreadVo) {

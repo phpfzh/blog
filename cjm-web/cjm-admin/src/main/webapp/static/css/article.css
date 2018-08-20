@@ -218,7 +218,7 @@ a {
 }
 
 #article_box .article_left .l_content .l_content_img img {
-     max-width: 100%;
+     width: 100%;
 }
 
 #article_box .article_left .l_content .l_content_con {

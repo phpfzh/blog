@@ -5,12 +5,14 @@ import { ForumThreadListComponent } from './list/list.component';
 import { ForumThreadViewListComponent } from './view-list/view-list.component';
 import { ForumThreadDelListComponent } from './del-list/del-list.component';
 import { ForumThreadRestoreListComponent } from './restore-list/restore-list.component';
+import { ForumThreadStaticListComponent } from './static-list/static-list.component';
 
 const COMPONENTS = [
   ForumThreadListComponent,
   ForumThreadViewListComponent,
   ForumThreadDelListComponent,
-  ForumThreadRestoreListComponent];
+  ForumThreadRestoreListComponent,
+  ForumThreadStaticListComponent];
 const COMPONENTS_NOROUNT = [
   ];
 

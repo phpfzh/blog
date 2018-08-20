@@ -1,6 +1,6 @@
 import {
-  Component, ElementRef, OnInit, ViewChild, AfterViewInit, ViewEncapsulation, Inject,
-  Optional, Injector
+  Component, ElementRef, OnInit, ViewChild, Inject, AfterViewInit,
+  Optional
 } from '@angular/core';
 import {SFComponent, SFSchema} from "@delon/form";
 import {UEditorComponent} from "ngx-ueditor";
@@ -8,7 +8,7 @@ import {NzMessageService, UploadFile} from "ng-zorro-antd";
 import {ForumThreadService} from "../../generated/service/forum-thread.service";
 import {BASE_PATH} from "../../generated/variables";
 import {DA_SERVICE_TOKEN, ITokenService, TokenService} from "@delon/auth";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Params, Router} from "@angular/router";
 import {HomeIndexService} from "../../generated/service/home-index.service";
 import {map} from "rxjs/internal/operators";
 
@@ -19,22 +19,35 @@ declare const UE: any;
   templateUrl: './ueditor.component.html',
   styleUrls: ['./ueditor.component.less']
 })
-export class UeditorComponent implements OnInit {
+export class UeditorComponent implements OnInit, AfterViewInit {
 
   @ViewChild('full') full: UEditorComponent;
   @ViewChild('sf') sf: SFComponent;
   full_source: string;
   basePath: string;
+  //放大图片
+  previewImage = '';
+  previewVisible = false;
+  //主题id
+  tid: number = 0;
+  id: number = 0;
+  //显示图片
+  avatarUrl: string;
+  loading: boolean = false;
+  coverimg: string;
 
   schema: SFSchema = {
     properties: {
       subject: {
         type: 'string',
-        title: '标题'
+        title: '标题',
+        ui: {
+          widget: 'textarea'
+        }
       },
       threadtype: {
         type: 'number',
-        title: '主题类型',
+        title: '类型:',
         enum: [
           {label: '原创', value: 1},
           {label: '转载', value: 2},
@@ -46,7 +59,7 @@ export class UeditorComponent implements OnInit {
       },
       fid: {
         type: 'number',
-        title: '栏目',
+        title: '栏目:',
         enum: [],
         ui: {
           widget: 'select'
@@ -54,7 +67,7 @@ export class UeditorComponent implements OnInit {
       },
       usesig: {
         type: 'number',
-        title: '是否带签名',
+        title: '签名:',
         enum: [
           {label: '是', value: 1},
           {label: '否', value: 0},
@@ -68,7 +81,7 @@ export class UeditorComponent implements OnInit {
         title: 'tags'
       }
     },
-    required: ['subject', 'threadtype']
+    required: ['subject', 'threadtype', 'fid']
   }
   ;
 
@@ -76,33 +89,13 @@ export class UeditorComponent implements OnInit {
               private el: ElementRef,
               private  homeIndexService: HomeIndexService,
               private router: Router,
+              private route: ActivatedRoute,
               @Inject(DA_SERVICE_TOKEN) private tokenService: ITokenService,
               private forumThreadService: ForumThreadService,
               @Optional() @Inject(BASE_PATH) basePath: string) {
     if (basePath) {
       this.basePath = basePath;
     }
-  }
-
-  submit(value: any) {
-    const fid = value.fid;
-    const threadtype = value.threadtype;
-    const subject = value.subject == undefined ? "" : value.subject;
-    const content = this.full.Instance.getContent() == undefined ? "" : this.full.Instance.getContent();
-    const usesig = value.usesig == undefined ? "" : value.usesig;
-    const tags = value.tags == undefined ? "" : value.tags;
-    const coverimg = this.coverimg == undefined ? "" : this.coverimg;
-    this.forumThreadService.insertForumThread(fid, threadtype, subject, content, tags, usesig, coverimg)
-      .subscribe(rep => {
-        if (rep.code == "00") {
-          this.msg.error(rep.message);
-          return;
-        }
-        this.msg.success(rep.message);
-        new Promise((resolve, reject) => {
-           resolve({});
-        }).then(() => this.router.navigate(['/index']));
-      });
   }
 
   ngOnInit() {
@@ -127,7 +120,38 @@ export class UeditorComponent implements OnInit {
       }
     });
 
+    /* this.route.params.subscribe((params: Params) => {
+       this.tid = params['tid'];
+     });*/
+
+
   }
+
+  ngAfterViewInit() {
+    this.route.queryParams.subscribe(queryParams => {
+      this.tid = queryParams.tid;
+    });
+
+    if(this.tid > 0){
+      this.forumThreadService.getForumThreadByTid(this.tid).subscribe(rep => {
+        if (rep.code == "88") {
+          this.schema.properties.fid.default = rep.data.fid;
+          this.schema.properties.subject.default = rep.data.subject
+          this.schema.properties.threadtype.default = rep.data.threadtype;
+          this.schema.properties.usesig.default = rep.data.usesig;
+          let tags = "";
+          for (let i = 0; i < rep.data.listtags.length; i++) {
+            tags += rep.data.listtags[i].name + ",";
+          }
+          this.schema.properties.tags.default = tags;
+          this.avatarUrl = rep.data.coverimg;
+          this.id = rep.data.id;
+          this.full_source = rep.data.content;
+          this.sf.refreshSchema();
+        }
+      });
+    }
+   }
 
   onReady(comp: UEditorComponent) {
     UE.Editor.prototype._bkGetActionUrl = UE.Editor.prototype.getActionUrl;
@@ -158,10 +182,6 @@ export class UeditorComponent implements OnInit {
     reader.readAsDataURL(img);
   }
 
-  //显示图片
-  avatarUrl: string;
-  loading: boolean = false;
-  coverimg: string;
 
   handleChange(info: { file: UploadFile }): void {
     this.coverimg = info.file.response.url;
@@ -179,11 +199,48 @@ export class UeditorComponent implements OnInit {
     }
   }
 
-  //放大图片
-  previewImage = '';
-  previewVisible = false;
+
   handlePreview = (file: UploadFile) => {
     this.previewImage = file.url || file.thumbUrl;
     this.previewVisible = true;
   }
+
+  submit(value: any) {
+    const fid = value.fid;
+    const threadtype = value.threadtype;
+    const subject = value.subject == undefined ? "" : value.subject;
+    //const content = this.full.Instance.getContent() == undefined ? "" : this.full.Instance.getContent();
+    const content =this.full_source;
+    const usesig = value.usesig == undefined ? "" : value.usesig;
+    const tags = value.tags == undefined ? "" : value.tags;
+    const coverimg = this.coverimg == undefined ? "" : this.coverimg;
+    if (this.id > 0) {
+      //修改
+      this.forumThreadService.updateForumThread(this.id, fid, threadtype, subject, content, tags, usesig, coverimg)
+        .subscribe(rep => {
+          if (rep.code == "00") {
+            this.msg.error(rep.message);
+            return;
+          }
+          this.msg.success(rep.message);
+          new Promise((resolve, reject) => {
+            resolve({});
+          }).then(() => this.router.navigate(['/index']));
+        });
+    } else {
+      //新增
+      this.forumThreadService.insertForumThread(fid, threadtype, subject, content, tags, usesig, coverimg)
+        .subscribe(rep => {
+          if (rep.code == "00") {
+            this.msg.error(rep.message);
+            return;
+          }
+          this.msg.success(rep.message);
+          new Promise((resolve, reject) => {
+            resolve({});
+          }).then(() => this.router.navigate(['/index']));
+        });
+    }
+  }
+
 }
