@@ -99,6 +99,7 @@ export class DelonModule {
         {provide: AdPageHeaderConfig, useFactory: pageHeaderConfig},
         {provide: DelonAuthConfig, useFactory: delonAuthConfig},
         //http 域名配置 http://www.chenjiaming.com
+        //http 域名配置
         {provide: BASE_PATH, useValue: "http://www.chenjiaming.com"}
 
       ],
