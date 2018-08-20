@@ -139,6 +139,10 @@ public class ForumThreadVo {
      * 静态化url
      */
     private String staticlink;
+    /**
+     * 是否带签名1是0否
+     */
+    private Integer usesig;
 
     private List<ForumThreadTagVo> listtags;
 
@@ -396,5 +400,13 @@ public class ForumThreadVo {
 
     public void setStaticlink(String staticlink) {
         this.staticlink = staticlink;
+    }
+
+    public Integer getUsesig() {
+        return usesig;
+    }
+
+    public void setUsesig(Integer usesig) {
+        this.usesig = usesig;
     }
 }

@@ -51,7 +51,7 @@ import {UEditorModule} from "ngx-ueditor";
         UEDITOR_HOME_URL: 'http://admin.chenjiaming.com/admin/assets/ueditor/'
       }
     }),
-    // JSON-Schema form
+    // JSON-Schema form http://admin.chenjiaming.com/admin
     JsonSchemaModule
   ],
   providers: [

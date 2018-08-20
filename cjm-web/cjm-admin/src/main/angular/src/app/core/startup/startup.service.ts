@@ -118,6 +118,11 @@ export class StartupService {
                 link:'/forumThread/list'
               },
               {
+                text:'主题静态化',
+                hideInBreadcrumb: false,
+                link:'/forumThread/static-list'
+              },
+              {
                 text:'主题查看',
                 hideInBreadcrumb: false,
                 link:'/forumThread/viewList'

@@ -70,7 +70,7 @@ export class ForumThreadService {
     });
   }
 
-//保存
+   //保存
   insertForumThread(fid: number, threadtype: number, subject: string, content: string, tags?: string, usesig?: number,coverimg?:string): Observable<any> {
     return this.httpClient.post<any>(`${this.basePath}/api/forumThread/insertForumThread`, null, {
       "coverimg":coverimg,
@@ -83,4 +83,38 @@ export class ForumThreadService {
     });
   }
 
+  //查询
+  getForumThreadByTid(tid: number): Observable<any> {
+    return this.httpClient.get<any>(`${this.basePath}/api/forumThread/getForumThreadByTid`, {
+      "tid": tid,
+    });
+  }
+
+  //修改
+  updateForumThread(id:number,fid: number, threadtype: number, subject: string, content: string, tags?: string, usesig?: number,coverimg?:string): Observable<any> {
+    return this.httpClient.post<any>(`${this.basePath}/api/forumThread/updateForumThread`, null, {
+      "coverimg":coverimg,
+      "fid": fid,
+      "threadtype": threadtype,
+      "subject": subject,
+      "content": content,
+      "tags": tags,
+      "usesig": usesig,
+      "id":id
+    });
+  }
+
+  //静态化
+  staticHtml(tid:number): Observable<any> {
+    return this.httpClient.post<any>(`${this.basePath}/static/staticHtml`, null, {
+       "tid": tid
+    });
+  }
+
+  //批量静态化
+  batchStaticHtml(tids:string): Observable<any> {
+    return this.httpClient.post<any>(`${this.basePath}/static/batchStaticHtml`, null, {
+       "tids":tids
+    });
+  }
 }
