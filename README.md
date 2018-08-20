@@ -1,4 +1,8 @@
-## 前台
+## blog首页
+
+   jsp + 静态化
+
+## 管理后台
 
    angular   版本6.0 https://angular.cn/docs  
 
