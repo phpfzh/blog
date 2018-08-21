@@ -1,9 +1,10 @@
 import {Inject, Injectable, Optional} from '@angular/core';
-import {HttpHeaders} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {BASE_PATH} from "../variables";
 import {Configuration} from "../configuration";
 import {_HttpClient} from "@delon/theme";
 import {Observable} from "rxjs/index";
+import {Thread} from "../model/thread";
 
 @Injectable()
 export class ForumThreadService {
@@ -12,7 +13,9 @@ export class ForumThreadService {
   public defaultHeaders = new HttpHeaders();
   public configuration = new Configuration();
 
-  constructor(protected httpClient: _HttpClient, @Optional() @Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
+  constructor(protected httpClient: _HttpClient,
+              protected httpClient2: HttpClient,
+              @Optional() @Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
     if (basePath) {
       this.basePath = basePath;
     }
@@ -70,17 +73,26 @@ export class ForumThreadService {
     });
   }
 
-   //保存
-  insertForumThread(fid: number, threadtype: number, subject: string, content: string, tags?: string, usesig?: number,coverimg?:string): Observable<any> {
-    return this.httpClient.post<any>(`${this.basePath}/api/forumThread/insertForumThread`, null, {
-      "coverimg":coverimg,
-      "fid": fid,
-      "threadtype": threadtype,
-      "subject": subject,
-      "content": content,
-      "tags": tags,
-      "usesig": usesig,
-    });
+  transformRequest(data) {
+    var str = '';
+    for (var i in data) {
+      str += i + '=' + data[i] + '&';
+    }
+    str.substring(0, str.length - 1);
+    return str;
+
+  };
+
+  //保存
+  insertForumThread(thread: Thread): Observable<any> {
+    let headers = this.defaultHeaders;
+    headers = headers.set("Content-Type", "application/x-www-form-urlencoded");
+    return this.httpClient2.post<any>(`${this.basePath}/api/forumThread/insertForumThread`,
+      this.transformRequest(thread),
+      {
+        headers: headers
+      }
+    );
   }
 
   //查询
@@ -91,30 +103,28 @@ export class ForumThreadService {
   }
 
   //修改
-  updateForumThread(id:number,fid: number, threadtype: number, subject: string, content: string, tags?: string, usesig?: number,coverimg?:string): Observable<any> {
-    return this.httpClient.post<any>(`${this.basePath}/api/forumThread/updateForumThread`, null, {
-      "coverimg":coverimg,
-      "fid": fid,
-      "threadtype": threadtype,
-      "subject": subject,
-      "content": content,
-      "tags": tags,
-      "usesig": usesig,
-      "id":id
-    });
+  updateForumThread(thread:Thread): Observable<any> {
+     let headers = this.defaultHeaders;
+    headers = headers.set("Content-Type", "application/x-www-form-urlencoded");
+    return this.httpClient2.post<any>(`${this.basePath}/api/forumThread/updateForumThread`,
+      this.transformRequest(thread),
+      {
+        headers: headers
+      }
+    );
   }
 
   //静态化
-  staticHtml(tid:number): Observable<any> {
+  staticHtml(tid: number): Observable<any> {
     return this.httpClient.post<any>(`${this.basePath}/static/staticHtml`, null, {
-       "tid": tid
+      "tid": tid
     });
   }
 
   //批量静态化
-  batchStaticHtml(tids:string): Observable<any> {
+  batchStaticHtml(tids: string): Observable<any> {
     return this.httpClient.post<any>(`${this.basePath}/static/batchStaticHtml`, null, {
-       "tids":tids
+      "tids": tids
     });
   }
 }

@@ -33,7 +33,7 @@ a {
 }
 
 #carousel_box .layui-carousel {
-    width: 640px;
+    width: 680px;
     float: left;
     overflow: hidden;
 
@@ -62,7 +62,8 @@ a {
 #carousel_box .hotnew {
     width: 340px;
     height: 100%;
-    float: right;
+    float: left;
+    margin-left:30px;
     overflow: hidden;
     background-color: #fafafa;
     border: 1px dashed #ecf4f9
@@ -152,13 +153,13 @@ a {
 /**文章开始**/
 #content #article_box {
     width: 1180px;
-    margin: 25px auto;
+    margin: 30px auto;
     overflow: hidden;
 }
 
 #article_box .article {
     float: left;
-    width: 780px;
+    width: 680px;
     overflow: hidden;
 }
 
@@ -171,14 +172,15 @@ a {
 
 #article_box .article .i_img {
     float: left;
-    width: 250px;
+    width: 160px;
+    height: 160px;
     overflow: hidden;
-    padding: 20px 20px;
+    padding: 20px 10px 5px 20px;
 }
 
 #article_box .article .i_img img {
     width: 100%;
-}
+ }
 
 #article_box .article .i_img:hover img {
     -webkit-transform: scale(1.08);
@@ -197,9 +199,9 @@ a {
     width: 480px;
     overflow: hidden;
     padding: 0;
-    margin-right: 35px;
+    margin-right: 20px;
     margin-top: 20px;
-}
+ }
 
 #article_box .article .i_content h2 {
     font-size: 24px;
@@ -337,9 +339,10 @@ a {
 
 /**文章右侧 列表**/
 #article_box .article_right {
-    float: right;
+    float: left;
     width: 340px;
     overflow: hidden;
+    margin-left: 30px;
 }
 
 #article_box .article_right .r_box {

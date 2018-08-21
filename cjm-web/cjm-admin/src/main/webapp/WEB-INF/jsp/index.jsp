@@ -20,7 +20,7 @@
                 carousel.render({
                     elem: '#carousel_cjm',
                     arrow: 'hover', //始终显示箭头
-                    width: 640,
+                    width: 680,
                     height: 360
                 });
             });

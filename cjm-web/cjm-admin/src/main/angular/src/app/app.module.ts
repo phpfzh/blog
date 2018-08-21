@@ -44,14 +44,14 @@ import {UEditorModule} from "ngx-ueditor";
     RoutesModule,
     UEditorModule.forRoot({
       js: [
-        `http://admin.chenjiaming.com/admin/assets/ueditor/ueditor.all.js`,
-        `http://admin.chenjiaming.com/admin/assets/ueditor/ueditor.config.js`,
+        `./assets/ueditor/ueditor.all.js`,
+        `./assets/ueditor/ueditor.config.js`,
       ],
       options: {
-        UEDITOR_HOME_URL: 'http://admin.chenjiaming.com/admin/assets/ueditor/'
+        UEDITOR_HOME_URL: './assets/ueditor/'
       }
     }),
-    // JSON-Schema form http://admin.chenjiaming.com/admin
+    // JSON-Schema form
     JsonSchemaModule
   ],
   providers: [

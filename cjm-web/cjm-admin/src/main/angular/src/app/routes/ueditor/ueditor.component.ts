@@ -11,13 +11,16 @@ import {DA_SERVICE_TOKEN, ITokenService, TokenService} from "@delon/auth";
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {HomeIndexService} from "../../generated/service/home-index.service";
 import {map} from "rxjs/internal/operators";
+import {Thread} from "../../generated/model/thread";
+import {HttpUrlEncodingCodec} from "@angular/common/http";
 
 declare const UE: any;
 
 @Component({
   selector: 'app-ueditor',
   templateUrl: './ueditor.component.html',
-  styleUrls: ['./ueditor.component.less']
+  styleUrls: ['./ueditor.component.less'],
+  providers: [HttpUrlEncodingCodec]
 })
 export class UeditorComponent implements OnInit, AfterViewInit {
 
@@ -90,6 +93,7 @@ export class UeditorComponent implements OnInit, AfterViewInit {
               private  homeIndexService: HomeIndexService,
               private router: Router,
               private route: ActivatedRoute,
+              private httpUrlEncodingCodec: HttpUrlEncodingCodec,
               @Inject(DA_SERVICE_TOKEN) private tokenService: ITokenService,
               private forumThreadService: ForumThreadService,
               @Optional() @Inject(BASE_PATH) basePath: string) {
@@ -132,7 +136,7 @@ export class UeditorComponent implements OnInit, AfterViewInit {
       this.tid = queryParams.tid;
     });
 
-    if(this.tid > 0){
+    if (this.tid > 0) {
       this.forumThreadService.getForumThreadByTid(this.tid).subscribe(rep => {
         if (rep.code == "88") {
           this.schema.properties.fid.default = rep.data.fid;
@@ -151,16 +155,16 @@ export class UeditorComponent implements OnInit, AfterViewInit {
         }
       });
     }
-   }
+  }
 
   onReady(comp: UEditorComponent) {
     UE.Editor.prototype._bkGetActionUrl = UE.Editor.prototype.getActionUrl;
     UE.Editor.prototype.getActionUrl = function (action) {
       console.log("========action======" + action);
       if (action == 'uploadimage' || action == 'uploadscrawl' || action == 'uploadimage') {
-        return `http://www.chenjiaming.com/uploadImage`;
+        return `http://localhost:8080/uploadImage`;
       } else if (action == 'uploadvideo') {
-        return `http://www.chenjiaming.com/uploadVideo`;
+        return `http://localhost:8080/uploadVideo`;
       } else {
         return this._bkGetActionUrl.call(this, action);
       }
@@ -206,17 +210,17 @@ export class UeditorComponent implements OnInit, AfterViewInit {
   }
 
   submit(value: any) {
-    const fid = value.fid;
-    const threadtype = value.threadtype;
-    const subject = value.subject == undefined ? "" : value.subject;
-    //const content = this.full.Instance.getContent() == undefined ? "" : this.full.Instance.getContent();
-    const content =this.full_source;
-    const usesig = value.usesig == undefined ? "" : value.usesig;
-    const tags = value.tags == undefined ? "" : value.tags;
-    const coverimg = this.coverimg == undefined ? "" : this.coverimg;
+    const thread: Thread = Object.assign({
+      content: this.httpUrlEncodingCodec.encodeValue(this.full_source),
+      coverimg: this.coverimg == undefined ? "" : this.coverimg,
+      tags: value.tags == undefined ? "" : value.tags,
+      id: this.id > 0 ? this.id : 0
+
+    }, value);
+    console.log(thread + "=====" + JSON.stringify(thread));
     if (this.id > 0) {
       //修改
-      this.forumThreadService.updateForumThread(this.id, fid, threadtype, subject, content, tags, usesig, coverimg)
+      this.forumThreadService.updateForumThread(thread)
         .subscribe(rep => {
           if (rep.code == "00") {
             this.msg.error(rep.message);
@@ -229,7 +233,7 @@ export class UeditorComponent implements OnInit, AfterViewInit {
         });
     } else {
       //新增
-      this.forumThreadService.insertForumThread(fid, threadtype, subject, content, tags, usesig, coverimg)
+      this.forumThreadService.insertForumThread(thread)
         .subscribe(rep => {
           if (rep.code == "00") {
             this.msg.error(rep.message);
