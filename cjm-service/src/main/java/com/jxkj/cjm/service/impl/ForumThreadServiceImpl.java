@@ -204,26 +204,29 @@ public class ForumThreadServiceImpl extends ServiceImpl<ForumThreadMapper, Forum
                 throw new IllegalArgumentException("主题内容信息更新失败,主题内容信息:" + JSON.toJSONString(forumPost));
             }
 
-            //保存tags
-            String[] tagss = tags.split(",");
-            for (String s : tagss) {
-                ForumThreadTag forumThreadTag = getForumThreadTag(s);
-                if (forumThreadTag == null) {
-                    ForumThreadTag forumThreadTag1 = new ForumThreadTag();
-                    forumThreadTag1.setName(s.trim());
-                    Long dateLine = System.currentTimeMillis();
-                    forumThreadTag1.setDateline(dateLine);
-                    forumThreadTag1.setIsdelete(0);
-                    forumThreadTagMapper.insert(forumThreadTag1);
+            if(tags != null){
+                //保存tags
+                String[] tagss = tags.split(",");
+                for (String s : tagss) {
+                    ForumThreadTag forumThreadTag = getForumThreadTag(s);
+                    if (forumThreadTag == null) {
+                        ForumThreadTag forumThreadTag1 = new ForumThreadTag();
+                        forumThreadTag1.setName(s.trim());
+                        Long dateLine = System.currentTimeMillis();
+                        forumThreadTag1.setDateline(dateLine);
+                        forumThreadTag1.setIsdelete(0);
+                        forumThreadTagMapper.insert(forumThreadTag1);
 
-                    insertForumThreadTagLink(forumThreadTag1.getId(), forumThread.getId());
-                    insertForumThreadTagUser(forumThreadTag1.getId(), baseid);
-                    continue;//跳出不继续执行下面代码
+                        insertForumThreadTagLink(forumThreadTag1.getId(), forumThread.getId());
+                        insertForumThreadTagUser(forumThreadTag1.getId(), baseid);
+                        continue;//跳出不继续执行下面代码
+                    }
+
+                    insertForumThreadTagLink(forumThreadTag.getId(), forumThread.getId());
+                    insertForumThreadTagUser(forumThreadTag.getId(), baseid);
                 }
-
-                insertForumThreadTagLink(forumThreadTag.getId(), forumThread.getId());
-                insertForumThreadTagUser(forumThreadTag.getId(), baseid);
             }
+           
             return 1;
         } catch (RuntimeException e) {
             e.printStackTrace();

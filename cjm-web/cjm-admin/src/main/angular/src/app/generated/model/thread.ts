@@ -2,14 +2,19 @@ import {Tag} from "./Tag";
 
 export interface Thread {
   subject: string;
-  dateline: string;
-  views: string;
-  threadData: string;
-  fname: string;
-  coverimg: string;
+  fid:number;
   content: string;
-  replies: string;
-  listtags:Tag;
-  username:string;
-  headurl:string;
-}
+  threadtype:number;
+  dateline?: string;
+  views?: number;
+  threadData?: string;
+  fname?: string;
+  coverimg?: string;
+  replies?: number;
+  listtags?:Tag;
+  username?:string;
+  headurl?:string;
+  tags?:string;
+  usesig?:string;
+  id?:number;
+ }
