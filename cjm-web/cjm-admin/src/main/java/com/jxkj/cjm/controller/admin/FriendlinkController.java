@@ -1,9 +1,11 @@
 package com.jxkj.cjm.controller.admin;
 
 import com.jxkj.cjm.common.component.CjmJwtTokenComponent;
+import com.jxkj.cjm.common.controller.AbstractVoBaseController;
 import com.jxkj.cjm.common.controller.BaseController;
 import com.jxkj.cjm.common.response.AjaxResult;
 import com.jxkj.cjm.common.response.ProcessBack;
+import com.jxkj.cjm.model.Friendlink;
 import com.jxkj.cjm.model.vo.FriendlinkVo;
 import com.jxkj.cjm.service.FriendlinkService;
 import org.springframework.stereotype.Controller;
@@ -22,7 +24,7 @@ import javax.annotation.Resource;
  */
 @Controller
 @RequestMapping("/api/friendlink")
-public class FriendlinkController extends BaseController {
+public class FriendlinkController extends AbstractVoBaseController<Friendlink,FriendlinkVo> {
 
     @Resource
     private FriendlinkService friendlinkService;
@@ -30,44 +32,26 @@ public class FriendlinkController extends BaseController {
     @Resource
     private CjmJwtTokenComponent cjmJwtTokenComponent;
 
-    @ResponseBody
-    @RequestMapping(value = "/insert",method = RequestMethod.POST)
-    public AjaxResult insert(FriendlinkVo friendlinkVo){
-        try{
-            String baseIdStr = cjmJwtTokenComponent.getUserBaseId(request);
-            ProcessBack processBack = friendlinkService.insertFriendlink(Long.valueOf(baseIdStr), friendlinkVo);
-            if(processBack.getCode().equals(ProcessBack.SUCCESS_CODE)){
-                return AjaxResult.successAjaxResult(processBack.getMessage());
-            }
-        }catch(Exception e){
-            e.printStackTrace();
+    @Override
+    public AjaxResult preSaveEntity(Friendlink friendlink, FriendlinkVo friendlinkVo) {
+        String baseIdStr = cjmJwtTokenComponent.getUserBaseId(request);
+        friendlinkVo.setBaseid(Long.valueOf(baseIdStr));
+        if(friendlinkVo.getType() == null){
+            friendlinkVo.setType(1);
         }
-        return AjaxResult.failAjaxResult("保存失败");
+        Long dateline = System.currentTimeMillis();
+        friendlinkVo.setDateline(dateline);
+        return super.preSaveEntity(friendlink, friendlinkVo);
     }
 
-    @ResponseBody
-    @RequestMapping(value = "/update",method = RequestMethod.POST)
-    public AjaxResult update(FriendlinkVo friendlinkVo){
-        try{
-            String baseIdStr = cjmJwtTokenComponent.getUserBaseId(request);
-            ProcessBack processBack = friendlinkService.updateFriendlink(Long.valueOf(baseIdStr), friendlinkVo);
-            if(processBack.getCode().equals(ProcessBack.SUCCESS_CODE)){
-                return AjaxResult.successAjaxResult(processBack.getMessage());
-            }
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-        return AjaxResult.failAjaxResult("修改失败");
+    @Override
+    public AjaxResult preUpdateEntity(Friendlink friendlink, FriendlinkVo friendlinkVo) {
+        String baseIdStr = cjmJwtTokenComponent.getUserBaseId(request);
+        friendlinkVo.setUpdateid(Long.valueOf(baseIdStr));
+
+        Long dateline = System.currentTimeMillis();
+        friendlinkVo.setUpdateline(dateline);
+        return super.preUpdateEntity(friendlink, friendlinkVo);
     }
 
-    @ResponseBody
-    @GetMapping("/list")
-    public AjaxResult list(FriendlinkVo friendlinkVo){
-        try{
-
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-        return AjaxResult.failAjaxResult("修改失败");
-    }
 }
