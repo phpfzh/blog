@@ -6,7 +6,6 @@ import {BASE_PATH} from "../../../generated/variables";
 import {ifError} from "assert";
 import {NzMessageService} from "ng-zorro-antd";
 import {ForumThreadService} from "../../../generated/service/forum-thread.service";
-import {StartupService} from "@core/startup/startup.service";
 
 @Component({
   selector: 'app-forum-thread-list',
@@ -80,12 +79,10 @@ export class ForumThreadListComponent implements OnInit {
               private modal: ModalHelper,
               private nzSer: NzMessageService,
               private forumThreadService: ForumThreadService,
-              private startupService:StartupService,
               @Optional() @Inject(BASE_PATH) basePath: string) {
     if (basePath) {
       this.basePath = basePath;
     }
-    this.startupService.load();
   }
 
   ngOnInit() {

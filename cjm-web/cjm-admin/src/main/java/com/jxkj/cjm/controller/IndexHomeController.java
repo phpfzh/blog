@@ -13,6 +13,7 @@ import com.jxkj.cjm.model.ForumThread;
 import com.jxkj.cjm.model.vo.ForumPostVo;
 import com.jxkj.cjm.model.vo.ForumThreadTagVo;
 import com.jxkj.cjm.model.vo.ForumThreadVo;
+import com.jxkj.cjm.model.vo.FriendlinkVo;
 import com.jxkj.cjm.service.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -44,6 +45,9 @@ public class IndexHomeController extends BaseController {
     private ForumForumService forumForumService;
 
     @Resource
+    private FriendlinkService friendlinkService;
+
+    @Resource
     private ForumThreadTagService forumThreadTagService;
 
     @Value("${cjm.fdfs.host}")
@@ -73,9 +77,17 @@ public class IndexHomeController extends BaseController {
 
         //点击排行
         List<ForumThreadVo> hotVoLists = forumThreadService.getForumThreadsByViewOrder("1", "10");
+
+        //友情链接
+        List<FriendlinkVo> friendlinkVos = friendlinkService.getIndexFriendlinkVosByType(1);
+        //常用站点
+        List<FriendlinkVo> linkVos = friendlinkService.getIndexFriendlinkVosByType(2);
+
         model.addAttribute("pagehelper", pagehelper);
         model.addAttribute("voLists", voLists);
         model.addAttribute("hotVoLists", hotVoLists);
+        model.addAttribute("friendlinkVos", friendlinkVos);
+        model.addAttribute("linkVos", linkVos);
         return "index";
     }
 
@@ -109,9 +121,18 @@ public class IndexHomeController extends BaseController {
 
         //点击排行
         List<ForumThreadVo> hotVoLists = forumThreadService.getForumThreadsByViewOrder("1", "10");
+
+        //友情链接
+        List<FriendlinkVo> linkVos1 = friendlinkService.getIndexFriendlinkVosByType(1);
+        //常用站点
+        List<FriendlinkVo> linkVos = friendlinkService.getIndexFriendlinkVosByType(2);
+
         model.addAttribute("pagehelper", pagehelper);
         model.addAttribute("voLists", voLists);
         model.addAttribute("hotVoLists", hotVoLists);
+
+        model.addAttribute("linkVos1", linkVos1);
+        model.addAttribute("linkVos", linkVos);
         return "index";
     }
 

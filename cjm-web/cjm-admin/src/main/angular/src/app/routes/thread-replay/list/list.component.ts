@@ -6,7 +6,6 @@ import {ForumThreadService} from "../../../generated/service/forum-thread.servic
 import {BASE_PATH} from "../../../generated/variables";
 import {NzMessageService, NzModalRef, NzModalService} from "ng-zorro-antd";
 import {ThreadReplayService} from "../../../generated/service/thread-replay.service";
-import {StartupService} from "@core/startup/startup.service";
 
 @Component({
   selector: 'app-thread-replay-list',
@@ -104,12 +103,10 @@ export class ThreadReplayListComponent implements OnInit {
               private modalService: NzModalService,
               private nzSer: NzMessageService,
               private threadReplayService: ThreadReplayService,
-              private startupService:StartupService,
               @Optional() @Inject(BASE_PATH) basePath: string) {
     if (basePath) {
       this.basePath = basePath;
     }
-    this.startupService.load();
   }
 
   ngOnInit() {
