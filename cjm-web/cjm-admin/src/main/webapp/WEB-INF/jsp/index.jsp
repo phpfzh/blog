@@ -82,16 +82,12 @@
                 <span class="mark"></span>
                 <div class="box">
                     <ul>
-                        <li>
-                            <a href="http://www.ruanyifeng.com/blog/" target="_blank">阮一峰</a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0)" target="_blank">SpringMvc</a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0)" target="_blank">JAVA8</a>
-                        </li>
-                    </ul>
+                        <c:forEach var="linkVos" items="${linkVos}">
+                              <li>
+                                <a href="${linkVos.link}" target="_blank">${linkVos.name}</a>
+                            </li>
+                        </c:forEach>
+                     </ul>
                 </div>
             </div>
             <!--like_site end-->
@@ -247,16 +243,12 @@
                 <span class="mark"></span>
                 <div class="box">
                     <ul>
-                        <li>
-                            <a href="http://www.ruanyifeng.com/blog/" target="_blank">阮一峰</a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0)" target="_blank">SpringMvc</a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0)" target="_blank">JAVA8</a>
-                        </li>
-                    </ul>
+                        <c:forEach var="friendlinkVos" items="${friendlinkVos}">
+                            <li>
+                                <a href="${friendlinkVos.link}" target="_blank">${friendlinkVos.name}</a>
+                            </li>
+                        </c:forEach>
+                      </ul>
                 </div>
             </div>
             <!--友情链接 结束-->

@@ -162,9 +162,9 @@ export class UeditorComponent implements OnInit, AfterViewInit {
     UE.Editor.prototype.getActionUrl = function (action) {
       console.log("========action======" + action);
       if (action == 'uploadimage' || action == 'uploadscrawl' || action == 'uploadimage') {
-        return `http://www.chenjiaming.com/uploadImage`;
+        return `http://localhost:8080/uploadImage`;
       } else if (action == 'uploadvideo') {
-        return `http://www.chenjiaming.com/uploadVideo`;
+        return `http://localhost:8080/uploadVideo`;
       } else {
         return this._bkGetActionUrl.call(this, action);
       }

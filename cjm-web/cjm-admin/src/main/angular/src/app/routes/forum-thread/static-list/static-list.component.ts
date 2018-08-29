@@ -2,7 +2,6 @@ import {Component, Inject, OnInit, Optional, ViewChild} from '@angular/core';
 import {_HttpClient, ModalHelper} from '@delon/theme';
 import {SimpleTableColumn, SimpleTableComponent, SimpleTableData} from '@delon/abc';
 import {SFSchema} from '@delon/form';
-import {StartupService} from "@core/startup/startup.service";
 import {ForumThreadService} from "../../../generated/service/forum-thread.service";
 import {BASE_PATH} from "../../../generated/variables";
 import {NzMessageService} from "ng-zorro-antd";
@@ -85,12 +84,10 @@ export class ForumThreadStaticListComponent implements OnInit {
               private nzSer: NzMessageService,
               private router: Router,
               private forumThreadService: ForumThreadService,
-              private startupService: StartupService,
               @Optional() @Inject(BASE_PATH) basePath: string) {
     if (basePath) {
       this.basePath = basePath;
     }
-    this.startupService.load();
   }
 
   ngOnInit() {
