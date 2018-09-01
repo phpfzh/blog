@@ -24,10 +24,19 @@
                     height: 360
                 });
             });
+
+            $(".tviewClick").on("click",function(){
+                var opid = $(this).data("opid");
+                var antion = basePath+"/viewCountAdd";
+                $.get(antion,{"tid":opid},function(data){
+                });
+            })
         })
         function queryAllPerson(Num, pageSize) {
            window.location.href = basePath+"/index?pageNum="+Num+"&pageSize="+pageSize;
         }
+
+
     </script>
 </head>
 <body>
@@ -105,7 +114,7 @@
                     <div class="i_img">
                         <c:choose>
                             <c:when test="${not empty item.staticlink and item.staticlink.length() > 5}">
-                                <a href="${basePath}/${item.staticlink}" target="_blank">
+                                <a href="${basePath}/${item.staticlink}" target="_blank" class="tviewClick" data-opid="${item.id}">
                                     <img src="${item.coverimg}"/>
                                 </a>
                             </c:when>
@@ -120,7 +129,7 @@
                         <h2>
                             <c:choose>
                                 <c:when test="${not empty item.staticlink and item.staticlink.length() > 5}">
-                                    <a href="${basePath}/${item.staticlink}" target="_blank">
+                                    <a href="${basePath}/${item.staticlink}" target="_blank" class="tviewClick" data-opid="${item.id}">
                                             ${item.subject}
                                     </a>
                                 </c:when>
@@ -187,7 +196,7 @@
                              <li>
                                  <c:choose>
                                      <c:when test="${not empty hotVoLists.staticlink and hotVoLists.staticlink.length() > 5}">
-                                         <a href="${basePath}/${hotVoLists.staticlink}" target="_blank">
+                                         <a href="${basePath}/${hotVoLists.staticlink}" target="_blank" class="tviewClick" data-opid="${item.id}">
                                              <c:choose>
                                                  <c:when test="${index.index == 0}">
                                                      <span class="one">${index.index+1}</span>

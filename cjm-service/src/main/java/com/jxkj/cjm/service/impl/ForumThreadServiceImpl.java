@@ -438,14 +438,14 @@ public class ForumThreadServiceImpl extends ServiceImpl<ForumThreadMapper, Forum
                 } else {
                     forumThreadViewcount1.setCount(forumThreadViewcount1.getCount() + 1);
                     forumThreadViewcountMapper.updateById(forumThreadViewcount1);
-                }
+                }*/
 
                 Long dateline = System.currentTimeMillis();
                 forumThreadViewRecord.setDateline(dateline);
                 if (baseid != null) {
                     forumThreadViewRecord.setBaseid(baseid);
                 }
-                forumThreadViewRecordMapper.insert(forumThreadViewRecord);*/
+                forumThreadViewRecordMapper.insert(forumThreadViewRecord);
             }
 
 

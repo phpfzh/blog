@@ -175,6 +175,22 @@ public class IndexHomeController extends BaseController {
     }
 
     /**
+     * 添加浏览数
+     * @param model
+     * @param tid
+     */
+    @RequestMapping(value = "/viewCountAdd", method = RequestMethod.GET)
+    public void article(Long tid) {
+        String userip = "";
+        try {
+            userip = IPUtil.getIpAdd(request);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        //添加主题浏览记录
+        forumThreadService.addForumThreadView(tid, userip, null);
+    }
+    /**
      * 获取默认封面图片
      *
      * @return
