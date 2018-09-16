@@ -32,15 +32,24 @@
                 });
             })
         })
+
         function queryAllPerson(Num, pageSize) {
-           window.location.href = basePath+"/index?pageNum="+Num+"&pageSize="+pageSize;
+            $("#indexPageNum").val(Num);
+            $("#indexPageSize").val(pageSize);
+            $("#indexSubmit").submit();
         }
 
 
     </script>
 </head>
 <body>
- <%@include file="../../common/header.jsp" %>
+
+  <form id="indexSubmit" action="${basePath}" method="post">
+        <input name="pageNum" id="indexPageNum" style="display: none"/>
+        <input name="pageSize" id="indexPageSize" style="display: none"/>
+  </form>
+
+ <%@include file="/common/header.jsp" %>
 <!--内容开始-->
 <div id="content">
     <!--轮播图盒子 开始-->
@@ -175,7 +184,7 @@
                 </div>
                 <!--item_box end-->
             </c:forEach>
-            <%@include file="../../common/pagehelper.jsp" %>
+            <%@include file="/common/pagehelper.jsp" %>
         </div>
         <!--文章列表 结束-->
 
@@ -271,10 +280,7 @@
 
 
  <!--尾部开始-->
-<div id="footer">
-
-
-</div>
+  <%@include file="/common/footer.jsp" %>
 <!--尾部结束-->
 </body>
 </html>

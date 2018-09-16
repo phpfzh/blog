@@ -92,51 +92,6 @@ public class IndexHomeController extends BaseController {
     }
 
     /**
-     * 首页
-     *
-     * @param model
-     * @return
-     */
-    @RequestMapping(value = "/index")
-    public String index(Model model) {
-        ForumThread forumThread = new ForumThread();
-        String fid = request.getParameter("fid");
-        String pageNum = request.getParameter("pageNum");
-        String pageSize = request.getParameter("pageSize");
-        String orderType = request.getParameter("orderType");
-        forumThread.setIsdelete(0);
-        forumThread.setStatus(0);
-        PageInfo pagehelper = null;
-        List<ForumThreadVo> voLists = null;
-        if (fid != null && StringUtil.isNotEmpty(fid)) {
-            forumThread.setFid(Long.valueOf(fid));
-        }
-
-        ProcessBack processBack = forumThreadService.getForumThreads(pageNum, pageSize, orderType, forumThread);
-        if (processBack.getCode().equals(ProcessBack.SUCCESS_CODE)) {
-            Map<String, Object> map = (Map<String, Object>) processBack.getData();
-            pagehelper = (PageInfo) map.get("pagehelper");
-            voLists = (List<ForumThreadVo>) map.get("voLists");
-        }
-
-        //点击排行
-        List<ForumThreadVo> hotVoLists = forumThreadService.getForumThreadsByViewOrder("1", "10");
-
-        //友情链接
-        List<FriendlinkVo> linkVos1 = friendlinkService.getIndexFriendlinkVosByType(1);
-        //常用站点
-        List<FriendlinkVo> linkVos = friendlinkService.getIndexFriendlinkVosByType(2);
-
-        model.addAttribute("pagehelper", pagehelper);
-        model.addAttribute("voLists", voLists);
-        model.addAttribute("hotVoLists", hotVoLists);
-
-        model.addAttribute("linkVos1", linkVos1);
-        model.addAttribute("linkVos", linkVos);
-        return "index";
-    }
-
-    /**
      * 详情页
      *
      * @return
