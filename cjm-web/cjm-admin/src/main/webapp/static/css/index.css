@@ -18,12 +18,6 @@ a {
     overflow: hidden;
 }
 
-#footer {
-    width: 1180px;
-    margin: 0 auto;
-    overflow: hidden;
-}
-
 /**轮播图**/
 #content #carousel_box {
     width: 1180px;
@@ -46,7 +40,7 @@ a {
 
 #carousel_box .title {
     position: absolute;
-    bottom: 50px;
+    top: 20px;
     left: 25px;
     z-index: 9999;
     color: #000;
@@ -549,3 +543,4 @@ a {
 }
 
 /**友情链接 end**/
+
