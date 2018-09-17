@@ -13,6 +13,7 @@ import com.jxkj.cjm.model.ForumThread;
 import com.jxkj.cjm.model.vo.ForumPostVo;
 import com.jxkj.cjm.model.vo.ForumThreadTagVo;
 import com.jxkj.cjm.model.vo.ForumThreadVo;
+import com.jxkj.cjm.model.vo.FriendlinkVo;
 import com.jxkj.cjm.service.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -44,6 +45,9 @@ public class IndexHomeController extends BaseController {
     private ForumForumService forumForumService;
 
     @Resource
+    private FriendlinkService friendlinkService;
+
+    @Resource
     private ForumThreadTagService forumThreadTagService;
 
     @Value("${cjm.fdfs.host}")
@@ -73,45 +77,17 @@ public class IndexHomeController extends BaseController {
 
         //点击排行
         List<ForumThreadVo> hotVoLists = forumThreadService.getForumThreadsByViewOrder("1", "10");
+
+        //友情链接
+        List<FriendlinkVo> friendlinkVos = friendlinkService.getIndexFriendlinkVosByType(1);
+        //常用站点
+        List<FriendlinkVo> linkVos = friendlinkService.getIndexFriendlinkVosByType(2);
+
         model.addAttribute("pagehelper", pagehelper);
         model.addAttribute("voLists", voLists);
         model.addAttribute("hotVoLists", hotVoLists);
-        return "index";
-    }
-
-    /**
-     * 首页
-     *
-     * @param model
-     * @return
-     */
-    @RequestMapping(value = "/index")
-    public String index(Model model) {
-        ForumThread forumThread = new ForumThread();
-        String fid = request.getParameter("fid");
-        String pageNum = request.getParameter("pageNum");
-        String pageSize = request.getParameter("pageSize");
-        String orderType = request.getParameter("orderType");
-        forumThread.setIsdelete(0);
-        forumThread.setStatus(0);
-        PageInfo pagehelper = null;
-        List<ForumThreadVo> voLists = null;
-        if (fid != null && StringUtil.isNotEmpty(fid)) {
-            forumThread.setFid(Long.valueOf(fid));
-        }
-
-        ProcessBack processBack = forumThreadService.getForumThreads(pageNum, pageSize, orderType, forumThread);
-        if (processBack.getCode().equals(ProcessBack.SUCCESS_CODE)) {
-            Map<String, Object> map = (Map<String, Object>) processBack.getData();
-            pagehelper = (PageInfo) map.get("pagehelper");
-            voLists = (List<ForumThreadVo>) map.get("voLists");
-        }
-
-        //点击排行
-        List<ForumThreadVo> hotVoLists = forumThreadService.getForumThreadsByViewOrder("1", "10");
-        model.addAttribute("pagehelper", pagehelper);
-        model.addAttribute("voLists", voLists);
-        model.addAttribute("hotVoLists", hotVoLists);
+        model.addAttribute("friendlinkVos", friendlinkVos);
+        model.addAttribute("linkVos", linkVos);
         return "index";
     }
 
@@ -153,6 +129,22 @@ public class IndexHomeController extends BaseController {
         return "articleerror";
     }
 
+    /**
+     * 添加浏览数
+     * @param model
+     * @param tid
+     */
+    @RequestMapping(value = "/viewCountAdd", method = RequestMethod.GET)
+    public void article(Long tid) {
+        String userip = "";
+        try {
+            userip = IPUtil.getIpAdd(request);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        //添加主题浏览记录
+        forumThreadService.addForumThreadView(tid, userip, null);
+    }
     /**
      * 获取默认封面图片
      *

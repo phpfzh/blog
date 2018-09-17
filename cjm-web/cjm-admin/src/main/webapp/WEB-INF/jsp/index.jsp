@@ -24,14 +24,32 @@
                     height: 360
                 });
             });
+
+            $(".tviewClick").on("click",function(){
+                var opid = $(this).data("opid");
+                var antion = basePath+"/viewCountAdd";
+                $.get(antion,{"tid":opid},function(data){
+                });
+            })
         })
+
         function queryAllPerson(Num, pageSize) {
-           window.location.href = basePath+"/index?pageNum="+Num+"&pageSize="+pageSize;
+            $("#indexPageNum").val(Num);
+            $("#indexPageSize").val(pageSize);
+            $("#indexSubmit").submit();
         }
+
+
     </script>
 </head>
 <body>
- <%@include file="../../common/header.jsp" %>
+
+  <form id="indexSubmit" action="${basePath}" method="post">
+        <input name="pageNum" id="indexPageNum" style="display: none"/>
+        <input name="pageSize" id="indexPageSize" style="display: none"/>
+  </form>
+
+ <%@include file="/common/header.jsp" %>
 <!--内容开始-->
 <div id="content">
     <!--轮播图盒子 开始-->
@@ -82,16 +100,12 @@
                 <span class="mark"></span>
                 <div class="box">
                     <ul>
-                        <li>
-                            <a href="http://www.ruanyifeng.com/blog/" target="_blank">阮一峰</a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0)" target="_blank">SpringMvc</a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0)" target="_blank">JAVA8</a>
-                        </li>
-                    </ul>
+                        <c:forEach var="linkVos" items="${linkVos}">
+                              <li>
+                                <a href="${linkVos.link}" target="_blank">${linkVos.name}</a>
+                            </li>
+                        </c:forEach>
+                     </ul>
                 </div>
             </div>
             <!--like_site end-->
@@ -109,7 +123,7 @@
                     <div class="i_img">
                         <c:choose>
                             <c:when test="${not empty item.staticlink and item.staticlink.length() > 5}">
-                                <a href="${basePath}/${item.staticlink}" target="_blank">
+                                <a href="${basePath}/${item.staticlink}" target="_blank" class="tviewClick" data-opid="${item.id}">
                                     <img src="${item.coverimg}"/>
                                 </a>
                             </c:when>
@@ -124,7 +138,7 @@
                         <h2>
                             <c:choose>
                                 <c:when test="${not empty item.staticlink and item.staticlink.length() > 5}">
-                                    <a href="${basePath}/${item.staticlink}" target="_blank">
+                                    <a href="${basePath}/${item.staticlink}" target="_blank" class="tviewClick" data-opid="${item.id}">
                                             ${item.subject}
                                     </a>
                                 </c:when>
@@ -170,7 +184,7 @@
                 </div>
                 <!--item_box end-->
             </c:forEach>
-            <%@include file="../../common/pagehelper.jsp" %>
+            <%@include file="/common/pagehelper.jsp" %>
         </div>
         <!--文章列表 结束-->
 
@@ -191,7 +205,7 @@
                              <li>
                                  <c:choose>
                                      <c:when test="${not empty hotVoLists.staticlink and hotVoLists.staticlink.length() > 5}">
-                                         <a href="${basePath}/${hotVoLists.staticlink}" target="_blank">
+                                         <a href="${basePath}/${hotVoLists.staticlink}" target="_blank" class="tviewClick" data-opid="${item.id}">
                                              <c:choose>
                                                  <c:when test="${index.index == 0}">
                                                      <span class="one">${index.index+1}</span>
@@ -247,16 +261,12 @@
                 <span class="mark"></span>
                 <div class="box">
                     <ul>
-                        <li>
-                            <a href="http://www.ruanyifeng.com/blog/" target="_blank">阮一峰</a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0)" target="_blank">SpringMvc</a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0)" target="_blank">JAVA8</a>
-                        </li>
-                    </ul>
+                        <c:forEach var="friendlinkVos" items="${friendlinkVos}">
+                            <li>
+                                <a href="${friendlinkVos.link}" target="_blank">${friendlinkVos.name}</a>
+                            </li>
+                        </c:forEach>
+                      </ul>
                 </div>
             </div>
             <!--友情链接 结束-->
@@ -270,10 +280,7 @@
 
 
  <!--尾部开始-->
-<div id="footer">
-
-
-</div>
+  <%@include file="/common/footer.jsp" %>
 <!--尾部结束-->
 </body>
 </html>

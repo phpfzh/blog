@@ -5,7 +5,6 @@ import {SFSchema} from '@delon/form';
 import {ForumThreadService} from "../../../generated/service/forum-thread.service";
 import {BASE_PATH} from "../../../generated/variables";
 import {NzMessageService, NzModalRef, NzModalService} from "ng-zorro-antd";
-import {StartupService} from "@core/startup/startup.service";
 
 @Component({
   selector: 'app-thread-replay-view-list',
@@ -100,12 +99,10 @@ export class ThreadReplayViewListComponent implements OnInit {
   constructor(private http: _HttpClient,
               private modal: ModalHelper,
               private modalService: NzModalService,
-              private startupService:StartupService,
               @Optional() @Inject(BASE_PATH) basePath: string) {
     if (basePath) {
       this.basePath = basePath;
     }
-    this.startupService.load();
   }
 
   ngOnInit() {

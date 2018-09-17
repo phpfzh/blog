@@ -1,5 +1,7 @@
 package com.jxkj.cjm.model.vo;
 
+import org.hibernate.validator.constraints.Range;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -24,12 +26,17 @@ public class FriendlinkVo {
     @NotBlank(message = "名称不能为空", groups = {GroupSave.class, GroupUpdate.class})
     private String name;
     /** 排序 */
+    @Range(min = 1,max = 100,message = "排序值范围1-100", groups = {GroupSave.class, GroupUpdate.class})
     private Integer sort;
     /** 类型1友情链接 2 常用站点 */
+    @Range(min = 1,max = 10,message = "类型值范围1-10", groups = {GroupSave.class, GroupUpdate.class})
     private Integer type;
     /**  备注信息 */
     private String remark;
-
+    /**  修改人 */
+    private Long updateid;
+    /**  修改时间 */
+    private Long updateline;
 
     public String getLink() {
         return this.link;
@@ -93,5 +100,21 @@ public class FriendlinkVo {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getUpdateid() {
+        return updateid;
+    }
+
+    public void setUpdateid(Long updateid) {
+        this.updateid = updateid;
+    }
+
+    public Long getUpdateline() {
+        return updateline;
+    }
+
+    public void setUpdateline(Long updateline) {
+        this.updateline = updateline;
     }
 }

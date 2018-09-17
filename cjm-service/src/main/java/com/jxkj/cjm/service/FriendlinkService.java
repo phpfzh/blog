@@ -5,11 +5,15 @@ import com.jxkj.cjm.model.Friendlink;
 import com.baomidou.mybatisplus.service.IService;
 import com.jxkj.cjm.model.vo.FriendlinkVo;
 
+import java.util.List;
+
 public interface FriendlinkService extends IService<Friendlink>{
 
-    public ProcessBack insertFriendlink(Long baseid,FriendlinkVo friendlinkVo);
-
-    public ProcessBack updateFriendlink(Long baseid,FriendlinkVo friendlinkVo);
-
+    /**
+     * 首页友情链接查询全部
+     * @param type
+     * @return
+     */
+    public List<FriendlinkVo> getIndexFriendlinkVosByType(Integer type);
 
 }

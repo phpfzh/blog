@@ -24,9 +24,9 @@ import {UeditorComponent} from "./routes/ueditor/ueditor.component";
 import {UEditorModule} from "ngx-ueditor";
 
 
-/*export function StartupServiceFactory(startupService: StartupService): Function {
+export function StartupServiceFactory(startupService: StartupService): Function {
   return () => startupService.load();
-}*/
+}
 
 @NgModule({
   declarations: [
@@ -44,11 +44,11 @@ import {UEditorModule} from "ngx-ueditor";
     RoutesModule,
     UEditorModule.forRoot({
       js: [
-        `http://admin.chenjiaming.com/admin/assets/ueditor/ueditor.all.js`,
-        `http://admin.chenjiaming.com/admin/assets/ueditor/ueditor.config.js`,
+        `./assets/ueditor/ueditor.all.js`,
+        `./assets/ueditor/ueditor.config.js`,
       ],
       options: {
-        UEDITOR_HOME_URL: 'http://admin.chenjiaming.com/admin/assets/ueditor/'
+        UEDITOR_HOME_URL: './assets/ueditor/'
       }
     }),
     // JSON-Schema form
@@ -58,13 +58,13 @@ import {UEditorModule} from "ngx-ueditor";
     {provide: LOCALE_ID, useValue: 'zh-Hans'},
     {provide: HTTP_INTERCEPTORS, useClass: SimpleInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: DefaultInterceptor, multi: true},
-    StartupService
-    /*{
+    StartupService,
+    {
       provide: APP_INITIALIZER,
       useFactory: StartupServiceFactory,
       deps: [StartupService],
       multi: true
-    }*/
+    }
   ],
   bootstrap: [AppComponent]
 })

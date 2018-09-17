@@ -34,6 +34,8 @@ const routes: Routes = [
       { path: 'forumThread', loadChildren: './forum-thread/forum-thread.module#ForumThreadModule' },
       //评论
       { path: 'threadReplay', loadChildren: './thread-replay/thread-replay.module#ThreadReplayModule' },
+      //友情链接
+      { path: 'friendlink', loadChildren: './friendlink/friendlink.module#FriendlinkModule' },
 
 
       // 业务子模块

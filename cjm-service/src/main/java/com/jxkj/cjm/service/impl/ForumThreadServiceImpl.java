@@ -421,7 +421,13 @@ public class ForumThreadServiceImpl extends ServiceImpl<ForumThreadMapper, Forum
             ForumThreadViewRecord viewRecord = forumThreadViewRecordMapper.selectOne(forumThreadViewRecord);
 
             if (viewRecord == null) {
-                ForumThreadViewcount forumThreadViewcount = new ForumThreadViewcount();
+                ForumThread forumThread = baseMapper.selectById(tid);
+                if(forumThread != null){
+                    forumThread.setViews(forumThread.getViews()+1);
+                    baseMapper.updateById(forumThread);
+                }
+
+                /*ForumThreadViewcount forumThreadViewcount = new ForumThreadViewcount();
                 forumThreadViewcount.setTid(tid);
                 ForumThreadViewcount forumThreadViewcount1 = forumThreadViewcountMapper.selectOne(forumThreadViewcount);
                 if (forumThreadViewcount1 == null) {
@@ -432,7 +438,7 @@ public class ForumThreadServiceImpl extends ServiceImpl<ForumThreadMapper, Forum
                 } else {
                     forumThreadViewcount1.setCount(forumThreadViewcount1.getCount() + 1);
                     forumThreadViewcountMapper.updateById(forumThreadViewcount1);
-                }
+                }*/
 
                 Long dateline = System.currentTimeMillis();
                 forumThreadViewRecord.setDateline(dateline);
