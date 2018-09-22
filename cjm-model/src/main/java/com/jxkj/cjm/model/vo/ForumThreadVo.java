@@ -143,6 +143,16 @@ public class ForumThreadVo {
      * 是否带签名1是0否
      */
     private Integer usesig;
+    /**
+     * 排序方式
+     *
+     */
+    private Integer orderby;
+
+    /**
+     * 是否模糊查询主题   1是0否
+     */
+    private Integer islikesubject;
 
     private List<ForumThreadTagVo> listtags;
 
@@ -408,5 +418,22 @@ public class ForumThreadVo {
 
     public void setUsesig(Integer usesig) {
         this.usesig = usesig;
+    }
+
+    public Integer getOrderby() {
+        return orderby;
+    }
+
+    public void setOrderby(Integer orderby) {
+        this.orderby = orderby;
+    }
+
+
+    public Integer getIslikesubject() {
+        return islikesubject;
+    }
+
+    public void setIslikesubject(Integer islikesubject) {
+        this.islikesubject = islikesubject;
     }
 }

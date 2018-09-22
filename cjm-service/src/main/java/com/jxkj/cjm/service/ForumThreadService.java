@@ -110,6 +110,15 @@ public interface ForumThreadService extends IService<ForumThread>{
 	public List<ForumThreadVo> getForumThreadsByViewOrder(String pageNum,String pageSize);
 
 	/**
+	 * 条件查询
+	 * @param forumThreadvo
+	 * @param pageNum
+	 * @param pageSize
+	 * @return
+	 */
+	public ProcessBack getForumThreadsByWarpper(ForumThreadVo forumThreadvo,String pageNum,String pageSize);
+
+	/**
 	 * 根据tid 查询主题详情信息
 	 * @param tid
 	 * @return

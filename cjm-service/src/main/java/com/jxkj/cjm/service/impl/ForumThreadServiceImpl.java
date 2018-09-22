@@ -47,7 +47,7 @@ public class ForumThreadServiceImpl extends ServiceImpl<ForumThreadMapper, Forum
     private ForumPostMapper forumPostMapper;
 
     @Resource
-    private ForumForumService forumForumService;
+    private ForumForumMapper forumForumMapper;
 
     @Resource
     private ForumAttachmentService forumAttachmentService;
@@ -741,7 +741,7 @@ public class ForumThreadServiceImpl extends ServiceImpl<ForumThreadMapper, Forum
             }
             // 处理分页请求
             Integer num = 1;
-            Integer size = 20;
+            Integer size = 10;
 
             if (pageNum != null && !"".equals(pageNum)) {
                 num = Integer.parseInt(pageNum);
@@ -749,15 +749,14 @@ public class ForumThreadServiceImpl extends ServiceImpl<ForumThreadMapper, Forum
             if (pageSize != null && !"".equals(pageSize)) {
                 size = Integer.parseInt(pageSize);
             }
-            //String sortString = "id.desc";
-            //	Order.formString(sortString);
+
             PageHelper.startPage(num, size);
             List<ForumThread> lists = baseMapper.selectByMap(TransferUtil.beanToMap(forumThread));
             List<ForumThreadVo> voLists = new ArrayList<>();
             for (ForumThread entity1 : lists) {
                 ForumThreadVo en = new ForumThreadVo();
                 User user = userMapper.selectById(entity1.getBaseid());
-                ForumForum forumForum = forumForumService.selectById(entity1.getFid());
+                ForumForum forumForum = forumForumMapper.selectById(entity1.getFid());
                 ForumPostVo forumPostVo = forumPostService.getForumPostByTid(entity1.getId());
                 List<ForumThreadTagVo> threadTagVos = forumThreadTagService.getForumThreadTagsByTid(forumThread.getId());
 
@@ -857,6 +856,144 @@ public class ForumThreadServiceImpl extends ServiceImpl<ForumThreadMapper, Forum
     }
 
     /**
+     *
+     * @Title: getForumThreadsByWarpper
+     * @Description: TODO(主题信息查询)
+     * @param @param forumThreadvo
+     * @param @param pageNum
+     * @param @param pageSize
+     * @param @return    设定文件
+     * @return ProcessBack    返回类型
+     * @throws
+     */
+    @Override
+    public ProcessBack getForumThreadsByWarpper(ForumThreadVo forumThreadvo,String pageNum,String pageSize){
+        ProcessBack back = new ProcessBack();
+        try{
+
+            Integer num = 1;
+            Integer size = 10;//默认10条
+            if (pageNum != null && !"".equals(pageNum)) {
+                num = Integer.parseInt(pageNum);
+            }
+            if (pageSize != null && !"".equals(pageSize)) {
+                size = Integer.parseInt(pageSize);
+            }
+            //设置分页
+            PageHelper.startPage(num, size);
+
+            /**排序 1 最新 2 最热 **/
+        /*    if(forumThreadvo.getOrderby() != null && forumThreadvo.getOrderby().equals(1)){//
+                PageHelper.orderBy("csort ASC,dateline DESC");
+            }else if(forumThreadvo.getOrderby() != null && forumThreadvo.getOrderby().equals(2)){
+                PageHelper.orderBy("csort ASC,views DESC");
+            }else if(forumThreadvo.getDigest() != null && forumThreadvo.getDigest().equals(1)){//精华定位
+                PageHelper.orderBy("dsort ASC,dateline DESC");
+            }else{//默认最新
+                PageHelper.orderBy("csort ASC,dateline DESC");
+            }*/
+
+            Wrapper<ForumThread> wrapper = Condition.create();
+            if(forumThreadvo.getFid() != null){
+                wrapper.eq("fid", forumThreadvo.getFid());//版块id
+            }
+
+            if(forumThreadvo.getStatus() != null){
+                wrapper.eq("status", forumThreadvo.getStatus());//审核状态
+            }
+
+            if(forumThreadvo.getIslikesubject() != null && forumThreadvo.getIslikesubject().equals(1)){
+                //模糊查询主题
+                wrapper.like("subject", forumThreadvo.getSubject());//标题
+            }else{
+                wrapper.eq("subject", forumThreadvo.getSubject());//标题
+            }
+
+            if(forumThreadvo.getDigest() != null){
+                wrapper.eq("digest", forumThreadvo.getDigest());//是否精华
+               // PageHelper.orderBy("dsort ASC, dateline DESC");//精华定位
+            }
+
+            if(forumThreadvo.getBaseid() != null){
+                wrapper.eq("baseid", forumThreadvo.getBaseid());//用户id
+            }
+
+            List<ForumThread> lists = baseMapper.selectList(wrapper);
+            List<ForumThreadVo> vos = new ArrayList<>();
+            for(ForumThread forumThread : lists){
+                String username = "";
+                User user = userMapper.selectById(forumThread.getBaseid());
+                if(user != null){
+                     username = user.getUsername();
+                }
+
+                String fname = "";
+                ForumForum forumForum = forumForumMapper.selectById(forumThread.getFid());
+                if(forumForum != null){
+                    fname = forumForum.getName();
+                }
+                //ForumPostVo forumPostVo = forumPostService.getForumPostByTid(forumThread.getId());
+                //List<ForumThreadTagVo> threadTagVos = forumThreadTagService.getForumThreadTagsByTid(forumThread.getId());
+
+                String threadTypeName = "原创";
+                if (forumThread.getThreadtype() != null && forumThread.getThreadtype().equals(2)) {
+                    threadTypeName = "转载";
+                } else if (forumThread.getThreadtype() != null && forumThread.getThreadtype().equals(3)) {
+                    threadTypeName = "翻译";
+                }
+
+                ForumThreadVo threadVo = new ForumThreadVo();
+                threadVo.setFid(forumThread.getFid());//版块id
+                threadVo.setId(forumThread.getId());  //主题id
+                threadVo.setStatus(forumThread.getStatus());  //显示状态 审核中-1 审核不通过-2  -3 已删除 审核通过 0
+                threadVo.setDigest(forumThread.getDigest());  //是否精华 1是 0否
+                threadVo.setUsername(username);  //作者名
+                threadVo.setBaseid(forumThread.getBaseid());  //作者id
+                threadVo.setSubject(forumThread.getSubject());  //主题
+                threadVo.setDateline(forumThread.getDateline());  //保存时间
+                threadVo.setViews(forumThread.getViews());  //浏览次数
+                threadVo.setReplies(forumThread.getReplies());  //回复次数
+                threadVo.setFname(fname);//板块名称
+                threadVo.setStaticlink(forumThread.getStaticlink());//静态路径
+                threadVo.setThreadtypename(threadTypeName);
+                threadVo.setThreadtype(forumThread.getThreadtype());
+                 String datelinestr = "";
+                if(forumThread.getDateline() != null){
+                     datelinestr = DateUtils.formatYY_MM_DD(forumThread.getDateline());
+                }
+                threadVo.setDatelinestr(datelinestr);  //时间
+                vos.add(threadVo);
+            }
+
+            PageInfo<ForumThread> pagehelper = new PageInfo<ForumThread>(lists);
+
+            //计算页码
+            pagehelper.setNavigateFirstPage(1);
+            Integer lastPageNum =0;
+            if(pagehelper.getTotal()%size==0){
+                lastPageNum = (int)pagehelper.getTotal()/size;
+            }else{
+                lastPageNum = (int)pagehelper.getTotal()/size + 1 ;
+            }
+            pagehelper.setNavigateLastPage(lastPageNum);
+
+            Map<String,Object> map = new HashMap<>();
+            map.put("vos", vos);
+            map.put("pagehelper", pagehelper);
+            back.setCode(ProcessBack.SUCCESS_CODE);
+            back.setMessage("查询成功");
+            back.setData(map);
+            return back;
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        back.setCode(ProcessBack.FAIL_CODE);
+        back.setMessage(ProcessBack.EXCEPTION_MESSAGE);
+        return back;
+    }
+
+
+    /**
      * 根据tid 查询主题详情信息
      * @param tid
      * @return
@@ -885,7 +1022,7 @@ public class ForumThreadServiceImpl extends ServiceImpl<ForumThreadMapper, Forum
                 throw new IllegalArgumentException("未找到帖子信息");
             }
 
-            ForumForum forumForum = forumForumService.selectById(forumThread.getFid());
+            ForumForum forumForum = forumForumMapper.selectById(forumThread.getFid());
             List<ForumThreadTagVo> threadTagVos = forumThreadTagService.getForumThreadTagsByTid(forumThread.getId());
 
 
