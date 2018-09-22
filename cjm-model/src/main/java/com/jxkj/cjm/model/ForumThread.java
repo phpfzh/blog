@@ -80,7 +80,7 @@ public class ForumThread extends SuperEntity<ForumThread> {
      */
     private Integer sharetimes;
     /**
-     * 状态-1审核中 -2审核失败 0审核通过
+     * 审核中-1 审核不通过-2  -3 已删除 审核通过 0
      */
     private Integer status;
     /**

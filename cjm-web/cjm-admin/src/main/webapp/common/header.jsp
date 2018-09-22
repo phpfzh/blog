@@ -1,12 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
+<script type="text/javascript">
+
+function searchSubmit(obj) {
+    var SearchSubject = $("#SearchSubject").val();
+    $("#SearchSubjectF").val(SearchSubject);
+    $("#SubmitSearchForm").submit();
+}
+</script>
+
+<form id="SubmitSearchForm" method="post" action="${basePath}/search/list">
+        <input name="subject" id = "SearchSubjectF" style="display: none"/>
+</form>
 
 <!--头部开始-->
 <div id="header">
     <div id="header_box">
-        <div class="nav">
+        <div class="cjm_nav">
             <div class="img">
-                <a href="#">
+                <a href="${basePath}">
                     <img src="${basePath}/static/images/logo.png">
                 </a>
             </div>
@@ -31,17 +43,17 @@
                 </li>
             </ul>
         </div>
-        <div class="nav_right">
+        <div class="cjm_nav_right">
             <div class="search_box">
                 <div class="input">
-                    <input type="text" name="subject" id="subject" value="" placeholder="搜索内容"/>
-                    <a href="Javascript:void(0)" target="_blank"></a>
+                    <input type="text" name="subject" id="SearchSubject" value="" placeholder="搜索内容"/>
+                    <a href="Javascript:searchSubmit(this)" target="_blank"></a>
                 </div>
             </div>
             <div class="logo_box">
 
                <span class="login"> 登录 &nbsp;</span>
-                <span class="register"> 注册 </span>
+                <span class="cjm_register"> 注册 </span>
 
                    <%--<a href="javascript:void(0)" class="head_img">
                         <img src="/static/images/logo.png">

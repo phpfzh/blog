@@ -1,6 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
-<!--尾部开始-->
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <div id="footer">
     <div class="footer">
         <div class="main_box">
@@ -55,5 +53,6 @@
     </div>
 </div>
 </div>
-<!--尾部结束-->
+<!--通用弹框开始-->
 <%@include file="/common/commonpopup.jsp" %>
+<!--通用弹框结束-->

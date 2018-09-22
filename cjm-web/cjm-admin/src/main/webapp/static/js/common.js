@@ -75,7 +75,7 @@ $(function(){
     })
 
 //注册弹窗
-    $(".register").on('click',function(){
+    $(".cjm_register").on('click',function(){
         $(".zhezhao1").fadeIn(300)
     })
 //关闭注册
@@ -144,8 +144,6 @@ $(function(){
     $("#btnss").click(function(){
         new invokeSettime("#btnss");
     })
-
-    failPopupBtn("失败啦");
  })
 
 function PopupClose(callback){
