@@ -6,13 +6,22 @@
     <META NAME="Author" CONTENT="">
     <META NAME="Keywords" CONTENT="">
     <META NAME="Description" CONTENT="">
-    <link rel="stylesheet" href="./js/bootstrap-3.3.7-dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="./js/bootstrap-3.3.7-dist/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="./js/layui-v2.3.0/css/layui.css">
-    <link rel="stylesheet" href="./css/index.css">
-    <script src="./js/jquery-3.3.1.js"></script>
-    <script src="./js/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
-    <script src="./js/layui-v2.3.0/layui.js"></script>
+    <link href="./static/js/bootstrap-3.3.7-dist/css/bootstrap.css" rel="stylesheet"	type="text/css">
+	<link href="./static/js/bootstrap-3.3.7-dist/css/bootstrap-theme.css" rel="stylesheet" type="text/css">
+	<link href="./static/js/layui-v2.3.0/css/layui.css" rel="stylesheet" type="text/css">
+	<link href="./static/css/reset.css" rel="stylesheet" type="text/css">
+	<link href="./static/css/swiper-3.3.1.min.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="./static/css/iconfont.css" type="text/css">
+	<link href="./static/css/common.css" rel="stylesheet" type="text/css">
+
+    <link href="./static/css/index.css" rel="stylesheet" type="text/css">
+	<script type="text/javascript" src="./static/js/jquery-3.3.1.js"></script>
+	<script type="text/javascript" src="./static/js/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+	<script type="text/javascript" src="./static/js/layui-v2.3.0/layui.js"></script>
+	<script type="text/javascript" src="./static/js/swiper.min.js"></script>
+	<script type="text/javascript" src="./static/js/swiper-3.4.2.jquery.min.js"></script>
+	<script type="text/javascript" src="./static/js/common.js"></script>
+	<script type="text/javascript" src="./static/js/thread.js"></script>
     <script>
         //轮播图
         layui.use('carousel', function () {
@@ -41,15 +50,15 @@
 <!--头部开始-->
 <div id="header">
     <div id="header_box">
-        <div class="nav">
+        <div class="cjm_nav">
             <div class="img">
                 <a href="#">
-                    <img src="./images/logo.png">
+                    <img src="./static/images/logo.png">
                 </a>
             </div>
             <ul>
                 <li>
-                    <a href="javascript:void(0)">首页</a>
+                    <a href="#">首页</a>
                 </li>
                 <li>
                     <a href="javascript:void(0)">Java</a>
@@ -68,32 +77,142 @@
                 </li>
             </ul>
         </div>
-        <div class="login">
-            <ul>
-                <!-- <li>
-                     <a href="#">
-                         登录
-                     </a>
-                 </li>
-                 <li>
-                     <a href="#">
-                         注册
-                     </a>
-                 </li>-->
+        <div class="cjm_nav_right">
+            <div class="search_box">
+                <div class="input">
+                    <input type="text" name="subject" id="SearchSubject" value="" placeholder="搜索内容"/>
+                    <a href="Javascript:searchSubmit(this)" target="_blank"></a>
+                </div>
+            </div>
+            <div class="logo_box">
 
+               <span class="login"> 登录 &nbsp;</span>
+                <span class="cjm_register"> 注册 </span>
 
+                   <!--<a href="javascript:void(0)" class="head_img">
+                        <img src="./static/images/logo.png">
+                   </a>
+                   <span class="logout"> 退出 </span>-->
+            </div>
+         </div>
+    </div>
+    <!--登录注册弹窗-->
+    <div class="zhezhao">
+        <div class="bodys">
+            <div class="dchu">
+                <div><a class="dlactiv" href="###">登录</a></div>
+                <div><a class="zche" href="###">注册</a></div>
+                <span class="quxiaozc">×</span>
+            </div>
+            <!---------------------------------------->
+            <ul class="denglfuo">
+                <li>
+                    <input name="" class="phone" type="text" placeholder="请输入手机号/用户名" >
+                </li>
+                <li>
+                    <input name="" type="password" class="input_text_password  mima_dd " placeholder="请输入密码" >
+                    <input name="" type="text" class="input_text_password  mima_wz" style="display:none;" placeholder="请输入密码" >
+                    <a class="eyes_box " data-show="1" href="javascript:void(0);">
+                        <i class="bukan"><img src="./static/images/bukanmima.png"/></i>
+                        <i class="kan"><img src="./static/images/kanmimma.png"/></i>
+                    </a>
+                </li>
+                <li class="wjma">
+                    <div><a class="wjmm" href="###">忘记密码？</a> <span>还没有账号？<a class="zche" href="###">立即注册</a></span></div>
+                </li>
+                <li class="wjma">
+                    <button type="button">登录</button>
+                </li>
+            </ul>
+            <div class="dldibu">
+                <div></div>
+                <div>
+                    <p>第三方登录</p>
+                    <a href="###"><img src="./static/images/qq.png"/></a>
+                    <a class="weixdl" href="###"><img src="./static/images/weixin.png"/></a>
+                    <a href="###"><img src="./static/images/weibo.png"/></a>
+                </div>
+                <div></div>
+            </div>
+        </div>
+    </div>
+    <!--注册弹窗-->
+    <div class="zhezhao1">
+        <div class="bodys2">
+            <div class="dchu">
+                <div><a class="denglxx" href="###">登录</a></div>
+                <div><a class="dlactiv" href="###">注册</a></div>
+                <span class="quxiaozc">×</span>
+            </div>
+            <!---------------------------------------->
+            <ul class="zhucexs">
+                <li>
+                    <input name="" class="yhuname" type="text" placeholder="请输入手机号/用户名" >
+                </li>
+                <li>
+                    <input name="" class="yhuname" type="text" placeholder="请输入手机号" >
+                    <button class="fszyc" id="btns" href="###">发送验证码</button>
+                </li>
+                <li>
+                    <input name="" type="password" class="input_text_password hder mima_dd " placeholder="输入密码(数字，字母皆可，最低6位)" >
+                    <input name="" type="text" class="input_text_password hder mima_wz" style="display:none;" placeholder="输入密码(数字，字母皆可，最低6位)" >
+                    <a class="eyes_box " data-show="1" href="javascript:void(0);">
+                        <i class="bukan"><img src="./static/images/bukanmima.png"/></i>
+                        <i class="kan"><img src="./static/images/kanmimma.png"/></i>
+                    </a>
+                </li>
+                <li>
+                    <input type="text" class="bashiss" name=""  placeholder="输入用户名" value="哈哈哈" />
+                    <p>*用户名注册后不可修改，汉字，字母数字皆可，5-10位</p>
+                </li>
+                <li class="zcmim">
+                    <button type="button">注册</button>
+                </li>
             </ul>
 
-            <!--登录后-->
-            <div class="logined">
-                <a href="#" class="ulogo">
-                    <img src="./images/logo.png">
-                </a>
-                <a href="#" class="logout">
-                    退出
-                </a>
+        </div>
+    </div>
+    <!--忘记密码弹窗-->
+    <div class="zhezhao2">
+        <div class="bodys3">
+            <div class="dchu heitad">
+                <p class="wjimx">忘记密码</p>
+                <span class="quxiaozc">×</span>
             </div>
+            <!---------------------------------------->
 
+            <ul class="zhaohui">
+                <li>
+                    <span>输入手机号码</span>
+                    <div>
+                        <input type="text" name="" value="" placeholder="请输入您的手机号码" />
+                    </div>
+                    <p class="tishiwben">*输入手机号不存在</p>
+                </li>
+                <li>
+                    <span>验证码</span>
+                    <div>
+                        <input type="text" name="" value="" placeholder="请输入验证码" />
+                        <button class="fszyc" id="btnss" href="###">发送验证码</button>
+                    </div>
+                </li>
+                <li>
+                    <span>设置新密码</span>
+                    <ul>
+                        <li>
+                            <input name="" type="password" class="input_text_password  mima_dd " placeholder="数字，字母皆可至少6位" >
+                            <input name="" type="text" class="input_text_password  mima_wz" style="display:none;" placeholder="数字，字母皆可至少6位" >
+                            <a class="eyes_box " data-show="1" href="javascript:void(0);">
+                                <i class="bukan"><img src="./static/images/bukanmima.png"/></i>
+                                <i class="kan"><img src="./static/images/kanmimma.png"/></i>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="isOk">
+                <button type="button">确认</button>
+            </div>
         </div>
     </div>
 </div>
@@ -107,31 +226,31 @@
             <div carousel-item>
                 <div class="img_box">
                     <a href="#">
-                        <img src="./images/1.jpg">
+                        <img src="./static/images/1.jpg">
                         <span class="title">表藤太拖拖拖拖</span>
                     </a>
                 </div>
                 <div class="img_box">
                     <a href="#">
-                        <img src="./images/2.jpg">
+                        <img src="./static/images/2.jpg">
                         <span class="title">表藤太拖拖拖拖22</span>
                     </a>
                 </div>
                 <div class="img_box">
                     <a href="#">
-                        <img src="./images/3.jpg">
+                        <img src="./static/images/3.jpg">
                         <span class="title">表藤太拖拖拖拖33</span>
                     </a>
                 </div>
                 <div class="img_box">
                     <a href="#">
-                        <img src="./images/4.jpg">
+                        <img src="./static/images/4.jpg">
                         <span class="title">表藤太拖拖拖拖4</span>
                     </a>
                 </div>
                 <div class="img_box">
                     <a href="#">
-                        <img src="./images/5.jpg">
+                        <img src="./static/images/5.jpg">
                         <span class="title">表藤太拖拖拖拖5</span>
                     </a>
                 </div>
@@ -143,7 +262,7 @@
                 <h3>常用站点</h3>
                 <span class="all">
                       <a href="javascript:void(0)" target="_blank">
-                         更多
+                         更多 >
                       </a>
                 </span>
                 <span class="mark"></span>
@@ -174,7 +293,7 @@
             <div class="item_box">
                 <div class="i_img">
                     <a href="#" target="_blank">
-                        <img src="./images/1.jpg"/>
+                        <img src="./static/images/1.jpg"/>
                     </a>
                 </div>
                 <div class="i_content">
@@ -187,7 +306,7 @@
                         <div class="user_info">
                             <div class="user_img">
                                 <a href="javascript:void(0)" target="_blank">
-                                    <img src="./images/logo.png">
+                                    <img src="./static/images/logo.png">
                                 </a>
                             </div>
                             <a href="javascript:void(0)" target="_blank">
@@ -253,7 +372,7 @@
             <div class="item_box">
                 <div class="i_img">
                     <a href="#" target="_blank">
-                        <img src="./images/1.jpg"/>
+                        <img src="./static/images/1.jpg"/>
                     </a>
                 </div>
                 <div class="i_content">
@@ -266,7 +385,7 @@
                         <div class="user_info">
                             <div class="user_img">
                                 <a href="javascript:void(0)" target="_blank">
-                                    <img src="./images/logo.png">
+                                    <img src="./static/images/logo.png">
                                 </a>
                             </div>
                             <a href="javascript:void(0)" target="_blank">
@@ -332,7 +451,7 @@
             <div class="item_box">
                 <div class="i_img">
                     <a href="#" target="_blank">
-                        <img src="./images/1.jpg"/>
+                        <img src="./static/images/1.jpg"/>
                     </a>
                 </div>
                 <div class="i_content">
@@ -345,7 +464,7 @@
                         <div class="user_info">
                             <div class="user_img">
                                 <a href="javascript:void(0)" target="_blank">
-                                    <img src="./images/logo.png">
+                                    <img src="./static/images/logo.png">
                                 </a>
                             </div>
                             <a href="javascript:void(0)" target="_blank">
@@ -411,7 +530,7 @@
             <div class="item_box">
                 <div class="i_img">
                     <a href="#" target="_blank">
-                        <img src="./images/1.jpg"/>
+                        <img src="./static/images/1.jpg"/>
                     </a>
                 </div>
                 <div class="i_content">
@@ -424,7 +543,7 @@
                         <div class="user_info">
                             <div class="user_img">
                                 <a href="javascript:void(0)" target="_blank">
-                                    <img src="./images/logo.png">
+                                    <img src="./static/images/logo.png">
                                 </a>
                             </div>
                             <a href="javascript:void(0)" target="_blank">
@@ -490,7 +609,7 @@
             <div class="item_box">
                 <div class="i_img">
                     <a href="#" target="_blank">
-                        <img src="./images/1.jpg"/>
+                        <img src="./static/images/1.jpg"/>
                     </a>
                 </div>
                 <div class="i_content">
@@ -503,7 +622,7 @@
                         <div class="user_info">
                             <div class="user_img">
                                 <a href="javascript:void(0)" target="_blank">
-                                    <img src="./images/logo.png">
+                                    <img src="./static/images/logo.png">
                                 </a>
                             </div>
                             <a href="javascript:void(0)" target="_blank">
@@ -569,7 +688,7 @@
             <div class="item_box">
                 <div class="i_img">
                     <a href="#" target="_blank">
-                        <img src="./images/1.jpg"/>
+                        <img src="./static/images/1.jpg"/>
                     </a>
                 </div>
                 <div class="i_content">
@@ -582,7 +701,7 @@
                         <div class="user_info">
                             <div class="user_img">
                                 <a href="javascript:void(0)" target="_blank">
-                                    <img src="./images/logo.png">
+                                    <img src="./static/images/logo.png">
                                 </a>
                             </div>
                             <a href="javascript:void(0)" target="_blank">
@@ -597,7 +716,7 @@
                     </div>
                     <div class="tags">
                         <ul>
-                            <li>
+                            <!--<li>
                                 <a href="#">Spring</a>
                             </li>
                             <li>
@@ -608,7 +727,7 @@
                             </li>
                             <li>
                                 <a href="#">SpringBoot</a>
-                            </li>
+                            </li>-->
                         </ul>
                         <div class="forum">
                             <a href="javascript:void(0)" target="_blank">
@@ -630,7 +749,7 @@
                 <h3>点击排行</h3>
                 <span class="all">
           <a href="javascript:void(0)" target="_blank">
-             更多
+             更多 >
           </a>
       </span>
                 <span class="mark"></span>
@@ -678,30 +797,35 @@
             </div>
             <!--点击排行 结束-->
 
-            <!--友情链接 开始-->
+            <!--个人链接 开始-->
             <div class="r_box friendly_link">
-                <h3>友情链接</h3>
+                <h3>个人链接</h3>
                 <span class="all">
-                  <a href="javascript:void(0)" target="_blank">
+                  <!--<a href="javascript:void(0)" target="_blank">
                      更多
-                  </a>
+                  </a>-->
                 </span>
                 <span class="mark"></span>
                 <div class="box">
                     <ul>
                         <li>
-                            <a href="http://www.ruanyifeng.com/blog/" target="_blank">阮一峰</a>
-                        </li>
+							<span>CSDN博客 : </span>
+                            <a href="http://www.ruanyifeng.com/blog/" target="_blank">
+								 phpfzh
+							</a>
+                         </li>
                         <li>
+							<span>Github : </span>
                             <a href="javascript:void(0)" target="_blank">SpringMvc</a>
                         </li>
                         <li>
+							<span>CSDN博客 : </span>
                             <a href="javascript:void(0)" target="_blank">JAVA8</a>
                         </li>
                     </ul>
                 </div>
             </div>
-            <!--友情链接 结束-->
+            <!--个人链接 结束-->
 
         </div>
         <!--文章右边盒子 结束-->
@@ -716,9 +840,79 @@
 
 <!--尾部开始-->
 <div id="footer">
-
-
+    <div class="footer">
+        <div class="main_box">
+            <div class="friendlink_box">
+                <div class="yqilj">友情连接：</div>
+                <div class="yright">
+                    <div><a href="###">CSDN</a></div>
+                    <div><a href="###">Github</a></div>
+                    
+                </div>
+            </div>
+         </div>
+        <div class="common_box">
+             <div>Java交流1群：335618459</div>
+        </div>
+        <p class="dpi">我的邮箱:<a href="http://cjm@chenjiaming.com">cjm@chenjiaming.com</a></p>
+        <p class="dpi">©2001-2016 版权所有：一叶知秋</p>
+        <p class="dpi">备案号：(粤ICP备15009341号-1)</p>
+    </div>
 </div>
+<!--通用弹框开始-->
+
+<div class="popup" id="popup_common">
+    <div class="reward">
+        <div class="reward_title">
+            <div class="float_l border_l"></div>
+            <p class="float_l">提示</p>
+            <a onclick="PopupClose()" id="PopupClose">
+                <img class="float_r cursor" src="./static/images/close.png">
+            </a>
+            <div class="clear"></div>
+        </div>
+        <div class="popup_text">
+            <img class="" src="./static/images/success.png">
+            <p class="message lan">提交申请成功！</p>
+            <div class="clear"></div>
+        </div>
+        <!-- <div class="tishi_text">
+            <img class="float_l" src="./static/images/fail.png">
+            <p class="float_l hong">您已经提交过申请了！</p>
+            <div class="clear"></div>
+        </div> -->
+    </div>
+</div>
+
+
+<div class="popup_xuanze" id="popup_common_btn">
+    <div class="reward">
+        <div class="reward_title">
+            <div class="float_l border_l"></div>
+            <p class="float_l">提示</p>
+            <a onclick="PopupBtnClose()" id="PopupBtnClose">
+                <img class="float_r cursor close" src="./static/images/close.png">
+            </a>
+            <div class="clear"></div>
+        </div>
+        <div class="popup_text">
+            <img class="" src="./static/images/success.png">
+            <p class="lan message">发布成功，帖子正在审核</p>
+            <div class="clear"></div>
+        </div>
+        <!-- <div class="tishi_text">
+				<img class="" src="${basePath}/static/images/fail.png">
+				<p class="hong">您已经提交过申请了！</p>
+				<div class="clear"></div>
+			</div> -->
+        <a href="javascript:void(0)" class="float_l queren" id="popup_common_btn_confirm" onclick="commonBtnConfirm()">确认</a>
+        <a href="javascript:void(0)" class="float_l qvxiao" id="popup_common_btn_cancel" onclick="PopupBtnClose()">取消</a>
+    </div>
+</div>
+<!--通用弹框结束-->
+
+<div id="fanhui"></div>
+
 <!--尾部结束-->
 </BODY>
 </HTML>

@@ -194,10 +194,10 @@
             <div class="r_box hot_article">
                 <h3>点击排行</h3>
                 <span class="all">
-          <a href="javascript:void(0)" target="_blank">
-             更多
-          </a>
-      </span>
+                  <a href="javascript:void(0)" target="_blank">
+                     更多
+                  </a>
+              </span>
                 <span class="mark"></span>
                 <div class="box">
                     <ul>
