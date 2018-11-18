@@ -20,6 +20,8 @@ public class SearchParamsVo {
 	private String subject;
 	/**页码数**/
 	private String indexNum;
+	/**板块id**/
+	private Long fid;
 	
 	public String getPageNumThread() {
 		return pageNumThread;
@@ -69,4 +71,13 @@ public class SearchParamsVo {
 		this.pageSizeArticle = pageSizeArticle;
 	}
 
+	public Long getFid() {
+		return fid;
+	}
+
+	public void setFid(Long fid) {
+		this.fid = fid;
+	}
+	
+	
 }

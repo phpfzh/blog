@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE urlrewrite PUBLIC "-//tuckey.org//DTD UrlRewrite 4.0//EN"
+        "http://www.tuckey.org/res/dtds/urlrewrite4.0.dtd">
+        
+<urlrewrite>
+	<!-- 伪静态 配置测试样例  浏览器输入 http://localhost:8084/test/dfd.html-->
+    <rule>
+        <from>^/test/(\w )\.html$</from>
+        <!-- to: 真实的URL -->
+        <to>/test</to>
+    </rule>
+    
+    
+    <!-- 伪静态配置  /articlelist-40-1.html-->
+     <rule>
+        <from>^/articlelist-(\d+)-(\d+)\.html$</from>
+        <!-- to: 真实的URL -->
+        <to type="forward">/thread/list?fid=$1&amp;pageNumThread=$2</to>
+    </rule>
+    
+      <!-- 文章详情页 伪静态配置  /article-186181-1-1.html-->
+     <rule>
+        <from>^/article-(\d+)-(\d+)-(\d+)+\.html$</from>
+        <!-- to: 真实的URL -->
+        <to type="forward">/thread/detail/?tid=$1&amp;pageNum=$2&amp;pageSize=$3</to>
+    </rule>
+ </urlrewrite>

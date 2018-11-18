@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
-<%@include file="/WEB-INF/jsp/common/taglib.jsp"%>
+<%@include file="../../../common/taglib.jsp"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
@@ -11,7 +11,7 @@
 <link rel="stylesheet" type="text/css" href="${basePath}/static/css/reset2.css" />
 <link rel="stylesheet" href="${basePath}/static/css/swiper-3.3.1.min.css">
 <link rel="stylesheet" type="text/css" href="${basePath}/static/css/first_week2.css"/>
-<%@include file="/WEB-INF/jsp/common/public.jsp"%>
+<%@include file="../../../common/public.jsp"%>
 <script type="text/javascript" src="${basePath}/static/js/first_week2.js"></script>
 <script type="text/javascript" src="${basePath}/static/js/platform/teahouse/teahouse.js"></script>
  <script type="text/javascript">
@@ -43,7 +43,7 @@
 <body>
    <div class="bus">
 		<!-- 公共头部开始 -->
-		 <%@include file="../common/header.jsp"%>
+		 <%@include file="../../../common/header.jsp"%>
 		<!-- 公共头部结束 -->
 		<input type="hidden" id="wdb_tid" data-tid="${forumThreadVo.tid }">
 		<input type="hidden" id="wdb_subject" data-subject="${forumThreadVo.subject }">
@@ -252,7 +252,7 @@
                     <!-- 页码 -->
                     <div class="fenyeqi">
 				        <ul class="fyeqi">
-				          <%@include file="/WEB-INF/jsp/common/pagehelper.jsp"%>
+				          <%@include file="../../../common/pagehelper.jsp"%>
 				        </ul>
 			     	 </div>
 			     	 </c:if>
@@ -385,7 +385,7 @@
             </div>
         </div>
 		<!--公共底部开始-->
-		 <%@include file="../common/footer.jsp"%>
+		 <%@include file="../../../common/footer.jsp"%>
 		<!--公共底部结束-->
 	</div>
   

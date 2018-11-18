@@ -1,12 +1,32 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <script type="text/javascript">
 
+//按回车登录
+$(function () {
+    $(document).keydown(function (e) {
+       if (e.keyCode == 13) {
+      	 //搜索
+      	 var subject = $("#SearchSubject").val();
+      	 if(!isEmpty(subject)){
+      		searchSubmit();
+	        $("#SearchSubject").val('');
+      	 }
+
+      	 //登录
+      	var username = $("#user_username").val();
+       	var password = $("#user_password").val();
+       	if(!isEmpty(username) && !isEmpty(password) && !wdbUserLonged){
+	        	 $("#userLogin").click();
+      	 }
+       }
+   });
+});
 function searchSubmit(obj) {
     var SearchSubject = $("#SearchSubject").val();
     $("#SearchSubjectF").val(SearchSubject);
     $("#SubmitSearchForm").submit();
 }
+
 </script>
 
 <form id="SubmitSearchForm" method="post" action="${basePath}/search/list">
@@ -18,13 +38,13 @@ function searchSubmit(obj) {
     <div id="header_box">
         <div class="cjm_nav">
             <div class="img">
-                <a href="${basePath}">
-                    <img src="${basePath}/static/images/logo.png">
+                <a href="#">
+                    <img src="./static/images/logo.png">
                 </a>
             </div>
             <ul>
                 <li>
-                    <a href="${basePath}">首页</a>
+                    <a href="#">首页</a>
                 </li>
                 <li>
                     <a href="javascript:void(0)">Java</a>
@@ -55,10 +75,10 @@ function searchSubmit(obj) {
                <span class="login"> 登录 &nbsp;</span>
                 <span class="cjm_register"> 注册 </span>
 
-                   <%--<a href="javascript:void(0)" class="head_img">
-                        <img src="/static/images/logo.png">
+                   <!--<a href="javascript:void(0)" class="head_img">
+                        <img src="./static/images/logo.png">
                    </a>
-                   <span class="logout"> 退出 </span>--%>
+                   <span class="logout"> 退出 </span>-->
             </div>
          </div>
     </div>
@@ -79,8 +99,8 @@ function searchSubmit(obj) {
                     <input name="" type="password" class="input_text_password  mima_dd " placeholder="请输入密码" >
                     <input name="" type="text" class="input_text_password  mima_wz" style="display:none;" placeholder="请输入密码" >
                     <a class="eyes_box " data-show="1" href="javascript:void(0);">
-                        <i class="bukan"><img src="/static/images/bukanmima.png"/></i>
-                        <i class="kan"><img src="/static/images/kanmimma.png"/></i>
+                        <i class="bukan"><img src="./static/images/bukanmima.png"/></i>
+                        <i class="kan"><img src="./static/images/kanmimma.png"/></i>
                     </a>
                 </li>
                 <li class="wjma">
@@ -94,9 +114,9 @@ function searchSubmit(obj) {
                 <div></div>
                 <div>
                     <p>第三方登录</p>
-                    <a href="###"><img src="/static/images/qq.png"/></a>
-                    <a class="weixdl" href="###"><img src="/static/images/weixin.png"/></a>
-                    <a href="###"><img src="/static/images/weibo.png"/></a>
+                    <a href="###"><img src="./static/images/qq.png"/></a>
+                    <a class="weixdl" href="###"><img src="./static/images/weixin.png"/></a>
+                    <a href="###"><img src="./static/images/weibo.png"/></a>
                 </div>
                 <div></div>
             </div>
@@ -123,13 +143,13 @@ function searchSubmit(obj) {
                     <input name="" type="password" class="input_text_password hder mima_dd " placeholder="输入密码(数字，字母皆可，最低6位)" >
                     <input name="" type="text" class="input_text_password hder mima_wz" style="display:none;" placeholder="输入密码(数字，字母皆可，最低6位)" >
                     <a class="eyes_box " data-show="1" href="javascript:void(0);">
-                        <i class="bukan"><img src="/static/images/bukanmima.png"/></i>
-                        <i class="kan"><img src="/static/images/kanmimma.png"/></i>
+                        <i class="bukan"><img src="./static/images/bukanmima.png"/></i>
+                        <i class="kan"><img src="./static/images/kanmimma.png"/></i>
                     </a>
                 </li>
                 <li>
-                    <input type="text" class="bashiss" name=""  placeholder="输入用户名" value="BUS999-巴士FAN" />
-                    <p>*默认用户名可修改，汉字，字母数字皆可，5-10位</p>
+                    <input type="text" class="bashiss" name=""  placeholder="输入用户名" value="哈哈哈" />
+                    <p>*用户名注册后不可修改，汉字，字母数字皆可，5-10位</p>
                 </li>
                 <li class="zcmim">
                     <button type="button">注册</button>
@@ -169,8 +189,8 @@ function searchSubmit(obj) {
                             <input name="" type="password" class="input_text_password  mima_dd " placeholder="数字，字母皆可至少6位" >
                             <input name="" type="text" class="input_text_password  mima_wz" style="display:none;" placeholder="数字，字母皆可至少6位" >
                             <a class="eyes_box " data-show="1" href="javascript:void(0);">
-                                <i class="bukan"><img src="/static/images/bukanmima.png"/></i>
-                                <i class="kan"><img src="/static/images/kanmimma.png"/></i>
+                                <i class="bukan"><img src="./static/images/bukanmima.png"/></i>
+                                <i class="kan"><img src="./static/images/kanmimma.png"/></i>
                             </a>
                         </li>
                     </ul>

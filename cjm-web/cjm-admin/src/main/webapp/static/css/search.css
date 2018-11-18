@@ -1,26 +1,38 @@
-.center{
-    width: 1200px;
-    margin: auto;
-}
 .float_l{
     float: left;
 }
+
 .float_r{
     float: right;
 }
+
 .clear{
     clear: both;
 }
+
 .cursor{
     cursor:pointer;
 }
+
 a{
     cursor:pointer;
 }
 
+.searchBox{
+	width:100%;
+	margin: 0;
+	padding: 0;
+}
+
+.centen{
+      margin: 0 auto;
+	  width:1200px;
+  }
+
 .search_html{
+	margin: 0 auto;
+	width:1200px;
     background: #fff;
-    width: 100%;
     min-height: 100vh;
 }
 .search_html .search_button{
@@ -45,11 +57,13 @@ a{
     line-height: 40px;
     text-align: center;
     display: block;
-}
+}  
 .search_html .tou .nav{
     width: 850px;
     padding-top: 40px;
+	margin:0 auto;
 }
+
 .search_html .tou{
     height: 140px;
     box-shadow: 1.5px 2.598px 10px 0px rgba(0, 0, 0, 0.08);
@@ -81,7 +95,7 @@ a{
     padding-bottom: 40px;
 }
 .search_html .information .paging{
-    margin-top: 60px;
+   margin-top: 60px;
 }
 .search_html .information .each{
     height: 156px;
@@ -90,11 +104,11 @@ a{
 .search_html .information .each h3{
     font-size: 18px;
     color: #000000;
-    overflow:hidden;
+    overflow:hidden; 
     text-overflow:ellipsis;
-    display:-webkit-box;
+    display:-webkit-box; 
     -webkit-box-orient:vertical;
-    -webkit-line-clamp:1;
+    -webkit-line-clamp:1; 
     font-weight: 500;
     margin-bottom: 18px;
 }
@@ -126,17 +140,17 @@ a{
 }
 .search_html .post .each{
     height: 72px;
-    margin-bottom: 30px;
+    margin-bottom: 30px; 
 }
 .search_html .post .each h3{
     font-size: 16px;
     color: #3773ea;
     font-weight: 500;
-    overflow:hidden;
+    overflow:hidden; 
     text-overflow:ellipsis;
-    display:-webkit-box;
+    display:-webkit-box; 
     -webkit-box-orient:vertical;
-    -webkit-line-clamp:1;
+    -webkit-line-clamp:1; 
     text-decoration:underline;
 }
 .search_html .post .each h3 span{
@@ -152,11 +166,11 @@ a{
 .search_html .post .each p:nth-child(3){
     font-size: 14px;
     color: #3773ea;
-    overflow:hidden;
+    overflow:hidden; 
     text-overflow:ellipsis;
-    display:-webkit-box;
+    display:-webkit-box; 
     -webkit-box-orient:vertical;
-    -webkit-line-clamp:1;
+    -webkit-line-clamp:1; 
 }
 .search_html .post .each p:nth-child(3) span{
     font-size: 14px;
@@ -251,7 +265,7 @@ a{
 .search_html .platform .each ul li p{
     color: #333333;
     font-size: 14px;
-
+    
 }
 .search_html .platform .each ul li .wuxing{
     margin-top: 11px;
@@ -339,7 +353,6 @@ a{
     margin-bottom: 28px;
     box-shadow: #D1E5FA 0 3px 20px 1px;
 }
-
 /*分页开始*/
 .paging{
     text-align: center;
