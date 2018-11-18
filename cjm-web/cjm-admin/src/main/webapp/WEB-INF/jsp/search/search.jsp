@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <title>搜索页面-陈嘉明个人博客-分享web前端和Java技术的个人博客网站</title>
-    <meta name="keywords" content="陈嘉明,陈嘉明个人博客,个人博客,个人博客网站">
+    <meta name="keywords" content="陈嘉明个人博客,陈嘉明,个人博客,个人博客网站">
     <meta name="description" content="陈嘉明个人博客，分享web前端技术和Java技术的个人博客网站">
     <meta http-equiv="Cache-Control" content="no-transform ">
     <meta http-equiv="Cache-Control" content="no-siteapp">
@@ -98,19 +98,10 @@
                       <c:if test="${empty threadvos}">很抱歉，没有搜到和 “ ${vo.subject} ” 相关的结果。</c:if>
                       <c:forEach items="${threadvos}" var="threadvos">
                           <div class="each">
-                              <c:choose>
-                                  <c:when test="${not empty threadvos.staticlink and threadvos.staticlink.length() > 3}">
-                                      <a href="${threadvos.staticlink}" target="_blank">
-                                          <h3>【<span>${vo.subject}</span>】${threadvos.subject }</h3>
-                                      </a>
-                                  </c:when>
-                                  <c:otherwise>
-                                      <a href="${basePath}/thread-${threadvos.id}-1-1.html" target="_blank">
-                                          <h3>【<span>${vo.subject}</span>】${threadvos.subject }</h3>
-                                      </a>
-                                  </c:otherwise>
-                              </c:choose>
-                              <p>${threadvos.replies }个回复 - ${threadvos.views} 次查看</p>
+                               <a href="${basePath}/article-${threadvos.id}-1-1.html" target="_blank">
+                                   <h3>【<span>${vo.subject}</span>】${threadvos.subject }</h3>
+                               </a>
+                               <p>${threadvos.replies }个回复 - ${threadvos.views} 次查看</p>
                               <p>${threadvos.datelinestr } - <span>${threadvos.username}</span> - <span>${threadvos.fname}</span></p>
                           </div>
                       </c:forEach>

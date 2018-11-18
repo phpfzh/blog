@@ -224,6 +224,13 @@
 		    <artifactId>jbcrypt</artifactId>
 		    <version>0.4</version>
 		</dependency>
+		
+		<!-- 伪静态 依赖  https://mvnrepository.com/artifact/org.tuckey/urlrewritefilter -->
+	    <dependency>
+	        <groupId>org.tuckey</groupId>
+	        <artifactId>urlrewritefilter</artifactId>
+	        <version>4.0.4</version>
+	    </dependency>
 
 	</dependencies>
 

@@ -1,20 +1,10 @@
 package com.jxkj.cjm.controller;
 
-import com.baomidou.mybatisplus.mapper.Condition;
-import com.baomidou.mybatisplus.mapper.Wrapper;
-import com.github.pagehelper.PageInfo;
-import com.jxkj.cjm.common.controller.BaseController;
-import com.jxkj.cjm.common.response.ProcessBack;
-import com.jxkj.cjm.common.util.DateUtils;
-import com.jxkj.cjm.common.util.IPUtil;
-import com.jxkj.cjm.common.util.StringUtil;
-import com.jxkj.cjm.model.ForumForum;
-import com.jxkj.cjm.model.ForumThread;
-import com.jxkj.cjm.model.vo.ForumPostVo;
-import com.jxkj.cjm.model.vo.ForumThreadTagVo;
-import com.jxkj.cjm.model.vo.ForumThreadVo;
-import com.jxkj.cjm.model.vo.FriendlinkVo;
-import com.jxkj.cjm.service.*;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,9 +12,19 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import javax.annotation.Resource;
-import java.util.List;
-import java.util.Map;
+import com.github.pagehelper.PageInfo;
+import com.jxkj.cjm.common.controller.BaseController;
+import com.jxkj.cjm.common.response.ProcessBack;
+import com.jxkj.cjm.common.util.IPUtil;
+import com.jxkj.cjm.common.util.StringUtil;
+import com.jxkj.cjm.model.ForumThread;
+import com.jxkj.cjm.model.vo.ForumThreadVo;
+import com.jxkj.cjm.model.vo.FriendlinkVo;
+import com.jxkj.cjm.service.ForumForumService;
+import com.jxkj.cjm.service.ForumPostService;
+import com.jxkj.cjm.service.ForumThreadService;
+import com.jxkj.cjm.service.ForumThreadTagService;
+import com.jxkj.cjm.service.FriendlinkService;
 
 /**
  * @Auther: cjm
@@ -90,45 +90,7 @@ public class IndexHomeController extends BaseController {
         model.addAttribute("linkVos", linkVos);
         return "index";
     }
-
-    /**
-     * 详情页
-     *
-     * @return
-     */
-    @RequestMapping(value = "/article/{tid}", method = RequestMethod.GET)
-    public String article(Model model, @PathVariable("tid") Long tid) {
-        try {
-            Long baseid = null;//获取当前用户
-            ProcessBack processBack = forumThreadService.getSingleForumThreadByTid(tid, baseid, request);
-            if (processBack.getCode().equals(ProcessBack.FAIL_CODE)) {
-                model.addAttribute("message", "文章已删除或正在审核中");
-                return "articleerror";
-            }
-
-            ForumThreadVo en = (ForumThreadVo) processBack.getData();
-            if (en.getIsdelete().equals(1)) {//是否删除1是0否
-                model.addAttribute("message", "文章已删除或正在审核中");
-                return "articleerror";
-            }
-            model.addAttribute("en", en);
-            if (baseid != null && baseid.equals(en.getBaseid())) {
-                //是作者本人则不判断是否审核状态
-                return "article";
-            }
-
-            if (!(en.getStatus().equals(0))) {//状态-1审核中 -2审核失败 0审核通过
-                model.addAttribute("message", "文章已删除或正在审核中");
-                return "articleerror";
-            }
-            return "article";
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        model.addAttribute("message", "文章已删除或正在审核中");
-        return "articleerror";
-    }
-
+      
     /**
      * 添加浏览数
      * @param model
