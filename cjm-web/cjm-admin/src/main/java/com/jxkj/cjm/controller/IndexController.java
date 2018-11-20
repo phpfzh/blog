@@ -101,7 +101,7 @@ public class IndexController {
 	@ResponseBody
 	@PostMapping("/api/ssmRegCode")
 	public AjaxResult sendSSMByRegApi(HttpServletRequest request,String mobile){
- 		ProcessBack processBack = userService.sendSSMByReg(mobile);
+  		ProcessBack processBack = userService.sendSSMByReg(mobile);
   		if(processBack.getCode().equals(ProcessBack.SUCCESS_CODE)){
 			return  AjaxResult.successAjaxResult("短信发送成功");
 		}

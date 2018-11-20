@@ -59,31 +59,27 @@
                 <div class="img_box">
                     <a href="#">
                         <img src="./static/images/1.jpg">
-                        <span class="title">表藤太拖拖拖拖</span>
-                    </a>
+                     </a>
                 </div>
                 <div class="img_box">
                     <a href="#">
                         <img src="./static/images/2.jpg">
-                        <span class="title">表藤太拖拖拖拖22</span>
-                    </a>
+                     </a>
                 </div>
                 <div class="img_box">
                     <a href="#">
                         <img src="./static/images/3.jpg">
-                        <span class="title">表藤太拖拖拖拖33</span>
-                    </a>
+                     </a>
                 </div>
                 <div class="img_box">
                     <a href="#">
                         <img src="./static/images/4.jpg">
-                        <span class="title">表藤太拖拖拖拖4</span>
-                    </a>
+                     </a>
                 </div>
                 <div class="img_box">
                     <a href="#">
                         <img src="./static/images/5.jpg">
-                        <span class="title">表藤太拖拖拖拖5</span>
+                        <!-- <span class="title">表藤太拖拖拖拖5</span> -->
                     </a>
                 </div>
             </div>

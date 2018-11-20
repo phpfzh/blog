@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<script type="text/javascript" src="${basePath}/static/js/geettest/gt.js"></script> 
 <script type="text/javascript">
 
 //按回车登录
@@ -93,11 +94,11 @@ function searchSubmit(obj) {
             <!---------------------------------------->
             <ul class="denglfuo">
                 <li>
-                    <input name="" class="phone" type="text" placeholder="请输入手机号/用户名" >
+                    <input name="" id="user_username" class="phone" type="text" placeholder="请输入手机号/用户名" >
                 </li>
                 <li>
-                    <input name="" type="password" class="input_text_password  mima_dd " placeholder="请输入密码" >
-                    <input name="" type="text" class="input_text_password  mima_wz" style="display:none;" placeholder="请输入密码" >
+                    <input name="" id="user_password" type="password" class="input_text_password  mima_dd " placeholder="请输入密码" >
+                    <input name="" id="user_password_text" type="text" class="input_text_password  mima_wz" style="display:none;" placeholder="请输入密码" >
                     <a class="eyes_box " data-show="1" href="javascript:void(0);">
                         <i class="bukan"><img src="./static/images/bukanmima.png"/></i>
                         <i class="kan"><img src="./static/images/kanmimma.png"/></i>
@@ -107,7 +108,7 @@ function searchSubmit(obj) {
                     <div><a class="wjmm" href="###">忘记密码？</a> <span>还没有账号？<a class="zche" href="###">立即注册</a></span></div>
                 </li>
                 <li class="wjma">
-                    <button type="button">登录</button>
+                    <button type="button" id="userLogin">登录</button>
                 </li>
             </ul>
             <div class="dldibu">
@@ -126,18 +127,27 @@ function searchSubmit(obj) {
     <div class="zhezhao1">
         <div class="bodys2">
             <div class="dchu">
-                <div><a class="denglxx" href="###">登录</a></div>
-                <div><a class="dlactiv" href="###">注册</a></div>
+                <div><a class="denglxx" href="javascript:void(0)">登录</a></div>
+                <div><a class="dlactiv" href="javascript:void(0)">注册</a></div>
                 <span class="quxiaozc">×</span>
             </div>
             <!---------------------------------------->
+            <div id="userReg_error" style="color:red;text-align: center;margin:15px auto;width:400px;display:none;">
+	          	用户名注册后不可修改，汉字，字母数字皆可，5-10位
+	       </div>
             <ul class="zhucexs">
                 <li>
-                    <input name="" class="yhuname" type="text" placeholder="请输入手机号/用户名" >
+                    <input name="" class="yhuname" type="text" placeholder="请输入手机号" >
                 </li>
+                 <li>
+		  	         <div id="captcha1">
+			            <p id="wait1">正在加载验证码......</p>
+			           <!--  <input id="record"/> --><!-- 测试推荐码使用 -->
+			        </div>
+		         </li>
                 <li>
                     <input name="" class="yhuname" type="text" placeholder="请输入手机号" >
-                    <button class="fszyc" id="btns" href="###">发送验证码</button>
+                    <button class="fszyc" id="btns">发送验证码</button>
                 </li>
                 <li>
                     <input name="" type="password" class="input_text_password hder mima_dd " placeholder="输入密码(数字，字母皆可，最低6位)" >
@@ -148,11 +158,11 @@ function searchSubmit(obj) {
                     </a>
                 </li>
                 <li>
-                    <input type="text" class="bashiss" name=""  placeholder="输入用户名" value="哈哈哈" />
+                    <input type="text" class="bashiss" name=""  placeholder="输入用户名"/>
                     <p>*用户名注册后不可修改，汉字，字母数字皆可，5-10位</p>
                 </li>
                 <li class="zcmim">
-                    <button type="button">注册</button>
+                    <button type="button" id="userReg_submit">注册</button>
                 </li>
             </ul>
 
