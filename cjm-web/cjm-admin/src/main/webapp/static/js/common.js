@@ -18,9 +18,7 @@ $(function(){
 					// 关闭弹框
 					$(".zhezhao").fadeOut(300);
 					var referrerVl = document.referrer;
- 					if(UserLoginForwar.length > 0){
-						window.location.href = UserLoginForwar;
-					}else if(referrerVl.length > 0){
+ 					if(referrerVl.length > 0){
 						window.location.href = referrerVl;
 					}else{
 						window.location.href = basePath + "/";
@@ -295,34 +293,29 @@ $(function(){
                 ,1000)
         }
     }
-    $("#btns").click(function(){
-        new invokeSettime("#btns");
-    })
+    
 //找回密码验证码
-    function invokeSettime(obj){
-        var countdown=60;
-        settime(obj);
-        function settime(obj) {
-            if (countdown == 0) {
-                $(obj).attr("disabled",false);
-                $(obj).text("获取验证码");
-                countdown = 60;
-                return;
-            } else {
-                $(obj).attr("disabled",true);
-                $(obj).text("(" + countdown + ") s后重新发送");
-                countdown--;
-            }
-            setTimeout(function() {
-                    settime(obj) }
-                ,1000)
-        }
-    }
-    $("#btnss").click(function(){
-        new invokeSettime("#btnss");
-    })
+	function invokeSettime(obj){
+	    var countdown=60;
+	    settime(obj);
+	    function settime(obj) {
+	        if (countdown == 0) {
+	            $(obj).attr("disabled",false);
+	            $(obj).text("获取验证码");
+	            countdown = 60;
+	            return;
+	        } else {
+	            $(obj).attr("disabled",true);
+	            $(obj).text("(" + countdown + ") s后重新发送");
+	            countdown--;
+	        }
+	        setTimeout(function() {
+	                settime(obj) }
+	            ,1000)
+	    }
+	}
 		//failPopupBtn("成功了");
-
+	
 	function gotoTop(min_height){
 		//预定义返回顶部的html代码，它的css样式默认为不显示
 		var gotoTop_html = '<div id="gotoTop">返回顶部</div>';
@@ -346,6 +339,75 @@ $(function(){
 		});
 	};
 	gotoTop();
+	
+	//注册 发送短信验证码
+	$("#userReg_error").text("").hide();
+	var sendSmsHandler = function (captchaObj) {
+	   $("#btns").click(function (e) {
+	   	alert(12);
+	   	$("#userReg_error").text("").hide();
+	  		var phone = $("#userReg_phone").val();
+			if(isEmpty(phone)){
+				$("#userReg_error").text("请输入手机号码").show();
+				return false;
+			}  
+	  		 
+			if(!is_cellphoneNum(phone)){
+				$("#userReg_error").text("您输入手机号格式不正确").show();
+				return false;
+			}
+	  		
+		    var result = captchaObj.getValidate();
+ 	        if (!result) {
+	    	   $("#userReg_error").text("请拖动滑块完成验证").show();
+	        } else {
+	        	
+	        var action = basePath + "/sendSms";
+	       	var callback = function(data) {
+	       		$("#userReg_error").text("").hide();
+	       		if (data.code == "88") {
+	       			invokeSettime("#btns");
+	       		} else {
+	       			$("#userReg_error").text(data.message).show();
+	       		}
+	       	}
+	       
+	       	$.post(action, {
+	       		"mobile" : phone,
+	        	"geetest_challenge": result.geetest_challenge,
+	            "geetest_validate": result.geetest_validate,
+	            "geetest_seccode": result.geetest_seccode
+	       	}, callback);
+	       }
+	       e.preventDefault();
+	   });
+	   // 将验证码加到id为captcha的元素里，同时会有三个input的值用于表单提交
+	   captchaObj.appendTo("#captcha1");
+	   captchaObj.onReady(function () {
+	       $("#wait1").hide();
+	   });
+	};
+
+	$.ajax({
+	   url: "/startCaptcha?t=" + (new Date()).getTime(), // 加随机数防止缓存
+	   type: "get",
+	   dataType: "json",
+	   success: function (data) {
+ 	       // 调用 initGeetest 初始化参数
+	       // 参数1：配置参数
+	       // 参数2：回调，回调的第一个参数验证码对象，之后可以使用它调用相应的接口
+	       initGeetest({
+	           gt: data.gt,
+	           challenge: data.challenge,
+	           new_captcha: data.new_captcha, // 用于宕机时表示是新验证码的宕机
+	           offline: !data.success, // 表示用户后台检测极验服务器是否宕机，一般不需要关注
+	           product: "float", // 产品形式，包括：float，popup
+	           width: "100%"
+	           // 更多配置参数请参见：http://www.geetest.com/install/sections/idx-client-sdk.html#config
+	           }, sendSmsHandler);
+	       }
+	});
+	
  })
 
 
@@ -443,3 +505,5 @@ function isEmpty(val) {
 	return false;
 }
 
+ 
+ 

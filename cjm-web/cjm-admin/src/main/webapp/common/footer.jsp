@@ -18,7 +18,7 @@
         <p class="dpi">备案号：(粤ICP备15009341号-1)</p>
     </div>
 </div>
-</div>
 <!--通用弹框开始-->
 <%@include file="/common/commonpopup.jsp" %>
 <!--通用弹框结束-->
+<div id="fanhui" style="display: none;"></div>
