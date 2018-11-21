@@ -38,6 +38,7 @@ import com.jxkj.cjm.model.UserAccount;
 import com.jxkj.cjm.model.UserSafety;
 import com.jxkj.cjm.model.vo.UserLoginVo;
 import com.jxkj.cjm.model.vo.UserRegVo;
+import com.jxkj.cjm.service.SmsRecordService;
 import com.jxkj.cjm.service.UserService;
 
 
@@ -61,6 +62,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements Use
 	
 	@Resource
 	private CjmJwtTokenComponent cjmJwtTokenComponent;
+	
+	@Resource
+	private SmsRecordService smsRecordService;
 
  	/**
 	 * 
@@ -646,10 +650,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements Use
 				processBack.setMessage("该手机号已注册");
 				return processBack;
 			}
-
-			//String code = String.valueOf(StringUtil.getN(6));
+			String code = String.valueOf(StringUtil.getN(6));
 			//System.out.println("code："+code);
-			String code = "111111";
+			ProcessBack back = smsRecordService.sendSSm(mobile, code);
+			if(back.getCode().equals(ProcessBack.FAIL_CODE)){//短信发送失败
+				return back;
+			}
+			//String code = "111111";
 			//缓存手机号,短信验证码
 			request.getSession().setAttribute(Session_Constat.USER_SSM_CODE, code);
 			request.getSession().setAttribute(Session_Constat.USER_MOBILE, mobile);

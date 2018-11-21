@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <script type="text/javascript" src="${basePath}/static/js/geettest/gt.js"></script> 
 <script type="text/javascript">
 
@@ -72,15 +73,21 @@ function searchSubmit(obj) {
                 </div>
             </div>
             <div class="logo_box">
-
-               <span class="login"> 登录 &nbsp;</span>
-                <span class="cjm_register"> 注册 </span>
-
-                   <!--<a href="javascript:void(0)" class="head_img">
-                        <img src="./static/images/logo.png">
-                   </a>
-                   <span class="logout"> 退出 </span>-->
-            </div>
+ 				   <c:choose>
+				   		<c:when test="${not empty user}">
+				   			<a href="javascript:void(0)" class="head_img">
+		                        <img src="./static/images/logo.png">
+		                   </a>
+		                   <a href="${basePath}/logout">
+ 		                  	 <span class="logout">退出 </span>
+ 		                   </a>
+				   		</c:when>
+				   		<c:otherwise>
+				   			    <span class="login"> 登录 &nbsp;</span>
+                				<span class="cjm_register"> 注册 </span>
+				   		</c:otherwise>
+				   </c:choose>
+             </div>
          </div>
     </div>
     <!--登录注册弹窗-->
@@ -137,7 +144,7 @@ function searchSubmit(obj) {
 	       </div>
             <ul class="zhucexs">
                 <li>
-                    <input name="" class="yhuname" type="text" placeholder="请输入手机号" >
+                    <input name="" class="yhuname" type="text" id="userReg_phone" placeholder="请输入手机号" >
                 </li>
                  <li>
 		  	         <div id="captcha1">
@@ -146,19 +153,19 @@ function searchSubmit(obj) {
 			        </div>
 		         </li>
                 <li>
-                    <input name="" class="yhuname" type="text" placeholder="请输入手机号" >
+                    <input name="" class="yhuname" type="text" id="userReg_code" placeholder="请输入短信验证码" >
                     <button class="fszyc" id="btns">发送验证码</button>
                 </li>
                 <li>
-                    <input name="" type="password" class="input_text_password hder mima_dd " placeholder="输入密码(数字，字母皆可，最低6位)" >
-                    <input name="" type="text" class="input_text_password hder mima_wz" style="display:none;" placeholder="输入密码(数字，字母皆可，最低6位)" >
-                    <a class="eyes_box " data-show="1" href="javascript:void(0);">
+                    <input name="" type="password" id="userReg_password" class="input_text_password hder mima_dd " placeholder="输入密码(数字，字母皆可，最低6位)" >
+                    <input name="" type="text" id="userReg_password_text"  class="input_text_password hder mima_wz" style="display:none;" placeholder="输入密码(数字，字母皆可，最低6位)" >
+                    <a class="eyes_box" id="eyes_box_reg" data-show="1" href="javascript:void(0);">
                         <i class="bukan"><img src="./static/images/bukanmima.png"/></i>
                         <i class="kan"><img src="./static/images/kanmimma.png"/></i>
                     </a>
                 </li>
                 <li>
-                    <input type="text" class="bashiss" name=""  placeholder="输入用户名"/>
+                    <input type="text" class="bashiss" name="" id="userReg_username" placeholder="输入用户名"/>
                     <p>*用户名注册后不可修改，汉字，字母数字皆可，5-10位</p>
                 </li>
                 <li class="zcmim">
