@@ -134,6 +134,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements Use
  				processBack.setMessage("未找到该用户");
 				return processBack;
      		}
+     		
+     		if(userSafety.getIsadmin() == null || userSafety.getIsadmin() == 0){
+				processBack.setCode(ProcessBack.FAIL_CODE);
+ 				processBack.setMessage("您不是管理员");
+				return processBack;
+     		}
 
   			String lastloginip = IPUtil.getIpAdd(request);
   			Long lastlogintime = System.currentTimeMillis();
@@ -424,11 +430,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements Use
    		   //缓存用户基本信息，安全信息
    			request.getSession().setAttribute(Session_Constat.USER, user);
  			request.getSession().setAttribute(Session_Constat.USERCENTER, userSafety);
- 			//Map<String,String> ha = new HashMap<>();
-			//ha.put("token",token);
- 			//processBack.setData(ha);//登录token
+ 			String returnUrl = (String) request.getSession().getAttribute(Session_Constat.URLREDIRCT);
+ 			Map<String,String> ha = new HashMap<>();
+			ha.put("returnUrl",returnUrl);
 			processBack.setCode(ProcessBack.SUCCESS_CODE);
 			processBack.setMessage("登录成功");
+			processBack.setData(ha);
 			return processBack;
  		}catch(Exception e){
 			e.printStackTrace();

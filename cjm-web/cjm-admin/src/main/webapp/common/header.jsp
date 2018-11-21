@@ -1,8 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="/WEB-INF/tld/cjm.tld" prefix="cjm"%>
+<cjm:getNavigation navigationVar="navigationVar" pageSize="7"/>
 <script type="text/javascript" src="${basePath}/static/js/geettest/gt.js"></script> 
 <script type="text/javascript">
-
+var cjmUserLonged = false;
+if(${not empty user}){
+	cjmUserLonged = true;
+}
 //按回车登录
 $(function () {
     $(document).keydown(function (e) {
@@ -17,8 +22,8 @@ $(function () {
       	 //登录
       	var username = $("#user_username").val();
        	var password = $("#user_password").val();
-       	if(!isEmpty(username) && !isEmpty(password) && !wdbUserLonged){
-	        	 $("#userLogin").click();
+       	if(!isEmpty(username) && !isEmpty(password) && !cjmUserLonged){
+	         $("#userLogin").click();
       	 }
        }
    });
@@ -46,24 +51,14 @@ function searchSubmit(obj) {
             </div>
             <ul>
                 <li>
-                    <a href="#">首页</a>
+                    <a href="${basePath}">首页</a>
                 </li>
-                <li>
-                    <a href="javascript:void(0)">Java</a>
-                </li>
-                <li>
-                    <a href="javascript:void(0)">Golang</a>
-                </li>
-                <li>
-                    <a href="javascript:void(0)">前端</a>
-                </li>
-                <li>
-                    <a href="javascript:void(0)">关于我</a>
-                </li>
-                <li>
-                    <a href="javascript:void(0)">其他</a>
-                </li>
-            </ul>
+                 <c:forEach items="${navigationVar }" var="navigationVar"> 
+ 	                <li>
+	                    <a href="${basePath}/articlelist-${navigationVar.id}-1.html" target="_blank">${navigationVar.name }</a>
+	                </li>
+                </c:forEach>
+             </ul>
         </div>
         <div class="cjm_nav_right">
             <div class="search_box">

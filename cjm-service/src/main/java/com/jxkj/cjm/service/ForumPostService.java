@@ -1,8 +1,7 @@
 package com.jxkj.cjm.service;
 
-import com.jxkj.cjm.common.response.ProcessBack;
-import com.jxkj.cjm.model.ForumPost;
 import com.baomidou.mybatisplus.service.IService;
+import com.jxkj.cjm.model.ForumPost;
 import com.jxkj.cjm.model.vo.ForumPostVo;
 
 public interface ForumPostService extends IService<ForumPost>{

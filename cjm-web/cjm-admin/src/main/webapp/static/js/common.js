@@ -20,7 +20,9 @@ $(function(){
 					// 关闭弹框
 					$(".zhezhao").fadeOut(300);
 					var referrerVl = document.referrer;
- 					if(referrerVl.length > 0){
+					if(!isEmpty(data.data.returnUrl)){
+						window.location.href = data.data.returnUrl;
+					}else if(referrerVl.length > 0){
 						window.location.href = referrerVl;
 					}else{
 						window.location.href = basePath + "/";
