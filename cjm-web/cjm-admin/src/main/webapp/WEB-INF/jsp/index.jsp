@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@include file="../../common/taglib.jsp" %>
+<%@ taglib uri="/WEB-INF/tld/cjm.tld" prefix="cjm"%>
+<cjm:getHotArticle hotArticleVar="hotVoLists" />
 <html>
 <head>
     <meta charset="utf-8">
@@ -24,32 +27,29 @@
                     height: 360
                 });
             });
-
-            $(".tviewClick").on("click",function(){
-                var opid = $(this).data("opid");
-                var antion = basePath+"/viewCountAdd";
-                $.get(antion,{"tid":opid},function(data){
-                });
-            })
-        })
+            
+        	var logout =  $("#logout").data("logout");
+       		if(logout == "logout"){
+       			$(".zhezhao").fadeIn(300);
+       		}
+       		
+         })
 
         function queryAllPerson(Num, pageSize) {
             $("#indexPageNum").val(Num);
             $("#indexPageSize").val(pageSize);
             $("#indexSubmit").submit();
         }
-
-
-    </script>
+     </script>
 </head>
 <body>
-
+  <input type="hidden" id="logout"  data-logout="${logout}"/>
   <form id="indexSubmit" action="${basePath}" method="post">
         <input name="pageNum" id="indexPageNum" style="display: none"/>
         <input name="pageSize" id="indexPageSize" style="display: none"/>
   </form>
 
- <%@include file="/common/header.jsp" %>
+<%@include file="/common/header.jsp" %>
 <!--内容开始-->
 <div id="content">
     <!--轮播图盒子 开始-->
@@ -58,27 +58,37 @@
             <div carousel-item>
                 <div class="img_box">
                     <a href="#">
-                        <img src="./static/images/1.jpg">
+                        <img src="./static/images/nav1.png">
                      </a>
                 </div>
                 <div class="img_box">
                     <a href="#">
-                        <img src="./static/images/2.jpg">
+                        <img src="./static/images/nav7.png">
                      </a>
                 </div>
                 <div class="img_box">
                     <a href="#">
-                        <img src="./static/images/3.jpg">
+                        <img src="./static/images/nav2.png">
                      </a>
                 </div>
                 <div class="img_box">
                     <a href="#">
-                        <img src="./static/images/4.jpg">
+                        <img src="./static/images/nav6.png">
                      </a>
                 </div>
                 <div class="img_box">
                     <a href="#">
-                        <img src="./static/images/5.jpg">
+                        <img src="./static/images/nav3.png">
+                     </a>
+                </div>
+                <div class="img_box">
+                    <a href="#">
+                        <img src="./static/images/nav7.png">
+                     </a>
+                </div>
+                <div class="img_box">
+                    <a href="#">
+                        <img src="./static/images/nav5.png">
                         <!-- <span class="title">表藤太拖拖拖拖5</span> -->
                     </a>
                 </div>
@@ -148,12 +158,12 @@
 	                        <ul>
 	                            <c:forEach items="${item.listtags}" var="tag">
                                     <li>
-                                        <a href="#">${tag.name}</a>
+                                        <a href="javascript:void(0)">${tag.name}</a>
                                     </li>
                                 </c:forEach>
  	                        </ul>
 	                        <div class="forum">
-	                           <a href="javascript:void(0)" target="_blank">
+	                           <a href="${basePath}/articlelist-${item.fid}-1.html" target="_blank">
                                         ${item.fname}
                                 </a>
 	                        </div>

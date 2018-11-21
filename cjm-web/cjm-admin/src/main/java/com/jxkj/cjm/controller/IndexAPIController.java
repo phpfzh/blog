@@ -25,7 +25,7 @@ import java.util.Map;
 * www.chenjiaming.com
  */
 @Controller
-public class IndexController {
+public class IndexAPIController {
 	
 	@Resource
 	UserService userService;

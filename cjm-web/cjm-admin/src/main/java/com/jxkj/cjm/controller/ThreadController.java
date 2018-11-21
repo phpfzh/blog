@@ -34,12 +34,10 @@ public class ThreadController extends BaseController {
 
     @RequestMapping("list")
     public String list(Model model, SearchParamsVo searchParamsVo){
-    	System.out.println(JSON.toJSONString(searchParamsVo));
-        if(StringUtil.isNotEmpty(searchParamsVo.getSubject())){
+         if(searchParamsVo.getFid() != null && searchParamsVo.getFid() > 0){
             System.out.println(JSON.toJSONString(searchParamsVo));
             //查询主题信息
             ForumThreadVo forumThreadvo = new ForumThreadVo();
-            forumThreadvo.setSubject(searchParamsVo.getSubject());
             forumThreadvo.setStatus(0);
             forumThreadvo.setFid(searchParamsVo.getFid());
             ProcessBack processBack = forumThreadService.getForumThreadsByWarpper(forumThreadvo, searchParamsVo.getPageNumThread(),

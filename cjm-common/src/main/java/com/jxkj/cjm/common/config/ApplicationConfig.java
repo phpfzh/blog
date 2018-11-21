@@ -3,6 +3,7 @@ package com.jxkj.cjm.common.config;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import com.jxkj.cjm.common.interceptor.UserApiInterceptor;
+import com.jxkj.cjm.common.interceptor.UserPCInterceptor;
 
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -44,6 +45,12 @@ public class ApplicationConfig extends WebMvcConfigurationSupport {
 		//特别注意：拦截器是默认是不被spring context控制的
 		return new UserApiInterceptor();
 	}
+	
+	@Bean
+	public UserPCInterceptor userPCInterceptor(){
+		//特别注意：拦截器是默认是不被spring context控制的
+		return new UserPCInterceptor();
+	}
    
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
@@ -57,7 +64,10 @@ public class ApplicationConfig extends WebMvcConfigurationSupport {
 	    		.excludePathPatterns("/api/generateUserName")
  	    		.excludePathPatterns("/api/refreshToken")
 	    		.excludePathPatterns("/api/forumThreadApi/**");
-  	}
+	    
+	    registry.addInterceptor(userPCInterceptor())
+				.addPathPatterns("/user/**");
+   	}
 
 	@Bean
     public FilterRegistrationBean urlRewrite(){

@@ -1,13 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="/WEB-INF/tld/cjm.tld" prefix="cjm"%>
+<cjm:getFooter friendLinksVar="friendLinksVar" />
 <div id="footer">
     <div class="footer">
         <div class="main_box">
             <div class="friendlink_box">
                 <div class="yqilj">友情连接：</div>
                 <div class="yright">
-                    <div><a href="https://github.com" target="_blank">github</a></div>
-                    <div><a href="https://www.csdn.net" target="_blank">csdn</a></div>
-                  </div>
+                	<c:forEach items="${friendLinksVar }" var="friendLinksVar">
+ 	                    <div><a href="${friendLinksVar.link }" target="_blank">${friendLinksVar.name}</a></div>
+                	</c:forEach>
+                </div>
             </div>
          </div>
         <div class="common_box">

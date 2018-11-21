@@ -3,6 +3,10 @@ package com.jxkj.cjm.common.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.jxkj.cjm.common.constat.Session_Constat;
+import com.jxkj.cjm.model.User;
+import com.jxkj.cjm.model.UserSafety;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -75,5 +79,23 @@ public class BaseController<Entity>{
 			pagehelper.setNavigateLastPage(lastPageNum);
  			return pagehelper;
 		}
+		
+		protected User getUserByPC(){
+			HttpSession session =  request.getSession();
+			if(session != null){
+ 				User user = (User) session.getAttribute(Session_Constat.USER);
+ 				return user;
+			}
+			return null;
+	    }
+		
+		protected UserSafety getUserSafetyByPC(){
+			HttpSession session =  request.getSession();
+			if(session != null){
+ 				UserSafety user = (UserSafety) session.getAttribute(Session_Constat.USERCENTER);
+ 				return user;
+			}
+			return null;
+	    }
 	 
  }

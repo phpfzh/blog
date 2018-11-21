@@ -4,10 +4,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>网贷巴士-最开放自由的P2P网贷交流门户 -  网贷巴士</title>
+<title>陈嘉明个人博客-分享web前端和Java技术的个人博客网站</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="keywords" content="p2p网贷,网贷资讯,互联网金融,互联网理财">
-<meta name="description" content="网贷巴士努力为投资人提供最新最有价值最客观的p2p网贷资讯 ">
+<meta name="keywords" content="陈嘉明,陈嘉明个人博客,个人博客,个人博客网站">
+<meta name="description" content="陈嘉明个人博客，分享web前端技术和Java技术的个人博客网站">
 <link rel="stylesheet" type="text/css" href="${basePath}/static/css/reset2.css" />
 <link rel="stylesheet" href="${basePath}/static/css/swiper-3.3.1.min.css">
 <link rel="stylesheet" type="text/css" href="${basePath}/static/css/first_week2.css"/>
@@ -38,9 +38,9 @@
 			if(history.length > (BROWSER.ie ? 0 : 1)) {
 				document.write('<p class="alert_btnleft"><a href="javascript:history.back()">[ 点击这里返回上一页 ]</a></p>');
 			} else {
-				document.write('<p class="alert_btnleft"><a href="/index">[ 网贷巴士-P2P网贷 首页 ]</a></p>');
+				document.write('<p class="alert_btnleft"><a href="/">[首页 ]</a></p>');
 			}
-			</script><p class="alert_btnleft"><a href="/index">[ 点击这里返回首页]</a></p>
+			</script><p class="alert_btnleft"><a href="/">[ 点击这里返回首页]</a></p>
 		</div>
 		<!--公共底部开始-->
 		 <%@include file="../../../common/footer.jsp"%>
