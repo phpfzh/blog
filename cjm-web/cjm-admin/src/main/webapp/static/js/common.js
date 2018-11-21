@@ -3,11 +3,13 @@ $(function(){
 	$("#userLogin").click(function() {
 		var UserLoginForwar = $("#UserLoginForwar").val();
 		var username = $("#user_username").val();
- 		var password = $("#user_password").val();
-		var showData = $("#userLogin_eyes_box").data("show");
-		if (showData == 2) {
+ 		var password = "";
+		var showData = $("#userLogin_eyes_box").attr("data-show");
+ 		if (showData == 2) {
 			// 显式密码
 			password = $("#user_password_text").val();
+		}else{
+			password = $("#user_password").val();
 		}
 		var action = basePath + "/login";
 		$("#userLogin").text("登录中...");
@@ -34,33 +36,27 @@ $(function(){
 			"password" : password
 		}, callback);
 	});
-
-	// 注册 发送短信验证码
-	$("#btns").click(function() {
-		$("#userReg_error").text("").hide();
-		var phone = $("#userReg_phone").val();
-		var action = basePath + "/sendSms";
-		var callback = function(data) {
-			console.log(data);
-			$("#userReg_error").text("").hide();
-			if (data.code == "88") {
-				invokeSettime("#btns");
-			} else {
-				$("#userReg_error").text(data.message).show();
- 			}
-		}
-		$.post(action, {
-			"mobile" : phone
-		}, callback);
-	});
-	 
+ 
 	// 注册
 	$("#userReg_submit").click(function() {
 		$("#userReg_error").text("").hide();
  		var phone = $("#userReg_phone").val();
 		var code = $("#userReg_code").val();
-		var password = $("#userReg_password").val();
+		var password = "";
+		var showData = $("#eyes_box_reg").attr("data-show");
+ 		if (showData == 2) {
+			// 显式密码
+			password = $("#userReg_password_text").val();
+		}else{
+			password = $("#userReg_password").val();
+		}
 		var username = $("#userReg_username").val();
+		var data = {};
+		data.username = username;
+		data.mobile = phone;
+		data.password = password;
+		data.code = code;
+		alert(JSON.stringify(data));
 		if(isEmpty(phone)){
 			$("#userReg_error").text("手机号不能为空").show();
 			$("#userReg_phone").focus();
@@ -119,12 +115,7 @@ $(function(){
 
 			}
 		}
-		$.post(action, {
-			"username" : username,
-			"mobile" : phone,
-			"password" : password,
-			"code" : code
-		}, callback);
+		$.post(action, data, callback);
 	});
 	
 	// 忘记密码 发送短信验证码
@@ -174,43 +165,21 @@ $(function(){
 			"code" : code
 		}, callback);
 	});
-
-    var mySwiper = new Swiper('.son1 .swiper-container',{ //轮播图
-        spaceBetween :0,
-        loadPrevNext: true,
-        autoplay :5000,
-        pagination: '.son1 .swiper-pagination',
-        loop:true,
-        speed:1000,
-        autoplayDisableOnInteraction : false,
-        prevButton:'.son1 .swiper-button-prev',
-        nextButton:'.son1 .swiper-button-next',
-    });
-
-    var mySwiper = new Swiper('.son2 .swiper-container',{ //多列切换
-        spaceBetween :0,
-        loadPrevNext: true,
-        autoplay :20000,
-        loop:true,
-        pagination: '.son2 .swiper-pagination',
-        speed:1000,
-        autoplayDisableOnInteraction : false,
-        prevButton:'.yiqer .swiper-button-prev',
-        nextButton:'.yiqer .swiper-button-next',
-        uniqueNavElements :false,
-    });
+  
     //查看密码
-    $(".eyes_box").click(function(){ if($(this).attr("data-show")==1){
-        //明文
-        $(this).attr("data-show","2");
-        $(this).children(".kan").css("display","block");
-        $(this).children(".bukan").css("display","none");
-        $(this).parent("li").children(".mima_dd").hide();
-        $(this).parent("li").children(".mima_wz").show();
-        $(this).parent("li").children(".mima_wz").val($(this).parent("li").children(".mima_dd").val());
-        return;
-    }
-        if($(this).attr("data-show")==2){
+    $(".eyes_box").click(function(){ 
+    	var show = $(this).attr("data-show");
+     	if(show == 1){
+	        //明文
+	        $(this).attr("data-show","2");
+	        $(this).children(".kan").css("display","block");
+	        $(this).children(".bukan").css("display","none");
+	        $(this).parent("li").children(".mima_dd").hide();
+	        $(this).parent("li").children(".mima_wz").show();
+	        $(this).parent("li").children(".mima_wz").val($(this).parent("li").children(".mima_dd").val());
+	        return;
+    	}
+        if(show == 2){
             //密文
             $(this).attr("data-show","1");
             $(this).children(".kan").css("display","none");
@@ -344,8 +313,7 @@ $(function(){
 	$("#userReg_error").text("").hide();
 	var sendSmsHandler = function (captchaObj) {
 	   $("#btns").click(function (e) {
-	   	alert(12);
-	   	$("#userReg_error").text("").hide();
+ 	   	$("#userReg_error").text("").hide();
 	  		var phone = $("#userReg_phone").val();
 			if(isEmpty(phone)){
 				$("#userReg_error").text("请输入手机号码").show();
@@ -364,7 +332,7 @@ $(function(){
 	        	
 	        var action = basePath + "/sendSms";
 	       	var callback = function(data) {
-	       		$("#userReg_error").text("").hide();
+ 	       		$("#userReg_error").text("").hide();
 	       		if (data.code == "88") {
 	       			invokeSettime("#btns");
 	       		} else {
@@ -393,7 +361,7 @@ $(function(){
 	   type: "get",
 	   dataType: "json",
 	   success: function (data) {
- 	       // 调用 initGeetest 初始化参数
+  	       // 调用 initGeetest 初始化参数
 	       // 参数1：配置参数
 	       // 参数2：回调，回调的第一个参数验证码对象，之后可以使用它调用相应的接口
 	       initGeetest({

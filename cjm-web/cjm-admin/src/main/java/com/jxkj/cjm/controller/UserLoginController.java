@@ -6,9 +6,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.jxkj.cjm.common.constat.Session_Constat;
 import com.jxkj.cjm.common.controller.BaseController;
 import com.jxkj.cjm.common.response.ProcessBack;
 import com.jxkj.cjm.config.geetest.sdk.java.config.GeetVerifyUtil;
+import com.jxkj.cjm.model.User;
+import com.jxkj.cjm.model.UserSafety;
 import com.jxkj.cjm.model.vo.UserLoginVo;
 import com.jxkj.cjm.model.vo.UserRegVo;
 import com.jxkj.cjm.service.UserService;
@@ -67,4 +70,16 @@ public class UserLoginController extends BaseController{
 		ProcessBack back = userService.sendSSMByRegByPC(request, mobile);
 		return back;
 	}
+	
+	/**
+	 * 
+	 * Title: logout 
+	 * TODO:(退出) 
+	 * @return
+	 */
+ 	@RequestMapping("/logout")
+	public String logout() {
+ 		request.getSession().invalidate();
+		return "redirect:/";
+ 	}
 }
