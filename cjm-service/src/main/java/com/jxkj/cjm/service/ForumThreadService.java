@@ -124,4 +124,11 @@ public interface ForumThreadService extends IService<ForumThread>{
 	 * @return
 	 */
 	public ProcessBack getSingleForumThreadByTid(Long tid, Long baseid,HttpServletRequest request);
+
+	/**
+	 * 更新主题回复数
+	 * @param tid
+	 * @return
+	 */
+ 	public ProcessBack updateForumThreadReplies(Long tid); 
 }

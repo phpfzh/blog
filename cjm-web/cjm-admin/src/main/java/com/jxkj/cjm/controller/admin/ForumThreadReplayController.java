@@ -308,8 +308,10 @@ public class ForumThreadReplayController extends BaseController {
         try {
             String baseIdStr = cjmJwtTokenComponent.getUserBaseId(request);
             String userip = IPUtil.getIpAdd(request);
+            forumThreadReplyVo.setUserip(userip);
             Long baseId = Long.valueOf(baseIdStr);
-            ProcessBack processBack = forumThreadReplyService.insertForumThreadReplay(baseId, userip, forumThreadReplyVo);
+            User user = userService.selectById(baseId);
+            ProcessBack processBack = forumThreadReplyService.insertForumThreadReplay(user,forumThreadReplyVo);
             if (processBack.getCode().equals(ProcessBack.FAIL_CODE)) {
                 return AjaxResult.failAjaxResult(processBack.getMessage());
             }

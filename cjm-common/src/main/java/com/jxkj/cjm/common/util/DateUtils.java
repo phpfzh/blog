@@ -24,6 +24,9 @@ public class DateUtils {
     static final String ymdhmsPtn = "yyyyMMddHHmmss";
     static final String ymdhmsSPtn = "yyyyMMddHHmmssSSS";
     public static final SimpleFastDateFormat standard = SimpleFastDateFormat.getInstance("yyyy-MM-dd HH:mm:ss");
+    public static final SimpleFastDateFormat standardTwo = SimpleFastDateFormat.getInstance("yy-MM-dd HH:mm:ss");
+    public static final SimpleFastDateFormat standardThree = SimpleFastDateFormat.getInstance("yy-MM-dd HH:mm");
+     
     public static final SimpleFastDateFormat standardS = SimpleFastDateFormat.getInstance("yyyy-MM-dd HH:mm:ss.SSS");
     public static final SimpleFastDateFormat yy_MM_dd = SimpleFastDateFormat.getInstance("yyyy-MM-dd");
     public static final SimpleFastDateFormat HH_mm_ss = SimpleFastDateFormat.getInstance("HH:mm:ss");
@@ -176,6 +179,14 @@ public class DateUtils {
 
     public static String formatYYYYMMddHHmmssSSS(Date date) {
         return ymdhmsS.format(date);
+    }
+    
+    public static String formatYYMMddHHMMSS(long timeMillis) {
+        return standardTwo.format(timeMillis);
+    }
+    
+    public static String formatYYMMddHHMM(long timeMillis) {
+        return standardThree.format(timeMillis);
     }
 
     public static String getTime(long unixTimestamp, SimpleFastDateFormat formatter) {

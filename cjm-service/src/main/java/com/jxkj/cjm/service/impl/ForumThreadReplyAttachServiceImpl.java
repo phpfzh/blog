@@ -79,8 +79,10 @@ public class ForumThreadReplyAttachServiceImpl extends ServiceImpl<ForumThreadRe
                 }
                 throw new IllegalArgumentException("图片回复记录保存失败");
             }
-
-            processBack.setData(fastDFSUploadComponent.getResAccessUrl(thumburl));
+            Map<String,Object> map = new HashMap<>();
+            map.put("src", fastDFSUploadComponent.getResAccessUrl(thumburl));
+            map.put("attach", "[attach]" + forumThreadReplyAttach.getId() + "[/attach]");
+            processBack.setData(map);
             processBack.setCode(ProcessBack.SUCCESS_CODE);
             processBack.setMessage("图片上传成功");
             return processBack;

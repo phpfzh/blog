@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
 <%@include file="../../../common/taglib.jsp"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="/WEB-INF/tld/cjm.tld" prefix="cjm"%>
+<cjm:getHotArticle hotArticleVar="hotVoLists" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,6 +12,16 @@
 <meta name="description" content="陈嘉明个人博客，分享web前端技术和Java技术的个人博客网站">
 <link href="${basePath}/static/css/thread_detail.css" rel="stylesheet" type="text/css">
 <%@include file="../../../common/public.jsp"%>
+<style type="text/css">
+	 .allnotice_content img{
+            max-width: 100%;
+        }
+      #bus_allreply_box img{
+            max-width: 100%;
+        }
+</style>
+<script type="text/javascript" src="${basePath}/static/js/thread.js"></script>
+
 <script type="text/javascript">
 	$(function(){
 		var obj = $(".navs").find("ul li a");
@@ -17,13 +29,11 @@
 	})
 	
 	//分页
-	function getData(pageNum,pageSize){
-		var opid = $("#wdb_id").data("opid");
+	function queryAllPerson(pageNum,pageSize){
+		var opid = $("#pil_id").data("opid");
 		var action = basePath+"/article-"+opid+"-"+pageNum+"-1.html";
 		$("#cjmform").attr("action",action);
-  		$("#pageNum").val(pageNum);
- 		$("#pageSize").val(pageSize);
- 		$("#cjmform").submit();
+   		$("#cjmform").submit();
 	}
 	
  </script>
@@ -43,13 +53,11 @@
 <!-- 公共头部开始 -->
 <%@include file="../../../common/header.jsp"%>
 <!-- 公共头部结束 -->
-<input type="hidden" id="wdb_id" data-opid="${en.id }">
-<input type="hidden" id="wdb_subject" data-subject="${en.subject }">
-<input type="hidden" id="wdb_baseid" data-baseid="${en.baseid }">
+<input type="hidden" id="pil_id" data-opid="${en.id }">
+<input type="hidden" id="pil_subject" data-subject="${en.subject }">
+<input type="hidden" id="pil_baseid" data-baseid="${en.baseid }">
  
 <form id="cjmform" action="${basePath}/article-156321-1-1.html" method="post">
- <input type="hidden" name="pageNum" id="pageNum">
- <input type="hidden" name="pageSize" id="pageSize">
 </form>
  		
 <!--内容盒子开始-->
@@ -121,9 +129,152 @@
 						</div>
 						<div class="clear"></div>
 					</div>
-					
-				 
-				</div>
+					<!-- 回复Box start -->
+					<!-- 全部回复 -->
+					<div class="bus_allreply">
+						<div class="allreply">
+							全部回复（${total}）
+ 							<div class="clear"></div>
+						</div>
+						<div id="bus_allreply_box">
+							 <c:forEach items="${replyVos}" var="replyVos">
+								<!-- 回复模块 -->
+								<div class="leave_message" id="pil_leave_message_box_${replyVos.id}">
+	 								<div class="leave_top">
+										<div class="top_img fl">
+											<img src="${replyVos.headurl }"  width="60" height="60">
+										</div>
+										<div class="top_js fl">
+											<h3>${replyVos.username }</h3>
+											<span>${replyVos.signature }</span>
+											<p style="widht:100%;height:100%;word-wrap: break-word">
+												${replyVos.message }
+											</p>
+										</div>
+										<div class="clear"></div>
+									</div>
+	
+									<!-- 多次回复盒子 start -->
+									<div class="leave_reply" id="pil_child_leave_message_box_${replyVos.id}">
+										<c:forEach var="childs" items="${replyVos.childs}">
+                                         	<c:choose>
+                                            	<c:when test="${childs.first eq 2 }">
+													<div class="re_autoly" id="pil_leave_message_box_${childs.id}">
+														<h3>${childs.username}</h3>
+														<p style="widht:100%;height:100%;word-wrap: break-word">${childs.message}</p>
+														<div class="bot_all">
+															<div class="bot_reply fr reply3">
+																<span>回复TA</span>
+															</div>
+															<div class="bot_report fr">
+																<a href="">举报 &nbsp;|&nbsp; ${childs.datestr}&nbsp;&nbsp;</a>
+															</div>
+															<div class="clear"></div>
+														</div>
+														<div class="leave_new open3" style="display:none;">
+															<div class="bus_example">
+																<div class="textarea" contenteditable="true"></div>
+																<div class="re_all">
+																	<a href="javascript:void(0);" class="point" 
+																		onclick="repayManySubmit(this)" 
+																		data-parentopid="${childs.id}"
+																		data-parentboxopid="${replyVos.id}">发布</a>
+																	<a href="javascript:void(0);" class="smille"></a>
+																<div class="clear"></div>
+																</div>
+															</div>
+															<div class="faceone facemany w500"></div>
+														</div>
+													</div>
+													</c:when>
+                                            		<c:otherwise>
+														<!-- 多次回复 start -->
+													    <div class="re_autoly" id="pil_leave_message_box_${childs.id}">
+															<h3>${childs.username}<span>回复</span>${childs.tusername}</h3>
+															<p style="widht:100%;height:100%;word-wrap: break-word">${childs.message}
+															</p>
+															<div class="bot_all">
+																<div class="bot_reply reply4 fr">
+																	<span>回复TA</span>
+																</div>
+																<div class="bot_report fr">
+																	<a href="">举报 &nbsp;|&nbsp; ${childs.datestr}&nbsp;&nbsp;</a>
+																</div>
+																<div class="clear"></div>
+															</div>
+															 <div class="leave_new open4" style="display:none;">
+																<div class="bus_example">
+																	<div class="textarea" contenteditable="true"></div>
+																	<div class="re_all">
+																		<a href="javascript:void(0);" class="point"
+																			onclick="repayManySubmit(this)" 
+																			data-parentopid="${childs.id}"
+																			data-parentboxopid="${replyVos.id}">发布</a>
+																		<a href="javascript:void(0);" class="smille"></a>
+																	<div class="clear"></div>
+																	</div>
+																</div>
+																<div class="faceone facemany w500"></div>
+															</div>
+													   </div>
+													   <!-- 多次回复 end -->
+                                            		</c:otherwise>
+                                        	</c:choose>
+                                     	</c:forEach>
+									</div>
+	 								<!-- 多次回复盒子 end -->
+									<div class="leave_bot">
+										<div class="bot_reply fl" id="reply1">
+											<!--<a href="#">-->
+											<span>回复</span>
+											<!--</a>-->
+										</div>
+										<div class="bot_report fl">
+											<a href="">举报 &nbsp;|&nbsp; ${replyVos.datestr}&nbsp;&nbsp;</a>
+										</div>
+										<div class="clear"></div>
+									</div>
+									<div class="leave_zudi pil_report_post_box" style="display:none;">
+										<div class="bus_example w500">
+											<div class="textarea" contenteditable="true"></div>
+											<a href="javascript:void(0);" class="point" 
+												data-parentopid="${replyVos.id}" onclick="repayTwoSubmit(this)">发布</a>
+											<a href="javascript:void(0);" class='smille'></a>
+										</div>
+										<div class="faceone w500"></div>
+									</div>
+	
+									<div class="clear"></div>
+								</div>
+								<!-- 回复模块 end -->
+							</c:forEach>
+ 						</div>
+					</div>
+ 				   <c:if test="${pagehelper.total > 10}">
+	                    <!-- 页码 -->
+	                    <div class="fenyeqi" style="margin-top: 15px;">
+	                        <ul class="fyeqi">
+	                            <%@include file="/common/pagehelper.jsp"%>
+	                        </ul>
+	                    </div>
+	                </c:if>
+					<!-- 参与讨论 -->
+ 
+					<div class="bus_discussions" id>
+						<h3>参与讨论</h3>
+						<!--<textarea name="content" class="tlk" placeholder="请登录后参与评论……"></textarea>-->
+						<div class="send w500">
+                        	<textarea name="" id="" cols="30" rows="5" placeholder="我也要说几句..."></textarea>
+							<a href="javascript:void(0);" class="btn" onclick="repayOneSubmit(this)" id="repayOneSubmit">发布</a>
+							<a href="javascript:void(0);" class='faces'></a>
+							<a href="javascript:void(0);" class='faces_img'></a>
+							<input class="upload" name="file" accept="image/*" 
+							type="file" style="display: none;" onchange="uploadimage(this)">
+						</div>
+						<div class="face w500"></div>
+ 					</div>
+					<!-- 回复Box end -->
+ 				</div>
 				<!-- 平台左内容  结束-->
 
 				<!-- 平台右内容 开始-->
@@ -177,42 +328,27 @@
 						<span class="mark"></span>
 						<div class="box">
 							<ul>
-								 <li>
-									 <a href="#" target="_blank" class="tviewClick"  >
-											 <span class="one">1</span>
-											 fdfgdg的梵蒂冈的股份的股份的股份给股份的股份
-									 </a>
-								 </li>
-								  <li>
-										 <a href="#" target="_blank" class="tviewClick"  >
- 													 <span class="two">2</span>
- 												 fdfgdg的梵蒂冈的股份的股份的股份给股份的股份
-										 </a>
-								 </li>
-								  <li>
-										 <a href="#" target="_blank" class="tviewClick"  >
- 													 <span class="three">3</span>
-												 fdfgdg的梵蒂冈的股份的股份的股份给股份的股份
-										 </a>
-								 </li>
-								  <li>
-										 <a href="#" target="_blank" class="tviewClick"  >
-													 <span>4</span>
-												 fdfgdg的梵蒂冈的股份的股份的股份给股份的股份
-										 </a>
-								 </li>
-								  <li>
-										 <a href="#" target="_blank" class="tviewClick"  >
-													 <span>5</span>
-												 fdfgdg的梵蒂冈的股份的股份的股份给股份的股份
-										 </a>
-								 </li>
-								  <li>
-										 <a href="#" target="_blank" class="tviewClick"  >
-													 <span>6</span>
-												 fdfgdg的梵蒂冈的股份的股份的股份给股份的股份
-										 </a>
-								 </li>
+								  <c:forEach var="hotVoLists" items="${hotVoLists}" varStatus="index">
+		                             <li> 
+		                                    <a href="${basePath}/article-${hotVoLists.id}-1-1.html" target="_blank">
+		                                       <c:choose>
+		                                           <c:when test="${index.index == 0}">
+		                                               <span class="one">${index.index+1}</span>
+		                                           </c:when>
+		                                           <c:when test="${index.index == 1}">
+		                                               <span class="two">${index.index+1}</span>
+		                                           </c:when>
+		                                           <c:when test="${index.index == 2}">
+		                                               <span class="three">${index.index+1}</span>
+		                                           </c:when>
+		                                           <c:otherwise>
+		                                               <span>${index.index+1}</span>
+		                                           </c:otherwise>
+		                                       </c:choose>
+		                                           ${hotVoLists.subject}
+		                                   </a>
+		                              </li>
+		                        </c:forEach>
  							 </ul>
 						</div>
 					</div>
