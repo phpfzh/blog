@@ -19,9 +19,10 @@ $(function(){
 				setTimeout(function() {
 					// 关闭弹框
 					$(".zhezhao").fadeOut(300);
+					var oldUrl = $("#UserLoginForwar").val();
 					var referrerVl = document.referrer;
-					if(!isEmpty(data.data.returnUrl)){
-						window.location.href = data.data.returnUrl;
+					if(!isEmpty(oldUrl)){
+						window.location.href = oldUrl;
 					}else if(referrerVl.length > 0){
 						window.location.href = referrerVl;
 					}else{
@@ -58,7 +59,6 @@ $(function(){
 		data.mobile = phone;
 		data.password = password;
 		data.code = code;
-		alert(JSON.stringify(data));
 		if(isEmpty(phone)){
 			$("#userReg_error").text("手机号不能为空").show();
 			$("#userReg_phone").focus();
@@ -244,7 +244,7 @@ $(function(){
         $(".zhezhao2").fadeOut(300)
     })
 
-//撸主申请验证码
+//验证码
     function invokeSettime(obj){
         var countdown=60;
         settime(obj);

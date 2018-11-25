@@ -1,28 +1,26 @@
 package com.jxkj.cjm.service.impl;
 
 
-import com.alibaba.fastjson.JSON;
-import com.jxkj.cjm.common.response.ProcessBack;
-import com.jxkj.cjm.common.util.AttachUtil;
-import com.jxkj.cjm.common.util.StringUtil;
-import com.jxkj.cjm.mapper.ForumForumMapper;
-import com.jxkj.cjm.mapper.UserMapper;
-import com.jxkj.cjm.model.ForumAttachment;
-import com.jxkj.cjm.model.ForumForum;
-import com.jxkj.cjm.model.User;
-import com.jxkj.cjm.model.vo.ForumPostVo;
-import com.jxkj.cjm.service.ForumAttachmentService;
-import com.jxkj.cjm.service.UserService;
+import java.util.List;
 
-import com.baomidou.mybatisplus.service.impl.ServiceImpl;
-import com.jxkj.cjm.model.ForumPost;
-import com.jxkj.cjm.service.ForumPostService;
-import com.jxkj.cjm.mapper.ForumPostMapper;
+import javax.annotation.Resource;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
-import java.util.List;
+import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.jxkj.cjm.common.util.AttachUtil;
+import com.jxkj.cjm.common.util.StringUtil;
+import com.jxkj.cjm.mapper.ForumForumMapper;
+import com.jxkj.cjm.mapper.ForumPostMapper;
+import com.jxkj.cjm.mapper.UserMapper;
+import com.jxkj.cjm.model.ForumAttachment;
+import com.jxkj.cjm.model.ForumForum;
+import com.jxkj.cjm.model.ForumPost;
+import com.jxkj.cjm.model.User;
+import com.jxkj.cjm.model.vo.ForumPostVo;
+import com.jxkj.cjm.service.ForumAttachmentService;
+import com.jxkj.cjm.service.ForumPostService;
 
 
 @Service

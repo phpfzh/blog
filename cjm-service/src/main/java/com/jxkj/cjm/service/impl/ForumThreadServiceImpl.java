@@ -3,7 +3,12 @@ package com.jxkj.cjm.service.impl;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Type;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -14,30 +19,55 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
-import com.baomidou.mybatisplus.mapper.Condition;
-import com.baomidou.mybatisplus.mapper.Wrapper;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
-import com.jxkj.cjm.common.controller.BaseController;
-import com.jxkj.cjm.common.response.AjaxResult;
-import com.jxkj.cjm.common.response.ProcessBack;
-import com.jxkj.cjm.common.util.*;
-import com.jxkj.cjm.mapper.*;
-import com.jxkj.cjm.model.*;
-import com.jxkj.cjm.model.vo.ForumPostVo;
-import com.jxkj.cjm.model.vo.ForumThreadTagVo;
-import com.jxkj.cjm.model.vo.ForumThreadVo;
-import com.jxkj.cjm.model.vo.GroupUpdate;
-import com.jxkj.cjm.service.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import com.alibaba.fastjson.JSON;
+import com.baomidou.mybatisplus.mapper.Condition;
+import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.jxkj.cjm.common.constat.ForumThreadOperation_Constat;
 import com.jxkj.cjm.common.response.Meta;
+import com.jxkj.cjm.common.response.ProcessBack;
+import com.jxkj.cjm.common.util.AttachUtil;
+import com.jxkj.cjm.common.util.DateUtils;
+import com.jxkj.cjm.common.util.IPUtil;
+import com.jxkj.cjm.common.util.StringUtil;
+import com.jxkj.cjm.common.util.TransferUtil;
+import com.jxkj.cjm.mapper.ForumForumMapper;
+import com.jxkj.cjm.mapper.ForumPostMapper;
+import com.jxkj.cjm.mapper.ForumThreadMapper;
+import com.jxkj.cjm.mapper.ForumThreadOperationMapper;
+import com.jxkj.cjm.mapper.ForumThreadReplyMapper;
+import com.jxkj.cjm.mapper.ForumThreadTagLinkMapper;
+import com.jxkj.cjm.mapper.ForumThreadTagMapper;
+import com.jxkj.cjm.mapper.ForumThreadTagUserMapper;
+import com.jxkj.cjm.mapper.ForumThreadViewRecordMapper;
+import com.jxkj.cjm.mapper.ForumThreadViewcountMapper;
+import com.jxkj.cjm.mapper.UserMapper;
+import com.jxkj.cjm.model.ForumForum;
+import com.jxkj.cjm.model.ForumPost;
+import com.jxkj.cjm.model.ForumThread;
+import com.jxkj.cjm.model.ForumThreadReply;
+import com.jxkj.cjm.model.ForumThreadTag;
+import com.jxkj.cjm.model.ForumThreadTagLink;
+import com.jxkj.cjm.model.ForumThreadTagUser;
+import com.jxkj.cjm.model.ForumThreadViewRecord;
+import com.jxkj.cjm.model.PreForumThreadOperation;
+import com.jxkj.cjm.model.User;
+import com.jxkj.cjm.model.vo.ForumPostVo;
+import com.jxkj.cjm.model.vo.ForumThreadTagVo;
+import com.jxkj.cjm.model.vo.ForumThreadVo;
+import com.jxkj.cjm.model.vo.GroupUpdate;
+import com.jxkj.cjm.service.ForumAttachmentService;
+import com.jxkj.cjm.service.ForumPostService;
+import com.jxkj.cjm.service.ForumThreadCoverimgService;
+import com.jxkj.cjm.service.ForumThreadService;
+import com.jxkj.cjm.service.ForumThreadTagService;
 
 
 @Service
@@ -69,6 +99,9 @@ public class ForumThreadServiceImpl extends ServiceImpl<ForumThreadMapper, Forum
 
     @Resource
     private ForumThreadTagLinkMapper forumThreadTagLinkMapper;//类型关联
+    
+    @Resource
+    private  ForumThreadReplyMapper forumThreadReplyMapper;
 
     @Resource
     private ForumThreadTagUserMapper forumThreadTagUserMapper;//用户tag 关联
@@ -878,7 +911,7 @@ public class ForumThreadServiceImpl extends ServiceImpl<ForumThreadMapper, Forum
         try{
 
             Integer num = 1;
-            Integer size = 2;//默认10条
+            Integer size = 20;//默认10条
             if (pageNum != null && !"".equals(pageNum)) {
                 num = Integer.parseInt(pageNum);
             }
@@ -996,6 +1029,7 @@ public class ForumThreadServiceImpl extends ServiceImpl<ForumThreadMapper, Forum
      * @param tid
      * @return
      */
+    @Override
     public ProcessBack getSingleForumThreadByTid(Long tid, Long baseid,HttpServletRequest request){
         ProcessBack processBack = new ProcessBack();
         try{
@@ -1080,6 +1114,41 @@ public class ForumThreadServiceImpl extends ServiceImpl<ForumThreadMapper, Forum
         processBack.setCode(ProcessBack.FAIL_CODE);
         return processBack;
     }
+    
+    /**
+	 * 更新主题回复数
+	 * @param tid
+	 * @return
+	 */
+	@Override
+	public ProcessBack updateForumThreadReplies(Long tid){
+		ProcessBack back = new ProcessBack();
+		try{
+ 			if(tid == null){
+ 				throw new IllegalArgumentException("tid 不能为空");
+ 			}
+ 			
+ 			Wrapper<ForumThreadReply> wrapper = Condition.create();
+ 			wrapper.eq("status", 0);// 显示状态  审核中-2  不合格 -1  已删除 -3  审核通过 0
+ 			wrapper.eq("replytype", 1);// 1帖子
+ 			wrapper.eq("tid", tid);//帖子id
+  			int count = forumThreadReplyMapper.selectCount(wrapper);
+ 			
+  			ForumThread thread = new ForumThread();
+  			thread.setId(tid);
+  			thread.setReplies(count);
+  			baseMapper.updateById(thread);
+  			
+			back.setCode(ProcessBack.SUCCESS_CODE);
+			back.setMessage("回复数更新成功");
+			return back;
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		back.setCode(ProcessBack.FAIL_CODE);
+		back.setMessage("回复数更新失败");
+		return back;
+	}
 
     //添加操作日志
     private int insertForumThreadOperation(Long tid, Integer status, String type, Long baseid, String userip) {

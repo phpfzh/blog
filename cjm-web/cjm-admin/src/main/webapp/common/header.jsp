@@ -39,13 +39,13 @@ function searchSubmit(obj) {
 <form id="SubmitSearchForm" method="post" action="${basePath}/search/list">
         <input name="subject" id = "SearchSubjectF" style="display: none"/>
 </form>
-
+<input type="text" id="UserLoginForwar" style="display: none;">
 <!--头部开始-->
 <div id="header">
     <div id="header_box">
         <div class="cjm_nav">
             <div class="img">
-                <a href="#">
+                <a href="${basePath}">
                     <img src="./static/images/logo.png">
                 </a>
             </div>

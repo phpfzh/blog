@@ -51,44 +51,7 @@ $(function () {
             $('.send .faces').removeClass('on');
             lanren.cur = 0;
         })
-         
-        //回复主题
-        $('.send a.btn').on('click', function () {
-        	if(!wdbUserLonged){
-          		//用户登录
-         		UserLoginObj.loginShow();
-        		return;
-        	}
-        	
-            var content = $('.send textarea').val();
-            if (!content) {
-                alert('发布内容不能为空');
-                $('.send textarea').focus();
-                 return false;
-            }
-            
-            var dataObj = {};
-            dataObj.cid = $("#wdb_tid").data("tid");
-            dataObj.message = content;
-            dataObj.typeid = 1;
-            var action = basePath+"/user/preReplay/save";
-            var callback = function(data){
-            	if(data == "logout"){
-              		//登录
-             		UserLoginObj.loginShow();
-            		return;
-            	}
-            	alert(data.meta.message);
-             	if(data.meta.code == "88"){
-            		$('.send textarea').val('');
-            		var toHtml = joinCommontHtml(data.data);
-            		$("#bus_allreply_box").prepend(toHtml);
-            		$('#wdb_leave_message_box_'+data.data.id)[0].scrollIntoView(true);
-            	}
-            }
-            $.post(action,dataObj,callback);
-         });
-  })
+})
  
 
 //首次表情包下拉
@@ -140,7 +103,7 @@ $(function () {
             }
             //显示回复框
              var $leavemessage = $(this).parent(".leave_bot").parent(".leave_message");
-             $($leavemessage).find(".leave_zudi").toggle();
+             $($leavemessage).find(".pil_report_post_box").toggle();
         });
         
         //控制表情框显示
@@ -169,47 +132,7 @@ $(function () {
             $($leavezudi).find('.bus_example .smille').removeClass('on');
             lanren.cur = 0;
         })
-        
-        //首次回复发布
-        $('.wdb_report_post_box .bus_example a.point').on('click', function () {
-        	if(!wdbUserLonged){
-          		//用户登录
-         		UserLoginObj.loginShow();
-        		return;
-        	}
-        	var $busexample = $(this).parents(".bus_example");
-        	//$($busexample).css({"color":"red","background":"red"})
-            var content = $($busexample).find('.textarea').text();
-            if (!content) {
-                alert('发布内容不能为空');
-                $($busexample).find('.textarea').focus();
-                return false;
-            }
-            var parentid = $($busexample).data("opid");
-            var dataObj = {};
-            dataObj.cid = $("#wdb_tid").data("tid");
-            dataObj.message = content;
-            dataObj.typeid = 1;
-            dataObj.parentid = parentid;
-            
-            var action = basePath+"/user/preReplay/save";
-            var callback = function(data){
-            	if(data == "logout"){
-            		//登录
-            		UserLoginObj.loginShow();
-            		return;
-            	}
-             	alert(data.meta.message);
-             	if(data.meta.code == "88"){
-             		$($busexample).find('.textarea').text('');
-            		var toHtml = joinReplyHtml(data.data);
-            		$("#wdb_leave_reply_box_"+parentid).prepend(toHtml);
-            		$('#wdb_re_autoly_box_'+data.data.id)[0].scrollIntoView(true);
-            	}
-            }
-            $.post(action,dataObj,callback);
-        });
-})
+ })
 
 //多次回复表情包下拉
 $(function () {
@@ -279,6 +202,135 @@ $(function () {
         });        
 })
 
+//回复主题
+function repayOneSubmit(obj){
+	if(!cjmUserLonged){
+  		//用户登录
+ 		UserLoginObj.loginShow();
+		return;
+	}
+	
+    var content = $('.send textarea').val();
+    if (!content) {
+    	failPopup('发布内容不能为空');
+        return false;
+    }
+    
+    var dataObj = {};
+    dataObj.tid = $("#pil_id").data("opid");
+    dataObj.message = content;
+    dataObj.replytype = 1;
+    var action = basePath+"/user/forumThreadReply/save";
+    var callback = function(data){
+     	if(data == "logout"){
+      		//登录
+     		UserLoginObj.loginShow();
+    		return;
+    	}
+    	console.log(JSON.stringify(data))
+      	if(data.code == "88"){
+     		successPopup("回复正在审核中...")
+    		$('.send textarea').val('');
+    		var toHtml = joinCommontHtml(data.data);
+    		$("#bus_allreply_box").prepend(toHtml);
+    		$('#pil_leave_message_box_'+data.data.id)[0].scrollIntoView(true);
+    	}else{
+    		failPopup(data.message);
+    	}
+    }
+    $.post(action,dataObj,callback);
+}
+
+//回复评论
+function repayTwoSubmit(obj){
+     if(!cjmUserLonged){
+  		//用户登录
+ 		UserLoginObj.loginShow();
+		return;
+	}
+     
+	var $busexample = $(obj).parents(".bus_example");
+	//$($busexample).css({"color":"red","background":"red"})
+    var content = $($busexample).find('.textarea').text();
+    if (!content) {
+    	failPopup('发布内容不能为空');
+        $($busexample).find('.textarea').focus();
+        return false;
+    }
+    var parentid = $(obj).data("parentopid");
+    var dataObj = {};
+    dataObj.tid = $("#pil_id").data("opid");
+    dataObj.message = content;
+    dataObj.replytype = 1;
+    dataObj.parentid = parentid;
+    
+    var action = basePath+"/user/forumThreadReply/save";
+    var callback = function(data){
+    	if(data == "logout"){
+    		//登录
+    		UserLoginObj.loginShow();
+    		return;
+    	}
+    	console.log(JSON.stringify(data))
+      	if(data.code == "88"){
+     		successPopup("回复正在审核中...");
+     		$($busexample).find('.textarea').text('');
+    		var toHtml = joinReplyHtml(data.data);
+    		$("#pil_child_leave_message_box_"+parentid).prepend(toHtml);
+    		$('#pil_leave_message_box_'+data.data.id)[0].scrollIntoView(true);
+    	}else{
+    		failPopup(data.message);
+    	}
+    }
+    $.post(action,dataObj,callback);
+}
+
+//多次回复
+function repayManySubmit(obj){
+     if(!cjmUserLonged){
+  		//用户登录
+ 		UserLoginObj.loginShow();
+		return;
+	}
+     
+	var $busexample = $(obj).parents(".bus_example");
+	//$($busexample).css({"color":"red","background":"red"})
+    var content = $($busexample).find('.textarea').text();
+    if (!content) {
+    	failPopup('发布内容不能为空');
+        $($busexample).find('.textarea').focus();
+        return false;
+    }
+    var parentid = $(obj).data("parentopid");
+    var parentboxopid = $(obj).data("parentboxopid");
+    var dataObj = {};
+    dataObj.tid = $("#pil_id").data("opid");
+    dataObj.message = content;
+    dataObj.replytype = 1;
+    dataObj.parentid = parentid;
+    
+    var action = basePath+"/user/forumThreadReply/save";
+    var callback = function(data){
+    	if(data == "logout"){
+    		//登录
+    		UserLoginObj.loginShow();
+    		return;
+    	}
+    	console.log(JSON.stringify(data))
+      	if(data.code == "88"){
+     		successPopup("回复正在审核中...");
+     		$($busexample).find('.textarea').text('');
+    		var toHtml = joinManyHtml(data.data,parentboxopid);
+    		$("#pil_child_leave_message_box_"+parentboxopid).prepend(toHtml);
+    		$('#pil_leave_message_box_'+data.data.id)[0].scrollIntoView(true);
+    	}else{
+    		failPopup(data.message);
+    	}
+    }
+    $.post(action,dataObj,callback);
+}
+
+
 //图片上传
 function uploadimage(fileThis){
 	var fileObj = $(fileThis)[0].files[0];
@@ -288,7 +340,7 @@ function uploadimage(fileThis){
  
 	var formFile = new FormData();
 	formFile.append("upfile", fileObj); //加入文件对象
-	var action = basePath+"/user/preReplay/uploadimage";
+	var action = basePath+"/user/forumThreadReply/uploadimage";
 		$.ajax({
         url: action,
         data: formFile,
@@ -302,19 +354,19 @@ function uploadimage(fileThis){
         		UserLoginObj.loginShow();
         		return;
         	}
-         	if(data.meta.code == "88"){
+        	console.log(JSON.stringify(data))
+         	if(data.code == "88"){
         		 var htmls = $('.send textarea').val();
-        		 var target = "<img src='"+data.data+"'>";
-                 $('.send textarea').val(htmls + target);
+                 $('.send textarea').val(htmls + data.data.attach);
         	}else{
-        		alert(data.meta.message);
+         		failPopup(data.message);
         	}
          }
     })
 }
 
-function joinManyHtml(valObj){
-	var html = "<div class='re_autoly' id='wdb_re_autoly_box_"+valObj.id+"'>"+
+function joinManyHtml(valObj,parentboxopid){
+	var html = "<div class='re_autoly' id='pil_leave_message_box_"+valObj.id+"'>"+
                "     <h3>"+valObj.username+"<span>回复</span>"+valObj.fusername+"</h3>"+
                "     <p style='widht:100%;height:100%;word-wrap: break-word'>"+valObj.message+""+
                "     </p>"+
@@ -327,11 +379,11 @@ function joinManyHtml(valObj){
                "         </div>"+
                "         <div class='clear'></div>"+
                "     </div>"+
-               "      <div class='leave_new open4 wdb_many_reply_box' style='display:none;'>"+
+               "      <div class='leave_new open4' style='display:none;'>"+
                "         <div class='bus_example'>"+
                "             <div class='textarea' contenteditable='true'></div>"+
                "             <div class='re_all'>"+
-               "                 <a href='javascript:void(0)' class='point'>发布</a>"+
+               "                 <a href='javascript:void(0)' class='point' onclick='repayManySubmit(this)'  data-parentopid='"+valObj.id+"' data-parentboxopid='"+parentboxopid+"'>发布</a>"+
                "                 <a href='javascript:void(0)' class='smille'></a>"+
                "             <div class='clear'></div>"+
                "             </div>"+
@@ -343,7 +395,7 @@ function joinManyHtml(valObj){
 }
 
 function joinReplyHtml(valObj){
-	var html = "<div class='re_autoly' id='wdb_re_autoly_box_"+valObj.id+"'>"+
+	var html = "<div class='re_autoly' id='pil_child_leave_message_box_"+valObj.id+"'>"+
                "     <h3>"+valObj.username+"</h3>"+
                "     <p style='widht:100%;height:100%;word-wrap: break-word'>"+valObj.message+"</p>"+
                "     <div class='bot_all'>"+
@@ -356,10 +408,10 @@ function joinReplyHtml(valObj){
                "         <div class='clear'></div>"+
                "     </div>"+
                "     <div class='leave_new open3' style='display:none;'>"+
-               "         <div class='bus_example' data-opid='"+valObj.id+"'>"+
+               "         <div class='bus_example'>"+
                "             <div class='textarea' contenteditable='true'></div>"+
                "             <div class='re_all'>"+
-               "                 <a href='javascript:void(0)' class='point'>发布</a>"+
+               "                 <a href='javascript:void(0)' class='point' data-parentopid='"+valObj.id+"' onclick='repayTwoSubmit(this)'>发布</a>"+
                "                 <a href='javascript:void(0)' class='smille'></a>"+
                "             <div class='clear'></div>"+
                "             </div>"+
@@ -372,11 +424,11 @@ function joinReplyHtml(valObj){
 
 
 function joinCommontHtml(valObj){
-	var toHtml =  "<div class='leave_message' id='wdb_leave_message_box_"+valObj.id+"'>"+
+	var toHtml =  "<div class='leave_message' id='pil_leave_message_box_"+valObj.id+"'>"+
 	"    <!-- 首次回复 开始 -->"+
 	"    <div class='leave_top'>"+
 	"		<div class='top_img fl'>"+
-	"		    <img src='"+valObj.uheadimg+"' width='60' height='60'>"+
+	"		    <img src='"+valObj.headurl+"' width='60' height='60'>"+
 	"		</div>"+
 	"		<div class='top_js fl'>"+
 	"		    <h3>"+valObj.username+"</h3>"+
@@ -398,9 +450,9 @@ function joinCommontHtml(valObj){
 	"	<div class='clear'></div>"+
 	"   </div>"+
 	"    <div class='leave_zudi' style='display:none;'>"+
-	"	<div class='bus_example w500' data-opid="+valObj.id+">"+
+	"	<div class='bus_example w500'>"+
 	"	    <div class='textarea' contenteditable='true'></div>"+
-	"	    <a href='javascript:void(0);' class='point'>发布</a>"+
+	"	    <a href='javascript:void(0);' class='point' onclick='repayTwoSubmit(this)' data-parentopid='"+valObj.id+"'>发布</a>"+
 	"	    <a href='javascript:void(0);' class='smille'></a>"+
 	"	</div>"+
 	"	<div class='faceone w500'>"+
@@ -424,3 +476,4 @@ function getObjectURL(file) {
     }
     return url;
 }
+

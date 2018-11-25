@@ -16,6 +16,7 @@ import java.util.regex.Pattern;
 * www.chenjiaming.com
  */
 public class AttachUtil {
+ 	
 	//获取[attach]4562[/attach] 4562值
 	public List<String>  getAttachAidByContent(String content){
  		if(isEmpty(content)){
@@ -88,6 +89,66 @@ public class AttachUtil {
  		}
  		return list;
 	}
+	
+	//获取<emt>33</emt> 33值
+	public List<String>  getemtByContent(String content){
+ 		if(isEmpty(content)){
+			throw new IllegalArgumentException("'content' 不能为空");
+		}
+		
+ 		List<String> attachs = new ArrayList<>();
+ 		//[emt]33[/emt][emt]33[/emt][emt]33[/emt][emt]33[/emt][emt]33[/emt]
+		Pattern p = Pattern.compile("(\\[emt](.*?)\\[/emt])");
+		Matcher m = p.matcher(content);
+		boolean fal = m.find();
+		if(fal){
+ 			while(fal){
+ 				Pattern p2 = Pattern.compile("(\\d+)");
+				Matcher m2 = p2.matcher(m.group());
+				if(m2.find()){
+					attachs.add(m2.group());
+				}
+				fal = m.find();
+			}
+		}
+ 		return attachs;
+	}
+		
+	//获取img src的表情值
+	public  Map<String,String> getImgEmtList(String content) {
+		Map<String,String> list = new HashMap<>();
+		// 目前img标签标示有3种表达式
+		// <img alt="" src="1.jpg"/> <img alt="" src="1.jpg"></img> <img alt=""
+		// src="1.jpg">
+		// 开始匹配content中的<img />标签
+		Pattern p_img = Pattern.compile("<(img|IMG)(.*?)(/>|></img>|>)");
+		Matcher m_img = p_img.matcher(content);
+		boolean result_img = m_img.find();
+		if (result_img) {
+			while (result_img) {
+				// 获取到匹配的<img />标签中的内容
+				String str_img = m_img.group(2);
+				// 开始匹配<img />标签中的src
+				Pattern p_src = Pattern.compile("(src|SRC)=(\"|\')(.*?)(\"|\')");
+				Matcher m_src = p_src.matcher(str_img);
+				if (m_src.find()) {
+					String str_src = m_src.group(3);
+ 					if(StringUtil.isNotEmpty(str_src) 
+  							&& str_src.contains("static/images/face/")){
+  						Pattern p2 = Pattern.compile("(\\d+)");
+ 						Matcher m2 = p2.matcher(str_src);
+ 						if(m2.find()){
+   							list.put(m_img.group(), m2.group());
+ 						}
+					} 
+				}
+				// 匹配content中是否存在下一个<img />标签，有则继续以上步骤匹配<img />标签中的src
+				result_img = m_img.find();
+			}
+		}
+		return list;
+	}
+		
 	
 	/** 
 	 * 转义正则特殊字符 （$()*+.[]?\^{},|） 

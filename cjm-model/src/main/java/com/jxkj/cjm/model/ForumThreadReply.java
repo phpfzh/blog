@@ -12,13 +12,17 @@ public class ForumThreadReply extends SuperEntity<ForumThreadReply> {
     private static final long serialVersionUID = 120809287784457L;
 
     /**
-     * 是否首次评论主题 1 首次评论  0回复
+     * 是否首次评论主题 1 首次评论  2首次回复评论 3多次回复
      */
     private Integer first;
     /**
-     * 父回复id
+     * 父回复id 
      */
     private Long parentid;
+    /**
+     * 回复类型 1帖子
+     */
+    private Integer replytype;
     /**
      * 首次回复标识码
      */
@@ -204,4 +208,14 @@ public class ForumThreadReply extends SuperEntity<ForumThreadReply> {
     public void setOperdatetime(Long operdatetime) {
         this.operdatetime = operdatetime;
     }
+
+	public Integer getReplytype() {
+		return replytype;
+	}
+
+	public void setReplytype(Integer replytype) {
+		this.replytype = replytype;
+	}
+    
+    
 }
