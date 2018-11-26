@@ -9,6 +9,10 @@ public class ForumThreadReplyVo {
     @NotNull(message = "id 不能为空",groups = {GroupUpdate.class})
     private Long id;
     /**
+     * 回复类型 1帖子
+     */
+    private Integer replytype;
+    /**
      * 父回复id
      */
     private Long parentid;
@@ -68,11 +72,35 @@ public class ForumThreadReplyVo {
     private Long datetime;
 
     /**
-     * 是否首次评论主题 1 首次评论  0回复
+     * 是否首次评论主题 1 首次评论  2首次回复评论 3多次回复
      */
     private Integer first;
+    
+    /**
+     * 首次回复标识码
+     */
+    private String firstmark;
+    
+    /**
+     * 用户ip
+     */
+    private String userip;
+    /**
+     * 回复时间
+     */
+    private String datestr;
+    /**
+     * 不等于回复类型
+     */
+    private Integer  notequalrt;
+    
+    /**
+     * 评论用户个性签名
+     */
+    private String  signature;
 
     private List<ForumThreadReplyAttachVo> attachs;
+    private List<ForumThreadReplyVo> childs;
 
     public Long getId() {
         return id;
@@ -209,4 +237,62 @@ public class ForumThreadReplyVo {
     public void setAttachs(List<ForumThreadReplyAttachVo> attachs) {
         this.attachs = attachs;
     }
+
+	public Integer getReplytype() {
+		return replytype;
+	}
+
+	public void setReplytype(Integer replytype) {
+		this.replytype = replytype;
+	}
+
+	public String getFirstmark() {
+		return firstmark;
+	}
+
+	public void setFirstmark(String firstmark) {
+		this.firstmark = firstmark;
+	}
+
+	public String getUserip() {
+		return userip;
+	}
+
+	public void setUserip(String userip) {
+		this.userip = userip;
+	}
+
+	public Integer getNotequalrt() {
+		return notequalrt;
+	}
+
+	public void setNotequalrt(Integer notequalrt) {
+		this.notequalrt = notequalrt;
+	}
+
+	public String getDatestr() {
+		return datestr;
+	}
+
+	public void setDatestr(String datestr) {
+		this.datestr = datestr;
+	}
+
+	public String getSignature() {
+		return signature;
+	}
+
+	public void setSignature(String signature) {
+		this.signature = signature;
+	}
+
+	public List<ForumThreadReplyVo> getChilds() {
+		return childs;
+	}
+
+	public void setChilds(List<ForumThreadReplyVo> childs) {
+		this.childs = childs;
+	}
+     
+	
 }

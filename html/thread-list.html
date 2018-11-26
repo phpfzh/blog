@@ -1,0 +1,811 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+    <TITLE>列表页</TITLE>
+    <META NAME="Generator" CONTENT="EditPlus" charset="utf-8">
+    <META NAME="Author" CONTENT="">
+    <META NAME="Keywords" CONTENT="">
+    <META NAME="Description" CONTENT="">
+    <link href="./static/js/bootstrap-3.3.7-dist/css/bootstrap.css" rel="stylesheet"	type="text/css">
+	<link href="./static/js/bootstrap-3.3.7-dist/css/bootstrap-theme.css" rel="stylesheet" type="text/css">
+	<link href="./static/js/layui-v2.3.0/css/layui.css" rel="stylesheet" type="text/css">
+	<link href="./static/css/reset.css" rel="stylesheet" type="text/css">
+	<link href="./static/css/swiper-3.3.1.min.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="./static/css/iconfont.css" type="text/css">
+	<link href="./static/css/common.css" rel="stylesheet" type="text/css">
+
+    <link href="./static/css/thread.css" rel="stylesheet" type="text/css">
+	<script type="text/javascript" src="./static/js/jquery-3.3.1.js"></script>
+	<script type="text/javascript" src="./static/js/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+	<script type="text/javascript" src="./static/js/layui-v2.3.0/layui.js"></script>
+	<script type="text/javascript" src="./static/js/swiper.min.js"></script>
+	<script type="text/javascript" src="./static/js/swiper-3.4.2.jquery.min.js"></script>
+	<script type="text/javascript" src="./static/js/common.js"></script>
+	<script type="text/javascript" src="./static/js/thread.js"></script>
+    <script>
+        //分页
+        layui.use('laypage', function () {
+            var laypage = layui.laypage;
+            //执行一个laypage实例
+            laypage.render({
+                elem: 'pageTtest1', //注意，这里的 test1 是 ID，不用加 # 号
+                count: 500 //数据总数，从服务端得到
+            });
+        });
+    </script>
+</HEAD>
+<!--<BODY oncontextmenu="return false" ondragstart="return false" onselectstart="return false" onselect="document.selection.empty()" oncopy="document.selection.empty()" onbeforecopy="return false">-->
+<BODY>
+<!--头部开始-->
+<div id="header">
+    <div id="header_box">
+        <div class="cjm_nav">
+            <div class="img">
+                <a href="#">
+                    <img src="./static/images/logo.png">
+                </a>
+            </div>
+            <ul>
+                <li>
+                    <a href="#">首页</a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)">Java</a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)">Golang</a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)">前端</a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)">关于我</a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)">其他</a>
+                </li>
+            </ul>
+        </div>
+        <div class="cjm_nav_right">
+            <div class="search_box">
+                <div class="input">
+                    <input type="text" name="subject" id="SearchSubject" value="" placeholder="搜索内容"/>
+                    <a href="Javascript:searchSubmit(this)" target="_blank"></a>
+                </div>
+            </div>
+            <div class="logo_box">
+
+               <span class="login"> 登录 &nbsp;</span>
+                <span class="cjm_register"> 注册 </span>
+
+                   <!--<a href="javascript:void(0)" class="head_img">
+                        <img src="./static/images/logo.png">
+                   </a>
+                   <span class="logout"> 退出 </span>-->
+            </div>
+         </div>
+    </div>
+    <!--登录注册弹窗-->
+    <div class="zhezhao">
+        <div class="bodys">
+            <div class="dchu">
+                <div><a class="dlactiv" href="###">登录</a></div>
+                <div><a class="zche" href="###">注册</a></div>
+                <span class="quxiaozc">×</span>
+            </div>
+            <!---------------------------------------->
+            <ul class="denglfuo">
+                <li>
+                    <input name="" class="phone" type="text" placeholder="请输入手机号/用户名" >
+                </li>
+                <li>
+                    <input name="" type="password" class="input_text_password  mima_dd " placeholder="请输入密码" >
+                    <input name="" type="text" class="input_text_password  mima_wz" style="display:none;" placeholder="请输入密码" >
+                    <a class="eyes_box " data-show="1" href="javascript:void(0);">
+                        <i class="bukan"><img src="./static/images/bukanmima.png"/></i>
+                        <i class="kan"><img src="./static/images/kanmimma.png"/></i>
+                    </a>
+                </li>
+                <li class="wjma">
+                    <div><a class="wjmm" href="###">忘记密码？</a> <span>还没有账号？<a class="zche" href="###">立即注册</a></span></div>
+                </li>
+                <li class="wjma">
+                    <button type="button">登录</button>
+                </li>
+            </ul>
+            <div class="dldibu">
+                <div></div>
+                <div>
+                    <p>第三方登录</p>
+                    <a href="###"><img src="./static/images/qq.png"/></a>
+                    <a class="weixdl" href="###"><img src="./static/images/weixin.png"/></a>
+                    <a href="###"><img src="./static/images/weibo.png"/></a>
+                </div>
+                <div></div>
+            </div>
+        </div>
+    </div>
+    <!--注册弹窗-->
+    <div class="zhezhao1">
+        <div class="bodys2">
+            <div class="dchu">
+                <div><a class="denglxx" href="###">登录</a></div>
+                <div><a class="dlactiv" href="###">注册</a></div>
+                <span class="quxiaozc">×</span>
+            </div>
+            <!---------------------------------------->
+            <ul class="zhucexs">
+                <li>
+                    <input name="" class="yhuname" type="text" placeholder="请输入手机号/用户名" >
+                </li>
+                <li>
+                    <input name="" class="yhuname" type="text" placeholder="请输入手机号" >
+                    <button class="fszyc" id="btns" href="###">发送验证码</button>
+                </li>
+                <li>
+                    <input name="" type="password" class="input_text_password hder mima_dd " placeholder="输入密码(数字，字母皆可，最低6位)" >
+                    <input name="" type="text" class="input_text_password hder mima_wz" style="display:none;" placeholder="输入密码(数字，字母皆可，最低6位)" >
+                    <a class="eyes_box " data-show="1" href="javascript:void(0);">
+                        <i class="bukan"><img src="./static/images/bukanmima.png"/></i>
+                        <i class="kan"><img src="./static/images/kanmimma.png"/></i>
+                    </a>
+                </li>
+                <li>
+                    <input type="text" class="bashiss" name=""  placeholder="输入用户名" value="哈哈哈" />
+                    <p>*用户名注册后不可修改，汉字，字母数字皆可，5-10位</p>
+                </li>
+                <li class="zcmim">
+                    <button type="button">注册</button>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+    <!--忘记密码弹窗-->
+    <div class="zhezhao2">
+        <div class="bodys3">
+            <div class="dchu heitad">
+                <p class="wjimx">忘记密码</p>
+                <span class="quxiaozc">×</span>
+            </div>
+            <!---------------------------------------->
+
+            <ul class="zhaohui">
+                <li>
+                    <span>输入手机号码</span>
+                    <div>
+                        <input type="text" name="" value="" placeholder="请输入您的手机号码" />
+                    </div>
+                    <p class="tishiwben">*输入手机号不存在</p>
+                </li>
+                <li>
+                    <span>验证码</span>
+                    <div>
+                        <input type="text" name="" value="" placeholder="请输入验证码" />
+                        <button class="fszyc" id="btnss" href="###">发送验证码</button>
+                    </div>
+                </li>
+                <li>
+                    <span>设置新密码</span>
+                    <ul>
+                        <li>
+                            <input name="" type="password" class="input_text_password  mima_dd " placeholder="数字，字母皆可至少6位" >
+                            <input name="" type="text" class="input_text_password  mima_wz" style="display:none;" placeholder="数字，字母皆可至少6位" >
+                            <a class="eyes_box " data-show="1" href="javascript:void(0);">
+                                <i class="bukan"><img src="./static/images/bukanmima.png"/></i>
+                                <i class="kan"><img src="./static/images/kanmimma.png"/></i>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="isOk">
+                <button type="button">确认</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--头部结束-->
+
+<!--内容开始-->
+<div id="content">
+     <!--文章盒子 开始-->
+    <div id="article_box">
+        <!--文章列表 开始-->
+        <div class="article">
+            <!--item_box start-->
+            <div class="item_box">
+                 <div class="i_content">
+                    <h2>
+                        <a href="#" target="_blank">
+                            标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题
+                        </a>
+                    </h2>
+                    <div class="user_item">
+                        <div class="user_info">
+                            <div class="user_img">
+                                <a href="javascript:void(0)" target="_blank">
+                                    <img src="./static/images/logo.png">
+                                </a>
+                            </div>
+                            <a href="javascript:void(0)" target="_blank">
+                                <span class="author-name">风之魂</span>
+                            </a>
+                            <span class="datetime">发布时间：2018-08-18 12:12:54</span>
+                            <i class="glyphicon glyphicon-eye-open"></i>
+                            <em>4550</em>
+                            <i class="glyphicon glyphicon-comment"></i>
+                            <em>45</em>
+                        </div>
+                    </div>
+                    <div class="tags">
+                        <ul>
+                            <li>
+                                <a href="#">Spring</a>
+                            </li>
+                            <li>
+                                <a href="#">Spring</a>
+                            </li>
+                            <li>
+                                <a href="#">SpringBoot</a>
+                            </li>
+                            <li>
+                                <a href="#">SpringBoot</a>
+                            </li>
+                            <li>
+                                <a href="#">SpringBoot</a>
+                            </li>
+                            <li>
+                                <a href="#">SpringBoot</a>
+                            </li>
+                            <li>
+                                <a href="#">SpringBoot</a>
+                            </li>
+                            <li>
+                                <a href="#">SpringBoot</a>
+                            </li>
+                            <li>
+                                <a href="#">SpringBoot</a>
+                            </li>
+                            <li>
+                                <a href="#">SpringBoot</a>
+                            </li>
+                            <li>
+                                <a href="#">SpringBoot</a>
+                            </li>
+                            <li>
+                                <a href="#">SpringBoot</a>
+                            </li>
+                        </ul>
+                        <div class="forum">
+                            <a href="javascript:void(0)" target="_blank">
+                                Golang
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--item_box end-->
+
+            <!--item_box start-->
+            <div class="item_box">
+                <div class="i_content">
+                    <h2>
+                        <a href="#" target="_blank">
+                            标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题
+                        </a>
+                    </h2>
+                    <div class="user_item">
+                        <div class="user_info">
+                            <div class="user_img">
+                                <a href="javascript:void(0)" target="_blank">
+                                    <img src="./static/images/logo.png">
+                                </a>
+                            </div>
+                            <a href="javascript:void(0)" target="_blank">
+                                <span class="author-name">风之魂</span>
+                            </a>
+                            <span class="datetime">发布时间：2018-08-18 12:12:54</span>
+                            <i class="glyphicon glyphicon-eye-open"></i>
+                            <em>4550</em>
+                            <i class="glyphicon glyphicon-comment"></i>
+                            <em>45</em>
+                        </div>
+                    </div>
+                    <div class="tags">
+                        <ul>
+                            <li>
+                                <a href="#">Spring</a>
+                            </li>
+                            <li>
+                                <a href="#">Spring</a>
+                            </li>
+                            <li>
+                                <a href="#">SpringBoot</a>
+                            </li>
+                            <li>
+                                <a href="#">SpringBoot</a>
+                            </li>
+                            <li>
+                                <a href="#">SpringBoot</a>
+                            </li>
+                            <li>
+                                <a href="#">SpringBoot</a>
+                            </li>
+                            <li>
+                                <a href="#">SpringBoot</a>
+                            </li>
+                            <li>
+                                <a href="#">SpringBoot</a>
+                            </li>
+                            <li>
+                                <a href="#">SpringBoot</a>
+                            </li>
+                            <li>
+                                <a href="#">SpringBoot</a>
+                            </li>
+                            <li>
+                                <a href="#">SpringBoot</a>
+                            </li>
+                            <li>
+                                <a href="#">SpringBoot</a>
+                            </li>
+                        </ul>
+                        <div class="forum">
+                            <a href="javascript:void(0)" target="_blank">
+                                Golang
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--item_box end-->
+
+            <!--item_box start-->
+            <div class="item_box">
+                <div class="i_content">
+                    <h2>
+                        <a href="#" target="_blank">
+                            标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题
+                        </a>
+                    </h2>
+                    <div class="user_item">
+                        <div class="user_info">
+                            <div class="user_img">
+                                <a href="javascript:void(0)" target="_blank">
+                                    <img src="./static/images/logo.png">
+                                </a>
+                            </div>
+                            <a href="javascript:void(0)" target="_blank">
+                                <span class="author-name">风之魂</span>
+                            </a>
+                            <span class="datetime">发布时间：2018-08-18 12:12:54</span>
+                            <i class="glyphicon glyphicon-eye-open"></i>
+                            <em>4550</em>
+                            <i class="glyphicon glyphicon-comment"></i>
+                            <em>45</em>
+                        </div>
+                    </div>
+                    <div class="tags">
+                        <ul>
+                            <li>
+                                <a href="#">Spring</a>
+                            </li>
+                            <li>
+                                <a href="#">Spring</a>
+                            </li>
+                            <li>
+                                <a href="#">SpringBoot</a>
+                            </li>
+                            <li>
+                                <a href="#">SpringBoot</a>
+                            </li>
+                            <li>
+                                <a href="#">SpringBoot</a>
+                            </li>
+                            <li>
+                                <a href="#">SpringBoot</a>
+                            </li>
+                            <li>
+                                <a href="#">SpringBoot</a>
+                            </li>
+                            <li>
+                                <a href="#">SpringBoot</a>
+                            </li>
+                            <li>
+                                <a href="#">SpringBoot</a>
+                            </li>
+                            <li>
+                                <a href="#">SpringBoot</a>
+                            </li>
+                            <li>
+                                <a href="#">SpringBoot</a>
+                            </li>
+                            <li>
+                                <a href="#">SpringBoot</a>
+                            </li>
+                        </ul>
+                        <div class="forum">
+                            <a href="javascript:void(0)" target="_blank">
+                                Golang
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--item_box end-->
+
+            <!--item_box start-->
+            <div class="item_box">
+                <div class="i_content">
+                    <h2>
+                        <a href="#" target="_blank">
+                            标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题
+                        </a>
+                    </h2>
+                    <div class="user_item">
+                        <div class="user_info">
+                            <div class="user_img">
+                                <a href="javascript:void(0)" target="_blank">
+                                    <img src="./static/images/logo.png">
+                                </a>
+                            </div>
+                            <a href="javascript:void(0)" target="_blank">
+                                <span class="author-name">风之魂</span>
+                            </a>
+                            <span class="datetime">发布时间：2018-08-18 12:12:54</span>
+                            <i class="glyphicon glyphicon-eye-open"></i>
+                            <em>4550</em>
+                            <i class="glyphicon glyphicon-comment"></i>
+                            <em>45</em>
+                        </div>
+                    </div>
+                    <div class="tags">
+                        <ul>
+                            <li>
+                                <a href="#">Spring</a>
+                            </li>
+                            <li>
+                                <a href="#">Spring</a>
+                            </li>
+                            <li>
+                                <a href="#">SpringBoot</a>
+                            </li>
+                            <li>
+                                <a href="#">SpringBoot</a>
+                            </li>
+                            <li>
+                                <a href="#">SpringBoot</a>
+                            </li>
+                            <li>
+                                <a href="#">SpringBoot</a>
+                            </li>
+                            <li>
+                                <a href="#">SpringBoot</a>
+                            </li>
+                            <li>
+                                <a href="#">SpringBoot</a>
+                            </li>
+                            <li>
+                                <a href="#">SpringBoot</a>
+                            </li>
+                            <li>
+                                <a href="#">SpringBoot</a>
+                            </li>
+                            <li>
+                                <a href="#">SpringBoot</a>
+                            </li>
+                            <li>
+                                <a href="#">SpringBoot</a>
+                            </li>
+                        </ul>
+                        <div class="forum">
+                            <a href="javascript:void(0)" target="_blank">
+                                Golang
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--item_box end-->
+
+            <!--item_box start-->
+            <div class="item_box">
+                <div class="i_content">
+                    <h2>
+                        <a href="#" target="_blank">
+                            标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题
+                        </a>
+                    </h2>
+                    <div class="user_item">
+                        <div class="user_info">
+                            <div class="user_img">
+                                <a href="javascript:void(0)" target="_blank">
+                                    <img src="./static/images/logo.png">
+                                </a>
+                            </div>
+                            <a href="javascript:void(0)" target="_blank">
+                                <span class="author-name">风之魂</span>
+                            </a>
+                            <span class="datetime">发布时间：2018-08-18 12:12:54</span>
+                            <i class="glyphicon glyphicon-eye-open"></i>
+                            <em>4550</em>
+                            <i class="glyphicon glyphicon-comment"></i>
+                            <em>45</em>
+                        </div>
+                    </div>
+                    <div class="tags">
+                        <ul>
+                            <li>
+                                <a href="#">Spring</a>
+                            </li>
+                            <li>
+                                <a href="#">Spring</a>
+                            </li>
+                            <li>
+                                <a href="#">SpringBoot</a>
+                            </li>
+                            <li>
+                                <a href="#">SpringBoot</a>
+                            </li>
+                            <li>
+                                <a href="#">SpringBoot</a>
+                            </li>
+                            <li>
+                                <a href="#">SpringBoot</a>
+                            </li>
+                            <li>
+                                <a href="#">SpringBoot</a>
+                            </li>
+                            <li>
+                                <a href="#">SpringBoot</a>
+                            </li>
+                            <li>
+                                <a href="#">SpringBoot</a>
+                            </li>
+                            <li>
+                                <a href="#">SpringBoot</a>
+                            </li>
+                            <li>
+                                <a href="#">SpringBoot</a>
+                            </li>
+                            <li>
+                                <a href="#">SpringBoot</a>
+                            </li>
+                        </ul>
+                        <div class="forum">
+                            <a href="javascript:void(0)" target="_blank">
+                                Golang
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--item_box end-->
+
+            <!--item_box start-->
+            <div class="item_box">
+                <div class="i_content">
+                    <h2>
+                        <a href="#" target="_blank">
+                            标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题
+                        </a>
+                    </h2>
+                    <div class="user_item">
+                        <div class="user_info">
+                            <div class="user_img">
+                                <a href="javascript:void(0)" target="_blank">
+                                    <img src="./static/images/logo.png">
+                                </a>
+                            </div>
+                            <a href="javascript:void(0)" target="_blank">
+                                <span class="author-name">风之魂</span>
+                            </a>
+                            <span class="datetime">发布时间：2018-08-18 12:12:54</span>
+                            <i class="glyphicon glyphicon-eye-open"></i>
+                            <em>4550</em>
+                            <i class="glyphicon glyphicon-comment"></i>
+                            <em>45</em>
+                        </div>
+                    </div>
+                    <div class="tags">
+                        <ul>
+                            <!--<li>
+                                <a href="#">Spring</a>
+                            </li>
+                            <li>
+                                <a href="#">Spring</a>
+                            </li>
+                            <li>
+                                <a href="#">SpringBoot</a>
+                            </li>
+                            <li>
+                                <a href="#">SpringBoot</a>
+                            </li>-->
+                        </ul>
+                        <div class="forum">
+                            <a href="javascript:void(0)" target="_blank">
+                                Golang
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--item_box end-->
+
+        </div>
+        <!--文章列表 结束-->
+
+        <!--文章右边盒子 开始-->
+        <div class="article_right">
+            <!--点击排行 开始-->
+            <div class="r_box hot_article">
+                <h3>点击排行</h3>
+                <span class="all">
+          <a href="javascript:void(0)" target="_blank">
+             更多 >
+          </a>
+      </span>
+                <span class="mark"></span>
+                <div class="box">
+                    <ul>
+                        <li>
+                            <a href="#" target="_blank">
+                                <span class="one">1</span>
+                                必填顶顶顶顶顶大大大必填顶顶顶顶顶大大大
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" target="_blank">
+                                <span class="one">1</span>
+                                必填顶顶顶顶顶大大大必填顶顶顶顶顶大大大
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" target="_blank">
+                                <span class="one">1</span>
+                                必填顶顶顶顶顶大大大必填顶顶顶顶顶大大大
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" target="_blank">
+                                <span class="one">1</span>
+                                必填顶顶顶顶顶大大大必填顶顶顶顶顶大大大
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" target="_blank">
+                                <span class="one">1</span>
+                                必填顶顶顶顶顶大大大必填顶顶顶顶顶大大大
+                                必填顶顶顶顶顶大大大必填顶顶顶顶顶大大大
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" target="_blank">
+                                <span class="one">1</span>
+                                必填顶顶顶顶顶大大大必填顶顶顶顶顶大大大
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!--点击排行 结束-->
+
+            <!--个人链接 开始-->
+            <div class="r_box friendly_link">
+                <h3>个人链接</h3>
+                <span class="all">
+                  <!--<a href="javascript:void(0)" target="_blank">
+                     更多
+                  </a>-->
+                </span>
+                <span class="mark"></span>
+                <div class="box">
+                    <ul>
+                        <li>
+							<span>CSDN博客 : </span>
+                            <a href="http://www.ruanyifeng.com/blog/" target="_blank">
+								 phpfzh
+							</a>
+                         </li>
+                        <li>
+							<span>Github : </span>
+                            <a href="javascript:void(0)" target="_blank">SpringMvc</a>
+                        </li>
+                        <li>
+							<span>CSDN博客 : </span>
+                            <a href="javascript:void(0)" target="_blank">JAVA8</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!--个人链接 结束-->
+
+        </div>
+        <!--文章右边盒子 结束-->
+    </div>
+    <!--<div id="pageTtest1">32323</div>-->
+    <!--文章盒子 结束-->
+</div>
+<!--内容结束-->
+
+
+
+<!--尾部开始-->
+<div id="footer">
+    <div class="footer">
+        <div class="main_box">
+            <div class="friendlink_box">
+                <div class="yqilj">友情连接：</div>
+                <div class="yright">
+                    <div><a href="###">CSDN</a></div>
+                    <div><a href="###">Github</a></div>
+                    
+                </div>
+            </div>
+         </div>
+        <div class="common_box">
+             <div>Java交流1群：335618459</div>
+        </div>
+        <p class="dpi">我的邮箱:<a href="http://cjm@chenjiaming.com">cjm@chenjiaming.com</a></p>
+        <p class="dpi">©2001-2016 版权所有：一叶知秋</p>
+        <p class="dpi">备案号：(粤ICP备15009341号-1)</p>
+    </div>
+</div>
+<!--通用弹框开始-->
+
+<div class="popup" id="popup_common">
+    <div class="reward">
+        <div class="reward_title">
+            <div class="float_l border_l"></div>
+            <p class="float_l">提示</p>
+            <a onclick="PopupClose()" id="PopupClose">
+                <img class="float_r cursor" src="./static/images/close.png">
+            </a>
+            <div class="clear"></div>
+        </div>
+        <div class="popup_text">
+            <img class="" src="./static/images/success.png">
+            <p class="message lan">提交申请成功！</p>
+            <div class="clear"></div>
+        </div>
+        <!-- <div class="tishi_text">
+            <img class="float_l" src="./static/images/fail.png">
+            <p class="float_l hong">您已经提交过申请了！</p>
+            <div class="clear"></div>
+        </div> -->
+    </div>
+</div>
+
+
+<div class="popup_xuanze" id="popup_common_btn">
+    <div class="reward">
+        <div class="reward_title">
+            <div class="float_l border_l"></div>
+            <p class="float_l">提示</p>
+            <a onclick="PopupBtnClose()" id="PopupBtnClose">
+                <img class="float_r cursor close" src="./static/images/close.png">
+            </a>
+            <div class="clear"></div>
+        </div>
+        <div class="popup_text">
+            <img class="" src="./static/images/success.png">
+            <p class="lan message">发布成功，帖子正在审核</p>
+            <div class="clear"></div>
+        </div>
+        <!-- <div class="tishi_text">
+				<img class="" src="${basePath}/static/images/fail.png">
+				<p class="hong">您已经提交过申请了！</p>
+				<div class="clear"></div>
+			</div> -->
+        <a href="javascript:void(0)" class="float_l queren" id="popup_common_btn_confirm" onclick="commonBtnConfirm()">确认</a>
+        <a href="javascript:void(0)" class="float_l qvxiao" id="popup_common_btn_cancel" onclick="PopupBtnClose()">取消</a>
+    </div>
+</div>
+<!--通用弹框结束-->
+
+<div id="fanhui"></div>
+
+<!--尾部结束-->
+</BODY>
+</HTML>

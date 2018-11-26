@@ -33,6 +33,41 @@ public interface UserService extends IService<User>{
 	* @throws
 	 */
 	public ProcessBack userRegister(HttpServletRequest request,UserRegVo UserRegVo);
+	
+	/**
+	 * 
+	* @Title: userLoginByPC
+	* @Description: TODO(用户登录[PC]) 
+	* @param @param request
+	 * @param @param UserLoginVo
+	* @param @return    设定文件 
+	* @return ProcessBack    返回类型
+	* @throws
+
+	 */
+	public ProcessBack userLoginByPC(HttpServletRequest request, UserLoginVo userLoginVo);
+ 	/**
+	 * 
+	* @Title: userRegisterByPC
+	* @Description: TODO(用户注册[PC]) 
+	* @param @param request
+	* @param @return    设定文件 
+	* @return ProcessBack    返回类型
+	* @throws
+	 */
+	public ProcessBack userRegisterByPC(HttpServletRequest request,UserRegVo UserRegVo);
+	
+	/***
+	 * 
+	* @Title: sendSSMByRegByPC
+	* @Description: TODO(注册时发送手机短信验证码PC) 
+	* @param @param mobile
+	* @param @return    设定文件 
+	* @return ProcessBack    返回类型
+	* @throws
+	 */
+	public ProcessBack sendSSMByRegByPC(HttpServletRequest request,String mobile);
+	
 	/**
 	 * 自动生成用户名
 	 * @return

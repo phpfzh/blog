@@ -3,6 +3,9 @@ package com.jxkj.cjm.common.config;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import com.jxkj.cjm.common.interceptor.UserApiInterceptor;
+import com.jxkj.cjm.common.interceptor.UserPCInterceptor;
+
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
@@ -16,9 +19,13 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
+import org.tuckey.web.filters.urlrewrite.UrlRewriteFilter;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Configuration
 public class ApplicationConfig extends WebMvcConfigurationSupport {
@@ -38,6 +45,12 @@ public class ApplicationConfig extends WebMvcConfigurationSupport {
 		//特别注意：拦截器是默认是不被spring context控制的
 		return new UserApiInterceptor();
 	}
+	
+	@Bean
+	public UserPCInterceptor userPCInterceptor(){
+		//特别注意：拦截器是默认是不被spring context控制的
+		return new UserPCInterceptor();
+	}
    
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
@@ -51,8 +64,23 @@ public class ApplicationConfig extends WebMvcConfigurationSupport {
 	    		.excludePathPatterns("/api/generateUserName")
  	    		.excludePathPatterns("/api/refreshToken")
 	    		.excludePathPatterns("/api/forumThreadApi/**");
-  	}
+	    
+	    registry.addInterceptor(userPCInterceptor())
+				.addPathPatterns("/user/**");
+   	}
 
+	@Bean
+    public FilterRegistrationBean urlRewrite(){
+        UrlRewriteFilter rewriteFilter = new UrlRewriteFilterConfig();
+        FilterRegistrationBean registration = new FilterRegistrationBean(rewriteFilter);
+        registration.setUrlPatterns(Arrays.asList("/*"));
+        Map initParam=new HashMap();
+        initParam.put("confPath","urlrewirte.xml");
+        initParam.put("infoLevel","INFO");
+        registration.setInitParameters(initParam);
+        return  registration;
+    }
+	
 	@Override
 	public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
 	    argumentResolvers.add(deviceHandlerMethodArgumentResolver());

@@ -3,7 +3,12 @@ package com.jxkj.cjm.service.impl;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Type;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -14,30 +19,55 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
-import com.baomidou.mybatisplus.mapper.Condition;
-import com.baomidou.mybatisplus.mapper.Wrapper;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
-import com.jxkj.cjm.common.controller.BaseController;
-import com.jxkj.cjm.common.response.AjaxResult;
-import com.jxkj.cjm.common.response.ProcessBack;
-import com.jxkj.cjm.common.util.*;
-import com.jxkj.cjm.mapper.*;
-import com.jxkj.cjm.model.*;
-import com.jxkj.cjm.model.vo.ForumPostVo;
-import com.jxkj.cjm.model.vo.ForumThreadTagVo;
-import com.jxkj.cjm.model.vo.ForumThreadVo;
-import com.jxkj.cjm.model.vo.GroupUpdate;
-import com.jxkj.cjm.service.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import com.alibaba.fastjson.JSON;
+import com.baomidou.mybatisplus.mapper.Condition;
+import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.jxkj.cjm.common.constat.ForumThreadOperation_Constat;
 import com.jxkj.cjm.common.response.Meta;
+import com.jxkj.cjm.common.response.ProcessBack;
+import com.jxkj.cjm.common.util.AttachUtil;
+import com.jxkj.cjm.common.util.DateUtils;
+import com.jxkj.cjm.common.util.IPUtil;
+import com.jxkj.cjm.common.util.StringUtil;
+import com.jxkj.cjm.common.util.TransferUtil;
+import com.jxkj.cjm.mapper.ForumForumMapper;
+import com.jxkj.cjm.mapper.ForumPostMapper;
+import com.jxkj.cjm.mapper.ForumThreadMapper;
+import com.jxkj.cjm.mapper.ForumThreadOperationMapper;
+import com.jxkj.cjm.mapper.ForumThreadReplyMapper;
+import com.jxkj.cjm.mapper.ForumThreadTagLinkMapper;
+import com.jxkj.cjm.mapper.ForumThreadTagMapper;
+import com.jxkj.cjm.mapper.ForumThreadTagUserMapper;
+import com.jxkj.cjm.mapper.ForumThreadViewRecordMapper;
+import com.jxkj.cjm.mapper.ForumThreadViewcountMapper;
+import com.jxkj.cjm.mapper.UserMapper;
+import com.jxkj.cjm.model.ForumForum;
+import com.jxkj.cjm.model.ForumPost;
+import com.jxkj.cjm.model.ForumThread;
+import com.jxkj.cjm.model.ForumThreadReply;
+import com.jxkj.cjm.model.ForumThreadTag;
+import com.jxkj.cjm.model.ForumThreadTagLink;
+import com.jxkj.cjm.model.ForumThreadTagUser;
+import com.jxkj.cjm.model.ForumThreadViewRecord;
+import com.jxkj.cjm.model.PreForumThreadOperation;
+import com.jxkj.cjm.model.User;
+import com.jxkj.cjm.model.vo.ForumPostVo;
+import com.jxkj.cjm.model.vo.ForumThreadTagVo;
+import com.jxkj.cjm.model.vo.ForumThreadVo;
+import com.jxkj.cjm.model.vo.GroupUpdate;
+import com.jxkj.cjm.service.ForumAttachmentService;
+import com.jxkj.cjm.service.ForumPostService;
+import com.jxkj.cjm.service.ForumThreadCoverimgService;
+import com.jxkj.cjm.service.ForumThreadService;
+import com.jxkj.cjm.service.ForumThreadTagService;
 
 
 @Service
@@ -47,7 +77,7 @@ public class ForumThreadServiceImpl extends ServiceImpl<ForumThreadMapper, Forum
     private ForumPostMapper forumPostMapper;
 
     @Resource
-    private ForumForumService forumForumService;
+    private ForumForumMapper forumForumMapper;
 
     @Resource
     private ForumAttachmentService forumAttachmentService;
@@ -69,6 +99,9 @@ public class ForumThreadServiceImpl extends ServiceImpl<ForumThreadMapper, Forum
 
     @Resource
     private ForumThreadTagLinkMapper forumThreadTagLinkMapper;//类型关联
+    
+    @Resource
+    private  ForumThreadReplyMapper forumThreadReplyMapper;
 
     @Resource
     private ForumThreadTagUserMapper forumThreadTagUserMapper;//用户tag 关联
@@ -208,22 +241,24 @@ public class ForumThreadServiceImpl extends ServiceImpl<ForumThreadMapper, Forum
                 //保存tags
                 String[] tagss = tags.split(",");
                 for (String s : tagss) {
-                    ForumThreadTag forumThreadTag = getForumThreadTag(s);
-                    if (forumThreadTag == null) {
-                        ForumThreadTag forumThreadTag1 = new ForumThreadTag();
-                        forumThreadTag1.setName(s.trim());
-                        Long dateLine = System.currentTimeMillis();
-                        forumThreadTag1.setDateline(dateLine);
-                        forumThreadTag1.setIsdelete(0);
-                        forumThreadTagMapper.insert(forumThreadTag1);
-
-                        insertForumThreadTagLink(forumThreadTag1.getId(), forumThread.getId());
-                        insertForumThreadTagUser(forumThreadTag1.getId(), baseid);
-                        continue;//跳出不继续执行下面代码
-                    }
-
-                    insertForumThreadTagLink(forumThreadTag.getId(), forumThread.getId());
-                    insertForumThreadTagUser(forumThreadTag.getId(), baseid);
+                	if(StringUtil.isNotEmpty(s)){
+                 		ForumThreadTag forumThreadTag = getForumThreadTag(s);
+                		if (forumThreadTag == null) {
+                			ForumThreadTag forumThreadTag1 = new ForumThreadTag();
+                			forumThreadTag1.setName(s.trim());
+                			Long dateLine = System.currentTimeMillis();
+                			forumThreadTag1.setDateline(dateLine);
+                			forumThreadTag1.setIsdelete(0);
+                			forumThreadTagMapper.insert(forumThreadTag1);
+                			
+                			insertForumThreadTagLink(forumThreadTag1.getId(), forumThread.getId());
+                			insertForumThreadTagUser(forumThreadTag1.getId(), baseid);
+                			continue;//跳出不继续执行下面代码
+                		}
+                		
+                		insertForumThreadTagLink(forumThreadTag.getId(), forumThread.getId());
+                		insertForumThreadTagUser(forumThreadTag.getId(), baseid);
+                	}
                 }
             }
            
@@ -355,27 +390,29 @@ public class ForumThreadServiceImpl extends ServiceImpl<ForumThreadMapper, Forum
                 //保存tags
                 String[] tagss = forumThreadVo.getTags().split(",");
                 for (String s : tagss) {
-                    ForumThreadTag forumThreadTag = getForumThreadTag(s);
-                    if (forumThreadTag == null) {
-                        ForumThreadTag forumThreadTag1 = new ForumThreadTag();
-                        forumThreadTag1.setName(s.trim());
-                        Long dateLine = System.currentTimeMillis();
-                        forumThreadTag1.setDateline(dateLine);
-                        forumThreadTag1.setIsdelete(0);
-                        forumThreadTag1.setCount(1);
-                        forumThreadTagMapper.insert(forumThreadTag1);
-
-                        insertForumThreadTagLink(forumThreadTag1.getId(), forumThread.getId());
-                        if (baseid != null) {
-                            insertForumThreadTagUser(forumThreadTag1.getId(), baseid);
-                        }
-                        continue;//跳出不继续执行下面代码
-                    }
-
-                    insertForumThreadTagLink(forumThreadTag.getId(), forumThread.getId());
-                    if (baseid != null) {
-                        insertForumThreadTagUser(forumThreadTag.getId(), baseid);
-                    }
+                	if(StringUtil.isNotEmpty(s)){
+                 		ForumThreadTag forumThreadTag = getForumThreadTag(s.trim());
+                		if (forumThreadTag == null) {
+                			ForumThreadTag forumThreadTag1 = new ForumThreadTag();
+                			forumThreadTag1.setName(s.trim());
+                			Long dateLine = System.currentTimeMillis();
+                			forumThreadTag1.setDateline(dateLine);
+                			forumThreadTag1.setIsdelete(0);
+                			forumThreadTag1.setCount(1);
+                			forumThreadTagMapper.insert(forumThreadTag1);
+                			
+                			insertForumThreadTagLink(forumThreadTag1.getId(), forumThread.getId());
+                			if (baseid != null) {
+                				insertForumThreadTagUser(forumThreadTag1.getId(), baseid);
+                			}
+                			continue;//跳出不继续执行下面代码
+                		}
+                		
+                		insertForumThreadTagLink(forumThreadTag.getId(), forumThread.getId());
+                		if (baseid != null) {
+                			insertForumThreadTagUser(forumThreadTag.getId(), baseid);
+                		}
+                	}
                 }
             } else {
                 //标签去掉
@@ -741,7 +778,7 @@ public class ForumThreadServiceImpl extends ServiceImpl<ForumThreadMapper, Forum
             }
             // 处理分页请求
             Integer num = 1;
-            Integer size = 20;
+            Integer size = 10;
 
             if (pageNum != null && !"".equals(pageNum)) {
                 num = Integer.parseInt(pageNum);
@@ -749,15 +786,19 @@ public class ForumThreadServiceImpl extends ServiceImpl<ForumThreadMapper, Forum
             if (pageSize != null && !"".equals(pageSize)) {
                 size = Integer.parseInt(pageSize);
             }
-            //String sortString = "id.desc";
-            //	Order.formString(sortString);
+
             PageHelper.startPage(num, size);
             List<ForumThread> lists = baseMapper.selectByMap(TransferUtil.beanToMap(forumThread));
             List<ForumThreadVo> voLists = new ArrayList<>();
             for (ForumThread entity1 : lists) {
                 ForumThreadVo en = new ForumThreadVo();
+                String username = "";//用户名
                 User user = userMapper.selectById(entity1.getBaseid());
-                ForumForum forumForum = forumForumService.selectById(entity1.getFid());
+                if(user != null){
+                	username = user.getUsername();
+                }
+                
+                ForumForum forumForum = forumForumMapper.selectById(entity1.getFid());
                 ForumPostVo forumPostVo = forumPostService.getForumPostByTid(entity1.getId());
                 List<ForumThreadTagVo> threadTagVos = forumThreadTagService.getForumThreadTagsByTid(forumThread.getId());
 
@@ -775,7 +816,7 @@ public class ForumThreadServiceImpl extends ServiceImpl<ForumThreadMapper, Forum
                 en.setDatelinestr(datelineStr);
                 en.setStaticlink(entity1.getStaticlink());//静态化url
                 en.setListtags(threadTagVos);//标签
-                en.setUsername(user.getUsername());//用户名
+                en.setUsername(username);//用户名
                 en.setSubject(entity1.getSubject());//标题
                 en.setDateline(entity1.getDateline());//时间戳
                 en.setThreadtype(entity1.getThreadtype());//主题类型
@@ -792,9 +833,6 @@ public class ForumThreadServiceImpl extends ServiceImpl<ForumThreadMapper, Forum
                     comme = getDefaultCoverimg();
                 }
                 en.setCoverimg(this.fdfsurl + comme);
-                /*if (forumPostVo != null) {
-                    en.setContent(forumPostVo.getContent());
-                }*/
                 voLists.add(en);
             }
 
@@ -857,10 +895,141 @@ public class ForumThreadServiceImpl extends ServiceImpl<ForumThreadMapper, Forum
     }
 
     /**
+     *
+     * @Title: getForumThreadsByWarpper
+     * @Description: TODO(主题信息查询)
+     * @param @param forumThreadvo
+     * @param @param pageNum
+     * @param @param pageSize
+     * @param @return    设定文件
+     * @return ProcessBack    返回类型
+     * @throws
+     */
+    @Override
+    public ProcessBack getForumThreadsByWarpper(ForumThreadVo forumThreadvo,String pageNum,String pageSize){
+        ProcessBack back = new ProcessBack();
+        try{
+
+            Integer num = 1;
+            Integer size = 20;//默认10条
+            if (pageNum != null && !"".equals(pageNum)) {
+                num = Integer.parseInt(pageNum);
+            }
+            if (pageSize != null && !"".equals(pageSize)) {
+                size = Integer.parseInt(pageSize);
+            }
+            //设置分页
+            PageHelper.startPage(num, size);
+            PageHelper.orderBy("dateline DESC");
+ 
+            Wrapper<ForumThread> wrapper = Condition.create();
+            if(forumThreadvo.getFid() != null){
+                wrapper.eq("fid", forumThreadvo.getFid());//版块id
+            }
+
+            if(forumThreadvo.getStatus() != null){
+                wrapper.eq("status", forumThreadvo.getStatus());//审核状态
+            }
+
+            if(forumThreadvo.getIslikesubject() != null && forumThreadvo.getIslikesubject().equals(1)){
+                //模糊查询主题
+                wrapper.like("subject", forumThreadvo.getSubject());//标题
+            }else if(StringUtil.isNotEmpty(forumThreadvo.getSubject())){
+                wrapper.eq("subject", forumThreadvo.getSubject());//标题
+            }
+
+            if(forumThreadvo.getDigest() != null){
+                wrapper.eq("digest", forumThreadvo.getDigest());//是否精华
+               // PageHelper.orderBy("dsort ASC, dateline DESC");//精华定位
+            }
+
+            if(forumThreadvo.getBaseid() != null){
+                wrapper.eq("baseid", forumThreadvo.getBaseid());//用户id
+            }
+
+            List<ForumThread> lists = baseMapper.selectList(wrapper);
+            List<ForumThreadVo> vos = new ArrayList<>();
+            for(ForumThread forumThread : lists){
+                String username = "";
+                User user = userMapper.selectById(forumThread.getBaseid());
+                if(user != null){
+                     username = user.getUsername();
+                }
+
+                String fname = "";
+                ForumForum forumForum = forumForumMapper.selectById(forumThread.getFid());
+                if(forumForum != null){
+                    fname = forumForum.getName();
+                }
+                ForumPostVo forumPostVo = forumPostService.getForumPostByTid(forumThread.getId());
+                List<ForumThreadTagVo> threadTagVos = forumThreadTagService.getForumThreadTagsByTid(forumThread.getId());
+
+                String threadTypeName = "原创";
+                if (forumThread.getThreadtype() != null && forumThread.getThreadtype().equals(2)) {
+                    threadTypeName = "转载";
+                } else if (forumThread.getThreadtype() != null && forumThread.getThreadtype().equals(3)) {
+                    threadTypeName = "翻译";
+                }
+
+                ForumThreadVo threadVo = new ForumThreadVo();
+                threadVo.setFid(forumThread.getFid());//版块id
+                threadVo.setId(forumThread.getId());  //主题id
+                threadVo.setStatus(forumThread.getStatus());  //显示状态 审核中-1 审核不通过-2  -3 已删除 审核通过 0
+                threadVo.setDigest(forumThread.getDigest());  //是否精华 1是 0否
+                threadVo.setUsername(username);  //作者名
+                threadVo.setBaseid(forumThread.getBaseid());  //作者id
+                threadVo.setSubject(forumThread.getSubject());  //主题
+                threadVo.setDateline(forumThread.getDateline());  //保存时间
+                threadVo.setViews(forumThread.getViews());  //浏览次数
+                threadVo.setReplies(forumThread.getReplies());  //回复次数
+                threadVo.setFname(fname);//板块名称
+                threadVo.setStaticlink(forumThread.getStaticlink());//静态路径
+                threadVo.setThreadtypename(threadTypeName);
+                threadVo.setThreadtype(forumThread.getThreadtype());
+                threadVo.setHeadurl(forumPostVo.getHeadurl());//用户头像地址
+                threadVo.setListtags(threadTagVos);
+                 String datelinestr = "";
+                if(forumThread.getDateline() != null){
+                     datelinestr = DateUtils.formatYY_MM_DD(forumThread.getDateline());
+                }
+                threadVo.setDatelinestr(datelinestr);  //时间
+                vos.add(threadVo);
+            }
+
+            PageInfo<ForumThread> pagehelper = new PageInfo<ForumThread>(lists);
+
+            //计算页码
+            pagehelper.setNavigateFirstPage(1);
+            Integer lastPageNum =0;
+            if(pagehelper.getTotal()%size==0){
+                lastPageNum = (int)pagehelper.getTotal()/size;
+            }else{
+                lastPageNum = (int)pagehelper.getTotal()/size + 1 ;
+            }
+            pagehelper.setNavigateLastPage(lastPageNum);
+
+            Map<String,Object> map = new HashMap<>();
+            map.put("vos", vos);
+            map.put("pagehelper", pagehelper);
+            back.setCode(ProcessBack.SUCCESS_CODE);
+            back.setMessage("查询成功");
+            back.setData(map);
+            return back;
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        back.setCode(ProcessBack.FAIL_CODE);
+        back.setMessage(ProcessBack.EXCEPTION_MESSAGE);
+        return back;
+    }
+
+
+    /**
      * 根据tid 查询主题详情信息
      * @param tid
      * @return
      */
+    @Override
     public ProcessBack getSingleForumThreadByTid(Long tid, Long baseid,HttpServletRequest request){
         ProcessBack processBack = new ProcessBack();
         try{
@@ -885,7 +1054,7 @@ public class ForumThreadServiceImpl extends ServiceImpl<ForumThreadMapper, Forum
                 throw new IllegalArgumentException("未找到帖子信息");
             }
 
-            ForumForum forumForum = forumForumService.selectById(forumThread.getFid());
+            ForumForum forumForum = forumForumMapper.selectById(forumThread.getFid());
             List<ForumThreadTagVo> threadTagVos = forumThreadTagService.getForumThreadTagsByTid(forumThread.getId());
 
 
@@ -945,6 +1114,41 @@ public class ForumThreadServiceImpl extends ServiceImpl<ForumThreadMapper, Forum
         processBack.setCode(ProcessBack.FAIL_CODE);
         return processBack;
     }
+    
+    /**
+	 * 更新主题回复数
+	 * @param tid
+	 * @return
+	 */
+	@Override
+	public ProcessBack updateForumThreadReplies(Long tid){
+		ProcessBack back = new ProcessBack();
+		try{
+ 			if(tid == null){
+ 				throw new IllegalArgumentException("tid 不能为空");
+ 			}
+ 			
+ 			Wrapper<ForumThreadReply> wrapper = Condition.create();
+ 			wrapper.eq("status", 0);// 显示状态  审核中-2  不合格 -1  已删除 -3  审核通过 0
+ 			wrapper.eq("replytype", 1);// 1帖子
+ 			wrapper.eq("tid", tid);//帖子id
+  			int count = forumThreadReplyMapper.selectCount(wrapper);
+ 			
+  			ForumThread thread = new ForumThread();
+  			thread.setId(tid);
+  			thread.setReplies(count);
+  			baseMapper.updateById(thread);
+  			
+			back.setCode(ProcessBack.SUCCESS_CODE);
+			back.setMessage("回复数更新成功");
+			return back;
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		back.setCode(ProcessBack.FAIL_CODE);
+		back.setMessage("回复数更新失败");
+		return back;
+	}
 
     //添加操作日志
     private int insertForumThreadOperation(Long tid, Integer status, String type, Long baseid, String userip) {

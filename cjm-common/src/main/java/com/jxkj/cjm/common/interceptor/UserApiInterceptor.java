@@ -1,19 +1,23 @@
 package com.jxkj.cjm.common.interceptor;
 
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mobile.device.Device;
+import org.springframework.mobile.device.LiteDeviceResolver;
+import org.springframework.web.servlet.HandlerInterceptor;
+
+import com.alibaba.fastjson.JSON;
 import com.jxkj.cjm.common.component.CjmJwtTokenComponent;
 import com.jxkj.cjm.common.component.RedisUtilComponent;
 import com.jxkj.cjm.common.constat.Redis_Constat;
 import com.jxkj.cjm.common.util.StringUtil;
 import com.jxkj.cjm.model.User;
 import com.jxkj.cjm.model.UserSafety;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.mobile.device.Device;
-import org.springframework.mobile.device.LiteDeviceResolver;
-import org.springframework.web.servlet.HandlerInterceptor;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 
 /**
@@ -25,6 +29,9 @@ import javax.servlet.http.HttpServletResponse;
 *
  */
 public class UserApiInterceptor implements HandlerInterceptor{
+	
+	public static Log logger = LogFactory.getLog(UserApiInterceptor.class);
+
 	
 	@Value("${jwt.header.tokenHead}")
 	private String tokenHead;
@@ -45,12 +52,14 @@ public class UserApiInterceptor implements HandlerInterceptor{
 		String requestToken = request.getHeader(this.header);
 		//token 为空
 		if(StringUtil.isEmpty(requestToken)){
+			logger.error("token 不能为空");
  			response.sendError(HttpServletResponse.SC_UNAUTHORIZED,"token 不能为空");
  			return false;
 		}
 		 
 		//配置文件 tokenHead 为空
 		if(!requestToken.startsWith(this.tokenHead)){
+			logger.error("tokenHead 不能为空");
 			response.sendError(HttpServletResponse.SC_UNAUTHORIZED,"tokenHead 不能为空");
   			return false;
 		}
@@ -63,12 +72,14 @@ public class UserApiInterceptor implements HandlerInterceptor{
  		
  		//验证不通过
  		if(!fal){
+ 			logger.error("请重新登录,token:"+token);
 			response.sendError(HttpServletResponse.SC_UNAUTHORIZED,"请重新登录");
 			return false;
  		}
  		
  		String uid = cjmJwtTokenComponent.getBaseIdFromToken(token);
    		if(!redisUtilComponent.getRedisTemplate().hasKey(Redis_Constat.USER+uid)){
+   			logger.error("请重新登录,token:"+token);
 			response.sendError(HttpServletResponse.SC_UNAUTHORIZED,"请重新登录");
 			return false;
  		}
@@ -76,6 +87,14 @@ public class UserApiInterceptor implements HandlerInterceptor{
    		//延长缓存时间
    		User commonMember = (User) redisUtilComponent.getRedisByKey(Redis_Constat.USER+uid);
    		UserSafety members = (UserSafety) redisUtilComponent.getRedisByKey(Redis_Constat.USERCENTER+uid);
+   		if(commonMember == null || members == null){
+   			logger.error("请重新登录,token:"+token);
+   			response.sendError(HttpServletResponse.SC_UNAUTHORIZED,"请重新登录");
+			return false;
+   		}
+   		logger.error("User,"+JSON.toJSONString(commonMember));
+   		logger.error("UserSafety,"+JSON.toJSONString(members));
+   		
    		redisUtilComponent.setRedisKeyAndValue(Redis_Constat.USER+uid, commonMember);
    		redisUtilComponent.setRedisKeyAndValue(Redis_Constat.USERCENTER+uid, members);
   		

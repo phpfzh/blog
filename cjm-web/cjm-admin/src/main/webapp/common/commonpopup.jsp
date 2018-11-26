@@ -11,12 +11,12 @@
             <div class="clear"></div>
         </div>
         <div class="popup_text">
-            <img class="" src="${basePath}/static/images/ten/chenggong.png">
+            <img class="" src="${basePath}/static/images/success.png">
             <p class="message lan">提交申请成功！</p>
             <div class="clear"></div>
         </div>
         <%-- <div class="tishi_text">
-            <img class="float_l" src="${basePath}/static/images/ten/shibai.png">
+            <img class="float_l" src="${basePath}/static/images/fail.png">
             <p class="float_l hong">您已经提交过申请了！</p>
             <div class="clear"></div>
         </div> --%>
@@ -35,12 +35,12 @@
             <div class="clear"></div>
         </div>
         <div class="popup_text">
-            <img class="" src="${basePath}/static/images/ten/chenggong.png">
+            <img class="" src="${basePath}/static/images/success.png">
             <p class="lan message">发布成功，帖子正在审核</p>
             <div class="clear"></div>
         </div>
         <!-- <div class="tishi_text">
-				<img class="" src="${basePath}/static/images/ten/shibai.png">
+				<img class="" src="${basePath}/static/images/fail.png">
 				<p class="hong">您已经提交过申请了！</p>
 				<div class="clear"></div>
 			</div> -->
