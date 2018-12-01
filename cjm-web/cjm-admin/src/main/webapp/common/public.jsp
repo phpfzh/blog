@@ -1,3 +1,5 @@
+<link rel="shortcut icon" href="${basePath}/static/favicon.ico"/>
+<link rel="bookmark" href="${basePath}/static/favicon.ico"/>
 <link href="${basePath}/static/js/bootstrap-3.3.7-dist/css/bootstrap.css" rel="stylesheet" type="text/css">
 <link href="${basePath}/static/js/bootstrap-3.3.7-dist/css/bootstrap-theme.css" rel="stylesheet" type="text/css">
 <link href="${basePath}/static/js/layui-v2.3.0/css/layui.css" rel="stylesheet" type="text/css">

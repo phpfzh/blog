@@ -1,0 +1,22 @@
+<ng-container *ngIf="isMobile">
+  <a [routerLink]="['/']" class="logo">
+    <img src="./assets/logo-color.svg" alt="{{settings.app.name}}" width="32" />
+  </a>
+  <div class="ant-divider ant-divider-vertical"></div>
+</ng-container>
+<i (click)="toggleCollapsedSidebar()" class="anticon anticon-menu-{{settings.layout.collapsed ? 'unfold' : 'fold'}} trigger">
+</i>
+<div class="right">
+  <!--Search-->
+  <layout-simple-header-search></layout-simple-header-search>
+  <!--Link-->
+  <nz-tooltip nzTitle="使用文档" nzPlacement="bottom">
+    <a nz-tooltip target="_blank" href="https://ng-alain.com/" rel="noopener noreferrer" class="item">
+      <i class="anticon anticon-question-circle-o"></i>
+    </a>
+  </nz-tooltip>
+  <!--Notify-->
+  <header-notify></header-notify>
+  <!--User-->
+  <layout-simple-header-user></layout-simple-header-user>
+</div>
